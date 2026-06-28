@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор прописей 2.0 🐼</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* БАЗОВЫЕ СТИЛИ - МУЛЬТЯШНЫЙ КИТАЙСКИЙ СТИЛЬ */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; }
+        body { background-color: #fff9e6; color: #4a4a4a; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* ШАПКА */
+        header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px 30px; background: #ff4d4f; border-bottom: 5px solid #cf1322; color: white;
+        }
+        h1 { font-size: 1.4rem; font-weight: 900; letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
+        
+        /* КНОПКИ */
+        .btn { 
+            padding: 10px 20px; border-radius: 12px; cursor: pointer; font-size: 1rem; 
+            font-weight: 700; transition: 0.1s; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn.primary { 
+            background: #ffc53d; color: #d4380d; border: 2px solid #d4380d; 
+            box-shadow: 0 4px 0 #d4380d; 
+        }
+        .btn.primary:hover { background: #ffe58f; }
+        .btn.primary:active { transform: translateY(4px); box-shadow: 0 0 0 #d4380d; }
+        
+        .btn.outline { 
+            background: white; border: 2px solid #cf1322; color: #cf1322; 
+            box-shadow: 0 4px 0 #cf1322; 
+        }
+        .btn.outline:hover { background: #fff1f0; }
+        .btn.outline:active { transform: translateY(4px); box-shadow: 0 0 0 #cf1322; }
+        
+        .btn.full-width { width: 100%; padding: 15px; font-size: 1.1rem; margin-top: 10px; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+
+        /* ОСНОВНОЙ КОНТЕЙНЕР */
+        main { flex: 1; padding: 30px; max-width: 1200px; margin: 0 auto; width: 100%; }
+        .title-input { 
+            width: 100%; padding: 15px 20px; font-size: 1.2rem; border: 3px solid #fadb14; 
+            border-radius: 16px; margin-bottom: 20px; outline: none; background: #fff; font-weight: 700;
+            box-shadow: 0 4px 15px rgba(250, 219, 20, 0.2); color: #cf1322;
+        }
+        .title-input::placeholder { color: #fadb14; }
+
+        .worksheet-wrapper { background: white; padding: 40px; border-radius: 24px; min-height: 500px; border: 4px solid #ffe58f; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .empty-state { text-align: center; color: #777; margin-top: 80px; }
+        .empty-state .icon { font-size: 5rem; margin-bottom: 15px; animation: bounce 2s infinite; }
+        .empty-state p { max-width: 400px; margin: 0 auto 25px; line-height: 1.6; font-size: 1.1rem; font-weight: 700; color: #8c8c8c; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* МОДАЛЬНЫЕ ОКНА */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+        .modal.active { display: flex; }
+        .modal-content { background: white; width: 450px; border-radius: 24px; border: 4px solid #ff4d4f; box-shadow: 0 10px 40px rgba(207, 19, 34, 0.2); display: flex; flex-direction: column; overflow: hidden; }
+        .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; background: #fff1f0; border-bottom: 2px solid #ffccc7; }
+        .modal-header h2 { font-size: 1.2rem; color: #cf1322; font-weight: 900; }
+        .close, .back-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #cf1322; font-weight: bold; transition: 0.2s; }
+        .close:hover, .back-btn:hover { transform: scale(1.2); }
+        .modal-body { padding: 25px; }
+        
+        textarea { width: 100%; height: 120px; padding: 15px; border: 3px solid #ffccc7; border-radius: 16px; resize: none; outline: none; font-size: 1.5rem; font-weight: bold; color: #cf1322; background: #fff1f0; }
+        textarea:focus { border-color: #ff4d4f; }
+        .hint { font-size: 0.9rem; color: #a3a3a3; margin-top: 8px; font-weight: 700; text-align: center; }
+
+        .settings-group { margin-bottom: 20px; }
+        .settings-group label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 1rem; color: #595959; }
+        .settings-group input[type="range"] { width: 100%; accent-color: #ff4d4f; }
+        .settings-row { display: flex; gap: 15px; }
+        .settings-row .settings-group { flex: 1; }
+        .settings-row input[type="number"] { width: 100%; padding: 10px; border: 2px solid #ffccc7; border-radius: 12px; font-size: 1.1rem; font-weight: bold; color: #cf1322; text-align: center; outline: none; }
+        .checkbox-group { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .checkbox-group input { width: 22px; height: 22px; accent-color: #ff4d4f; cursor: pointer; }
+
+        /* СЕТКА ПРОПИСЕЙ */
+        .char-row { margin-bottom: 25px; }
+        .stroke-order-container { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+        .stroke-box { width: 44px; height: 44px; border: 2px dashed #ffccc7; border-radius: 6px; display: flex; justify-content: center; align-items: center; background: #fff; }
+        
+        .practice-grid { display: flex; flex-wrap: wrap; border-top: 2px solid #ff4d4f; border-left: 2px solid #ff4d4f; }
+        .practice-cell { 
+            width: 50px; height: 50px; border-right: 2px solid #ff4d4f; border-bottom: 2px solid #ff4d4f; 
+            position: relative; background-color: white;
+            background-image: 
+                linear-gradient(to right, transparent 48%, rgba(255, 77, 79, 0.2) 49%, rgba(255, 77, 79, 0.2) 51%, transparent 52%), 
+                linear-gradient(to bottom, transparent 48%, rgba(255, 77, 79, 0.2) 49%, rgba(255, 77, 79, 0.2) 51%, transparent 52%); 
+        }
+        .practice-cell.has-char { font-family: 'Kaiti', 'STKaiti', 'SimSun', serif; font-size: 38px; display: flex; justify-content: center; align-items: center; color: #d9d9d9; }
+
+        footer { text-align: center; padding: 20px; font-size: 1rem; color: #8c8c8c; font-weight: 700; }
+        footer a { color: #ff4d4f; text-decoration: none; border-bottom: 2px dashed #ff4d4f; padding-bottom: 2px; transition: 0.2s; }
+        footer a:hover { color: #cf1322; border-color: #cf1322; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="header-title">Прописи 2.0 🐉</h1>
+        <div class="actions">
+            <button id="add-chars-btn" class="btn primary">✏️ Добавить иероглифы</button>
+            <button id="export-pdf-btn" class="btn outline" disabled>📥 Сохранить в PDF</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="title-input-container">
+            <input type="text" id="worksheet-title" placeholder="Название прописи (например: Урок 1)" class="title-input">
+        </div>
+        
+        <div id="pdf-export-area" class="worksheet-wrapper">
+            <div class="empty-state" id="empty-state">
+                <div class="icon">🐼</div>
+                <p>Нихао! Составь свою пропись для иероглифов, а затем скачай её в формате PDF.</p>
+                <button class="btn primary" onclick="document.getElementById('add-chars-btn').click()">Начать магию ✨</button>
+            </div>
+            
+            <h2 id="print-title" style="display:none; margin-bottom: 25px; text-align: center; font-size: 1.8rem; font-family: 'Nunito', sans-serif; color: #cf1322; font-weight: 900;"></h2>
+            <div id="grid-container"></div>
+        </div>
+    </main>
+
+    <footer>
+        Made with 🥟 by <a href="https://taplink.cc/madeinseryoga" target="_blank">Серёга</a>
+    </footer>
+
+    <div id="modal-step-1" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Шаг 1 из 2: Иероглифы</h2>
+                <button class="close" data-modal="modal-step-1">&times;</button>
+            </div>
+            <div class="modal-body">
+                <textarea id="char-input" placeholder="Например: 熊猫"></textarea>
+                <p class="hint">Вводите подряд или через пробел</p>
+                <button id="next-step-btn" class="btn primary full-width">Продолжить ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-step-2" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="back-btn" id="back-step-btn">❮</button>
+                <h2>Шаг 2 из 2: Настройки</h2>
+                <button class="close" data-modal="modal-step-2">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-group">
+                    <label>Ячеек в строке: <span id="cells-count-val">12</span></label>
+                    <input type="range" id="cells-per-row" min="5" max="16" value="12">
+                </div>
+                <div class="settings-row">
+                    <div class="settings-group">
+                        <label>Примеров (серым)</label>
+                        <input type="number" id="examples-count" value="2" min="0">
+                    </div>
+                    <div class="settings-group">
+                        <label>Строк для одного</label>
+                        <input type="number" id="empty-rows-count" value="1" min="1">
+                    </div>
+                </div>
+                <div class="settings-group checkbox-group">
+                    <input type="checkbox" id="show-stroke-order" checked>
+                    <label for="show-stroke-order" style="margin-bottom:0;">Показывать порядок черт</label>
+                </div>
+                <button id="generate-btn" class="btn primary full-width">Сгенерировать 🖍️</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnAddChars = document.getElementById('add-chars-btn');
+            const btnExportPdf = document.getElementById('export-pdf-btn');
+            const modal1 = document.getElementById('modal-step-1');
+            const modal2 = document.getElementById('modal-step-2');
+            const btnNext = document.getElementById('next-step-btn');
+            const btnBack = document.getElementById('back-step-btn');
+            const btnGenerate = document.getElementById('generate-btn');
+            const closeBtns = document.querySelectorAll('.close');
+            
+            const charInput = document.getElementById('char-input');
+            const cellsPerRow = document.getElementById('cells-per-row');
+            const cellsCountVal = document.getElementById('cells-count-val');
+            const examplesCount = document.getElementById('examples-count');
+            const emptyRowsCount = document.getElementById('empty-rows-count');
+            const showStrokeOrder = document.getElementById('show-stroke-order');
+            const gridContainer = document.getElementById('grid-container');
+            const emptyState = document.getElementById('empty-state');
+            
+            const worksheetTitle = document.getElementById('worksheet-title');
+            const headerTitle = document.getElementById('header-title');
+            const printTitle = document.getElementById('print-title');
+            const pdfExportArea = document.getElementById('pdf-export-area');
+
+            let charactersToProcess = [];
+
+            worksheetTitle.addEventListener('input', (e) => {
+                const val = e.target.value;
+                headerTitle.innerHTML = val ? `Прописи: ${val} 🐉` : 'Прописи 2.0 🐉';
+                printTitle.textContent = val || 'Мои прописи';
+            });
+
+            const openModal = (modal) => modal.classList.add('active');
+            const closeModal = (modal) => modal.classList.remove('active');
+
+            btnAddChars.addEventListener('click', () => openModal(modal1));
+            
+            closeBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    closeModal(e.target.closest('.modal'));
+                });
+            });
+
+            btnNext.addEventListener('click', () => {
+                const text = charInput.value.replace(/[\s\x00-\x1F\x7F-\x9F]/g, '');
+                charactersToProcess = [...new Set(text.split(''))].filter(char => char.trim() !== '');
+                
+                if(charactersToProcess.length > 0) {
+                    closeModal(modal1);
+                    openModal(modal2);
+                } else {
+                    alert('Ой! Кажется, вы забыли ввести иероглифы 🐼');
+                }
+            });
+
+            btnBack.addEventListener('click', () => {
+                closeModal(modal2);
+                openModal(modal1);
+            });
+
+            cellsPerRow.addEventListener('input', (e) => {
+                cellsCountVal.textContent = e.target.value;
+            });
+
+            btnGenerate.addEventListener('click', async () => {
+                btnGenerate.disabled = true;
+                btnGenerate.textContent = "Рисуем...";
+                
+                closeModal(modal2);
+                emptyState.style.display = 'none';
+                gridContainer.innerHTML = '';
+                
+                if(worksheetTitle.value) {
+                    printTitle.style.display = 'block';
+                }
+
+                const config = {
+                    cellsPerRow: parseInt(cellsPerRow.value),
+                    examples: parseInt(examplesCount.value),
+                    emptyRows: parseInt(emptyRowsCount.value),
+                    showStrokeOrder: showStrokeOrder.checked
+                };
+
+                for (let char of charactersToProcess) {
+                    await generateCharacterBlock(char, config);
+                }
+                
+                btnGenerate.disabled = false;
+                btnGenerate.innerHTML = "Сгенерировать 🖍️";
+                btnExportPdf.disabled = false;
+            });
+
+            async function generateCharacterBlock(char, config) {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'char-row';
+                rowDiv.style.pageBreakInside = 'avoid';
+
+                if (config.showStrokeOrder) {
+                    const strokeContainer = document.createElement('div');
+                    strokeContainer.className = 'stroke-order-container';
+                    rowDiv.appendChild(strokeContainer);
+
+                    await HanziWriter.loadCharacterData(char).then(charData => {
+                        const numStrokes = charData.strokes.length;
+                        
+                        for (let i = 0; i < numStrokes; i++) {
+                            const box = document.createElement('div');
+                            box.className = 'stroke-box';
+                            
+                            // Создаем чистый SVG с нуля, чтобы он был на 100% статичным и мгновенным
+                            const svgNS = "http://www.w3.org/2000/svg";
+                            const svg = document.createElementNS(svgNS, "svg");
+                            svg.setAttribute("width", "36");
+                            svg.setAttribute("height", "36");
+                            svg.setAttribute("viewBox", "0 0 1024 1024");
+                            
+                            // Переворачиваем Y-координаты (так как шрифты хранятся "вверх ногами")
+                            const group = document.createElementNS(svgNS, "g");
+                            group.setAttribute("transform", "scale(1, -1) translate(0, -900)");
+
+                            // 1. Сначала рисуем контур всего иероглифа (фон)
+                            charData.strokes.forEach(strokePath => {
+                                const path = document.createElementNS(svgNS, "path");
+                                path.setAttribute("d", strokePath);
+                                path.setAttribute("fill", "#ffe8e8"); 
+                                group.appendChild(path);
+                            });
+
+                            // 2. Поверх рисуем черты вплоть до текущего шага
+                            for (let s = 0; s <= i; s++) {
+                                const path = document.createElementNS(svgNS, "path");
+                                path.setAttribute("d", charData.strokes[s]);
+                                path.setAttribute("fill", "#262626");
+                                group.appendChild(path);
+                            }
+
+                            svg.appendChild(group);
+                            box.appendChild(svg);
+                            strokeContainer.appendChild(box);
+                        }
+                    }).catch(err => {
+                        console.log(`Нет данных для: ${char}`);
+                    });
+                }
+
+                const totalPracticeCells = config.cellsPerRow * config.emptyRows;
+                const practiceGrid = document.createElement('div');
+                practiceGrid.className = 'practice-grid';
+                practiceGrid.style.width = (config.cellsPerRow * 50 + 2) + 'px';
+
+                for (let i = 0; i < totalPracticeCells; i++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'practice-cell';
+                    if (i < config.examples) {
+                        cell.classList.add('has-char');
+                        cell.textContent = char;
+                    }
+                    practiceGrid.appendChild(cell);
+                }
+                
+                rowDiv.appendChild(practiceGrid);
+                gridContainer.appendChild(rowDiv);
+            }
+
+            btnExportPdf.addEventListener('click', () => {
+                const btnOriginalText = btnExportPdf.innerHTML;
+                btnExportPdf.innerHTML = "⏳ Сохраняем...";
+                btnExportPdf.disabled = true;
+
+                const opt = {
+                    margin:       10,
+                    filename:     (worksheetTitle.value || 'Прописи') + '.pdf',
+                    image:        { type: 'jpeg', quality: 1 },
+                    html2canvas:  { scale: 2, useCORS: true },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                    pagebreak:    { mode: ['css', 'legacy'], avoid: '.char-row' }
+                };
+
+                const originalBorder = pdfExportArea.style.border;
+                const originalShadow = pdfExportArea.style.boxShadow;
+                pdfExportArea.style.border = 'none';
+                pdfExportArea.style.boxShadow = 'none';
+                
+                html2pdf().set(opt).from(pdfExportArea).save().then(() => {
+                    pdfExportArea.style.border = originalBorder;
+                    pdfExportArea.style.boxShadow = originalShadow;
+                    btnExportPdf.innerHTML = btnOriginalText;
+                    btnExportPdf.disabled = false;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
