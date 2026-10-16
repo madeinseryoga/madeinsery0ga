@@ -1,0 +1,14 @@
+# Backup files
+*.backup
+*.bak
+*backup*
+
+# Heavy raw database archives (BKRS dumps)
+dabkrs_*
+dabruks_*
+examples_*
+
+# Temporary and diagnostic files
+temp_*
+*.tmp
+*.bin
