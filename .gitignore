@@ -12,3 +12,10 @@ examples_*
 temp_*
 *.tmp
 *.bin
+decrypted_*
+modified_*
+build_*
+inspect_*
+check_*
+apply_*
+
