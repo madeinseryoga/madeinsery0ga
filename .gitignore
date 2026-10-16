@@ -18,4 +18,9 @@ build_*
 inspect_*
 check_*
 apply_*
+current_decrypted.html
+decrypt_current.js
+encrypt_to_index.js
+test_*
+
 
