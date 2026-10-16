@@ -22,5 +22,11 @@ current_decrypted.html
 decrypt_current.js
 encrypt_to_index.js
 test_*
+find_*
+search_*
+verify_*
+patch_*
+print_*
+
 
 
