@@ -28,5 +28,6 @@ verify_*
 patch_*
 print_*
 
-
-
+# User sample exports
+*.xls
+*.xlsx
