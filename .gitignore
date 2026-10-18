@@ -21,6 +21,8 @@ apply_*
 current_decrypted.html
 decrypt_current.js
 encrypt_to_index.js
+_dev_archive/
+AI_AGENT_HANDOVER.md
 test_*
 find_*
 search_*
