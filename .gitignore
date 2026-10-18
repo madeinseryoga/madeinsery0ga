@@ -26,6 +26,7 @@ AI_AGENT_HANDOVER.md
 WORK_LOG.md
 export_logs.js
 logs/
+skills/
 test_*
 find_*
 search_*
