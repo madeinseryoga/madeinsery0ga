@@ -14,6 +14,7 @@ const MIME_TYPES = {
     '.webp': 'image/webp',
     '.svg': 'image/svg+xml',
     '.xls': 'application/vnd.ms-excel',
+    '.pdf': 'application/pdf',
     '.wasm': 'application/wasm'
 };
 
