@@ -13,7 +13,8 @@ const MIME_TYPES = {
     '.jpg': 'image/jpeg',
     '.webp': 'image/webp',
     '.svg': 'image/svg+xml',
-    '.xls': 'application/vnd.ms-excel'
+    '.xls': 'application/vnd.ms-excel',
+    '.wasm': 'application/wasm'
 };
 
 const server = http.createServer((req, res) => {
