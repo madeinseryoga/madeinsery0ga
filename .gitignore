@@ -27,6 +27,7 @@ WORK_LOG.md
 export_logs.js
 logs/
 skills/
+tests/
 test_*
 find_*
 search_*
