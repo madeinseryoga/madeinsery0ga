@@ -12,6 +12,7 @@ def make_zip(zip_path, include_shards=False):
     # Files to include at root
     root_files = [
         "index.html",
+        "app.html",
         "manifest.json",
         "icon.png"
     ]
