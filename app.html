@@ -11700,6 +11700,75 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     to { transform: translateY(0); }
 }
 
+
+        /* ==================== ГРАММАТИКА 3.0 СТИЛИ ==================== */
+        #view-grammar { background: #f8fafc; min-height: 100vh; padding-bottom: 95px; }
+        .grammar-header { background: linear-gradient(135deg, #4A148C 0%, #7B1FA2 100%); color: #fff; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 16px rgba(123, 31, 162, 0.25); position: sticky; top: 0; z-index: 50; }
+        .grammar-header h1 { font-size: 1.45rem; font-weight: 800; margin: 0; display: flex; align-items: center; gap: 8px; color: #fff; text-shadow: none; }
+        .grammar-header h1 span { background: #FFD54F; color: #3E2723; font-size: 0.8rem; padding: 2px 8px; border-radius: 12px; font-weight: 900; }
+        .grammar-badge-counter { background: rgba(255, 255, 255, 0.2); color: #fff; font-size: 0.85rem; font-weight: 700; padding: 4px 12px; border-radius: 14px; backdrop-filter: blur(4px); }
+        .grammar-toolbar { max-width: 980px; margin: 16px auto 14px; padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
+        .grammar-level-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+        .grammar-level-tabs::-webkit-scrollbar { display: none; }
+        .grammar-level-pill { padding: 8px 16px; border-radius: 20px; background: #fff; border: 1.5px solid #e2e8f0; color: #475569; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; transition: all 0.2s ease; outline: none; }
+        .grammar-level-pill.active { background: #7B1FA2; border-color: #7B1FA2; color: #fff; box-shadow: 0 4px 12px rgba(123, 31, 162, 0.3); }
+        .grammar-level-pill .pill-count { font-size: 0.75rem; opacity: 0.85; background: rgba(0, 0, 0, 0.08); padding: 1px 6px; border-radius: 8px; }
+        .grammar-level-pill.active .pill-count { background: rgba(255, 255, 255, 0.25); color: #fff; }
+        .grammar-level-pill.locked { opacity: 0.6; cursor: not-allowed; background: #f1f5f9; }
+        .grammar-level-pill .pill-badge { font-size: 0.7rem; background: #e2e8f0; color: #64748b; padding: 1px 6px; border-radius: 6px; }
+        .grammar-module-filter-bar { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 6px; scrollbar-width: none; }
+        .grammar-module-filter-bar::-webkit-scrollbar { display: none; }
+        .grammar-mod-pill { padding: 6px 14px; border-radius: 16px; background: #fff; border: 1px solid #cbd5e1; color: #334155; font-size: 0.82rem; font-weight: 600; white-space: nowrap; cursor: pointer; transition: all 0.15s; outline: none; }
+        .grammar-mod-pill.active { background: #f3e8ff; border-color: #a855f7; color: #6b21a8; font-weight: 700; }
+        .grammar-content { max-width: 980px; margin: 0 auto; padding: 0 16px 40px; display: flex; flex-direction: column; gap: 20px; }
+        .grammar-module-block { background: #fff; border-radius: 18px; border: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03); overflow: hidden; }
+        .grammar-module-header { background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%); padding: 14px 18px; border-bottom: 1px solid #f0abfc; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+        .grammar-module-title-wrap { display: flex; align-items: center; gap: 10px; }
+        .grammar-mod-num { background: #a855f7; color: #fff; font-size: 0.78rem; font-weight: 900; padding: 3px 8px; border-radius: 8px; }
+        .grammar-module-title { font-size: 1.05rem; font-weight: 800; color: #4a044e; margin: 0; }
+        .grammar-topic-count { font-size: 0.8rem; color: #86198f; font-weight: 600; }
+        .grammar-topics-grid { padding: 14px 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; }
+        .grammar-topic-card { background: #ffffff; border: 1.5px solid #f1f5f9; border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; cursor: pointer; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); position: relative; }
+        .grammar-topic-card:hover { border-color: #c084fc; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(168, 85, 247, 0.12); }
+        .grammar-card-top { display: flex; align-items: center; justify-content: space-between; }
+        .grammar-card-id { font-size: 0.75rem; font-weight: 800; color: #7c3aed; background: #f5f3ff; padding: 2px 7px; border-radius: 6px; }
+        .grammar-card-ref { font-size: 0.75rem; color: #64748b; font-weight: 600; }
+        .grammar-card-title { font-size: 0.98rem; font-weight: 800; color: #1e293b; line-height: 1.35; margin: 0; }
+        .grammar-card-zh { font-size: 0.88rem; color: #9333ea; font-weight: 600; }
+        .grammar-card-formula { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 6px 10px; font-family: monospace, sans-serif; font-size: 0.82rem; color: #334155; font-weight: 600; word-break: break-word; }
+        /* Modal & Detail Viewer */
+        #grammar-detail-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(5px); z-index: 100000; display: flex; align-items: center; justify-content: center; padding: 16px; }
+        #grammar-detail-modal.hidden { display: none !important; }
+        .grammar-modal-card { background: #fff; border-radius: 24px; width: 100%; max-width: 760px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3); animation: zoomInModal 0.2s ease-out; }
+        .grammar-modal-header { background: linear-gradient(135deg, #4A148C, #7B1FA2); color: #fff; padding: 18px 22px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+        .grammar-modal-header h2 { font-size: 1.25rem; font-weight: 800; margin: 0 0 4px; line-height: 1.3; color: #fff; }
+        .grammar-modal-header .sub-zh { font-size: 0.95rem; color: #f5d0fe; font-weight: 600; }
+        .grammar-modal-close { background: rgba(255, 255, 255, 0.2); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.15s; outline: none; }
+        .grammar-modal-close:hover { background: rgba(255, 255, 255, 0.35); }
+        .grammar-modal-body { padding: 22px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; font-size: 0.95rem; color: #334155; line-height: 1.6; }
+        .grammar-block-section { display: flex; flex-direction: column; gap: 8px; }
+        .grammar-section-heading { font-size: 0.92rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #6b21a8; display: flex; align-items: center; gap: 8px; }
+        .grammar-formula-box { background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%); border: 2px solid #e879f9; border-radius: 14px; padding: 14px 18px; font-family: monospace, system-ui; font-size: 1.05rem; font-weight: 800; color: #701a75; text-align: center; box-shadow: inset 0 2px 6px rgba(168, 85, 247, 0.08); }
+        .grammar-example-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+        .grammar-ex-hanzi-row { display: flex; align-items: center; justify-content: space-between; }
+        .grammar-ex-hanzi { font-size: 1.25rem; font-weight: 700; color: #0f172a; }
+        .grammar-ex-tts-btn { background: #f1f5f9; border: none; color: #6b21a8; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all 0.15s; outline: none; }
+        .grammar-ex-tts-btn:hover { background: #e9d5ff; transform: scale(1.08); }
+        .grammar-ex-pinyin { font-size: 0.95rem; color: #7c3aed; font-weight: 600; }
+        .grammar-ex-literal { font-size: 0.85rem; color: #64748b; font-style: italic; }
+        .grammar-ex-ru { font-size: 0.95rem; color: #1e293b; font-weight: 600; }
+        .grammar-callout-tip { background: #fefce8; border-left: 4px solid #eab308; border-radius: 0 12px 12px 0; padding: 12px 16px; color: #713f12; white-space: pre-line; }
+        .grammar-callout-warn { background: #fff1f2; border-left: 4px solid #f43f5e; border-radius: 0 12px 12px 0; padding: 12px 16px; color: #881337; }
+        .grammar-quiz-card { background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+        .grammar-quiz-q { font-weight: 700; color: #14532d; font-size: 0.98rem; }
+        .grammar-quiz-toggle-btn { align-self: flex-start; padding: 6px 14px; border-radius: 8px; background: #22c55e; color: #fff; border: none; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: background 0.15s; outline: none; }
+        .grammar-quiz-toggle-btn:hover { background: #16a34a; }
+        .grammar-quiz-answer { background: #dcfce7; border-radius: 10px; padding: 10px 14px; color: #166534; font-weight: 600; font-size: 0.92rem; }
+        .grammar-modal-footer { padding: 14px 22px; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; }
+        .grammar-nav-btn { padding: 8px 16px; border-radius: 10px; background: #fff; border: 1.5px solid #cbd5e1; color: #334155; font-weight: 700; font-size: 0.88rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.15s; outline: none; }
+        .grammar-nav-btn:hover:not(:disabled) { border-color: #7B1FA2; color: #7B1FA2; background: #fdf4ff; }
+        .grammar-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
 </style>
 </head>
 <body>
@@ -11755,6 +11824,19 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                 <h2 class="section-title">Инструменты</h2>
                 
                 
+                
+                <div class="service-card modern-card" id="open-grammar-btn" data-view="grammar" role="button" tabindex="0" style="border-bottom-color: #7B1FA2;">
+                    <div class="service-icon" style="background: linear-gradient(135deg, #AB47BC, #7B1FA2); box-shadow: 0 10px 20px rgba(123, 31, 162, 0.35);"><i class="fa-solid fa-spell-check"></i></div>
+                    <div class="service-info">
+                        <div class="service-header-row">
+                            <h3>Грамматика 3.0</h3>
+                            <span class="service-chip chip-purple" style="background: rgba(123, 31, 162, 0.12); color: #7B1FA2; border: 1px solid rgba(123, 31, 162, 0.3);">HSK 1</span>
+                        </div>
+                        <p>Полный интерактивный справочник HSK 3.0: 42 темы, формулы порядка слов, живые примеры, разборы ошибок и мини-тесты.</p>
+                    </div>
+                    <div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+
                 <div class="service-card modern-card" id="open-generator-btn" data-view="generator" role="button" tabindex="0" style="border-bottom-color: #D32F2F;">
                     <div class="service-icon" style="background: linear-gradient(135deg, #FF5252, #D32F2F); box-shadow: 0 10px 20px rgba(211, 47, 47, 0.35);"><i class="fa-solid fa-pen-nib"></i></div>
                     <div class="service-info">
@@ -12281,6 +12363,91 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     
 
     <!-- ==================== ЭКРАН: СЛОВАРЬ БКРС ==================== -->
+    
+    <!-- ==================== ЭКРАН: ГРАММАТИКА 3.0 ==================== -->
+    <div id="view-grammar" class="view-section">
+        <header class="gen-header grammar-header">
+            <button class="btn back back-to-home" id="grammar-back-btn"><i class="fa-solid fa-arrow-left"></i><span class="back-label"> Назад</span></button>
+            <h1>Грамматика <span>3.0</span></h1>
+            <div class="gen-header-actions">
+                <span class="grammar-badge-counter" id="grammar-total-counter">42 темы • HSK 1</span>
+            </div>
+        </header>
+
+        <main class="gen-main grammar-main">
+            <div class="grammar-toolbar">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="grammar-search-input" class="search-input" placeholder="Поиск: SVO, 的, 了, вопрос, отрицание, время, 不, 在, 吗...">
+                    <button type="button" id="grammar-search-clear" class="search-clear-btn" aria-label="Очистить поиск" style="display:none;"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="grammar-level-tabs">
+                    <button class="grammar-level-pill active" data-level="1">
+                        <span class="pill-title">HSK 1</span>
+                        <span class="pill-count">42 темы</span>
+                    </button>
+                    <button class="grammar-level-pill locked" data-level="2" title="В разработке">
+                        <span class="pill-title">HSK 2</span>
+                        <span class="pill-badge">Скоро</span>
+                    </button>
+                    <button class="grammar-level-pill locked" data-level="3" title="В разработке">
+                        <span class="pill-title">HSK 3</span>
+                        <span class="pill-badge">Скоро</span>
+                    </button>
+                    <button class="grammar-level-pill locked" data-level="4" title="В разработке">
+                        <span class="pill-title">HSK 4</span>
+                        <span class="pill-badge">Скоро</span>
+                    </button>
+                    <button class="grammar-level-pill locked" data-level="5" title="В разработке">
+                        <span class="pill-title">HSK 5</span>
+                        <span class="pill-badge">Скоро</span>
+                    </button>
+                    <button class="grammar-level-pill locked" data-level="6" title="В разработке">
+                        <span class="pill-title">HSK 6</span>
+                        <span class="pill-badge">Скоро</span>
+                    </button>
+                </div>
+
+                <div class="grammar-module-filter-bar" id="grammar-module-filter-bar">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <div class="grammar-content" id="grammar-content">
+                <div style="text-align: center; padding: 40px; color: #888;">
+                    <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2rem; color: #7B1FA2;"></i>
+                    <p style="margin-top: 12px; font-weight: 600;">Загрузка грамматической базы HSK 3.0...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Модальное окно просмотра темы грамматики -->
+    <div id="grammar-detail-modal" class="modal hidden">
+        <div class="grammar-modal-card">
+            <div class="grammar-modal-header">
+                <div>
+                    <div style="display: flex; gap: 8px; margin-bottom: 6px;">
+                        <span id="g-modal-id-badge" style="background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 800;">HSK1_GR_01</span>
+                        <span id="g-modal-ref-badge" style="background: #FFD54F; color: #3E2723; padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 800;">Урок 2</span>
+                    </div>
+                    <h2 id="g-modal-title">Название темы</h2>
+                    <div id="g-modal-zh" class="sub-zh">汉语语法</div>
+                </div>
+                <button type="button" class="grammar-modal-close" id="grammar-modal-close-btn" aria-label="Закрыть">&times;</button>
+            </div>
+            <div class="grammar-modal-body" id="grammar-modal-body">
+                <!-- Populated dynamically with all 7 blocks -->
+            </div>
+            <div class="grammar-modal-footer">
+                <button type="button" class="grammar-nav-btn" id="g-prev-btn"><i class="fa-solid fa-arrow-left"></i> Назад</button>
+                <span id="g-topic-pos" style="font-size: 0.85rem; font-weight: 700; color: #64748b;">1 / 42</span>
+                <button type="button" class="grammar-nav-btn" id="g-next-btn">Вперед <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+
     <div id="view-bkrs" class="view-section">
         <div class="hsk-container" style="max-width: 860px; margin: 0 auto; padding: 10px 16px 40px;">
             <div class="hsk-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
@@ -23764,7 +23931,8 @@ const BkrsDB = window.BkrsDB = {
             <button type="button" class="mob-nav-btn" data-tab="lessons" title="Уроки"><i class="fa-solid fa-graduation-cap"></i><span>Уроки</span></button>
             <button type="button" class="mob-nav-btn" data-tab="textstudy" title="Тексты"><i class="fa-solid fa-file-lines"></i><span>Тексты</span></button>
             <button type="button" class="mob-nav-btn" data-tab="bkrs" title="БКРС"><i class="fa-solid fa-magnifying-glass"></i><span>БКРС</span></button>
-            <button type="button" class="mob-nav-btn" data-tab="keys" title="Ключи"><i class="fa-solid fa-shapes"></i><span>Ключи</span></button>
+                        <button type="button" class="mob-nav-btn" data-tab="grammar" title="Грамматика"><i class="fa-solid fa-spell-check"></i><span>Грамматика</span></button>
+<button type="button" class="mob-nav-btn" data-tab="keys" title="Ключи"><i class="fa-solid fa-shapes"></i><span>Ключи</span></button>
             <button type="button" class="mob-nav-btn" data-tab="generator" title="Прописи"><i class="fa-solid fa-pencil"></i><span>Прописи</span></button>
         </div>
     </nav>
@@ -23798,7 +23966,7 @@ const BkrsDB = window.BkrsDB = {
             _isHandlingPopState = true;
             try {
                 // 1. Close any open modal dialogs first
-                const openModals = Array.from(document.querySelectorAll('.modal.open, .modal.active, #radical-card-modal.open, #radical-draw-modal.open, #hanzi-draw-modal.open, #home-support-modal.open, #home-download-modal.open, #ts-reader-settings-modal.open'));
+                const openModals = Array.from(document.querySelectorAll('.modal.open, .modal.active, #grammar-detail-modal.open, #radical-card-modal.open, #radical-draw-modal.open, #hanzi-draw-modal.open, #home-support-modal.open, #home-download-modal.open, #ts-reader-settings-modal.open'));
                 const visibleModals = openModals.filter(m => {
                     const style = window.getComputedStyle(m);
                     return style.display !== 'none' && style.visibility !== 'hidden';
@@ -23967,5 +24135,373 @@ const BkrsDB = window.BkrsDB = {
     })();
     </script>
 
+
+    <!-- ==================== КОНТРОЛЛЕР ГРАММАТИКИ 3.0 ==================== -->
+    <script>
+    (function () {
+        let grammarData = null;
+        let allTopicsList = [];
+        let currentTopicIdx = 0;
+        let activeModuleFilter = 'all';
+        let searchQuery = '';
+
+        async function loadGrammarData() {
+            if (grammarData) return grammarData;
+            try {
+                const res = await fetch('./data/grammar_hsk1/hsk1_grammar_full.json');
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                grammarData = await res.json();
+            } catch (e) {
+                console.warn('Fetch grammar JSON error:', e);
+                // Fallback attempt without ./
+                try {
+                    const res2 = await fetch('data/grammar_hsk1/hsk1_grammar_full.json');
+                    grammarData = await res2.json();
+                } catch(err2) {
+                    console.error('Failed to load grammar data:', err2);
+                }
+            }
+            if (grammarData && grammarData.modules) {
+                allTopicsList = [];
+                grammarData.modules.forEach(m => {
+                    if (m.topics) {
+                        m.topics.forEach(t => {
+                            t._moduleId = m.module_id;
+                            t._moduleTitle = m.title;
+                            allTopicsList.push(t);
+                        });
+                    }
+                });
+            }
+            return grammarData;
+        }
+
+        window.initGrammarView = async function () {
+            const container = document.getElementById('grammar-content');
+            const data = await loadGrammarData();
+            if (!data || !data.modules) {
+                if (container) container.innerHTML = '<div style="text-align:center;padding:40px;color:#ef4444;">Ошибка загрузки базы данных грамматики. Проверьте файлы.</div>';
+                return;
+            }
+
+            renderModuleFilterBar(data.modules);
+            renderGrammarList();
+            setupSearch();
+            setupModalHandlers();
+        };
+
+        function renderModuleFilterBar(modules) {
+            const bar = document.getElementById('grammar-module-filter-bar');
+            if (!bar) return;
+            let html = '<button class="grammar-mod-pill ' + (activeModuleFilter === 'all' ? 'active' : '') + '" data-mod="all">Все модули (42)</button>';
+            modules.forEach(m => {
+                const shortTitle = m.title.replace(/^Модуль \d+:\s*/, '').split('(')[0].trim();
+                const count = m.topics ? m.topics.length : 0;
+                html += '<button class="grammar-mod-pill ' + (activeModuleFilter === m.module_id ? 'active' : '') + '" data-mod="' + m.module_id + '">' + m.module_id + ': ' + escapeHtml(shortTitle) + ' (' + count + ')</button>';
+            });
+            bar.innerHTML = html;
+
+            bar.querySelectorAll('.grammar-mod-pill').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    bar.querySelectorAll('.grammar-mod-pill').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    activeModuleFilter = btn.dataset.mod;
+                    renderGrammarList();
+                });
+            });
+        }
+
+        function renderGrammarList() {
+            const container = document.getElementById('grammar-content');
+            if (!container || !grammarData) return;
+
+            const q = searchQuery.toLowerCase().trim();
+            let visibleTopicsCount = 0;
+
+            let html = '';
+            grammarData.modules.forEach(m => {
+                if (activeModuleFilter !== 'all' && m.module_id !== activeModuleFilter) return;
+
+                const filteredTopics = (m.topics || []).filter(t => {
+                    if (!q) return true;
+                    return (t.title && t.title.toLowerCase().includes(q)) ||
+                           (t.title_zh && t.title_zh.toLowerCase().includes(q)) ||
+                           (t.formula && t.formula.toLowerCase().includes(q)) ||
+                           (t.id && t.id.toLowerCase().includes(q)) ||
+                           (t.textbook_core && t.textbook_core.toLowerCase().includes(q));
+                });
+
+                if (filteredTopics.length === 0) return;
+                visibleTopicsCount += filteredTopics.length;
+
+                html += '<div class="grammar-module-block">';
+                html += '  <div class="grammar-module-header">';
+                html += '    <div class="grammar-module-title-wrap">';
+                html += '      <span class="grammar-mod-num">' + m.module_id + '</span>';
+                html += '      <h3 class="grammar-module-title">' + escapeHtml(m.title) + '</h3>';
+                html += '    </div>';
+                html += '    <span class="grammar-topic-count">' + filteredTopics.length + ' тем</span>';
+                html += '  </div>';
+
+                html += '  <div class="grammar-topics-grid">';
+                filteredTopics.forEach(t => {
+                    html += '<div class="grammar-topic-card" data-topic-id="' + t.id + '">';
+                    html += '  <div class="grammar-card-top">';
+                    html += '    <span class="grammar-card-id">' + t.id + '</span>';
+                    html += '    <span class="grammar-card-ref">' + escapeHtml(t.lesson_ref || '') + '</span>';
+                    html += '  </div>';
+                    html += '  <h4 class="grammar-card-title">' + escapeHtml(t.title) + '</h4>';
+                    html += '  <div class="grammar-card-zh">' + escapeHtml(t.title_zh || '') + '</div>';
+                    if (t.formula) {
+                        html += '  <div class="grammar-card-formula">' + escapeHtml(t.formula) + '</div>';
+                    }
+                    html += '</div>';
+                });
+                html += '  </div>';
+                html += '</div>';
+            });
+
+            if (visibleTopicsCount === 0) {
+                html = '<div style="text-align:center;padding:50px;color:#64748b;">';
+                html += '  <i class="fa-solid fa-magnifying-glass" style="font-size:2.5rem;opacity:0.3;margin-bottom:12px;"></i>';
+                html += '  <p style="font-weight:700;font-size:1.1rem;">Ничего не найдено по запросу «' + escapeHtml(q) + '»</p>';
+                html += '  <p style="font-size:0.9rem;opacity:0.8;">Попробуйте поискать по частицам (的, 了, 吗) или теме (порядок слов, время, отрицание).</p>';
+                html += '</div>';
+            }
+
+            container.innerHTML = html;
+
+            const counter = document.getElementById('grammar-total-counter');
+            if (counter) counter.textContent = visibleTopicsCount + ' тем • HSK 1';
+
+            // Click topic card handlers
+            container.querySelectorAll('.grammar-topic-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const tid = card.dataset.topicId;
+                    openTopicModal(tid);
+                });
+            });
+        }
+
+        function openTopicModal(topicId) {
+            const idx = allTopicsList.findIndex(t => t.id === topicId);
+            if (idx === -1) return;
+            currentTopicIdx = idx;
+            renderModalTopic(allTopicsList[currentTopicIdx]);
+
+            const modal = document.getElementById('grammar-detail-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('open');
+                try {
+                    if (window.pushInternalHistory) window.pushInternalHistory('grammar-detail', { topicId });
+                } catch(e) {}
+            }
+        }
+
+        function renderModalTopic(t) {
+            if (!t) return;
+            document.getElementById('g-modal-id-badge').textContent = t.id;
+            document.getElementById('g-modal-ref-badge').textContent = t.lesson_ref || '新HSK 1';
+            document.getElementById('g-modal-title').textContent = t.title;
+            document.getElementById('g-modal-zh').textContent = t.title_zh || '';
+            document.getElementById('g-topic-pos').textContent = (currentTopicIdx + 1) + ' / ' + allTopicsList.length;
+
+            const prevBtn = document.getElementById('g-prev-btn');
+            const nextBtn = document.getElementById('g-next-btn');
+            if (prevBtn) prevBtn.disabled = (currentTopicIdx <= 0);
+            if (nextBtn) nextBtn.disabled = (currentTopicIdx >= allTopicsList.length - 1);
+
+            const body = document.getElementById('grammar-modal-body');
+            if (!body) return;
+
+            let h = '';
+
+            // 1. Формула
+            if (t.formula) {
+                h += '<div class="grammar-block-section">';
+                h += '  <div class="grammar-section-heading"><i class="fa-solid fa-shapes"></i> Схема и формула порядка слов</div>';
+                h += '  <div class="grammar-formula-box">' + escapeHtml(t.formula) + '</div>';
+                h += '</div>';
+            }
+
+            // 2. Академическое объяснение
+            if (t.textbook_core) {
+                h += '<div class="grammar-block-section">';
+                h += '  <div class="grammar-section-heading"><i class="fa-solid fa-book-open"></i> Теория и грамматическое правило</div>';
+                h += '  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px;white-space:pre-line;">' + escapeHtml(t.textbook_core) + '</div>';
+                h += '</div>';
+            }
+
+            // 3. Примеры из учебника
+            if (t.textbook_examples && t.textbook_examples.length > 0) {
+                h += '<div class="grammar-block-section">';
+                h += '  <div class="grammar-section-heading"><i class="fa-solid fa-list-check"></i> Примеры из учебника (新HSK教程1)</div>';
+                t.textbook_examples.forEach(ex => {
+                    h += '<div class="grammar-example-card">';
+                    h += '  <div class="grammar-ex-hanzi-row">';
+                    h += '    <span class="grammar-ex-hanzi">' + escapeHtml(ex.hanzi) + '</span>';
+                    h += '    <button type="button" class="grammar-ex-tts-btn" data-tts="' + escapeHtml(ex.hanzi) + '" title="Озвучить"><i class="fa-solid fa-volume-high"></i></button>';
+                    h += '  </div>';
+                    h += '  <div class="grammar-ex-pinyin">' + escapeHtml(ex.pinyin) + '</div>';
+                    if (ex.literal) h += '  <div class="grammar-ex-literal">' + escapeHtml(ex.literal) + '</div>';
+                    h += '  <div class="grammar-ex-ru">' + escapeHtml(ex.ru) + '</div>';
+                    h += '</div>';
+                });
+                h += '</div>';
+            }
+
+            // 4. Практическая подсказка
+            if (t.extra_practice_materials) {
+                h += '<div class="grammar-block-section">';
+                h += '  <div class="grammar-section-heading"><i class="fa-solid fa-lightbulb"></i> Практические лайфхаки и запоминалки</div>';
+                h += '  <div class="grammar-callout-tip">' + escapeHtml(t.extra_practice_materials) + '</div>';
+                h += '</div>';
+            }
+
+            // 5. Авторские примеры
+            if (t.extra_examples_modified && t.extra_examples_modified.length > 0) {
+                h += '<div class="grammar-block-section">';
+                h += '  <div class="grammar-section-heading"><i class="fa-solid fa-star"></i> Дополнительные живые примеры</div>';
+                t.extra_examples_modified.forEach(ex => {
+                    h += '<div class="grammar-example-card" style="border-left: 3px solid #a855f7;">';
+                    h += '  <div class="grammar-ex-hanzi-row">';
+                    h += '    <span class="grammar-ex-hanzi">' + escapeHtml(ex.hanzi) + '</span>';
+                    h += '    <button type="button" class="grammar-ex-tts-btn" data-tts="' + escapeHtml(ex.hanzi) + '" title="Озвучить"><i class="fa-solid fa-volume-high"></i></button>';
+                    h += '  </div>';
+                    h += '  <div class="grammar-ex-pinyin">' + escapeHtml(ex.pinyin) + '</div>';
+                    h += '  <div class="grammar-ex-ru">' + escapeHtml(ex.ru) + '</div>';
+                    h += '</div>';
+                });
+                h += '</div>';
+            }
+
+            // 6. Частые ошибки
+            if (t.common_mistakes) {
+                h += '<div class="grammar-block-section">';
+                h += '  <div class="grammar-section-heading" style="color:#e11d48;"><i class="fa-solid fa-triangle-exclamation"></i> Частые ошибки и подводные камни</div>';
+                h += '  <div class="grammar-callout-warn" style="white-space:pre-line;">' + escapeHtml(t.common_mistakes) + '</div>';
+                h += '</div>';
+            }
+
+            // 7. Мини-тренажёр (Quiz)
+            if (t.quiz && t.quiz.length > 0) {
+                h += '<div class="grammar-block-section">';
+                h += '  <div class="grammar-section-heading" style="color:#16a34a;"><i class="fa-solid fa-circle-question"></i> Экспресс-тест на закрепление</div>';
+                t.quiz.forEach((qItem, qIdx) => {
+                    h += '<div class="grammar-quiz-card">';
+                    h += '  <div class="grammar-quiz-q">❓ ' + escapeHtml(qItem.q) + '</div>';
+                    h += '  <button type="button" class="grammar-quiz-toggle-btn" id="g-quiz-btn-' + qIdx + '">Показать правильный ответ и разбор</button>';
+                    h += '  <div class="grammar-quiz-answer hidden" id="g-quiz-ans-' + qIdx + '">✅ ' + escapeHtml(qItem.answer) + '</div>';
+                    h += '</div>';
+                });
+                h += '</div>';
+            }
+
+            body.innerHTML = h;
+
+            // Wire TTS buttons
+            body.querySelectorAll('.grammar-ex-tts-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const text = btn.dataset.tts;
+                    if (window.speakChinese) {
+                        window.speakChinese(text);
+                    }
+                });
+            });
+
+            // Wire Quiz reveal buttons
+            body.querySelectorAll('.grammar-quiz-toggle-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const ans = btn.nextElementSibling;
+                    if (ans) {
+                        ans.classList.toggle('hidden');
+                        btn.textContent = ans.classList.contains('hidden') ? 'Показать правильный ответ и разбор' : 'Скрыть ответ';
+                    }
+                });
+            });
+
+            body.scrollTop = 0;
+        }
+
+        function closeTopicModal() {
+            const modal = document.getElementById('grammar-detail-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('open');
+            }
+        }
+
+        function setupModalHandlers() {
+            const closeBtn = document.getElementById('grammar-modal-close-btn');
+            if (closeBtn) closeBtn.onclick = closeTopicModal;
+
+            const modal = document.getElementById('grammar-detail-modal');
+            if (modal) {
+                modal.onclick = function(e) {
+                    if (e.target === modal) closeTopicModal();
+                };
+            }
+
+            const prevBtn = document.getElementById('g-prev-btn');
+            if (prevBtn) {
+                prevBtn.onclick = function() {
+                    if (currentTopicIdx > 0) {
+                        currentTopicIdx--;
+                        renderModalTopic(allTopicsList[currentTopicIdx]);
+                    }
+                };
+            }
+
+            const nextBtn = document.getElementById('g-next-btn');
+            if (nextBtn) {
+                nextBtn.onclick = function() {
+                    if (currentTopicIdx < allTopicsList.length - 1) {
+                        currentTopicIdx++;
+                        renderModalTopic(allTopicsList[currentTopicIdx]);
+                    }
+                };
+            }
+        }
+
+        function setupSearch() {
+            const inp = document.getElementById('grammar-search-input');
+            const clr = document.getElementById('grammar-search-clear');
+            if (!inp) return;
+
+            let debounceTimer = null;
+            inp.addEventListener('input', function() {
+                const val = inp.value;
+                if (clr) clr.style.display = val ? 'block' : 'none';
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    searchQuery = val;
+                    renderGrammarList();
+                }, 200);
+            });
+
+            if (clr) {
+                clr.addEventListener('click', function() {
+                    inp.value = '';
+                    clr.style.display = 'none';
+                    searchQuery = '';
+                    renderGrammarList();
+                    inp.focus();
+                });
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+    })();
+    </script>
 </body>
 </html>
