@@ -254,11 +254,14 @@
         /* ================= ДИЗАЙН ГЛАВНОЙ СТРАНИЦЫ ================= */
         .home-container { max-width: 900px; margin: 0 auto; padding: 50px 20px; width: 100%; flex: 1; perspective: 1000px; }
 
-        .home-header { text-align: center; margin-bottom: 60px; position: relative; z-index: 2;}
-        .top-menu-container { position: absolute; top: 0; right: 0; z-index: 100; }
+        .home-header { text-align: center; margin-bottom: 60px; position: relative; z-index: 150;}
+        .top-menu-container { position: absolute; top: 0; right: 0; z-index: 200; }
         .dots-menu-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.95); border: 1.5px solid rgba(142,36,170,0.2); box-shadow: 0 4px 14px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; color: #6A1B9A; cursor: pointer; transition: all 0.2s ease; outline: none; padding: 0; }
         .dots-menu-btn:active { transform: scale(0.92); background: #f3e8ff; }
-        .dots-dropdown { position: absolute; top: 48px; right: 0; width: 220px; background: #ffffff; border-radius: 16px; box-shadow: 0 12px 32px rgba(0,0,0,0.18); border: 1px solid rgba(142,36,170,0.15); overflow: hidden; padding: 6px; display: flex; flex-direction: column; gap: 4px; z-index: 99999; text-align: left; animation: fadeInDots 0.15s ease-out; }
+        .dots-dropdown { position: absolute; top: 48px; right: 0; min-width: 270px; width: max-content; max-width: 310px; background: #ffffff; border-radius: 18px; box-shadow: 0 16px 40px rgba(0,0,0,0.22); border: 1.5px solid rgba(142,36,170,0.18); overflow: hidden; padding: 6px; display: flex; flex-direction: column; gap: 4px; z-index: 99999; text-align: left; animation: fadeInDots 0.15s ease-out; }
+        .dots-dropdown-header { padding: 12px 14px 10px; border-bottom: 1px solid rgba(0,0,0,0.06); margin-bottom: 4px; }
+        .dots-app-title { font-weight: 800; font-size: 14.5px; color: #1f1f2e; white-space: nowrap; }
+        .dots-app-ver { font-size: 11.5px; color: #7c3aed; margin-top: 3px; font-weight: 600; white-space: nowrap; }
         @keyframes fadeInDots { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
         .dots-dropdown.hidden { display: none !important; }
         .dots-dropdown-header { padding: 10px 14px 8px; border-bottom: 1px solid rgba(0,0,0,0.06); margin-bottom: 4px; }
@@ -11797,8 +11800,8 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                     </button>
                     <div id="top-dots-dropdown" class="dots-dropdown hidden">
                         <div class="dots-dropdown-header">
-                            <div class="dots-app-title">Лунлун • Китайский язык</div>
-                            <div class="dots-app-ver">Версия 1.0.0 • БКРС & HSK</div>
+                            <div class="dots-app-title">Бао • Твой помощник</div>
+                            <div class="dots-app-ver">Версия 1.1.0 • HSK 3.0 & БКРС</div>
                         </div>
                         <a href="https://t.me/madeinseryoga" target="_blank" class="dots-dropdown-item">
                             <i class="fa-brands fa-telegram"></i>
@@ -13497,6 +13500,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             game: 'view-game',
             train: 'view-train',
             keys: 'view-keys',
+            grammar: 'view-grammar',
             textstudy: 'view-textstudy',
             bkrs: 'view-bkrs'
           };
@@ -13511,6 +13515,9 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
           }
           if (name === 'keys' && typeof window.initKeysView === 'function') {
             try { window.initKeysView(); } catch(e) {}
+          }
+          if (name === 'grammar' && typeof window.initGrammarView === 'function') {
+            try { window.initGrammarView(); } catch(e) {}
           }
           // Сообщаем основному приложению, если оно уже загружено
           try {
@@ -13744,6 +13751,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                 lessons: document.getElementById('view-lessons'),
                 game: document.getElementById('view-game'),
                 train: document.getElementById('view-train'),
+                grammar: document.getElementById('view-grammar'),
                 textstudy: document.getElementById('view-textstudy'),
                 bkrs: document.getElementById('view-bkrs')
             };
@@ -13767,6 +13775,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                     lessons: views.lessons,
                     game: views.game,
                     train: views.train,
+                    grammar: views.grammar,
                     textstudy: views.textstudy,
                     bkrs: views.bkrs
                 };
@@ -14412,6 +14421,10 @@ function renderCourseLessons(course) {
                 });
             }
             safeBindTap(document.getElementById('open-generator-btn'), function () { switchView(views.generator); });
+            safeBindTap(document.getElementById('open-grammar-btn'), function () {
+                switchView(views.grammar);
+                try { if (window.initGrammarView) window.initGrammarView(); } catch(e) {}
+            });
             safeBindTap(document.getElementById('open-hsk-btn'), function () {
                 switchView(views.hsk);
                 try { ensureHskReadyAndRender(); } catch (e) {}
@@ -24106,16 +24119,20 @@ const BkrsDB = window.BkrsDB = {
             }
             const aboutBtn = document.getElementById('dots-about-btn');
             if (aboutBtn) {
-                aboutBtn.addEventListener('click', function() {
+                aboutBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
                     dropdown.classList.add('hidden');
                     const toast = document.getElementById('app-toast');
                     if (toast) {
-                        toast.textContent = 'Лунлун • Китайский язык (v1.0.0)';
+                        toast.textContent = 'Бао — твой помощник в изучении китайского языка 🐲✨ (v1.1.0)';
                         toast.classList.add('show');
-                        setTimeout(() => toast.classList.remove('show'), 2500);
+                        setTimeout(() => toast.classList.remove('show'), 3000);
                     }
                 });
             }
+            dropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
         })();
 
         // Android Hardware / Cordova / Capacitor / AppMint Back Button bridge
