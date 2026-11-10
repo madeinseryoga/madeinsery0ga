@@ -12167,15 +12167,17 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             margin-bottom: 6px;
         }
         .home-brand-avatar {
-            width: 54px;
-            height: 54px;
-            border-radius: 16px;
-            box-shadow: 0 6px 18px rgba(16, 185, 129, 0.22);
-            border: 2px solid #ffffff;
+            width: 56px;
+            height: 56px;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+            filter: drop-shadow(0 6px 12px rgba(15, 23, 42, 0.12));
             flex-shrink: 0;
+            object-fit: contain;
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .home-brand-avatar:hover { transform: scale(1.08) rotate(3deg); }
+        .home-brand-avatar:hover { transform: scale(1.1) rotate(4deg); }
         .home-brand-meta { display: flex; flex-direction: column; }
         .home-brand-title {
             font-size: 2.3rem;
@@ -12418,6 +12420,42 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
         }
         .author-cta-btn.guide-cta:hover { background: #047857; transform: translateY(-1px); }
+
+        
+        /* ==================== НИЖНЯЯ ССЫЛКА ОБ АВТОРЕ ==================== */
+        .home-author-link-bar {
+            text-align: center;
+            margin: 28px 0 10px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .home-author-text-link {
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-color: #cbd5e1;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-family: inherit;
+        }
+        .home-author-text-link:hover {
+            color: #7c3aed;
+            text-decoration-color: #7c3aed;
+            background: rgba(124, 58, 237, 0.06);
+            transform: translateY(-1px);
+        }
+        .home-author-text-link:active {
+            transform: scale(0.97);
+        }
 
         /* ==================== МОДАЛЬНОЕ ОКНО: ОБ АВТОРЕ ==================== */
         #about-author-modal {
@@ -12915,89 +12953,14 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             </section>
         </div>
         
-        
-            <!-- ==================== РАЗДЕЛ: ОБ АВТОРЕ ==================== -->
-            <section class="about-author-section" id="about-author-section">
-                <h2 class="section-title"><span>Об авторе</span></h2>
-                <div class="author-profile-box">
-                    <div class="author-main-row">
-                        <div class="author-photo-wrapper">
-                            <img src="images/sergey_author_sq.jpg" alt="Верещагин Сергей Александрович" class="author-photo-img">
-                            <span class="author-photo-badge" title="Преподаватель & Переводчик"><i class="fa-solid fa-graduation-cap"></i></span>
-                        </div>
-                        <div class="author-headings">
-                            <h3 class="author-name">Верещагин Сергей Александрович</h3>
-                            <div class="author-role-pills">
-                                <span class="author-pill pill-purple"><i class="fa-solid fa-chalkboard-user"></i> Преподаватель</span>
-                                <span class="author-pill pill-blue"><i class="fa-solid fa-language"></i> Переводчик</span>
-                                <span class="author-pill pill-emerald"><i class="fa-solid fa-microscope"></i> Исследователь</span>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Нижняя навигация и Об авторе (кликабельный текст) -->
+        <div class="home-author-link-bar">
+            <button type="button" class="home-author-text-link" id="home-author-text-btn">
+                <i class="fa-solid fa-circle-user"></i> Об авторе
+            </button>
+        </div>
 
-                    <div class="author-details-grid">
-                        <!-- Академический путь по годам -->
-                        <div class="author-detail-card">
-                            <div class="detail-card-head"><i class="fa-solid fa-building-columns"></i> Образование ЛГПУ</div>
-                            <div class="timeline-items">
-                                <div class="timeline-entry">
-                                    <span class="timeline-year">2020 – 2024 гг.</span>
-                                    <div class="timeline-info">
-                                        <strong>Бакалавриат с отличием</strong>
-                                        <p>Китайский язык и второй иностранный язык (английский язык).</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-entry">
-                                    <span class="timeline-year">2024 – 2026 гг.</span>
-                                    <div class="timeline-info">
-                                        <strong>Магистратура с отличием</strong>
-                                        <p>Английский язык и второй иностранный язык (китайский / японский / арабский / турецкий языки).</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-entry current">
-                                    <span class="timeline-year">Настоящее время</span>
-                                    <div class="timeline-info">
-                                        <strong>Аспирантура ЛГПУ</strong>
-                                        <p>Научная специальность 5.8.1 «Общая педагогика, история педагогики и образования».</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Профессиональный опыт -->
-                        <div class="author-detail-card">
-                            <div class="detail-card-head"><i class="fa-solid fa-briefcase"></i> Профессиональный опыт</div>
-                            <div class="experience-list">
-                                <div class="exp-card">
-                                    <div class="exp-icon"><i class="fa-solid fa-language"></i></div>
-                                    <div class="exp-body">
-                                        <strong>Переводчик китайского языка (1 год опыта)</strong>
-                                        <p>Технический перевод китайского языка: как устный, так и письменный перевод документации и переговоров.</p>
-                                    </div>
-                                </div>
-                                <div class="exp-card">
-                                    <div class="exp-icon"><i class="fa-solid fa-person-chalkboard"></i></div>
-                                    <div class="exp-body">
-                                        <strong>Преподаватель (1 год опыта)</strong>
-                                        <p>Преподавание китайского и английского языков, создание интерактивных методик обучения и авторских материалов.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="author-footer-actions">
-                        <a href="https://t.me/madeinseryoga" target="_blank" rel="noopener noreferrer" class="author-cta-btn tg-cta">
-                            <i class="fa-brands fa-telegram"></i> Telegram @madeinseryoga
-                        </a>
-                        <button type="button" class="author-cta-btn guide-cta" onclick="window.openBaoBaoGuide && window.openBaoBaoGuide()">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i> Инструкция от БаоБао
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-        <footer class="home-footer">© 2026 made in серёга 🐼</footer>
+        <footer class="home-footer">© 2026 БаоБао • Твой помощник в изучении китайского языка 🥟</footer>
     </div>
 
 
@@ -25210,35 +25173,8 @@ const BkrsDB = window.BkrsDB = {
                 aboutBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
                     dropdown.classList.add('hidden');
-                    // Переключаемся на главный экран если находимся в другом разделе
-                    try {
-                        const sections = document.querySelectorAll('.view-section');
-                        sections.forEach(s => s.classList.remove('active'));
-                        const home = document.getElementById('view-home');
-                        if (home) home.classList.add('active');
-                    } catch(err) {}
-                    const authorSec = document.getElementById('about-author-section');
-                    if (authorSec) {
-                        setTimeout(() => authorSec.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-                    }
-                });
-            }
-            const authorModalClose = document.getElementById('about-author-modal-close');
-            if (authorModalClose) {
-                authorModalClose.addEventListener('click', function() {
-                    const authorModal = document.getElementById('about-author-modal');
-                    if (authorModal) {
-                        authorModal.classList.add('hidden');
-                        authorModal.classList.remove('open');
-                    }
-                });
-            }
-            const authorModalEl = document.getElementById('about-author-modal');
-            if (authorModalEl) {
-                authorModalEl.addEventListener('click', function(e) {
-                    if (e.target === authorModalEl) {
-                        authorModalEl.classList.add('hidden');
-                        authorModalEl.classList.remove('open');
+                    if (window.openAboutAuthor) {
+                        window.openAboutAuthor();
                     }
                 });
             }
@@ -25924,8 +25860,22 @@ const BkrsDB = window.BkrsDB = {
     })();
     </script>
 
+    <!-- ==================== МОДАЛЬНОЕ ОКНО: ОБ АВТОРЕ ==================== -->
+    <div id="about-author-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="author-modal-title-text">
+        <div class="author-modal-card">
+            <div class="author-modal-header">
+                <button type="button" class="author-modal-close" id="about-author-modal-close" aria-label="Закрыть">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="author-modal-avatar-row">
+                    <img src="images/sergey_author_sq.jpg" alt="Верещагин Сергей Александрович" class="author-modal-avatar">
+                    <div class="author-modal-title-box">
+                        <h2 id="author-modal-title-text">Верещагин Сергей Александрович</h2>
+                        <div class="author-modal-subtitle">Преподаватель • Переводчик • Автор платформы</div>
+                    </div>
+                </div>
+            </div>
 
-    
             <div class="author-modal-body">
                 <div class="modal-section-title"><i class="fa-solid fa-building-columns"></i> Образование ЛГПУ</div>
                 <div class="modal-edu-box">
@@ -25943,7 +25893,7 @@ const BkrsDB = window.BkrsDB = {
                     </div>
                 </div>
 
-                <div class="modal-section-title" style="margin-top: 6px;"><i class="fa-solid fa-briefcase"></i> Профессиональный опыт</div>
+                <div class="modal-section-title" style="margin-top: 14px;"><i class="fa-solid fa-briefcase"></i> Профессиональный опыт</div>
                 <div class="modal-exp-box">
                     <div class="modal-exp-item">
                         <i class="fa-solid fa-language"></i>
@@ -25963,5 +25913,44 @@ const BkrsDB = window.BkrsDB = {
             </div>
         </div>
     </div>
+
+    <!-- ==================== ОБ АВТОРЕ (ЛОГИКА МОДАЛЬНОГО ОКНА) ==================== -->
+    <script>
+    (function initAuthorModal() {
+        const modal = document.getElementById('about-author-modal');
+        const closeBtn = document.getElementById('about-author-modal-close');
+        const footerBtn = document.getElementById('home-author-text-btn');
+        const dotsBtn = document.getElementById('dots-about-btn');
+
+        window.openAboutAuthor = function() {
+            if (!modal) return;
+            const dropdown = document.getElementById('top-dots-dropdown');
+            if (dropdown) dropdown.classList.add('hidden');
+            modal.classList.remove('hidden');
+            modal.classList.add('open');
+        };
+
+        window.closeAboutAuthor = function() {
+            if (!modal) return;
+            modal.classList.add('hidden');
+            modal.classList.remove('open');
+        };
+
+        if (footerBtn) footerBtn.onclick = window.openAboutAuthor;
+        if (dotsBtn) {
+            dotsBtn.onclick = function(e) {
+                if (e) e.stopPropagation();
+                window.openAboutAuthor();
+            };
+        }
+        if (closeBtn) closeBtn.onclick = window.closeAboutAuthor;
+        if (modal) {
+            modal.onclick = function(e) {
+                if (e.target === modal) window.closeAboutAuthor();
+            };
+        }
+    })();
+    </script>
+
 </body>
 </html>
