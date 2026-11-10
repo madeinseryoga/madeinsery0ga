@@ -12761,6 +12761,94 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         .gd-quiz-feedback.error { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
 
         /* Нижняя навигация */
+        
+        /* Расширенные стили для детальной страницы грамматики */
+        .gd-theory-body { line-height: 1.75; color: #334155; font-size: 0.98rem; }
+        .gd-para { margin: 0 0 10px 0; }
+        .gd-bullet-list { margin: 6px 0 14px 20px; padding: 0; }
+        .gd-bullet-list li { margin-bottom: 6px; }
+        .gd-num-item { margin: 8px 0; font-weight: 600; color: #1e293b; }
+        .gd-inline-code { background: #f1f5f9; padding: 2px 7px; border-radius: 6px; color: #7c3aed; font-weight: 700; font-size: 0.92em; font-family: monospace; }
+        .gd-spacer { height: 10px; }
+
+        .gd-quiz-box {
+            background: #ffffff;
+            border: 1.5px solid #dcfce7;
+            border-radius: 16px;
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            margin-top: 10px;
+        }
+        .gd-quiz-q-num {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #15803d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .gd-quiz-options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .gd-quiz-choice-btn {
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 0.94rem;
+            font-weight: 600;
+            color: #1e293b;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            outline: none;
+            font-family: inherit;
+        }
+        .gd-quiz-choice-btn:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(3px);
+        }
+        .gd-quiz-choice-btn.selected {
+            background: #ede9fe;
+            border-color: #8b5cf6;
+            color: #5b21b6;
+        }
+        .gd-quiz-action-bar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 4px;
+        }
+        .gd-quiz-feedback {
+            display: none;
+            background: #f0fdf4;
+            border: 1.5px solid #86efac;
+            border-radius: 14px;
+            padding: 14px 18px;
+            color: #14532d;
+            animation: fadeIn 0.2s ease-out;
+        }
+        .gd-quiz-feedback.show { display: block !important; }
+        .gd-quiz-feedback-title {
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: #166534;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+        .gd-quiz-feedback-body {
+            font-size: 0.94rem;
+            line-height: 1.6;
+        }
+
         .gd-bottom-nav {
             display: flex;
             align-items: center;
@@ -12770,6 +12858,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         }
 
 </style>
+    <script src="data/grammar_hsk1/hsk1_grammar_full.js"></script>
 </head>
 <body>
 
@@ -25212,20 +25301,24 @@ const BkrsDB = window.BkrsDB = {
 
         async function loadGrammarData() {
             if (grammarData) return grammarData;
-            try {
-                const res = await fetch('./data/grammar_hsk1/hsk1_grammar_full.json');
-                if (!res.ok) throw new Error('HTTP ' + res.status);
-                grammarData = await res.json();
-            } catch (e) {
-                console.warn('Fetch grammar JSON error:', e);
-                // Fallback attempt without ./
+
+            // 1. Check preloaded global JS fallback (instant offline & file:// support)
+            if (window.HSK1_GRAMMAR_FALLBACK_DATA) {
+                grammarData = window.HSK1_GRAMMAR_FALLBACK_DATA;
+            } else {
                 try {
-                    const res2 = await fetch('data/grammar_hsk1/hsk1_grammar_full.json');
-                    grammarData = await res2.json();
-                } catch(err2) {
-                    console.error('Failed to load grammar data:', err2);
+                    const res = await fetch('./data/grammar_hsk1/hsk1_grammar_full.json');
+                    if (res.ok) grammarData = await res.json();
+                } catch (e) {
+                    try {
+                        const res2 = await fetch('data/grammar_hsk1/hsk1_grammar_full.json');
+                        if (res2.ok) grammarData = await res2.json();
+                    } catch(err2) {
+                        console.error('Failed to load grammar data:', err2);
+                    }
                 }
             }
+
             if (grammarData && grammarData.modules) {
                 allTopicsList = [];
                 grammarData.modules.forEach(m => {
@@ -25351,45 +25444,70 @@ const BkrsDB = window.BkrsDB = {
         function formatMarkdownText(txt) {
             if (!txt) return '';
             let s = String(txt);
-            // Replace bold **text** with strong
+            // Replace bold **text**
             s = s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            // Replace italic *text* with em
+            // Replace inline code `code`
+            s = s.replace(/`([^`]+)`/g, '<code class="gd-inline-code">$1</code>');
+            // Replace italic *text*
             s = s.replace(/(^|[^\*])\*([^\*]+)\*([^\*]|$)/g, '$1<em>$2</em>$3');
-            // Clean up double dashes to em-dash
+            // Clean double dashes to em-dash
             s = s.replace(/--/g, '—');
             // Strip any remaining lone asterisks
             s = s.replace(/\*/g, '');
-            return s;
+
+            // Format paragraphs and lists
+            const lines = s.split('\n');
+            let out = '';
+            let inList = false;
+
+            lines.forEach(line => {
+                const trimmed = line.trim();
+                if (!trimmed) {
+                    if (inList) { out += '</ul>'; inList = false; }
+                    out += '<div class="gd-spacer"></div>';
+                    return;
+                }
+                if (trimmed.startsWith('- ') || trimmed.startsWith('• ')) {
+                    if (!inList) { out += '<ul class="gd-bullet-list">'; inList = true; }
+                    out += '<li>' + trimmed.substring(2) + '</li>';
+                } else if (/^\d+\.\s+/.test(trimmed)) {
+                    if (inList) { out += '</ul>'; inList = false; }
+                    out += '<div class="gd-num-item">' + trimmed + '</div>';
+                } else {
+                    if (inList) { out += '</ul>'; inList = false; }
+                    out += '<p class="gd-para">' + trimmed + '</p>';
+                }
+            });
+            if (inList) out += '</ul>';
+            return out;
         }
 
-        window.openGrammarDetailView = function(topicId) {
-            const idx = allTopicsList.findIndex(t => t.id === topicId);
-            if (idx === -1) return;
-            currentTopicIdx = idx;
-            renderGrammarDetailPage(allTopicsList[currentTopicIdx]);
-
-            // Switch to view-grammar-detail full page
-            const sections = document.querySelectorAll('.view-section');
-            sections.forEach(s => s.classList.remove('active'));
-            const gdView = document.getElementById('view-grammar-detail');
-            if (gdView) {
-                gdView.classList.add('active');
-                try { window.scrollTo(0, 0); } catch(e) {}
+        window.playGrammarTTS = function(txt) {
+            if (!txt) return;
+            if (window.speakChinese) {
+                window.speakChinese(txt);
+                return;
             }
-            try {
-                if (window.pushInternalHistory) window.pushInternalHistory('grammar-detail', { topicId });
-            } catch(e) {}
+            if ('speechSynthesis' in window) {
+                try {
+                    window.speechSynthesis.cancel();
+                    const u = new SpeechSynthesisUtterance(txt);
+                    u.lang = 'zh-CN';
+                    u.rate = 0.88;
+                    window.speechSynthesis.speak(u);
+                } catch(e) {}
+            }
         };
 
         function renderGrammarDetailPage(t) {
             if (!t) return;
             // Header & badges
             const idBadge = document.getElementById('gd-id-badge');
-            if (idBadge) idBadge.textContent = t.id;
+            if (idBadge) idBadge.textContent = t.id || 'HSK 1';
             const refBadge = document.getElementById('gd-ref-badge');
             if (refBadge) refBadge.textContent = t.lesson_ref || '新HSK 1';
             const titleEl = document.getElementById('gd-title');
-            if (titleEl) titleEl.textContent = t.title;
+            if (titleEl) titleEl.textContent = t.title || '';
             const zhTitleEl = document.getElementById('gd-zh-title');
             if (zhTitleEl) zhTitleEl.textContent = t.title_zh || '';
             const posCounter = document.getElementById('gd-pos-counter');
@@ -25413,50 +25531,84 @@ const BkrsDB = window.BkrsDB = {
                 h += '</div>';
             }
 
-            // 2. Теоретическое объяснение (по учебнику)
-            if (t.explanation) {
+            // 2. Полное академическое правило и теория учебника (textbook_core)
+            const theory = t.textbook_core || t.explanation || '';
+            if (theory) {
                 h += '<div class="gd-section">';
-                h += '  <div class="gd-section-header"><i class="fa-solid fa-book-open-reader"></i> Академическое правило</div>';
-                h += '  <div style="line-height: 1.7; color: #334155;">' + formatMarkdownText(t.explanation) + '</div>';
+                h += '  <div class="gd-section-header"><i class="fa-solid fa-book-open-reader"></i> Академическое правило (теория учебника)</div>';
+                h += '  <div class="gd-theory-body">' + formatMarkdownText(theory) + '</div>';
                 h += '</div>';
             }
 
             // 3. Совет от БаоБао (с маскотом)
-            if (t.teacher_notes) {
+            const rawTip = t.extra_practice_materials || t.teacher_notes || '';
+            if (rawTip) {
+                let cleanTip = rawTip.trim();
+                // Очищаем старые шаблонные упоминания авторов
+                cleanTip = cleanTip.replace(/^💡\s*\*\*.*?\*\*:\s*/i, '');
+                cleanTip = cleanTip.replace(/^💡\s*Практическая подсказка.*?:/i, '');
+                cleanTip = cleanTip.replace(/^💡\s*Нюанс.*?:/i, '');
+                cleanTip = cleanTip.replace(/^💡\s*Лайфхак.*?:/i, '');
+                cleanTip = cleanTip.replace(/^💡\s*Фишка.*?:/i, '');
+                cleanTip = cleanTip.replace(/^💡\s*Запомните.*?:/i, 'Запомните: ');
+
                 h += '<div class="gd-baobao-tip-card">';
                 h += '  <div class="gd-baobao-img-wrap">';
                 h += '    <img src="images/baobao_tip_clean.png" alt="Совет от БаоБао" class="gd-baobao-tip-img">';
                 h += '  </div>';
                 h += '  <div class="gd-baobao-tip-body">';
-                h += '    <h3 class="gd-baobao-tip-title">💡 Совет от БаоБао</h3>';
-                h += '    <p class="gd-baobao-tip-text">' + formatMarkdownText(t.teacher_notes) + '</p>';
+                h += '    <h3 class="gd-baobao-tip-title">💡 Совет от БаоБао 🥟</h3>';
+                h += '    <div class="gd-baobao-tip-text">' + formatMarkdownText(cleanTip) + '</div>';
                 h += '  </div>';
                 h += '</div>';
             }
 
-            // 4. Примеры с озвучкой
-            if (t.examples && t.examples.length > 0) {
+            // 4. Примеры предложений из учебника с озвучкой
+            const primaryEx = t.textbook_examples || t.examples || [];
+            if (primaryEx && primaryEx.length > 0) {
                 h += '<div class="gd-section">';
-                h += '  <div class="gd-section-header"><i class="fa-solid fa-volume-high"></i> Примеры предложений с озвучкой</div>';
+                h += '  <div class="gd-section-header"><i class="fa-solid fa-volume-high"></i> Примеры предложений из учебника с озвучкой</div>';
                 h += '  <div class="gd-examples-grid">';
-                t.examples.forEach(ex => {
+                primaryEx.forEach(ex => {
+                    const hanzi = ex.hanzi || ex.zh || '';
                     h += '<div class="gd-example-card">';
                     h += '  <div class="gd-ex-hanzi-row">';
-                    h += '    <span class="gd-ex-hanzi">' + escapeHtml(ex.zh) + '</span>';
-                    h += '    <button type="button" class="grammar-ex-tts-btn" onclick="playGrammarTTS(\'' + escapeHtml(ex.zh).replace(/'/g, "\\'") + '\')" title="Озвучить предложение"><i class="fa-solid fa-volume-high"></i></button>';
+                    h += '    <span class="gd-ex-hanzi">' + escapeHtml(hanzi) + '</span>';
+                    h += '    <button type="button" class="grammar-ex-tts-btn" onclick="playGrammarTTS(\'' + escapeHtml(hanzi).replace(/'/g, "\\'") + '\')" title="Озвучить предложение"><i class="fa-solid fa-volume-high"></i></button>';
                     h += '  </div>';
-                    h += '  <div class="gd-ex-pinyin">' + escapeHtml(ex.pinyin) + '</div>';
+                    h += '  <div class="gd-ex-pinyin">' + escapeHtml(ex.pinyin || '') + '</div>';
                     if (ex.literal) {
                         h += '  <div class="gd-ex-literal">' + escapeHtml(ex.literal) + '</div>';
                     }
-                    h += '  <div class="gd-ex-ru">' + escapeHtml(ex.ru) + '</div>';
+                    h += '  <div class="gd-ex-ru">' + escapeHtml(ex.ru || '') + '</div>';
                     h += '</div>';
                 });
                 h += '  </div>';
                 h += '</div>';
             }
 
-            // 5. Типичные ошибки
+            // 5. Дополнительные предложения для закрепления
+            const extraEx = t.extra_examples_modified || [];
+            if (extraEx && extraEx.length > 0) {
+                h += '<div class="gd-section">';
+                h += '  <div class="gd-section-header"><i class="fa-solid fa-comments"></i> Дополнительные предложения для практики</div>';
+                h += '  <div class="gd-examples-grid">';
+                extraEx.forEach(ex => {
+                    const hanzi = ex.hanzi || ex.zh || '';
+                    h += '<div class="gd-example-card">';
+                    h += '  <div class="gd-ex-hanzi-row">';
+                    h += '    <span class="gd-ex-hanzi">' + escapeHtml(hanzi) + '</span>';
+                    h += '    <button type="button" class="grammar-ex-tts-btn" onclick="playGrammarTTS(\'' + escapeHtml(hanzi).replace(/'/g, "\\'") + '\')" title="Озвучить предложение"><i class="fa-solid fa-volume-high"></i></button>';
+                    h += '  </div>';
+                    h += '  <div class="gd-ex-pinyin">' + escapeHtml(ex.pinyin || '') + '</div>';
+                    h += '  <div class="gd-ex-ru">' + escapeHtml(ex.ru || '') + '</div>';
+                    h += '</div>';
+                });
+                h += '  </div>';
+                h += '</div>';
+            }
+
+            // 6. Осторожно: частые ошибки
             if (t.common_mistakes) {
                 h += '<div class="gd-warn-card">';
                 h += '  <h3 class="gd-warn-title"><i class="fa-solid fa-triangle-exclamation"></i> Осторожно: частые ошибки</h3>';
@@ -25464,36 +25616,62 @@ const BkrsDB = window.BkrsDB = {
                 h += '</div>';
             }
 
-            // 6. Интерактивный мини-тренажер
-            if (t.quiz) {
+            // 7. Интерактивный экспресс-тест
+            const quizzes = Array.isArray(t.quiz) ? t.quiz : (t.quiz ? [t.quiz] : []);
+            if (quizzes.length > 0) {
                 h += '<div class="gd-quiz-section">';
                 h += '  <h3 class="gd-quiz-title"><i class="fa-solid fa-circle-question"></i> Экспресс-тест на закрепление</h3>';
-                h += '  <div class="gd-quiz-question">' + formatMarkdownText(t.quiz.q) + '</div>';
-                h += '  <div class="gd-quiz-options">';
-                
-                // If quiz has structured choices or we generate options:
-                const correctAns = t.quiz.a || '';
-                const questionText = t.quiz.q || '';
-                
-                // Interactive Reveal/Check Button
-                h += '    <button type="button" class="gd-quiz-opt-btn" id="gd-quiz-check-btn" onclick="toggleQuizAnswer(this)">Проверить свой ответ и посмотреть объяснение ✨</button>';
-                h += '  </div>';
-                h += '  <div id="gd-quiz-feedback-box" class="gd-quiz-feedback success">';
-                h += '    <strong>Правильный ответ и разбор:</strong><br>' + formatMarkdownText(correctAns);
-                h += '  </div>';
+                quizzes.forEach((qItem, qIdx) => {
+                    const qId = 'quiz-item-' + qIdx;
+                    const fbId = 'quiz-fb-' + qIdx;
+                    const qText = qItem.q || qItem.question || '';
+                    const ansText = qItem.answer || qItem.a || '';
+                    const options = qItem.options || [];
+
+                    h += '<div class="gd-quiz-box" id="' + qId + '">';
+                    h += '  <div class="gd-quiz-q-num">Задание ' + (qIdx + 1) + (quizzes.length > 1 ? ' из ' + quizzes.length : '') + '</div>';
+                    h += '  <div class="gd-quiz-question">' + formatMarkdownText(qText) + '</div>';
+
+                    if (options.length > 0) {
+                        h += '<div class="gd-quiz-options-list">';
+                        options.forEach((opt) => {
+                            h += '<button type="button" class="gd-quiz-choice-btn" onclick="handleQuizChoice(this, \'' + fbId + '\')">' + escapeHtml(opt) + '</button>';
+                        });
+                        h += '</div>';
+                    }
+
+                    h += '  <div class="gd-quiz-action-bar">';
+                    h += '    <button type="button" class="gd-quiz-opt-btn" onclick="toggleQuizAnswer(this, \'' + fbId + '\')">Показать правильный ответ и разбор ✨</button>';
+                    h += '  </div>';
+                    h += '  <div id="' + fbId + '" class="gd-quiz-feedback">';
+                    h += '    <div class="gd-quiz-feedback-title"><i class="fa-solid fa-circle-check"></i> Правильный ответ и объяснение:</div>';
+                    h += '    <div class="gd-quiz-feedback-body">' + formatMarkdownText(ansText) + '</div>';
+                    h += '  </div>';
+                    h += '</div>';
+                });
                 h += '</div>';
             }
 
             container.innerHTML = h;
         }
 
-        window.toggleQuizAnswer = function(btn) {
-            const fb = document.getElementById('gd-quiz-feedback-box');
+        window.handleQuizChoice = function(btn, fbId) {
+            const parent = btn.parentElement;
+            if (parent) {
+                parent.querySelectorAll('.gd-quiz-choice-btn').forEach(b => b.classList.remove('selected'));
+            }
+            btn.classList.add('selected');
+            const fb = document.getElementById(fbId);
+            if (fb) fb.classList.add('show');
+        };
+
+        window.toggleQuizAnswer = function(btn, fbId) {
+            const fb = fbId ? document.getElementById(fbId) : document.getElementById('gd-quiz-feedback-box');
             if (fb) {
                 const isShown = fb.classList.contains('show');
                 if (isShown) {
                     fb.classList.remove('show');
-                    btn.textContent = 'Проверить свой ответ и посмотреть объяснение ✨';
+                    btn.textContent = 'Показать правильный ответ и разбор ✨';
                     btn.classList.remove('correct');
                 } else {
                     fb.classList.add('show');
