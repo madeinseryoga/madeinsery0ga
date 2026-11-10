@@ -25300,7 +25300,7 @@ const BkrsDB = window.BkrsDB = {
         let searchQuery = '';
 
         async function loadGrammarData() {
-            if (grammarData) return grammarData;
+            if (grammarData && grammarData.modules) return grammarData;
 
             // 1. Check preloaded global JS fallback (instant offline & file:// support)
             if (window.HSK1_GRAMMAR_FALLBACK_DATA) {
@@ -25314,7 +25314,7 @@ const BkrsDB = window.BkrsDB = {
                         const res2 = await fetch('data/grammar_hsk1/hsk1_grammar_full.json');
                         if (res2.ok) grammarData = await res2.json();
                     } catch(err2) {
-                        console.error('Failed to load grammar data:', err2);
+                        console.error('Failed to load grammar data via fetch:', err2);
                     }
                 }
             }
@@ -25345,7 +25345,7 @@ const BkrsDB = window.BkrsDB = {
             renderModuleFilterBar(data.modules);
             renderGrammarList();
             setupSearch();
-            setupModalHandlers();
+            setupDetailNavButtons();
         };
 
         function renderModuleFilterBar(modules) {
@@ -25403,7 +25403,7 @@ const BkrsDB = window.BkrsDB = {
 
                 html += '  <div class="grammar-topics-grid">';
                 filteredTopics.forEach(t => {
-                    html += '<div class="grammar-topic-card" data-topic-id="' + t.id + '">';
+                    html += '<div class="grammar-topic-card" data-topic-id="' + t.id + '" onclick="window.openGrammarDetailView(\'' + t.id + '\')">';
                     html += '  <div class="grammar-card-top">';
                     html += '    <span class="grammar-card-id">' + t.id + '</span>';
                     html += '    <span class="grammar-card-ref">' + escapeHtml(t.lesson_ref || '') + '</span>';
@@ -25432,12 +25432,14 @@ const BkrsDB = window.BkrsDB = {
             const counter = document.getElementById('grammar-total-counter');
             if (counter) counter.textContent = visibleTopicsCount + ' тем • HSK 1';
 
-            // Click topic card handlers
+            // Also attach explicit click event listeners to each card
             container.querySelectorAll('.grammar-topic-card').forEach(card => {
-                card.addEventListener('click', function() {
+                card.onclick = function(e) {
                     const tid = card.dataset.topicId;
-                    window.openGrammarDetailView(tid);
-                });
+                    if (tid && window.openGrammarDetailView) {
+                        window.openGrammarDetailView(tid);
+                    }
+                };
             });
         }
 
@@ -25499,6 +25501,49 @@ const BkrsDB = window.BkrsDB = {
             }
         };
 
+        window.openGrammarDetailView = function(topicId) {
+            console.log('[Grammar] Opening topic detail:', topicId);
+            if (!topicId) return;
+
+            // Ensure allTopicsList is populated
+            if (!allTopicsList || allTopicsList.length === 0) {
+                if (grammarData && grammarData.modules) {
+                    allTopicsList = [];
+                    grammarData.modules.forEach(m => {
+                        if (m.topics) {
+                            m.topics.forEach(t => {
+                                t._moduleId = m.module_id;
+                                t._moduleTitle = m.title;
+                                allTopicsList.push(t);
+                            });
+                        }
+                    });
+                }
+            }
+
+            const idx = allTopicsList.findIndex(t => t.id === topicId);
+            if (idx === -1) {
+                console.warn('[Grammar] Topic ID not found in allTopicsList:', topicId);
+                return;
+            }
+            currentTopicIdx = idx;
+
+            // Render topic details
+            renderGrammarDetailPage(allTopicsList[currentTopicIdx]);
+
+            // Switch to full-page view-grammar-detail
+            const sections = document.querySelectorAll('.view-section');
+            sections.forEach(s => s.classList.remove('active'));
+            const gdView = document.getElementById('view-grammar-detail');
+            if (gdView) {
+                gdView.classList.add('active');
+                try { window.scrollTo(0, 0); } catch(e) {}
+            }
+            try {
+                if (window.pushInternalHistory) window.pushInternalHistory('grammar-detail', { topicId });
+            } catch(e) {}
+        };
+
         function renderGrammarDetailPage(t) {
             if (!t) return;
             // Header & badges
@@ -25544,7 +25589,6 @@ const BkrsDB = window.BkrsDB = {
             const rawTip = t.extra_practice_materials || t.teacher_notes || '';
             if (rawTip) {
                 let cleanTip = rawTip.trim();
-                // Очищаем старые шаблонные упоминания авторов
                 cleanTip = cleanTip.replace(/^💡\s*\*\*.*?\*\*:\s*/i, '');
                 cleanTip = cleanTip.replace(/^💡\s*Практическая подсказка.*?:/i, '');
                 cleanTip = cleanTip.replace(/^💡\s*Нюанс.*?:/i, '');
@@ -25641,7 +25685,7 @@ const BkrsDB = window.BkrsDB = {
                     }
 
                     h += '  <div class="gd-quiz-action-bar">';
-                    h += '    <button type="button" class="gd-quiz-opt-btn" onclick="toggleQuizAnswer(this, \'' + fbId + '\')">Показать правильный ответ и разбор ✨</button>';
+                    h += '    <button type="button" class="gd-quiz-opt-btn" onclick="toggleQuizAnswer(this, \'' + fbId + '\')">Проверить свой ответ и посмотреть разбор ✨</button>';
                     h += '  </div>';
                     h += '  <div id="' + fbId + '" class="gd-quiz-feedback">';
                     h += '    <div class="gd-quiz-feedback-title"><i class="fa-solid fa-circle-check"></i> Правильный ответ и объяснение:</div>';
@@ -25671,7 +25715,7 @@ const BkrsDB = window.BkrsDB = {
                 const isShown = fb.classList.contains('show');
                 if (isShown) {
                     fb.classList.remove('show');
-                    btn.textContent = 'Показать правильный ответ и разбор ✨';
+                    btn.textContent = 'Проверить свой ответ и посмотреть разбор ✨';
                     btn.classList.remove('correct');
                 } else {
                     fb.classList.add('show');
@@ -25681,203 +25725,39 @@ const BkrsDB = window.BkrsDB = {
             }
         };
 
-        // Wire back button from grammar detail
-        const gdBackBtn = document.getElementById('grammar-detail-back-btn');
-        if (gdBackBtn) {
-            gdBackBtn.addEventListener('click', function() {
-                const sections = document.querySelectorAll('.view-section');
-                sections.forEach(s => s.classList.remove('active'));
-                const gView = document.getElementById('view-grammar');
-                if (gView) {
-                    gView.classList.add('active');
-                    try { window.scrollTo(0, 0); } catch(e) {}
-                }
-            });
-        }
-
-        // Wire prev/next buttons
-        const gdPrev = document.getElementById('gd-prev-btn');
-        if (gdPrev) {
-            gdPrev.addEventListener('click', function() {
-                if (currentTopicIdx > 0) {
-                    currentTopicIdx--;
-                    renderGrammarDetailPage(allTopicsList[currentTopicIdx]);
-                    try { window.scrollTo(0, 0); } catch(e) {}
-                }
-            });
-        }
-        const gdNext = document.getElementById('gd-next-btn');
-        if (gdNext) {
-            gdNext.addEventListener('click', function() {
-                if (currentTopicIdx < allTopicsList.length - 1) {
-                    currentTopicIdx++;
-                    renderGrammarDetailPage(allTopicsList[currentTopicIdx]);
-                    try { window.scrollTo(0, 0); } catch(e) {}
-                }
-            });
-        };
-
-        function renderModalTopic(t) {
-            if (!t) return;
-            document.getElementById('g-modal-id-badge').textContent = t.id;
-            document.getElementById('g-modal-ref-badge').textContent = t.lesson_ref || '新HSK 1';
-            document.getElementById('g-modal-title').textContent = t.title;
-            document.getElementById('g-modal-zh').textContent = t.title_zh || '';
-            document.getElementById('g-topic-pos').textContent = (currentTopicIdx + 1) + ' / ' + allTopicsList.length;
-
-            const prevBtn = document.getElementById('g-prev-btn');
-            const nextBtn = document.getElementById('g-next-btn');
-            if (prevBtn) prevBtn.disabled = (currentTopicIdx <= 0);
-            if (nextBtn) nextBtn.disabled = (currentTopicIdx >= allTopicsList.length - 1);
-
-            const body = document.getElementById('grammar-modal-body');
-            if (!body) return;
-
-            let h = '';
-
-            // 1. Формула
-            if (t.formula) {
-                h += '<div class="grammar-block-section">';
-                h += '  <div class="grammar-section-heading"><i class="fa-solid fa-shapes"></i> Схема и формула порядка слов</div>';
-                h += '  <div class="grammar-formula-box">' + escapeHtml(t.formula) + '</div>';
-                h += '</div>';
-            }
-
-            // 2. Академическое объяснение
-            if (t.textbook_core) {
-                h += '<div class="grammar-block-section">';
-                h += '  <div class="grammar-section-heading"><i class="fa-solid fa-book-open"></i> Теория и грамматическое правило</div>';
-                h += '  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px;white-space:pre-line;">' + escapeHtml(t.textbook_core) + '</div>';
-                h += '</div>';
-            }
-
-            // 3. Примеры из учебника
-            if (t.textbook_examples && t.textbook_examples.length > 0) {
-                h += '<div class="grammar-block-section">';
-                h += '  <div class="grammar-section-heading"><i class="fa-solid fa-list-check"></i> Примеры из учебника (新HSK教程1)</div>';
-                t.textbook_examples.forEach(ex => {
-                    h += '<div class="grammar-example-card">';
-                    h += '  <div class="grammar-ex-hanzi-row">';
-                    h += '    <span class="grammar-ex-hanzi">' + escapeHtml(ex.hanzi) + '</span>';
-                    h += '    <button type="button" class="grammar-ex-tts-btn" data-tts="' + escapeHtml(ex.hanzi) + '" title="Озвучить"><i class="fa-solid fa-volume-high"></i></button>';
-                    h += '  </div>';
-                    h += '  <div class="grammar-ex-pinyin">' + escapeHtml(ex.pinyin) + '</div>';
-                    if (ex.literal) h += '  <div class="grammar-ex-literal">' + escapeHtml(ex.literal) + '</div>';
-                    h += '  <div class="grammar-ex-ru">' + escapeHtml(ex.ru) + '</div>';
-                    h += '</div>';
-                });
-                h += '</div>';
-            }
-
-            // 4. Практическая подсказка
-            if (t.extra_practice_materials) {
-                h += '<div class="grammar-block-section">';
-                h += '  <div class="grammar-section-heading"><i class="fa-solid fa-lightbulb"></i> Практические лайфхаки и запоминалки</div>';
-                h += '  <div class="grammar-callout-tip">' + escapeHtml(t.extra_practice_materials) + '</div>';
-                h += '</div>';
-            }
-
-            // 5. Авторские примеры
-            if (t.extra_examples_modified && t.extra_examples_modified.length > 0) {
-                h += '<div class="grammar-block-section">';
-                h += '  <div class="grammar-section-heading"><i class="fa-solid fa-star"></i> Дополнительные живые примеры</div>';
-                t.extra_examples_modified.forEach(ex => {
-                    h += '<div class="grammar-example-card" style="border-left: 3px solid #a855f7;">';
-                    h += '  <div class="grammar-ex-hanzi-row">';
-                    h += '    <span class="grammar-ex-hanzi">' + escapeHtml(ex.hanzi) + '</span>';
-                    h += '    <button type="button" class="grammar-ex-tts-btn" data-tts="' + escapeHtml(ex.hanzi) + '" title="Озвучить"><i class="fa-solid fa-volume-high"></i></button>';
-                    h += '  </div>';
-                    h += '  <div class="grammar-ex-pinyin">' + escapeHtml(ex.pinyin) + '</div>';
-                    h += '  <div class="grammar-ex-ru">' + escapeHtml(ex.ru) + '</div>';
-                    h += '</div>';
-                });
-                h += '</div>';
-            }
-
-            // 6. Частые ошибки
-            if (t.common_mistakes) {
-                h += '<div class="grammar-block-section">';
-                h += '  <div class="grammar-section-heading" style="color:#e11d48;"><i class="fa-solid fa-triangle-exclamation"></i> Частые ошибки и подводные камни</div>';
-                h += '  <div class="grammar-callout-warn" style="white-space:pre-line;">' + escapeHtml(t.common_mistakes) + '</div>';
-                h += '</div>';
-            }
-
-            // 7. Мини-тренажёр (Quiz)
-            if (t.quiz && t.quiz.length > 0) {
-                h += '<div class="grammar-block-section">';
-                h += '  <div class="grammar-section-heading" style="color:#16a34a;"><i class="fa-solid fa-circle-question"></i> Экспресс-тест на закрепление</div>';
-                t.quiz.forEach((qItem, qIdx) => {
-                    h += '<div class="grammar-quiz-card">';
-                    h += '  <div class="grammar-quiz-q">❓ ' + escapeHtml(qItem.q) + '</div>';
-                    h += '  <button type="button" class="grammar-quiz-toggle-btn" id="g-quiz-btn-' + qIdx + '">Показать правильный ответ и разбор</button>';
-                    h += '  <div class="grammar-quiz-answer hidden" id="g-quiz-ans-' + qIdx + '">✅ ' + escapeHtml(qItem.answer) + '</div>';
-                    h += '</div>';
-                });
-                h += '</div>';
-            }
-
-            body.innerHTML = h;
-
-            // Wire TTS buttons
-            body.querySelectorAll('.grammar-ex-tts-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const text = btn.dataset.tts;
-                    if (window.speakChinese) {
-                        window.speakChinese(text);
+        function setupDetailNavButtons() {
+            // Wire back button from grammar detail
+            const gdBackBtn = document.getElementById('grammar-detail-back-btn');
+            if (gdBackBtn) {
+                gdBackBtn.onclick = function() {
+                    const sections = document.querySelectorAll('.view-section');
+                    sections.forEach(s => s.classList.remove('active'));
+                    const gView = document.getElementById('view-grammar');
+                    if (gView) {
+                        gView.classList.add('active');
+                        try { window.scrollTo(0, 0); } catch(e) {}
                     }
-                });
-            });
-
-            // Wire Quiz reveal buttons
-            body.querySelectorAll('.grammar-quiz-toggle-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const ans = btn.nextElementSibling;
-                    if (ans) {
-                        ans.classList.toggle('hidden');
-                        btn.textContent = ans.classList.contains('hidden') ? 'Показать правильный ответ и разбор' : 'Скрыть ответ';
-                    }
-                });
-            });
-
-            body.scrollTop = 0;
-        }
-
-        function closeTopicModal() {
-            const modal = document.getElementById('grammar-detail-modal');
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('open');
-            }
-        }
-
-        function setupModalHandlers() {
-            const closeBtn = document.getElementById('grammar-modal-close-btn');
-            if (closeBtn) closeBtn.onclick = closeTopicModal;
-
-            const modal = document.getElementById('grammar-detail-modal');
-            if (modal) {
-                modal.onclick = function(e) {
-                    if (e.target === modal) closeTopicModal();
                 };
             }
 
-            const prevBtn = document.getElementById('g-prev-btn');
-            if (prevBtn) {
-                prevBtn.onclick = function() {
+            // Wire prev/next buttons
+            const gdPrev = document.getElementById('gd-prev-btn');
+            if (gdPrev) {
+                gdPrev.onclick = function() {
                     if (currentTopicIdx > 0) {
                         currentTopicIdx--;
-                        renderModalTopic(allTopicsList[currentTopicIdx]);
+                        renderGrammarDetailPage(allTopicsList[currentTopicIdx]);
+                        try { window.scrollTo(0, 0); } catch(e) {}
                     }
                 };
             }
-
-            const nextBtn = document.getElementById('g-next-btn');
-            if (nextBtn) {
-                nextBtn.onclick = function() {
+            const gdNext = document.getElementById('gd-next-btn');
+            if (gdNext) {
+                gdNext.onclick = function() {
                     if (currentTopicIdx < allTopicsList.length - 1) {
                         currentTopicIdx++;
-                        renderModalTopic(allTopicsList[currentTopicIdx]);
+                        renderGrammarDetailPage(allTopicsList[currentTopicIdx]);
+                        try { window.scrollTo(0, 0); } catch(e) {}
                     }
                 };
             }
