@@ -14,8 +14,8 @@
     <link rel="apple-touch-icon" href="icons/icon_192.png">
     <link rel="icon" type="image/png" sizes="192x192" href="icons/icon_192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="icons/icon_512.png">
-    <meta name="apple-mobile-web-app-title" content="made in серёга">
-    <meta name="application-name" content="made in серёга">
+    <meta name="apple-mobile-web-app-title" content="БаоБао">
+    <meta name="application-name" content="БаоБао">
     <meta name="theme-color" content="#D32F2F">
     <meta name="msapplication-TileColor" content="#D32F2F">
     <meta name="format-detection" content="telephone=no">
@@ -24,7 +24,7 @@
     <meta name="fullscreen" content="yes">
     <meta name="x5-fullscreen" content="true">
     <meta name="browsermode" content="application">
-    <title>made in серёга | Сервисы для китаистов</title>
+    <title>БаоБао | Твой помощник в изучении китайского языка</title>
     
     <!-- Шрифты (не критично офлайн) -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" crossorigin="anonymous">
@@ -11772,6 +11772,66 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         .grammar-nav-btn:hover:not(:disabled) { border-color: #7B1FA2; color: #7B1FA2; background: #fdf4ff; }
         .grammar-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
+
+        /* ==================== БАОБАО БРЕНДИНГ & ИНСТРУКЦИЯ ==================== */
+        .home-logo-wrap { display: flex; align-items: center; justify-content: center; gap: 18px; margin-bottom: 8px; flex-wrap: wrap; }
+        .home-baobao-logo-img { width: 78px; height: 78px; border-radius: 22px; box-shadow: 0 8px 24px rgba(74, 222, 128, 0.35); border: 2.5px solid #fff; transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .home-baobao-logo-img:hover { transform: scale(1.08) rotate(4deg); }
+        .home-title-group { text-align: left; }
+        .home-title-group h1 { font-size: 3rem; font-weight: 900; color: #1e1b4b; line-height: 1.1; margin: 0; display: flex; align-items: center; gap: 10px; }
+        .home-badge-pill { background: linear-gradient(135deg, #10b981, #059669); color: #fff; font-size: 0.95rem; padding: 3px 12px; border-radius: 20px; font-weight: 800; letter-spacing: 1px; vertical-align: middle; }
+        .home-subtitle { font-size: 1.05rem; color: #64748b; font-weight: 700; margin: 4px 0 0; }
+        @media (max-width: 600px) {
+            .home-logo-wrap { flex-direction: column; text-align: center; gap: 10px; }
+            .home-title-group { text-align: center; }
+            .home-title-group h1 { font-size: 2.3rem; justify-content: center; }
+            .home-baobao-logo-img { width: 68px; height: 68px; }
+        }
+
+        /* Авторская карточка */
+        .author-card { padding: 22px; background: linear-gradient(145deg, #ffffff, #fffdfa); border: 1.5px solid rgba(255, 213, 79, 0.45); }
+        .author-header-row { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; border-bottom: 1px solid #f1f5f9; padding-bottom: 14px; }
+        .author-avatar-wrap { width: 52px; height: 52px; border-radius: 16px; background: linear-gradient(135deg, #7c3aed, #4f46e5); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3); flex-shrink: 0; }
+        .author-title-meta h3 { font-size: 1.18rem; font-weight: 800; color: #1e293b; margin: 0 0 4px; line-height: 1.3; }
+        .author-role-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 700; color: #7c3aed; background: #f5f3ff; padding: 2px 9px; border-radius: 12px; }
+        .author-edu-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+        .edu-item { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: #334155; line-height: 1.4; }
+        .edu-icon { color: #d97706; font-size: 1rem; margin-top: 2px; flex-shrink: 0; }
+        .edu-text strong { color: #0f172a; font-weight: 700; }
+        .edu-text span { display: block; font-size: 0.82rem; color: #64748b; }
+        .author-desc-text { font-size: 0.94rem; color: #475569; line-height: 1.55; margin-bottom: 16px; }
+        .author-actions-row { display: flex; gap: 10px; flex-wrap: wrap; }
+        .author-btn { padding: 9px 16px; border-radius: 12px; font-size: 0.88rem; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none; transition: all 0.2s; border: none; outline: none; }
+        .author-btn.tg-btn { background: #0284c7; color: #fff; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25); }
+        .author-btn.tg-btn:hover { background: #0369a1; transform: translateY(-1px); }
+        .author-btn.guide-btn { background: linear-gradient(135deg, #10b981, #059669); color: #fff; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25); }
+        .author-btn.guide-btn:hover { background: #047857; transform: translateY(-1px); }
+
+        /* Модальное окно: Инструкция от БаоБао */
+        #baobao-guide-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(6px); z-index: 100000; display: flex; align-items: center; justify-content: center; padding: 16px; }
+        #baobao-guide-modal.hidden { display: none !important; }
+        .baobao-guide-card { background: #ffffff; border-radius: 28px; width: 100%; max-width: 460px; overflow: hidden; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35); border: 2px solid #e2e8f0; animation: zoomInGuide 0.25s cubic-bezier(0.16, 1, 0.3, 1); text-align: center; }
+        @keyframes zoomInGuide { from { opacity: 0; transform: scale(0.92) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .baobao-guide-header { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); padding: 24px 20px 16px; border-bottom: 1px solid #a7f3d0; position: relative; }
+        .baobao-guide-close-btn { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 50%; background: #ffffff; border: 1px solid #cbd5e1; color: #64748b; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; outline: none; }
+        .baobao-guide-close-btn:hover { background: #f1f5f9; color: #0f172a; }
+        .baobao-guide-avatar-img { width: 96px; height: 96px; border-radius: 28px; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35); border: 3px solid #fff; margin-bottom: 12px; }
+        .baobao-guide-header h2 { font-size: 1.35rem; font-weight: 800; color: #065f46; margin: 0 0 4px; }
+        .baobao-guide-header p { font-size: 0.9rem; color: #047857; margin: 0; font-weight: 600; }
+        .baobao-guide-body { padding: 20px 24px; min-height: 180px; display: flex; flex-direction: column; justify-content: center; }
+        .baobao-step-content { display: none; flex-direction: column; gap: 10px; animation: fadeInStep 0.2s ease-out; }
+        .baobao-step-content.active { display: flex; }
+        @keyframes fadeInStep { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .baobao-step-icon { width: 50px; height: 50px; border-radius: 16px; margin: 0 auto 6px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #fff; }
+        .baobao-step-title { font-size: 1.15rem; font-weight: 800; color: #1e293b; margin: 0; }
+        .baobao-step-desc { font-size: 0.92rem; color: #475569; line-height: 1.5; margin: 0; }
+        .baobao-guide-footer { padding: 14px 24px 22px; display: flex; flex-direction: column; gap: 14px; }
+        .baobao-dots-row { display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .baobao-dot { width: 8px; height: 8px; border-radius: 50%; background: #cbd5e1; transition: all 0.2s; }
+        .baobao-dot.active { width: 22px; border-radius: 10px; background: #10b981; }
+        .baobao-guide-next-btn { width: 100%; padding: 13px; border-radius: 16px; background: linear-gradient(135deg, #10b981, #059669); color: #fff; font-size: 1rem; font-weight: 800; border: none; cursor: pointer; box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35); transition: all 0.15s; outline: none; }
+        .baobao-guide-next-btn:active { transform: scale(0.98); }
+
 </style>
 </head>
 <body>
@@ -11789,7 +11849,13 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     <div id="view-home" class="view-section active">
         <div class="home-container">
             <header class="home-header">
-                <h1>made in серёга</h1>
+                <div class="home-logo-wrap">
+                    <img src="images/baobao_avatar.png" alt="БаоБао" class="home-baobao-logo-img">
+                    <div class="home-title-group">
+                        <h1>БаоБао <span class="home-badge-pill">包宝</span></h1>
+                        <p class="home-subtitle">Твой помощник в изучении китайского языка</p>
+                    </div>
+                </div>
                 <div class="top-menu-container">
                     <button id="top-dots-menu-btn" class="dots-menu-btn" aria-label="Меню приложения" title="Меню">
                         <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
@@ -11800,8 +11866,12 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                     </button>
                     <div id="top-dots-dropdown" class="dots-dropdown hidden">
                         <div class="dots-dropdown-header">
-                            <div class="dots-app-title">Бао • Твой помощник</div>
-                            <div class="dots-app-ver">Версия 1.1.0 • HSK 3.0 & БКРС</div>
+                            <div class="dots-app-title">БаоБао • Твой помощник</div>
+                            <div class="dots-app-ver">Версия 1.2.0 • HSK 3.0 & БКРС</div>
+                        </div>
+                        <div class="dots-dropdown-item" id="dots-guide-btn">
+                            <i class="fa-solid fa-wand-magic-sparkles" style="color: #10b981;"></i>
+                            <span>Инструкция от БаоБао</span>
                         </div>
                         <a href="https://t.me/madeinseryoga" target="_blank" class="dots-dropdown-item">
                             <i class="fa-brands fa-telegram"></i>
@@ -11813,14 +11883,54 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                         </div>
                         <div class="dots-dropdown-item" id="dots-about-btn">
                             <i class="fa-solid fa-circle-info"></i>
-                            <span>О приложении</span>
+                            <span>Об авторе</span>
                         </div>
                     </div>
                 </div>
             </header>
 
-            <section class="profile-card">
-                <p>Привет! Я Сергей 👋<br><br>Здесь я собираю полезные инструменты и материалы для тех, кто изучает и преподает китайский язык. Погружайся в эстетику и подписывайся на соцсети!</p>
+            <section class="profile-card author-card">
+                <div class="author-header-row">
+                    <div class="author-avatar-wrap">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <div class="author-title-meta">
+                        <h3 class="author-name">Верещагин Сергей Александрович</h3>
+                        <div class="author-role-chip"><i class="fa-solid fa-graduation-cap"></i> Автор платформы • Преподаватель</div>
+                    </div>
+                </div>
+                
+                <div class="author-bio-content">
+                    <div class="author-edu-list">
+                        <div class="edu-item">
+                            <div class="edu-icon"><i class="fa-solid fa-building-columns"></i></div>
+                            <div class="edu-text">
+                                <strong>ЛГПУ (Луганский государственный педагогический университет)</strong>
+                                <span>Бакалавриат и Магистратура с отличием (Методика преподавания китайского языка)</span>
+                            </div>
+                        </div>
+                        <div class="edu-item">
+                            <div class="edu-icon"><i class="fa-solid fa-microscope"></i></div>
+                            <div class="edu-text">
+                                <strong>Аспирантура ЛГПУ</strong>
+                                <span>Научная специальность 5.8.1 «Общая педагогика, история педагогики и образования»</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="author-desc-text">
+                        Привет! Я Сергей 👋 Здесь я объединил академическую методику с современными технологиями, чтобы сделать изучение китайского языка эстетичным, системным и доступным: от первых шагов в HSK 1 и ключей Канси до профессионального словаря БКРС и грамматики 3.0.
+                    </p>
+                    
+                    <div class="author-actions-row">
+                        <a href="https://t.me/madeinseryoga" target="_blank" class="author-btn tg-btn">
+                            <i class="fa-brands fa-telegram"></i> Telegram канал
+                        </a>
+                        <button type="button" class="author-btn guide-btn" id="open-baobao-tour-btn">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Инструкция от БаоБао
+                        </button>
+                    </div>
+                </div>
             </section>
 
             <section>
@@ -23979,7 +24089,7 @@ const BkrsDB = window.BkrsDB = {
             _isHandlingPopState = true;
             try {
                 // 1. Close any open modal dialogs first
-                const openModals = Array.from(document.querySelectorAll('.modal.open, .modal.active, #grammar-detail-modal.open, #radical-card-modal.open, #radical-draw-modal.open, #hanzi-draw-modal.open, #home-support-modal.open, #home-download-modal.open, #ts-reader-settings-modal.open'));
+                const openModals = Array.from(document.querySelectorAll('.modal.open, .modal.active, #grammar-detail-modal.open, #baobao-guide-modal.open, #radical-card-modal.open, #radical-draw-modal.open, #hanzi-draw-modal.open, #home-support-modal.open, #home-download-modal.open, #ts-reader-settings-modal.open'));
                 const visibleModals = openModals.filter(m => {
                     const style = window.getComputedStyle(m);
                     return style.display !== 'none' && style.visibility !== 'hidden';
@@ -24520,5 +24630,127 @@ const BkrsDB = window.BkrsDB = {
         }
     })();
     </script>
+
+    <!-- ==================== ИНТЕРАКТИВНОЕ ОКНО-ИНСТРУКЦИЯ ОТ БАОБАО ==================== -->
+    <div id="baobao-guide-modal" class="modal hidden">
+        <div class="baobao-guide-card">
+            <div class="baobao-guide-header">
+                <button type="button" class="baobao-guide-close-btn" id="baobao-guide-close-btn" aria-label="Закрыть">&times;</button>
+                <img src="images/baobao_avatar.png" alt="БаоБао" class="baobao-guide-avatar-img">
+                <h2>Привет! Я БаоБао 👋</h2>
+                <p>Твой умный помощник в китайском языке</p>
+            </div>
+            
+            <div class="baobao-guide-body">
+                <!-- Слайд 1: Приветствие -->
+                <div class="baobao-step-content active" data-step="0">
+                    <div class="baobao-step-icon" style="background: linear-gradient(135deg, #10b981, #059669);"><i class="fa-solid fa-hand-peace"></i></div>
+                    <h3 class="baobao-step-title">Добро пожаловать в БаоБао!</h3>
+                    <p class="baobao-step-desc">Здесь собрано всё необходимое для глубокого и приятного изучения китайского языка. Давай я быстро покажу тебе главные разделы!</p>
+                </div>
+                
+                <!-- Слайд 2: Словарь БКРС -->
+                <div class="baobao-step-content" data-step="1">
+                    <div class="baobao-step-icon" style="background: linear-gradient(135deg, #8E24AA, #6A1B9A);"><i class="fa-solid fa-book-bookmark"></i></div>
+                    <h3 class="baobao-step-title">Большой словарь БКРС</h3>
+                    <p class="baobao-step-desc">3.5 миллиона слов, морфология, анимация написания черт и 80 000 аутентичных предложений с озвучкой носителями языка.</p>
+                </div>
+                
+                <!-- Слайд 3: Грамматика 3.0 -->
+                <div class="baobao-step-content" data-step="2">
+                    <div class="baobao-step-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);"><i class="fa-solid fa-spell-check"></i></div>
+                    <h3 class="baobao-step-title">Грамматика 3.0</h3>
+                    <p class="baobao-step-desc">42 темы первого уровня HSK: наглядные формулы порядка слов, разборы частых ошибок от преподавателей и экспресс-тесты.</p>
+                </div>
+                
+                <!-- Слайд 4: Тренажеры & Офлайн -->
+                <div class="baobao-step-content" data-step="3">
+                    <div class="baobao-step-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h3 class="baobao-step-title">Тренажёры и Прописи</h3>
+                    <p class="baobao-step-desc">Генерируй кастомные PDF-прописи, учи 214 ключей Канси и тренируйся в карточках. Всё работает автономно прямо на телефоне!</p>
+                </div>
+            </div>
+            
+            <div class="baobao-guide-footer">
+                <div class="baobao-dots-row">
+                    <span class="baobao-dot active"></span>
+                    <span class="baobao-dot"></span>
+                    <span class="baobao-dot"></span>
+                    <span class="baobao-dot"></span>
+                </div>
+                <button type="button" class="baobao-guide-next-btn" id="baobao-guide-next-btn">Далее &rarr;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== ИНСТРУКЦИЯ ОТ БАОБАО (ЛОГИКА) ==================== -->
+    <script>
+    (function initBaoBaoTour() {
+        const modal = document.getElementById('baobao-guide-modal');
+        const closeBtn = document.getElementById('baobao-guide-close-btn');
+        const nextBtn = document.getElementById('baobao-guide-next-btn');
+        const openTourBtn = document.getElementById('open-baobao-tour-btn');
+        const dotsTourBtn = document.getElementById('dots-guide-btn');
+        if (!modal) return;
+
+        let currentStep = 0;
+        const totalSteps = 4;
+
+        function showStep(idx) {
+            currentStep = idx;
+            const steps = modal.querySelectorAll('.baobao-step-content');
+            const dots = modal.querySelectorAll('.baobao-dot');
+            steps.forEach((s, i) => s.classList.toggle('active', i === currentStep));
+            dots.forEach((d, i) => d.classList.toggle('active', i === currentStep));
+            if (nextBtn) {
+                nextBtn.innerHTML = currentStep === totalSteps - 1 ? 'Поехали! Начать обучение ✨' : 'Далее &rarr;';
+            }
+        }
+
+        window.openBaoBaoGuide = function() {
+            showStep(0);
+            modal.classList.remove('hidden');
+            modal.classList.add('open');
+        };
+
+        window.closeBaoBaoGuide = function() {
+            modal.classList.add('hidden');
+            modal.classList.remove('open');
+            try { localStorage.setItem('baobao_welcomed_v12', 'true'); } catch(e) {}
+        };
+
+        if (closeBtn) closeBtn.onclick = window.closeBaoBaoGuide;
+        if (openTourBtn) openTourBtn.onclick = window.openBaoBaoGuide;
+        if (dotsTourBtn) {
+            dotsTourBtn.onclick = function() {
+                const dropdown = document.getElementById('top-dots-dropdown');
+                if (dropdown) dropdown.classList.add('hidden');
+                window.openBaoBaoGuide();
+            };
+        }
+
+        if (nextBtn) {
+            nextBtn.onclick = function() {
+                if (currentStep < totalSteps - 1) {
+                    showStep(currentStep + 1);
+                } else {
+                    window.closeBaoBaoGuide();
+                }
+            };
+        }
+
+        modal.onclick = function(e) {
+            if (e.target === modal) window.closeBaoBaoGuide();
+        };
+
+        // Автозапуск при первом запуске приложения
+        try {
+            if (!localStorage.getItem('baobao_welcomed_v12')) {
+                setTimeout(window.openBaoBaoGuide, 600);
+            }
+        } catch(e) {}
+    })();
+    </script>
+
 </body>
 </html>
