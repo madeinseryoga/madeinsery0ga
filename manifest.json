@@ -2,7 +2,7 @@
   "name": "БаоБао — твой помощник в изучении китайского языка",
   "short_name": "БаоБао",
   "description": "БаоБао — твой интерактивный помощник в изучении китайского языка: грамматика HSK 3.0, словарь БКРС, тренажёры и прописи",
-  "start_url": "./app.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",

@@ -25553,12 +25553,7 @@ const BkrsDB = window.BkrsDB = {
             if (e.target === modal) window.closeBaoBaoGuide();
         };
 
-        // Автозапуск при первом запуске приложения
-        try {
-            if (!localStorage.getItem('baobao_welcomed_v12')) {
-                setTimeout(window.openBaoBaoGuide, 600);
-            }
-        } catch(e) {}
+        // Запуск инструкции доступен по кнопке в меню и в блоке автора
     })();
     </script>
 
