@@ -12167,15 +12167,15 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             margin-bottom: 6px;
         }
         .home-brand-avatar {
-            width: 56px;
-            height: 56px;
+            width: 76px;
+            height: 76px;
             border-radius: 0;
             border: none;
             box-shadow: none;
-            filter: drop-shadow(0 6px 12px rgba(15, 23, 42, 0.12));
+            filter: drop-shadow(0 8px 16px rgba(15, 23, 42, 0.15));
             flex-shrink: 0;
             object-fit: contain;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .home-brand-avatar:hover { transform: scale(1.1) rotate(4deg); }
         .home-brand-meta { display: flex; flex-direction: column; }
@@ -12206,7 +12206,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         }
         @media (max-width: 600px) {
             .home-brand-row { gap: 12px; }
-            .home-brand-avatar { width: 46px; height: 46px; border-radius: 0; }
+            .home-brand-avatar { width: 62px; height: 62px; border-radius: 0; }
             .home-brand-title { font-size: 1.85rem; }
             .home-brand-sub { font-size: 0.85rem; }
         }
@@ -12857,6 +12857,220 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             margin-top: 10px;
         }
 
+
+        /* ==================== 3D ПАСТЕЛЬНЫЕ ПЛАШКИ МАСКОТА БАОБАО ==================== */
+        .service-icon-plate {
+            position: relative;
+            width: 76px;
+            height: 76px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+            margin-right: 8px;
+        }
+        .service-icon-plate-bg {
+            position: absolute;
+            inset: 0;
+            border-radius: 22px;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+        }
+        .plate-purple .service-icon-plate-bg {
+            background: linear-gradient(140deg, #f5f3ff 0%, #ede9fe 100%);
+            border: 1.5px solid #ddd6fe;
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.12), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+        }
+        .plate-red .service-icon-plate-bg {
+            background: linear-gradient(140deg, #fff1f2 0%, #ffe4e6 100%);
+            border: 1.5px solid #fecdd3;
+            box-shadow: 0 8px 20px rgba(225, 29, 72, 0.12), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+        }
+        .plate-gold .service-icon-plate-bg {
+            background: linear-gradient(140deg, #fffbeb 0%, #fef3c7 100%);
+            border: 1.5px solid #fde68a;
+            box-shadow: 0 8px 20px rgba(217, 119, 6, 0.14), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+        }
+        .plate-blue .service-icon-plate-bg {
+            background: linear-gradient(140deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 1.5px solid #bae6fd;
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.12), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+        }
+        .plate-teal .service-icon-plate-bg {
+            background: linear-gradient(140deg, #f0fdfa 0%, #ccfbf1 100%);
+            border: 1.5px solid #99f6e4;
+            box-shadow: 0 8px 20px rgba(13, 148, 136, 0.12), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+        }
+        .plate-pink .service-icon-plate-bg {
+            background: linear-gradient(140deg, #fdf2f8 0%, #fce7f3 100%);
+            border: 1.5px solid #fbcfe8;
+            box-shadow: 0 8px 20px rgba(219, 39, 119, 0.12), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+        }
+        .plate-indigo .service-icon-plate-bg {
+            background: linear-gradient(140deg, #eef2ff 0%, #e0e7ff 100%);
+            border: 1.5px solid #c7d2fe;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.12), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+        }
+
+        .service-icon-mascot-img {
+            position: relative;
+            z-index: 2;
+            width: 86px;
+            height: 86px;
+            object-fit: contain;
+            filter: drop-shadow(0 6px 12px rgba(15, 23, 42, 0.15));
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+        }
+        .service-card.modern-card:hover .service-icon-plate-bg {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+        .service-card.modern-card:hover .service-icon-mascot-img {
+            transform: scale(1.1) translateY(-4px) rotate(2deg);
+        }
+        .service-card.modern-card:active .service-icon-plate-bg { transform: scale(0.98); }
+        .service-card.modern-card:active .service-icon-mascot-img { transform: scale(0.98); }
+
+        @media (max-width: 600px) {
+            .service-icon-plate {
+                width: 66px;
+                height: 66px;
+                margin-right: 4px;
+            }
+            .service-icon-mascot-img {
+                width: 74px;
+                height: 74px;
+            }
+        }
+
+        /* ==================== ИНТЕРАКТИВНЫЙ ЖИВОЙ БАОБАО ==================== */
+        .baobao-peeker {
+            position: fixed;
+            bottom: 20px;
+            right: 22px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            pointer-events: none;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+        }
+        .baobao-peeker-mascot {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            cursor: pointer;
+            pointer-events: auto;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: baobaoFloat 4s ease-in-out infinite;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .baobao-peeker-mascot:hover {
+            transform: scale(1.15) translateY(-5px) rotate(4deg);
+        }
+        .baobao-peeker-mascot:active {
+            transform: scale(0.95);
+        }
+        .baobao-peeker-mascot.bounced {
+            animation: baobaoBounceClick 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes baobaoBounceClick {
+            0% { transform: scale(0.9); }
+            50% { transform: scale(1.22) translateY(-10px); }
+            100% { transform: scale(1); }
+        }
+        .baobao-peeker-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        .baobao-peeker-sparkle {
+            position: absolute;
+            top: -4px;
+            right: -2px;
+            font-size: 1.05rem;
+            animation: sparkleTwinkle 2s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes baobaoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-7px); }
+        }
+        @keyframes sparkleTwinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2) rotate(15deg); }
+        }
+
+        /* Облачко речи (Speech Bubble) */
+        .baobao-speech-bubble {
+            background: #ffffff;
+            color: #1e1b4b;
+            border-radius: 18px;
+            padding: 10px 16px 10px 14px;
+            margin-bottom: 10px;
+            max-width: 270px;
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16), 0 0 0 1.5px rgba(245, 158, 11, 0.3);
+            font-size: 0.88rem;
+            font-weight: 700;
+            line-height: 1.45;
+            position: relative;
+            pointer-events: auto;
+            animation: bubblePop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .baobao-speech-bubble.hidden {
+            display: none !important;
+        }
+        .baobao-speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 28px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #ffffff;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.06));
+        }
+        .baobao-bubble-close {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.15rem;
+            cursor: pointer;
+            padding: 0 0 0 4px;
+            line-height: 1;
+            font-family: inherit;
+            flex-shrink: 0;
+        }
+        .baobao-bubble-close:hover { color: #0f172a; }
+        @keyframes bubblePop {
+            0% { transform: scale(0.6) translateY(10px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        @media (max-width: 600px) {
+            .baobao-peeker {
+                bottom: 14px;
+                right: 14px;
+            }
+            .baobao-peeker-mascot {
+                width: 58px;
+                height: 58px;
+            }
+            .baobao-speech-bubble {
+                max-width: 220px;
+                font-size: 0.82rem;
+                padding: 8px 12px;
+            }
+        }
+
 </style>
     <script src="data/grammar_hsk1/hsk1_grammar_full.js"></script>
 </head>
@@ -12926,7 +13140,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                 
                 
                 <div class="service-card modern-card" id="open-grammar-btn" data-view="grammar" role="button" tabindex="0" style="border-bottom-color: #7B1FA2;">
-                    <div class="service-icon" style="background: linear-gradient(135deg, #AB47BC, #7B1FA2); box-shadow: 0 10px 20px rgba(123, 31, 162, 0.35);"><i class="fa-solid fa-spell-check"></i></div>
+                    <div class="service-icon-plate plate-purple"><div class="service-icon-plate-bg"></div><img src="images/baobao_icon_grammar.png" alt="Грамматика 3.0" class="service-icon-mascot-img"></div>
                     <div class="service-info">
                         <div class="service-header-row">
                             <h3>Грамматика 3.0</h3>
@@ -12938,7 +13152,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                 </div>
 
                 <div class="service-card modern-card" id="open-generator-btn" data-view="generator" role="button" tabindex="0" style="border-bottom-color: #D32F2F;">
-                    <div class="service-icon" style="background: linear-gradient(135deg, #FF5252, #D32F2F); box-shadow: 0 10px 20px rgba(211, 47, 47, 0.35);"><i class="fa-solid fa-pen-nib"></i></div>
+                    <div class="service-icon-plate plate-red"><div class="service-icon-plate-bg"></div><img src="images/baobao_icon_calligraphy.png" alt="Генератор прописей" class="service-icon-mascot-img"></div>
                     <div class="service-info">
                         <div class="service-header-row">
                             <h3>Генератор прописей</h3>
@@ -12950,7 +13164,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                 </div>
 
                 <div class="service-card modern-card gold-border" id="open-hsk-btn" data-view="hsk" role="button" tabindex="0">
-                    <div class="service-icon" style="background: linear-gradient(135deg, #FFD54F, #FFA000); box-shadow: 0 10px 20px rgba(255, 160, 0, 0.35);"><i class="fa-solid fa-book-open"></i></div>
+                    <div class="service-icon-plate plate-gold"><div class="service-icon-plate-bg"></div><img src="images/baobao_icon_vocab.png" alt="Вся лексика HSK 3.0" class="service-icon-mascot-img"></div>
                     <div class="service-info">
                         <div class="service-header-row">
                             <h3>Вся лексика HSK 3.0</h3>
@@ -12962,7 +13176,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                 </div>
 
                 <div class="service-card modern-card" id="open-lessons-btn" data-view="lessons" role="button" tabindex="0" style="border-bottom-color: #2196F3;">
-                    <div class="service-icon" style="background: linear-gradient(135deg, #42A5F5, #1976D2); box-shadow: 0 10px 20px rgba(25, 118, 210, 0.35);"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <div class="service-icon-plate plate-blue"><div class="service-icon-plate-bg"></div><img src="images/baobao_icon_lessons.png" alt="Уроки HSK 3.0" class="service-icon-mascot-img"></div>
                     <div class="service-info">
                         <div class="service-header-row">
                             <h3>Уроки HSK 3.0 (1–3)</h3>
@@ -12974,7 +13188,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                 </div>
 
                 <div class="service-card modern-card" id="open-textstudy-btn" data-view="textstudy" role="button" tabindex="0" style="border-bottom-color: #00897B;">
-                    <div class="service-icon" style="background: linear-gradient(135deg, #26A69A, #00796B); box-shadow: 0 10px 20px rgba(0, 121, 107, 0.35);"><i class="fa-solid fa-file-lines"></i></div>
+                    <div class="service-icon-plate plate-teal"><div class="service-icon-plate-bg"></div><img src="images/baobao_icon_textstudy.png" alt="Изучение текстов" class="service-icon-mascot-img"></div>
                     <div class="service-info">
                         <div class="service-header-row">
                             <h3>Изучение текстов</h3>
@@ -12986,7 +13200,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                 </div>
 
                 <div class="service-card modern-card" id="open-keys-btn" data-view="keys" role="button" tabindex="0" style="border-bottom-color: #8E24AA;">
-                    <div class="service-icon" style="background: linear-gradient(135deg, #AB47BC, #7B1FA2); box-shadow: 0 10px 20px rgba(123, 31, 162, 0.35);"><i class="fa-solid fa-shapes"></i></div>
+                    <div class="service-icon-plate plate-pink"><div class="service-icon-plate-bg"></div><img src="images/baobao_icon_radicals.png" alt="214 Ключей Канси" class="service-icon-mascot-img"></div>
                     <div class="service-info">
                         <div class="service-header-row">
                             <h3>214 Ключей Канси</h3>
@@ -12998,7 +13212,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                 </div>
 
                 <div class="service-card modern-card" id="open-bkrs-btn" data-view="bkrs" role="button" tabindex="0" style="border-bottom-color: #8E24AA;">
-                    <div class="service-icon" style="background: linear-gradient(135deg, #AB47BC, #7B1FA2); box-shadow: 0 10px 20px rgba(123, 31, 162, 0.35);"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <div class="service-icon-plate plate-indigo"><div class="service-icon-plate-bg"></div><img src="images/baobao_icon_bkrs.png" alt="Большой словарь БКРС" class="service-icon-mascot-img"></div>
                     <div class="service-info">
                         <div class="service-header-row">
                             <h3>Большой словарь БКРС</h3>
@@ -26007,6 +26221,75 @@ const BkrsDB = window.BkrsDB = {
                 if (e.target === modal) window.closeAboutAuthor();
             };
         }
+    })();
+    </script>
+
+
+    <!-- ==================== ИНТЕРАКТИВНЫЙ ПОДГЛЯДЫВАЮЩИЙ БАОБАО ==================== -->
+    <div id="baobao-peeker-widget" class="baobao-peeker" aria-live="polite">
+        <div id="baobao-speech-bubble" class="baobao-speech-bubble hidden">
+            <span id="baobao-speech-text">Ой, не мешаю, учись-учись! 🥟✨</span>
+            <button type="button" class="baobao-bubble-close" id="baobao-bubble-close" aria-label="Закрыть">&times;</button>
+        </div>
+        <div class="baobao-peeker-mascot" id="baobao-peeker-avatar" title="Нажми на БаоБао!">
+            <img src="images/baobao_header_mascot.png" alt="БаоБао подглядывает" class="baobao-peeker-img">
+            <div class="baobao-peeker-sparkle">✨</div>
+        </div>
+    </div>
+
+    <script>
+    (function initPeekingBaoBao() {
+        const peeker = document.getElementById('baobao-peeker-avatar');
+        const bubble = document.getElementById('baobao-speech-bubble');
+        const bubbleText = document.getElementById('baobao-speech-text');
+        const bubbleClose = document.getElementById('baobao-bubble-close');
+        if (!peeker || !bubble || !bubbleText) return;
+
+        const phrases = [
+            "Ой, не мешаю, не мешаю! Учись-учись! 🥟✨",
+            "Ты сегодня супер! Повтори ещё пару иероглифов 🐉",
+            "Спину держишь ровно? Чай налит? Тогда вперед! 🍵",
+            "Железное правило: Кто ➔ Что делает ➔ Над чем! 🚂",
+            "БаоБао верит в тебя! 加油 (Jiāyóu)! 💖",
+            "Сложный иероглиф? Разбей его на ключи — станет просто! 🧩",
+            "Каждый день по 15 минут — и HSK 3 в кармане! 🚀",
+            "Я тут тихонько посижу и поболею за тебя 🥟🥰"
+        ];
+
+        let phraseIdx = 0;
+        let hideTimer = null;
+
+        function showBubble(text) {
+            bubbleText.textContent = text;
+            bubble.classList.remove('hidden');
+            if (hideTimer) clearTimeout(hideTimer);
+            hideTimer = setTimeout(() => {
+                bubble.classList.add('hidden');
+            }, 5500);
+        }
+
+        peeker.addEventListener('click', function() {
+            const msg = phrases[phraseIdx % phrases.length];
+            phraseIdx++;
+            showBubble(msg);
+            peeker.classList.add('bounced');
+            setTimeout(() => peeker.classList.remove('bounced'), 400);
+        });
+
+        if (bubbleClose) {
+            bubbleClose.addEventListener('click', function(e) {
+                e.stopPropagation();
+                bubble.classList.add('hidden');
+                if (hideTimer) clearTimeout(hideTimer);
+            });
+        }
+
+        // Friendly motivation occasionally
+        setTimeout(() => {
+            if (bubble.classList.contains('hidden')) {
+                showBubble("Привет! Я рядом, если что — подскажу 🥟👋");
+            }
+        }, 12000);
     })();
     </script>
 
