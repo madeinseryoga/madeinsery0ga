@@ -958,6 +958,55 @@
             background: linear-gradient(135deg, #10b981, #059669);
             box-shadow: 0 3px 10px rgba(16, 185, 129, 0.35);
         }
+        .action-btn.btn-bkrs {
+            width: auto !important;
+            height: 36px !important;
+            padding: 0 10px !important;
+            border-radius: 12px !important;
+            background: linear-gradient(135deg, #6366f1, #4f46e5) !important;
+            color: #ffffff !important;
+            box-shadow: 0 3px 10px rgba(99, 102, 241, 0.35) !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 5px !important;
+            cursor: pointer !important;
+            font-weight: 800 !important;
+            border: none !important;
+            flex-shrink: 0 !important;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease !important;
+        }
+        .action-btn.btn-bkrs:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 5px 14px rgba(99, 102, 241, 0.45) !important;
+            filter: brightness(1.08) !important;
+        }
+        .action-btn.btn-bkrs:active {
+            transform: translateY(2px) !important;
+            box-shadow: 0 1px 4px rgba(99, 102, 241, 0.25) !important;
+        }
+        .action-btn.btn-bkrs i {
+            font-size: 0.85rem !important;
+            color: #ffffff !important;
+        }
+        .action-btn.btn-bkrs .ws-bkrs-pill-text {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif !important;
+            font-weight: 900 !important;
+            font-size: 0.76rem !important;
+            letter-spacing: 0.4px !important;
+            line-height: 1 !important;
+            color: #ffffff !important;
+        }
+        @media (max-width: 480px) {
+            .action-btn.btn-bkrs {
+                height: 34px !important;
+                padding: 0 8px !important;
+                gap: 4px !important;
+            }
+            .action-btn.btn-bkrs .ws-bkrs-pill-text {
+                font-size: 0.72rem !important;
+            }
+        }
         .btn-speak:hover {
             box-shadow: 0 5px 16px rgba(16, 185, 129, 0.5);
         }
@@ -15223,7 +15272,8 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                     <div class="word-sheet-pinyin" id="ws-pinyin">zì</div>
                 </div>
                 <div class="word-sheet-actions">
-                    <button type="button" class="action-btn btn-speak" id="ws-speak" title="Произношение"><i class="fa-solid fa-volume-high"></i></button>
+                    <button type="button" class="action-btn btn-speak" id="ws-speak" title="Озвучить произношение"><i class="fa-solid fa-volume-high"></i></button>
+                    <button type="button" class="action-btn btn-bkrs" id="ws-bkrs" title="Статья в словаре БКРС"><i class="fa-solid fa-book-bookmark"></i> <span class="ws-bkrs-pill-text">БКРС</span></button>
                     <button type="button" class="action-btn btn-draw" id="ws-draw" title="Написание"><i class="fa-solid fa-pen-nib"></i></button>
                     <button type="button" class="action-btn btn-copy" id="ws-copy" title="Копировать иероглиф"><i class="fa-regular fa-copy"></i></button>
                     
@@ -20857,63 +20907,6 @@ function renderCourseLessons(course) {
                     out += '</div>';
                 }
                 
-                // Examples from hskData if available
-                let examples = [];
-                if (typeof hskData !== 'undefined' && Array.isArray(hskData)) {
-                    const found = hskData.find(r => r && r[1] === char);
-                    if (found && found[3]) {
-                        const raw = found[3];
-                        const exMatches = raw.match(/Пример:\s*([^\nПример:]+)/g);
-                        if (exMatches) {
-                            examples = exMatches.slice(0, 3).map(e => e.replace(/^Пример:\s*/, '').trim());
-                        }
-                    }
-                }
-                
-                if (examples.length > 0) {
-                    out += '<div class="ws-examples-section">';
-                    out += '<div class="ws-section-subtitle"><i class="fa-solid fa-quote-left"></i> Примеры предложений:</div>';
-                    out += '<div class="ws-examples-list">';
-                    examples.forEach(ex => {
-                        out += '<div class="ws-example-item">' + escapeHtml(ex) + '</div>';
-                    });
-                    out += '</div></div>';
-                }
-                
-                // Character Breakdown
-                const singleChars = (typeof window !== 'undefined' && (window.__preloadedSingleChars || (window.BkrsDB && window.BkrsDB.singleChars))) || null;
-                if (singleChars && char && char.length >= 2 && /^[\u4e00-\u9fff]+$/.test(char)) {
-                    let items = [];
-                    for (const ch of char) {
-                        if (singleChars[ch]) {
-                            const info = singleChars[ch];
-                            const py = info[0] || '';
-                            let def = (info[1] || '').replace(/^[I|II|III|IV|V|VI|\d)]+\s*(\([^)]+\))?\s*/, '').split('Пример:')[0].split(';')[0].replace(/<[^>]+>/g, '').trim();
-                            if (def.length > 24) def = def.substring(0, 24) + '...';
-                            items.push({ ch, py, def });
-                        }
-                    }
-                    if (items.length > 0) {
-                        out += '<div class="ws-breakdown-section">';
-                        out += '<div class="ws-section-subtitle"><i class="fa-solid fa-shapes"></i> По иероглифам:</div>';
-                        out += '<div class="ws-breakdown-grid">';
-                        items.forEach(item => {
-                            out += '<div class="ws-char-card" onclick="if(window.openDrawModal) window.openDrawModal(\'' + item.ch + '\')" title="Кликните для анимации черт">';
-                            out += '<div class="ws-char-top"><span class="ws-ch-hanzi">' + item.ch + '</span><span class="ws-ch-py">' + escapeHtml(item.py) + '</span></div>';
-                            out += '<div class="ws-ch-def">' + escapeHtml(item.def) + '</div>';
-                            out += '</div>';
-                        });
-                        out += '</div></div>';
-                    }
-                }
-                
-                // Direct BKRS Dictionary Button
-                out += '<div class="ws-footer-actions">';
-                out += '<button type="button" class="ws-btn-bkrs" onclick="if(window.openBkrsSearchModal) window.openBkrsSearchModal(\'' + escapeHtml(char) + '\')">';
-                out += '<i class="fa-solid fa-book-bookmark"></i> Статья в словаре БКРС';
-                out += '</button>';
-                out += '</div>';
-                
                 return out;
             }
 
@@ -20939,12 +20932,43 @@ function renderCourseLessons(course) {
                     });
                 }
                 const speakBtn = document.getElementById('ws-speak');
+                const bkrsBtn = document.getElementById('ws-bkrs');
                 const drawBtn = document.getElementById('ws-draw');
                 if (speakBtn) speakBtn.onclick = (e) => { e.stopPropagation(); speakChinese(char); };
+                if (bkrsBtn) {
+                    bkrsBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        closeWordSheet();
+                        if (typeof window.openBkrsSearch === 'function') {
+                            window.openBkrsSearch(char);
+                        }
+                    };
+                }
                 if (drawBtn) drawBtn.onclick = (e) => { e.stopPropagation(); closeWordSheet(); openDrawModal(char); };
                 overlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
+            // Global BKRS Search Navigation Bridge
+            window.openBkrsSearch = function(word) {
+                if (!word) return;
+                if (typeof closeWordSheet === 'function') closeWordSheet();
+                if (typeof window.__simpleGo === 'function') {
+                    window.__simpleGo('bkrs');
+                } else {
+                    const card = document.querySelector('[data-view="bkrs"]') || document.getElementById('card-bkrs');
+                    if (card) card.click();
+                }
+                setTimeout(function() {
+                    const bkrsInput = document.getElementById('bkrs-search-input');
+                    if (bkrsInput) {
+                        bkrsInput.value = word;
+                        const searchBtn = document.getElementById('bkrs-search-btn');
+                        if (searchBtn) searchBtn.click();
+                    }
+                }, 70);
+            };
+            window.openBkrsSearchModal = window.openBkrsSearch;
+
             function closeWordSheet() {
                 const overlay = document.getElementById('word-sheet-overlay');
                 if (overlay) overlay.classList.remove('active');
@@ -27843,7 +27867,17 @@ const BkrsDB = window.BkrsDB = {
             if (bodyEl) bodyEl.innerHTML = trans || '<div style="padding:14px;color:#64748b;font-weight:600;"><i class="fa-solid fa-book"></i> Слово из грамматического примера HSK 1</div>';
             
             const speakBtn = document.getElementById('ws-speak');
+            const bkrsBtn = document.getElementById('ws-bkrs');
             if (speakBtn) speakBtn.onclick = (e) => { e.stopPropagation(); if (window.speakChinese) window.speakChinese(cleanWord); };
+            if (bkrsBtn) {
+                bkrsBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    closeWordSheet();
+                    if (typeof window.openBkrsSearch === 'function') {
+                        window.openBkrsSearch(cleanWord);
+                    }
+                };
+            }
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         };
