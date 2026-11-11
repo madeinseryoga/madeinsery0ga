@@ -12190,13 +12190,23 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             margin: 0;
         }
         .home-brand-tag {
-            font-size: 0.82rem;
-            font-weight: 800;
-            background: #10b981;
+            font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", -apple-system, sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: #ffffff;
-            padding: 2px 8px;
-            border-radius: 8px;
-            letter-spacing: 0.5px;
+            padding: 3px 12px;
+            border-radius: 999px;
+            letter-spacing: 3px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.2;
+            vertical-align: middle;
+            white-space: nowrap;
+            text-indent: 3px;
+            box-shadow: 0 3px 10px rgba(16, 185, 129, 0.35);
+            margin-left: 8px;
         }
         .home-brand-sub {
             font-size: 0.95rem;
@@ -12425,36 +12435,50 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         /* ==================== НИЖНЯЯ ССЫЛКА ОБ АВТОРЕ ==================== */
         .home-author-link-bar {
             text-align: center;
-            margin: 28px 0 10px 0;
+            margin: 16px 0 6px 0;
             display: flex;
             justify-content: center;
         }
-        .home-author-text-link {
-            background: none;
+        .home-author-pill-btn {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
             border: none;
-            color: #64748b;
-            font-size: 0.95rem;
-            font-weight: 600;
+            color: #ffffff !important;
+            font-size: 1.05rem;
+            font-weight: 800;
             cursor: pointer;
-            text-decoration: underline;
-            text-underline-offset: 4px;
-            text-decoration-color: #cbd5e1;
-            transition: all 0.2s ease;
+            text-decoration: none !important;
             display: inline-flex;
             align-items: center;
-            gap: 7px;
-            padding: 8px 16px;
-            border-radius: 999px;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 34px;
+            border-radius: 20px;
             font-family: inherit;
+            box-shadow: 0 6px 0 #4c1d95, 0 12px 24px rgba(109, 40, 217, 0.3);
+            transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
-        .home-author-text-link:hover {
-            color: #7c3aed;
-            text-decoration-color: #7c3aed;
-            background: rgba(124, 58, 237, 0.06);
-            transform: translateY(-1px);
+        .home-author-pill-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #4c1d95, 0 16px 30px rgba(109, 40, 217, 0.4);
+            filter: brightness(1.05);
         }
-        .home-author-text-link:active {
-            transform: scale(0.97);
+        .home-author-pill-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #4c1d95, 0 6px 12px rgba(109, 40, 217, 0.3);
+        }
+        .home-author-pill-btn i {
+            font-size: 1.25rem;
+        }
+
+        .home-footer {
+            text-align: center;
+            padding: 10px 15px 25px !important;
+            color: #94a3b8;
+            font-weight: 700;
+            font-size: 0.88rem;
+            margin: 0;
         }
 
         /* ==================== МОДАЛЬНОЕ ОКНО: ОБ АВТОРЕ ==================== */
@@ -13071,6 +13095,95 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             }
         }
 
+
+        /* ==================== СТИЛИ ГРАММАТИКИ: ТОНАЛЬНЫЙ ПИНЬИНЬ И ЧЕТКИЕ ИЕРОГЛИФЫ ==================== */
+        .gd-ex-hanzi {
+            font-size: 1.48rem !important;
+            font-weight: 500 !important; /* Убираем жирность, чтобы штрихи не сливались */
+            color: #0f172a !important;
+            font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "SimSun", sans-serif !important;
+            letter-spacing: 2px !important;
+            line-height: 1.45 !important;
+        }
+        .gd-clickable-hanzi {
+            cursor: pointer;
+            border-radius: 6px;
+            padding: 1px 3px;
+            transition: all 0.15s ease;
+            display: inline-block;
+        }
+        .gd-clickable-hanzi:hover {
+            background: #ede9fe;
+            color: #6d28d9;
+            transform: translateY(-2px);
+        }
+        .gd-clickable-hanzi:active {
+            transform: scale(0.95);
+        }
+        .gd-ex-pinyin {
+            font-size: 1.05rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.5px !important;
+            margin: 3px 0 !important;
+            color: #334155;
+        }
+        .gd-ex-pinyin .tone-1 { color: #e53935 !important; }
+        .gd-ex-pinyin .tone-2 { color: #16a34a !important; }
+        .gd-ex-pinyin .tone-3 { color: #0284c7 !important; }
+        .gd-ex-pinyin .tone-4 { color: #9333ea !important; }
+        .gd-ex-pinyin .tone-5 { color: #64748b !important; }
+
+        /* Переключатель режимов: По модулям / По урокам */
+        .grammar-view-mode-bar {
+            display: flex;
+            justify-content: center;
+            margin: 14px 0 10px;
+        }
+        .grammar-view-mode-switch {
+            display: inline-flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 999px;
+            border: 1px solid #e2e8f0;
+            gap: 4px;
+        }
+        .grammar-mode-btn {
+            background: none;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #64748b;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        .grammar-mode-btn.active {
+            background: #ffffff;
+            color: #7c3aed;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
+        }
+        .grammar-card-rule-pill {
+            background: #f3e8ff;
+            color: #7c3aed;
+            font-size: 0.76rem;
+            font-weight: 800;
+            padding: 3px 9px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .grammar-card-order {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #94a3b8;
+        }
+
 </style>
     <script src="data/grammar_hsk1/hsk1_grammar_full.js"></script>
 </head>
@@ -13258,8 +13371,8 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         
         <!-- Нижняя навигация и Об авторе (кликабельный текст) -->
         <div class="home-author-link-bar">
-            <button type="button" class="home-author-text-link" id="home-author-text-btn">
-                <i class="fa-solid fa-circle-user"></i> Об авторе
+            <button type="button" class="home-author-pill-btn" id="home-author-text-btn">
+                <i class="fa-solid fa-user-graduate"></i> <span>Об авторе</span>
             </button>
         </div>
 
@@ -13730,6 +13843,16 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                     </button>
                 </div>
 
+                <div class="grammar-view-mode-bar">
+                    <div class="grammar-view-mode-switch">
+                        <button type="button" class="grammar-mode-btn active" id="gm-mode-modules" data-mode="modules">
+                            <i class="fa-solid fa-layer-group"></i> По темам (10 модулей)
+                        </button>
+                        <button type="button" class="grammar-mode-btn" id="gm-mode-lessons" data-mode="lessons">
+                            <i class="fa-solid fa-book-open"></i> По урокам учебника (1–15)
+                        </button>
+                    </div>
+                </div>
                 <div class="grammar-module-filter-bar" id="grammar-module-filter-bar">
                     <!-- Populated dynamically -->
                 </div>
@@ -25510,13 +25633,70 @@ const BkrsDB = window.BkrsDB = {
         let grammarData = null;
         let allTopicsList = [];
         let currentTopicIdx = 0;
-        let activeModuleFilter = 'all';
+        let activeGroupingMode = 'modules'; // 'modules' or 'lessons'
+        let activeFilter = 'all';
         let searchQuery = '';
+
+        // Global word lookup for grammar sentences
+        window.lookupGrammarWord = function(word) {
+            if (!word) return;
+            const cleanWord = String(word).trim().replace(/[.,!?;:。，！？；：“”‘’（）]/g, '');
+            if (!cleanWord) return;
+
+            if (typeof window.openWordByChar === 'function') {
+                try {
+                    window.openWordByChar(cleanWord);
+                    return;
+                } catch(e) {}
+            }
+
+            // Direct word-sheet activation fallback
+            const overlay = document.getElementById('word-sheet-overlay');
+            if (!overlay) return;
+            const charEl = document.getElementById('ws-char');
+            const pinEl = document.getElementById('ws-pinyin');
+            const bodyEl = document.getElementById('ws-body');
+            if (charEl) charEl.textContent = cleanWord;
+
+            let pinyin = '';
+            let trans = '';
+            if (typeof hskData !== 'undefined' && Array.isArray(hskData)) {
+                for (let i = 0; i < hskData.length; i++) {
+                    const row = hskData[i];
+                    if (row && (row[1] === cleanWord || (row[1] && row[1].indexOf(cleanWord) === 0))) {
+                        pinyin = row[2] || '';
+                        trans = row[3] || '';
+                        break;
+                    }
+                }
+            }
+            if (pinEl) pinEl.innerHTML = window.renderColoredPinyin ? window.renderColoredPinyin(pinyin) : pinyin;
+            if (bodyEl) bodyEl.innerHTML = trans || '<div style="padding:14px;color:#64748b;font-weight:600;"><i class="fa-solid fa-book"></i> Слово из грамматического примера HSK 1</div>';
+            
+            const speakBtn = document.getElementById('ws-speak');
+            if (speakBtn) speakBtn.onclick = (e) => { e.stopPropagation(); if (window.speakChinese) window.speakChinese(cleanWord); };
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        function makeHanziClickable(hanziStr) {
+            if (!hanziStr) return '';
+            let out = '';
+            for (let i = 0; i < hanziStr.length; i++) {
+                const ch = hanziStr[i];
+                if (/[\u4e00-\u9fa5]/.test(ch)) {
+                    out += '<span class="gd-clickable-hanzi" onclick="lookupGrammarWord(\'' + ch + '\')" title="Нажми, чтобы открыть карточку и разбор иероглифа">' + escapeHtml(ch) + '</span>';
+                } else {
+                    out += escapeHtml(ch);
+                }
+            }
+            return out;
+        }
 
         async function loadGrammarData() {
             if (grammarData && grammarData.modules) return grammarData;
 
-            // 1. Check preloaded global JS fallback (instant offline & file:// support)
+            // 1. Check preloaded global JS fallback
             if (window.HSK1_GRAMMAR_FALLBACK_DATA) {
                 grammarData = window.HSK1_GRAMMAR_FALLBACK_DATA;
             } else {
@@ -25540,6 +25720,9 @@ const BkrsDB = window.BkrsDB = {
                         m.topics.forEach(t => {
                             t._moduleId = m.module_id;
                             t._moduleTitle = m.title;
+                            // Extract primary lesson number
+                            const lessonMatch = (t.lesson_ref || '').match(/Урок\s*(\d+)/i);
+                            t._lessonNum = lessonMatch ? parseInt(lessonMatch[1], 10) : 99;
                             allTopicsList.push(t);
                         });
                     }
@@ -25556,28 +25739,71 @@ const BkrsDB = window.BkrsDB = {
                 return;
             }
 
-            renderModuleFilterBar(data.modules);
+            setupGroupingModeSwitch();
+            renderFilterBar();
             renderGrammarList();
             setupSearch();
             setupDetailNavButtons();
         };
 
-        function renderModuleFilterBar(modules) {
+        function setupGroupingModeSwitch() {
+            const btnModules = document.getElementById('gm-mode-modules');
+            const btnLessons = document.getElementById('gm-mode-lessons');
+            if (!btnModules || !btnLessons) return;
+
+            btnModules.onclick = function() {
+                if (activeGroupingMode === 'modules') return;
+                activeGroupingMode = 'modules';
+                activeFilter = 'all';
+                btnModules.classList.add('active');
+                btnLessons.classList.remove('active');
+                renderFilterBar();
+                renderGrammarList();
+            };
+
+            btnLessons.onclick = function() {
+                if (activeGroupingMode === 'lessons') return;
+                activeGroupingMode = 'lessons';
+                activeFilter = 'all';
+                btnLessons.classList.add('active');
+                btnModules.classList.remove('active');
+                renderFilterBar();
+                renderGrammarList();
+            };
+        }
+
+        function renderFilterBar() {
             const bar = document.getElementById('grammar-module-filter-bar');
-            if (!bar) return;
-            let html = '<button class="grammar-mod-pill ' + (activeModuleFilter === 'all' ? 'active' : '') + '" data-mod="all">Все модули (42)</button>';
-            modules.forEach(m => {
-                const shortTitle = m.title.replace(/^Модуль \d+:\s*/, '').split('(')[0].trim();
-                const count = m.topics ? m.topics.length : 0;
-                html += '<button class="grammar-mod-pill ' + (activeModuleFilter === m.module_id ? 'active' : '') + '" data-mod="' + m.module_id + '">' + m.module_id + ': ' + escapeHtml(shortTitle) + ' (' + count + ')</button>';
-            });
+            if (!bar || !grammarData) return;
+
+            let html = '';
+            if (activeGroupingMode === 'modules') {
+                html += '<button class="grammar-mod-pill ' + (activeFilter === 'all' ? 'active' : '') + '" data-filter="all">Все модули (42)</button>';
+                grammarData.modules.forEach(m => {
+                    const shortTitle = m.title.replace(/^Модуль \d+:\s*/, '').split('(')[0].trim();
+                    const count = m.topics ? m.topics.length : 0;
+                    html += '<button class="grammar-mod-pill ' + (activeFilter === m.module_id ? 'active' : '') + '" data-filter="' + m.module_id + '">' + m.module_id + ': ' + escapeHtml(shortTitle) + ' (' + count + ')</button>';
+                });
+            } else {
+                html += '<button class="grammar-mod-pill ' + (activeFilter === 'all' ? 'active' : '') + '" data-filter="all">Все уроки (1–15)</button>';
+                const lessonCounts = {};
+                allTopicsList.forEach(t => {
+                    const lNum = t._lessonNum || 1;
+                    lessonCounts[lNum] = (lessonCounts[lNum] || 0) + 1;
+                });
+                const sortedLessons = Object.keys(lessonCounts).map(Number).sort((a,b) => a - b);
+                sortedLessons.forEach(lNum => {
+                    const c = lessonCounts[lNum];
+                    html += '<button class="grammar-mod-pill ' + (activeFilter === String(lNum) ? 'active' : '') + '" data-filter="' + lNum + '">Урок ' + lNum + ' (' + c + ')</button>';
+                });
+            }
             bar.innerHTML = html;
 
             bar.querySelectorAll('.grammar-mod-pill').forEach(btn => {
                 btn.addEventListener('click', function() {
                     bar.querySelectorAll('.grammar-mod-pill').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-                    activeModuleFilter = btn.dataset.mod;
+                    activeFilter = btn.dataset.filter;
                     renderGrammarList();
                 });
             });
@@ -25589,49 +25815,102 @@ const BkrsDB = window.BkrsDB = {
 
             const q = searchQuery.toLowerCase().trim();
             let visibleTopicsCount = 0;
-
             let html = '';
-            grammarData.modules.forEach(m => {
-                if (activeModuleFilter !== 'all' && m.module_id !== activeModuleFilter) return;
 
-                const filteredTopics = (m.topics || []).filter(t => {
-                    if (!q) return true;
-                    return (t.title && t.title.toLowerCase().includes(q)) ||
-                           (t.title_zh && t.title_zh.toLowerCase().includes(q)) ||
-                           (t.formula && t.formula.toLowerCase().includes(q)) ||
-                           (t.id && t.id.toLowerCase().includes(q)) ||
-                           (t.textbook_core && t.textbook_core.toLowerCase().includes(q));
-                });
+            if (activeGroupingMode === 'modules') {
+                grammarData.modules.forEach(m => {
+                    if (activeFilter !== 'all' && m.module_id !== activeFilter) return;
 
-                if (filteredTopics.length === 0) return;
-                visibleTopicsCount += filteredTopics.length;
+                    const filteredTopics = (m.topics || []).filter(t => {
+                        if (!q) return true;
+                        return (t.title && t.title.toLowerCase().includes(q)) ||
+                               (t.title_zh && t.title_zh.toLowerCase().includes(q)) ||
+                               (t.formula && t.formula.toLowerCase().includes(q)) ||
+                               (t.textbook_core && t.textbook_core.toLowerCase().includes(q));
+                    });
 
-                html += '<div class="grammar-module-block">';
-                html += '  <div class="grammar-module-header">';
-                html += '    <div class="grammar-module-title-wrap">';
-                html += '      <span class="grammar-mod-num">' + m.module_id + '</span>';
-                html += '      <h3 class="grammar-module-title">' + escapeHtml(m.title) + '</h3>';
-                html += '    </div>';
-                html += '    <span class="grammar-topic-count">' + filteredTopics.length + ' тем</span>';
-                html += '  </div>';
+                    if (filteredTopics.length === 0) return;
+                    visibleTopicsCount += filteredTopics.length;
 
-                html += '  <div class="grammar-topics-grid">';
-                filteredTopics.forEach(t => {
-                    html += '<div class="grammar-topic-card" data-topic-id="' + t.id + '" onclick="window.openGrammarDetailView(\'' + t.id + '\')">';
-                    html += '  <div class="grammar-card-top">';
-                    html += '    <span class="grammar-card-id">' + t.id + '</span>';
-                    html += '    <span class="grammar-card-ref">' + escapeHtml(t.lesson_ref || '') + '</span>';
+                    html += '<div class="grammar-module-block">';
+                    html += '  <div class="grammar-module-header">';
+                    html += '    <div class="grammar-module-title-wrap">';
+                    html += '      <span class="grammar-mod-num">' + m.module_id + '</span>';
+                    html += '      <h3 class="grammar-module-title">' + escapeHtml(m.title) + '</h3>';
+                    html += '    </div>';
+                    html += '    <span class="grammar-topic-count">' + filteredTopics.length + ' тем</span>';
                     html += '  </div>';
-                    html += '  <h4 class="grammar-card-title">' + escapeHtml(t.title) + '</h4>';
-                    html += '  <div class="grammar-card-zh">' + escapeHtml(t.title_zh || '') + '</div>';
-                    if (t.formula) {
-                        html += '  <div class="grammar-card-formula">' + escapeHtml(t.formula) + '</div>';
-                    }
+
+                    html += '  <div class="grammar-topics-grid">';
+                    filteredTopics.forEach(t => {
+                        const globalIdx = allTopicsList.findIndex(x => x.id === t.id);
+                        html += '<div class="grammar-topic-card" data-topic-id="' + t.id + '" onclick="window.openGrammarDetailView(\'' + t.id + '\')">';
+                        html += '  <div class="grammar-card-top">';
+                        html += '    <span class="grammar-card-rule-pill"><i class="fa-solid fa-bookmark"></i> ' + escapeHtml(t.lesson_ref || 'HSK 1') + '</span>';
+                        html += '    <span class="grammar-card-order">#' + (globalIdx + 1) + '</span>';
+                        html += '  </div>';
+                        html += '  <h4 class="grammar-card-title">' + escapeHtml(t.title) + '</h4>';
+                        html += '  <div class="grammar-card-zh">' + escapeHtml(t.title_zh || '') + '</div>';
+                        if (t.formula) {
+                            html += '  <div class="grammar-card-formula">' + escapeHtml(t.formula) + '</div>';
+                        }
+                        html += '</div>';
+                    });
+                    html += '  </div>';
                     html += '</div>';
                 });
-                html += '  </div>';
-                html += '</div>';
-            });
+            } else {
+                // Group by Lessons (1 to 15)
+                const lessonGroups = {};
+                allTopicsList.forEach(t => {
+                    const lNum = t._lessonNum || 1;
+                    if (!lessonGroups[lNum]) lessonGroups[lNum] = [];
+                    lessonGroups[lNum].push(t);
+                });
+
+                const sortedLessonKeys = Object.keys(lessonGroups).map(Number).sort((a,b) => a - b);
+                sortedLessonKeys.forEach(lNum => {
+                    if (activeFilter !== 'all' && String(lNum) !== activeFilter) return;
+
+                    const topicsInLesson = lessonGroups[lNum].filter(t => {
+                        if (!q) return true;
+                        return (t.title && t.title.toLowerCase().includes(q)) ||
+                               (t.title_zh && t.title_zh.toLowerCase().includes(q)) ||
+                               (t.formula && t.formula.toLowerCase().includes(q)) ||
+                               (t.textbook_core && t.textbook_core.toLowerCase().includes(q));
+                    });
+
+                    if (topicsInLesson.length === 0) return;
+                    visibleTopicsCount += topicsInLesson.length;
+
+                    html += '<div class="grammar-module-block">';
+                    html += '  <div class="grammar-module-header">';
+                    html += '    <div class="grammar-module-title-wrap">';
+                    html += '      <span class="grammar-mod-num">Урок ' + lNum + '</span>';
+                    html += '      <h3 class="grammar-module-title">Учебный курс 新HSK 1 • Урок ' + lNum + '</h3>';
+                    html += '    </div>';
+                    html += '    <span class="grammar-topic-count">' + topicsInLesson.length + ' грамматических тем</span>';
+                    html += '  </div>';
+
+                    html += '  <div class="grammar-topics-grid">';
+                    topicsInLesson.forEach(t => {
+                        const globalIdx = allTopicsList.findIndex(x => x.id === t.id);
+                        html += '<div class="grammar-topic-card" data-topic-id="' + t.id + '" onclick="window.openGrammarDetailView(\'' + t.id + '\')">';
+                        html += '  <div class="grammar-card-top">';
+                        html += '    <span class="grammar-card-rule-pill"><i class="fa-solid fa-graduation-cap"></i> Урок ' + lNum + '</span>';
+                        html += '    <span class="grammar-card-order">Правило #' + (globalIdx + 1) + '</span>';
+                        html += '  </div>';
+                        html += '  <h4 class="grammar-card-title">' + escapeHtml(t.title) + '</h4>';
+                        html += '  <div class="grammar-card-zh">' + escapeHtml(t.title_zh || '') + '</div>';
+                        if (t.formula) {
+                            html += '  <div class="grammar-card-formula">' + escapeHtml(t.formula) + '</div>';
+                        }
+                        html += '</div>';
+                    });
+                    html += '  </div>';
+                    html += '</div>';
+                });
+            }
 
             if (visibleTopicsCount === 0) {
                 html = '<div style="text-align:center;padding:50px;color:#64748b;">';
@@ -25646,7 +25925,6 @@ const BkrsDB = window.BkrsDB = {
             const counter = document.getElementById('grammar-total-counter');
             if (counter) counter.textContent = visibleTopicsCount + ' тем • HSK 1';
 
-            // Also attach explicit click event listeners to each card
             container.querySelectorAll('.grammar-topic-card').forEach(card => {
                 card.onclick = function(e) {
                     const tid = card.dataset.topicId;
@@ -25660,18 +25938,12 @@ const BkrsDB = window.BkrsDB = {
         function formatMarkdownText(txt) {
             if (!txt) return '';
             let s = String(txt);
-            // Replace bold **text**
             s = s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            // Replace inline code `code`
             s = s.replace(/`([^`]+)`/g, '<code class="gd-inline-code">$1</code>');
-            // Replace italic *text*
             s = s.replace(/(^|[^\*])\*([^\*]+)\*([^\*]|$)/g, '$1<em>$2</em>$3');
-            // Clean double dashes to em-dash
             s = s.replace(/--/g, '—');
-            // Strip any remaining lone asterisks
             s = s.replace(/\*/g, '');
 
-            // Format paragraphs and lists
             const lines = s.split('\n');
             let out = '';
             let inList = false;
@@ -25716,10 +25988,8 @@ const BkrsDB = window.BkrsDB = {
         };
 
         window.openGrammarDetailView = function(topicId) {
-            console.log('[Grammar] Opening topic detail:', topicId);
             if (!topicId) return;
 
-            // Ensure allTopicsList is populated
             if (!allTopicsList || allTopicsList.length === 0) {
                 if (grammarData && grammarData.modules) {
                     allTopicsList = [];
@@ -25728,6 +25998,8 @@ const BkrsDB = window.BkrsDB = {
                             m.topics.forEach(t => {
                                 t._moduleId = m.module_id;
                                 t._moduleTitle = m.title;
+                                const lessonMatch = (t.lesson_ref || '').match(/Урок\s*(\d+)/i);
+                                t._lessonNum = lessonMatch ? parseInt(lessonMatch[1], 10) : 99;
                                 allTopicsList.push(t);
                             });
                         }
@@ -25736,16 +26008,11 @@ const BkrsDB = window.BkrsDB = {
             }
 
             const idx = allTopicsList.findIndex(t => t.id === topicId);
-            if (idx === -1) {
-                console.warn('[Grammar] Topic ID not found in allTopicsList:', topicId);
-                return;
-            }
+            if (idx === -1) return;
             currentTopicIdx = idx;
 
-            // Render topic details
             renderGrammarDetailPage(allTopicsList[currentTopicIdx]);
 
-            // Switch to full-page view-grammar-detail
             const sections = document.querySelectorAll('.view-section');
             sections.forEach(s => s.classList.remove('active'));
             const gdView = document.getElementById('view-grammar-detail');
@@ -25760,9 +26027,9 @@ const BkrsDB = window.BkrsDB = {
 
         function renderGrammarDetailPage(t) {
             if (!t) return;
-            // Header & badges
+            // Friendly topic position badge instead of technical ID
             const idBadge = document.getElementById('gd-id-badge');
-            if (idBadge) idBadge.textContent = t.id || 'HSK 1';
+            if (idBadge) idBadge.textContent = 'Правило ' + (currentTopicIdx + 1) + ' из ' + allTopicsList.length;
             const refBadge = document.getElementById('gd-ref-badge');
             if (refBadge) refBadge.textContent = t.lesson_ref || '新HSK 1';
             const titleEl = document.getElementById('gd-title');
@@ -25790,7 +26057,7 @@ const BkrsDB = window.BkrsDB = {
                 h += '</div>';
             }
 
-            // 2. Полное академическое правило и теория учебника (textbook_core)
+            // 2. Полное академическое правило и теория учебника
             const theory = t.textbook_core || t.explanation || '';
             if (theory) {
                 h += '<div class="gd-section">';
@@ -25799,42 +26066,39 @@ const BkrsDB = window.BkrsDB = {
                 h += '</div>';
             }
 
-            // 3. Совет от БаоБао (с маскотом)
-            const rawTip = t.extra_practice_materials || t.teacher_notes || '';
+            // 3. Совет от БаоБао (с маскотом, без сторонних имен)
+            let rawTip = t.extra_practice_materials || t.teacher_notes || '';
             if (rawTip) {
-                let cleanTip = rawTip.trim();
-                cleanTip = cleanTip.replace(/^💡\s*\*\*.*?\*\*:\s*/i, '');
-                cleanTip = cleanTip.replace(/^💡\s*Практическая подсказка.*?:/i, '');
-                cleanTip = cleanTip.replace(/^💡\s*Нюанс.*?:/i, '');
-                cleanTip = cleanTip.replace(/^💡\s*Лайфхак.*?:/i, '');
-                cleanTip = cleanTip.replace(/^💡\s*Фишка.*?:/i, '');
-                cleanTip = cleanTip.replace(/^💡\s*Запомните.*?:/i, 'Запомните: ');
-
+                rawTip = rawTip.replace(/💡\s*\*\*.*?\*\*:\s*/gi, '');
+                rawTip = rawTip.replace(/Ася|Айго|Анна|Чибаоцзы/gi, '');
+                rawTip = rawTip.replace(/\s*\(&\)\s*/g, '');
+                rawTip = rawTip.replace(/\s*\(и\)\s*/g, '');
                 h += '<div class="gd-baobao-tip-card">';
                 h += '  <div class="gd-baobao-img-wrap">';
                 h += '    <img src="images/baobao_tip_clean.png" alt="Совет от БаоБао" class="gd-baobao-tip-img">';
                 h += '  </div>';
                 h += '  <div class="gd-baobao-tip-body">';
                 h += '    <h3 class="gd-baobao-tip-title">💡 Совет от БаоБао 🥟</h3>';
-                h += '    <div class="gd-baobao-tip-text">' + formatMarkdownText(cleanTip) + '</div>';
+                h += '    <div class="gd-baobao-tip-text">' + formatMarkdownText(rawTip.trim()) + '</div>';
                 h += '  </div>';
                 h += '</div>';
             }
 
-            // 4. Примеры предложений из учебника с озвучкой
+            // 4. Примеры предложений из учебника с тональным пиньинем и кликабельными словами
             const primaryEx = t.textbook_examples || t.examples || [];
             if (primaryEx && primaryEx.length > 0) {
                 h += '<div class="gd-section">';
-                h += '  <div class="gd-section-header"><i class="fa-solid fa-volume-high"></i> Примеры предложений из учебника с озвучкой</div>';
+                h += '  <div class="gd-section-header"><i class="fa-solid fa-volume-high"></i> Примеры предложений из учебника (нажми на слово для разбора)</div>';
                 h += '  <div class="gd-examples-grid">';
                 primaryEx.forEach(ex => {
                     const hanzi = ex.hanzi || ex.zh || '';
+                    const coloredPin = window.renderColoredPinyin ? window.renderColoredPinyin(ex.pinyin) : escapeHtml(ex.pinyin || '');
                     h += '<div class="gd-example-card">';
                     h += '  <div class="gd-ex-hanzi-row">';
-                    h += '    <span class="gd-ex-hanzi">' + escapeHtml(hanzi) + '</span>';
+                    h += '    <span class="gd-ex-hanzi">' + makeHanziClickable(hanzi) + '</span>';
                     h += '    <button type="button" class="grammar-ex-tts-btn" onclick="playGrammarTTS(\'' + escapeHtml(hanzi).replace(/'/g, "\\'") + '\')" title="Озвучить предложение"><i class="fa-solid fa-volume-high"></i></button>';
                     h += '  </div>';
-                    h += '  <div class="gd-ex-pinyin">' + escapeHtml(ex.pinyin || '') + '</div>';
+                    h += '  <div class="gd-ex-pinyin">' + coloredPin + '</div>';
                     if (ex.literal) {
                         h += '  <div class="gd-ex-literal">' + escapeHtml(ex.literal) + '</div>';
                     }
@@ -25845,7 +26109,7 @@ const BkrsDB = window.BkrsDB = {
                 h += '</div>';
             }
 
-            // 5. Дополнительные предложения для закрепления
+            // 5. Дополнительные предложения для практики
             const extraEx = t.extra_examples_modified || [];
             if (extraEx && extraEx.length > 0) {
                 h += '<div class="gd-section">';
@@ -25853,12 +26117,13 @@ const BkrsDB = window.BkrsDB = {
                 h += '  <div class="gd-examples-grid">';
                 extraEx.forEach(ex => {
                     const hanzi = ex.hanzi || ex.zh || '';
+                    const coloredPin = window.renderColoredPinyin ? window.renderColoredPinyin(ex.pinyin) : escapeHtml(ex.pinyin || '');
                     h += '<div class="gd-example-card">';
                     h += '  <div class="gd-ex-hanzi-row">';
-                    h += '    <span class="gd-ex-hanzi">' + escapeHtml(hanzi) + '</span>';
+                    h += '    <span class="gd-ex-hanzi">' + makeHanziClickable(hanzi) + '</span>';
                     h += '    <button type="button" class="grammar-ex-tts-btn" onclick="playGrammarTTS(\'' + escapeHtml(hanzi).replace(/'/g, "\\'") + '\')" title="Озвучить предложение"><i class="fa-solid fa-volume-high"></i></button>';
                     h += '  </div>';
-                    h += '  <div class="gd-ex-pinyin">' + escapeHtml(ex.pinyin || '') + '</div>';
+                    h += '  <div class="gd-ex-pinyin">' + coloredPin + '</div>';
                     h += '  <div class="gd-ex-ru">' + escapeHtml(ex.ru || '') + '</div>';
                     h += '</div>';
                 });
@@ -25874,20 +26139,21 @@ const BkrsDB = window.BkrsDB = {
                 h += '</div>';
             }
 
-            // 7. Интерактивный экспресс-тест
+            // 7. Интерактивный экспресс-тест: Теория + Практика
             const quizzes = Array.isArray(t.quiz) ? t.quiz : (t.quiz ? [t.quiz] : []);
             if (quizzes.length > 0) {
                 h += '<div class="gd-quiz-section">';
-                h += '  <h3 class="gd-quiz-title"><i class="fa-solid fa-circle-question"></i> Экспресс-тест на закрепление</h3>';
+                h += '  <h3 class="gd-quiz-title"><i class="fa-solid fa-circle-question"></i> Экспресс-тест на закрепление (Теория и Практика)</h3>';
                 quizzes.forEach((qItem, qIdx) => {
                     const qId = 'quiz-item-' + qIdx;
                     const fbId = 'quiz-fb-' + qIdx;
                     const qText = qItem.q || qItem.question || '';
                     const ansText = qItem.answer || qItem.a || '';
                     const options = qItem.options || [];
+                    const isTheory = /как|где|почему|что означает|какой/i.test(qText);
 
                     h += '<div class="gd-quiz-box" id="' + qId + '">';
-                    h += '  <div class="gd-quiz-q-num">Задание ' + (qIdx + 1) + (quizzes.length > 1 ? ' из ' + quizzes.length : '') + '</div>';
+                    h += '  <div class="gd-quiz-q-num">' + (isTheory ? '🎓 Теоретическая часть' : '✍️ Практическое задание') + ' • Задание ' + (qIdx + 1) + '</div>';
                     h += '  <div class="gd-quiz-question">' + formatMarkdownText(qText) + '</div>';
 
                     if (options.length > 0) {
@@ -25940,10 +26206,9 @@ const BkrsDB = window.BkrsDB = {
         };
 
         function setupDetailNavButtons() {
-            // Wire back button from grammar detail
             const gdBackBtn = document.getElementById('grammar-detail-back-btn');
             if (gdBackBtn) {
-                gdBackBtn.onclick = function() {
+                gdBackBtn.addEventListener('click', function() {
                     const sections = document.querySelectorAll('.view-section');
                     sections.forEach(s => s.classList.remove('active'));
                     const gView = document.getElementById('view-grammar');
@@ -25951,71 +26216,60 @@ const BkrsDB = window.BkrsDB = {
                         gView.classList.add('active');
                         try { window.scrollTo(0, 0); } catch(e) {}
                     }
-                };
+                });
             }
 
-            // Wire prev/next buttons
             const gdPrev = document.getElementById('gd-prev-btn');
             if (gdPrev) {
-                gdPrev.onclick = function() {
+                gdPrev.addEventListener('click', function() {
                     if (currentTopicIdx > 0) {
                         currentTopicIdx--;
                         renderGrammarDetailPage(allTopicsList[currentTopicIdx]);
                         try { window.scrollTo(0, 0); } catch(e) {}
                     }
-                };
+                });
             }
             const gdNext = document.getElementById('gd-next-btn');
             if (gdNext) {
-                gdNext.onclick = function() {
+                gdNext.addEventListener('click', function() {
                     if (currentTopicIdx < allTopicsList.length - 1) {
                         currentTopicIdx++;
                         renderGrammarDetailPage(allTopicsList[currentTopicIdx]);
                         try { window.scrollTo(0, 0); } catch(e) {}
                     }
-                };
-            }
+                });
+            };
         }
 
         function setupSearch() {
-            const inp = document.getElementById('grammar-search-input');
-            const clr = document.getElementById('grammar-search-clear');
-            if (!inp) return;
+            const input = document.getElementById('grammar-search-input');
+            const clearBtn = document.getElementById('grammar-search-clear');
+            if (!input) return;
 
             let debounceTimer = null;
-            inp.addEventListener('input', function() {
-                const val = inp.value;
-                if (clr) clr.style.display = val ? 'block' : 'none';
+            input.addEventListener('input', function() {
+                searchQuery = input.value;
+                if (clearBtn) clearBtn.style.display = searchQuery ? 'block' : 'none';
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => {
-                    searchQuery = val;
                     renderGrammarList();
                 }, 200);
             });
 
-            if (clr) {
-                clr.addEventListener('click', function() {
-                    inp.value = '';
-                    clr.style.display = 'none';
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function() {
+                    input.value = '';
                     searchQuery = '';
+                    clearBtn.style.display = 'none';
                     renderGrammarList();
-                    inp.focus();
+                    input.focus();
                 });
             }
-        }
-
-        function escapeHtml(str) {
-            if (!str) return '';
-            return String(str)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;');
         }
     })();
     </script>
 
+    
     <!-- ==================== ИНТЕРАКТИВНОЕ ОКНО-ИНСТРУКЦИЯ ОТ БАОБАО ==================== -->
     <div id="baobao-guide-modal" class="modal hidden">
         <div class="baobao-guide-card">
