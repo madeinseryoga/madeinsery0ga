@@ -13785,6 +13785,334 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         .tg-cta { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #ffffff; }
         .guide-cta { background: linear-gradient(135deg, #059669 0%, #047857 100%); color: #ffffff; border: none; }
 
+        
+        /* ==================== СТИЛИ ДИПЛОМОВ, НАУКИ И ГАЛЕРЕИ ОБ АВТОРЕ ==================== */
+        .author-doc-btn {
+            background: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 999px;
+            padding: 6px 14px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #475569;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+        .author-doc-btn:hover {
+            background: #f1f5f9;
+            color: #7c3aed;
+            border-color: #a855f7;
+            transform: translateY(-1px);
+        }
+        .author-doc-badge {
+            background: #e0e7ff;
+            color: #4338ca;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+
+        .author-science-box {
+            background: #f8fafc;
+            border-radius: 20px;
+            border: 1.5px solid #e2e8f0;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .author-science-category {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .author-science-category-title {
+            font-size: 0.98rem;
+            font-weight: 800;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .author-science-category-title i {
+            color: #7c3aed;
+            font-size: 0.95rem;
+        }
+        .author-science-card {
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: all 0.15s ease;
+        }
+        .author-science-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+            transform: translateY(-1px);
+        }
+        .author-science-heading {
+            font-weight: 800;
+            font-size: 0.94rem;
+            color: #0f172a;
+            line-height: 1.4;
+        }
+        .author-science-sub {
+            font-size: 0.85rem;
+            color: #64748b;
+            line-height: 1.45;
+        }
+        .author-science-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .author-file-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 14px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            border: 1.5px solid transparent;
+        }
+        .author-file-btn.purple {
+            background: #f3e8ff;
+            color: #7e22ce;
+            border-color: #e9d5ff;
+        }
+        .author-file-btn.purple:hover {
+            background: #7e22ce;
+            color: #ffffff;
+        }
+        .author-file-btn.blue {
+            background: #e0f2fe;
+            color: #0369a1;
+            border-color: #bae6fd;
+        }
+        .author-file-btn.blue:hover {
+            background: #0284c7;
+            color: #ffffff;
+        }
+        .author-file-btn.green {
+            background: #dcfce7;
+            color: #15803d;
+            border-color: #bbf7d0;
+        }
+        .author-file-btn.green:hover {
+            background: #16a34a;
+            color: #ffffff;
+        }
+        .author-file-btn.gray {
+            background: #f1f5f9;
+            color: #475569;
+            border-color: #cbd5e1;
+        }
+        .author-file-btn.gray:hover {
+            background: #334155;
+            color: #ffffff;
+        }
+
+        .author-gallery-box {
+            background: #f8fafc;
+            border-radius: 20px;
+            border: 1.5px solid #e2e8f0;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .author-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+        }
+        .author-photo-card {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1.5px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.2s ease;
+        }
+        .author-photo-card:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+            border-color: #7c3aed;
+        }
+        .author-photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .author-photo-badge {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0) 100%);
+            color: #ffffff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 16px 8px 6px;
+            text-align: center;
+            line-height: 1.2;
+            opacity: 0.9;
+        }
+
+        .author-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .author-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .author-modal-container {
+            background: #ffffff;
+            border-radius: 24px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+            border: 1.5px solid #e2e8f0;
+            transform: scale(0.96);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .author-modal-overlay.active .author-modal-container {
+            transform: scale(1);
+        }
+        .author-modal-header {
+            padding: 16px 20px;
+            border-bottom: 1.5px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .author-modal-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .author-modal-close-btn {
+            background: #f1f5f9;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.15s ease;
+        }
+        .author-modal-close-btn:hover {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .author-modal-tabs {
+            display: flex;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+        .author-modal-tab-btn {
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            border: 1.5px solid #cbd5e1;
+            background: #ffffff;
+            color: #475569;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+        }
+        .author-modal-tab-btn:hover {
+            border-color: #7c3aed;
+            color: #7c3aed;
+        }
+        .author-modal-tab-btn.active {
+            background: #7c3aed;
+            color: #ffffff;
+            border-color: #7c3aed;
+        }
+        .author-modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f1f5f9;
+        }
+        .author-modal-img-wrap {
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .author-modal-img {
+            max-width: 100%;
+            max-height: 65vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            background: #ffffff;
+        }
+        .author-modal-footer-note {
+            padding: 10px 20px;
+            font-size: 0.78rem;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #ffffff;
+            border-top: 1px solid #f1f5f9;
+        }
+
         /* ==================== 2-КОЛОНОЧНЫЙ МАКЕТ ГРАММАТИКИ И БОКОВОЙ СЛОВАРЬ ==================== */
         .gd-layout-container {
             display: grid;
@@ -14526,7 +14854,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
 
             <!-- ==================== РАЗДЕЛ: ОБ АВТОРЕ (СТИЛЬ СВЯЗЬ СО МНОЙ) ==================== -->
             <section class="home-author-section" style="margin-top: 45px;">
-                <h2 class="section-title">Связь со мной</h2>
+                <h2 class="section-title">Об авторе</h2>
                 <div class="home-author-teaser-card" id="home-author-open-card" role="button" tabindex="0" title="Нажмите, чтобы открыть подробную страницу об авторе">
                     <div class="home-author-avatar-wrap">
                         <img src="images/sergey_author_sq.jpg" alt="Верещагин Сергей Александрович" class="home-author-img">
@@ -15162,7 +15490,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                     <i class="fa-solid fa-arrow-left"></i><span class="back-label"> На главную</span>
                 </button>
                 <div class="author-header-title-box">
-                    <h2 class="section-title" style="margin: 0;">Связь со мной</h2>
+                    <h2 class="section-title" style="margin: 0;">Об авторе</h2>
                 </div>
                 <div style="width: 100px;"></div>
             </div>
@@ -15197,13 +15525,25 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                                 <div class="author-timeline-item">
                                     <div class="author-timeline-year">2020 – 2024 гг.</div>
                                     <div class="author-timeline-desc">
-                                        <strong>Бакалавриат с отличием</strong> — Китайский язык и второй иностранный язык (английский язык).
+                                        <strong>Бакалавриат</strong> — Китайский язык и второй иностранный язык (английский язык).
+                                        <div style="margin-top: 6px;">
+                                            <button type="button" class="author-doc-btn" onclick="window.openDiplomaModal('bachelor')">
+                                                <i class="fa-solid fa-file-shield" style="color: #7c3aed;"></i> Диплом и приложение (сканы)
+                                                <span class="author-doc-badge">5 стр.</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="author-timeline-item">
                                     <div class="author-timeline-year">2024 – 2026 гг.</div>
                                     <div class="author-timeline-desc">
-                                        <strong>Магистратура с отличием</strong> — Английский язык и второй иностранный язык (китайский / японский / арабский / турецкий языки).
+                                        <strong>Магистратура</strong> — Английский язык и второй иностранный язык (китайский / японский / арабский / турецкий языки).
+                                        <div style="margin-top: 6px;">
+                                            <button type="button" class="author-doc-btn" onclick="window.openDiplomaModal('master')">
+                                                <i class="fa-solid fa-file-shield" style="color: #7c3aed;"></i> Диплом и приложение (сканы)
+                                                <span class="author-doc-badge">5 стр.</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="author-timeline-item current">
@@ -15236,6 +15576,172 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                                         <p class="author-exp-text">Преподавание китайского и английского языков, создание интерактивных методик обучения и авторских материалов.</p>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- БЛОК 3: НАУЧНАЯ ДЕЯТЕЛЬНОСТЬ И ПУБЛИКАЦИИ -->
+                    <div class="author-info-box author-science-box">
+                        <div class="author-box-header">
+                            <i class="fa-solid fa-microscope"></i>
+                            <span>Научная деятельность и исследования</span>
+                        </div>
+
+                        <!-- Категория A: Диссертации и ВКР -->
+                        <div class="author-science-category">
+                            <div class="author-science-category-title">
+                                <i class="fa-solid fa-graduation-cap"></i> Диссертации и выпускные квалификационные работы
+                            </div>
+                            
+                            <!-- Магистерская -->
+                            <div class="author-science-card">
+                                <div class="author-science-heading">
+                                    Магистерская диссертация: «Дидактический потенциал интернет-мемов в обучении иностранному языку (на примере китайского языка)»
+                                </div>
+                                <div class="author-science-sub">
+                                    ФГБОУ ВО «ЛГПУ», Институт филологии и социальных коммуникаций, кафедра английской и восточной филологии • Направление подготовки 45.04.01 «Филология» • Луганск, 2026 г.
+                                </div>
+                                <div class="author-science-actions">
+                                    <a href="docs/Vereschagin_Master_Dissertation_2026.pdf" download class="author-file-btn purple">
+                                        <i class="fa-solid fa-file-pdf"></i> Скачать диссертацию (PDF, 5.6 МБ)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- ВКР Бакалавра -->
+                            <div class="author-science-card">
+                                <div class="author-science-heading">
+                                    Выпускная квалификационная работа бакалавра: «Интернет-мемы как средство формирования межкультурной компетенции при обучении китайскому языку»
+                                </div>
+                                <div class="author-science-sub">
+                                    ФГБОУ ВО «ЛГПУ», Институт филологии и социальных коммуникаций • Профиль «Зарубежная филология. Китайский и второй иностранный язык (английский)» • Луганск, 2024 г.
+                                </div>
+                                <div class="author-science-actions">
+                                    <a href="docs/Vereschagin_Bachelor_Thesis_2024.docx" download class="author-file-btn blue">
+                                        <i class="fa-solid fa-file-word"></i> Текст ВКР (DOCX, 13 МБ)
+                                    </a>
+                                    <a href="docs/Vereschagin_Presentation_Bachelor_Defense.pptx" download class="author-file-btn gray">
+                                        <i class="fa-solid fa-file-powerpoint"></i> Презентация защиты (PPTX)
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Категория B: Научные статьи и публикации -->
+                        <div class="author-science-category" style="margin-top: 8px;">
+                            <div class="author-science-category-title">
+                                <i class="fa-solid fa-book-open"></i> Научные статьи в рецензируемых изданиях
+                            </div>
+
+                            <!-- Статья 1 (2024) -->
+                            <div class="author-science-card">
+                                <div class="author-science-heading">
+                                    Статья: «Классификация интернет-мемов в китайском языке и их дидактический потенциал в обучении иностранным языкам»
+                                </div>
+                                <div class="author-science-sub">
+                                    Научный журнал «Студенческий вестник», № 45(331), часть 4, Москва, 2024 г.
+                                </div>
+                                <div class="author-science-actions">
+                                    <a href="docs/Vereschagin_Article_2024_Classification_Internet_Memes.pdf" target="_blank" class="author-file-btn purple">
+                                        <i class="fa-solid fa-file-pdf"></i> Читать статью (PDF, 1.3 МБ)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Статья 2 (Альманах 2024) -->
+                            <div class="author-science-card">
+                                <div class="author-science-heading">
+                                    Статья: «Интернет-мемы как средство формирования межкультурной компетенции на занятиях по китайскому языку»
+                                </div>
+                                <div class="author-science-sub">
+                                    Сборник научных работ «Студенческий альманах», № 1(28), ФГБОУ ВО «ЛГПУ», Луганск, 2024 г.
+                                </div>
+                                <div class="author-science-actions">
+                                    <a href="docs/Vereschagin_Article_2024_Almanac_Memes_in_Education.pdf" target="_blank" class="author-file-btn blue">
+                                        <i class="fa-solid fa-file-pdf"></i> Читать в сборнике (PDF, 856 КБ)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Статья 3 (2025) -->
+                            <div class="author-science-card">
+                                <div class="author-science-heading">
+                                    Статья: «Принципы интеграции интернет-мемов в процесс преподавания китайского языка»
+                                </div>
+                                <div class="author-science-sub">
+                                    Научный журнал «Студенческий вестник», № 46(379), часть 4, Москва, 2025 г.
+                                </div>
+                                <div class="author-science-actions">
+                                    <a href="docs/Vereschagin_Article_2025_Principles_Integration_Memes.pdf" target="_blank" class="author-file-btn green">
+                                        <i class="fa-solid fa-file-pdf"></i> Читать статью (PDF, 450 КБ)
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Категория C: Доклады и презентации -->
+                        <div class="author-science-category" style="margin-top: 8px;">
+                            <div class="author-science-category-title">
+                                <i class="fa-solid fa-chalkboard"></i> Доклады и исследовательские презентации
+                            </div>
+
+                            <div class="author-science-card">
+                                <div class="author-science-heading">
+                                    Методика и логическая схема педагогического исследования
+                                </div>
+                                <div class="author-science-sub">
+                                    Материалы научных семинаров и круглых столов по педагогике и методике преподавания восточных языков ЛГПУ
+                                </div>
+                                <div class="author-science-actions">
+                                    <a href="docs/Vereschagin_Presentation_Research_Methodology.pptx" download class="author-file-btn gray">
+                                        <i class="fa-solid fa-file-powerpoint"></i> Методика исследования (PPTX)
+                                    </a>
+                                    <a href="docs/Vereschagin_Presentation_Logical_Scheme.pptx" download class="author-file-btn gray">
+                                        <i class="fa-solid fa-file-powerpoint"></i> Логическая схема (PPTX)
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- БЛОК 4: ФОТОАРХИВ И КУЛЬТУРНЫЙ ОБМЕН -->
+                    <div class="author-info-box author-gallery-box">
+                        <div class="author-box-header">
+                            <i class="fa-solid fa-camera-retro"></i>
+                            <span>Фотоархив: преподавание, стажировки и языковой обмен</span>
+                        </div>
+                        <div class="author-gallery-grid">
+                            <div class="author-photo-card" onclick="window.openPhotoModal('images/author/author_photo_6.jpg', 'Культурный обмен')">
+                                <img src="images/author/author_photo_6.jpg" alt="Культурный обмен" loading="lazy">
+                                <div class="author-photo-badge">Культурный обмен</div>
+                            </div>
+                            <div class="author-photo-card" onclick="window.openPhotoModal('images/author/author_photo_3.jpg', 'Языковая практика')">
+                                <img src="images/author/author_photo_3.jpg" alt="Языковая практика" loading="lazy">
+                                <div class="author-photo-badge">Языковая практика</div>
+                            </div>
+                            <div class="author-photo-card" onclick="window.openPhotoModal('images/author/author_photo_4.jpg', 'Академическая работа')">
+                                <img src="images/author/author_photo_4.jpg" alt="Академическая работа" loading="lazy">
+                                <div class="author-photo-badge">Академическая работа</div>
+                            </div>
+                            <div class="author-photo-card" onclick="window.openPhotoModal('images/author/author_photo_5.jpg', 'Семинары и исследования')">
+                                <img src="images/author/author_photo_5.jpg" alt="Семинары и исследования" loading="lazy">
+                                <div class="author-photo-badge">Исследования</div>
+                            </div>
+                            <div class="author-photo-card" onclick="window.openPhotoModal('images/author/author_photo_7.jpg', 'Преподавание')">
+                                <img src="images/author/author_photo_7.jpg" alt="Преподавание" loading="lazy">
+                                <div class="author-photo-badge">Преподавание</div>
+                            </div>
+                            <div class="author-photo-card" onclick="window.openPhotoModal('images/author/author_photo_8.jpg', 'Конференции')">
+                                <img src="images/author/author_photo_8.jpg" alt="Конференции" loading="lazy">
+                                <div class="author-photo-badge">Конференции</div>
+                            </div>
+                            <div class="author-photo-card" onclick="window.openPhotoModal('images/author/author_photo_9.jpg', 'Проекты')">
+                                <img src="images/author/author_photo_9.jpg" alt="Проекты" loading="lazy">
+                                <div class="author-photo-badge">Проекты</div>
+                            </div>
+                            <div class="author-photo-card" onclick="window.openPhotoModal('images/author/author_photo_1.jpg', 'Поездки и практика')">
+                                <img src="images/author/author_photo_1.jpg" alt="Поездки и практика" loading="lazy">
+                                <div class="author-photo-badge">Практика</div>
                             </div>
                         </div>
                     </div>
@@ -28078,6 +28584,91 @@ function setupDetailNavButtons() {
         }
         if (teaserCard) teaserCard.addEventListener('click', window.navigateToAuthor);
     })();
+    
+    // ==================== ЛОГИКА МОДАЛЬНОГО ОКНА ДИПЛОМОВ И ФОТО АВТОРА ====================
+    (function() {
+        const diplomaSets = {
+            bachelor: {
+                title: 'Диплом бакалавра и приложение к диплому (ЛГПУ, 2024)',
+                pages: [
+                    { label: 'Разворот диплома', src: 'images/diplomas/bachelor_diploma_spread.jpg' },
+                    { label: 'Приложение (стр. 1)', src: 'images/diplomas/bachelor_appendix_p1.jpg' },
+                    { label: 'Приложение (стр. 2)', src: 'images/diplomas/bachelor_appendix_p2.jpg' },
+                    { label: 'Приложение (стр. 3)', src: 'images/diplomas/bachelor_appendix_p3.jpg' },
+                    { label: 'Приложение (стр. 4)', src: 'images/diplomas/bachelor_appendix_p4.jpg' }
+                ]
+            },
+            master: {
+                title: 'Диплом магистра и приложение к диплому (ЛГПУ, 2026)',
+                pages: [
+                    { label: 'Разворот диплома', src: 'images/diplomas/master_diploma_spread.jpg' },
+                    { label: 'Приложение (стр. 1)', src: 'images/diplomas/master_appendix_p1.jpg' },
+                    { label: 'Приложение (стр. 2)', src: 'images/diplomas/master_appendix_p2.jpg' },
+                    { label: 'Приложение (стр. 3)', src: 'images/diplomas/master_appendix_p3.jpg' },
+                    { label: 'Приложение (стр. 4)', src: 'images/diplomas/master_appendix_p4.jpg' }
+                ]
+            }
+        };
+
+        const modalOverlay = document.getElementById('author-doc-modal');
+        const modalTitle = document.getElementById('author-modal-title-text');
+        const modalTabs = document.getElementById('author-modal-tabs');
+        const modalImg = document.getElementById('author-modal-img');
+
+        window.openDiplomaModal = function(type) {
+            const set = diplomaSets[type];
+            if (!set || !modalOverlay) return;
+            modalTitle.textContent = set.title;
+            modalTabs.innerHTML = '';
+            modalTabs.style.display = 'flex';
+
+            set.pages.forEach((page, index) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'author-modal-tab-btn' + (index === 0 ? ' active' : '');
+                btn.textContent = page.label;
+                btn.addEventListener('click', function() {
+                    modalTabs.querySelectorAll('.author-modal-tab-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    modalImg.src = page.src;
+                });
+                modalTabs.appendChild(btn);
+            });
+
+            modalImg.src = set.pages[0].src;
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.openPhotoModal = function(src, caption) {
+            if (!modalOverlay) return;
+            modalTitle.textContent = caption || 'Фотоархив';
+            modalTabs.innerHTML = '';
+            modalTabs.style.display = 'none';
+            modalImg.src = src;
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeAuthorModal = function() {
+            if (!modalOverlay) return;
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === modalOverlay) window.closeAuthorModal();
+            });
+        }
+
+        window.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('active')) {
+                window.closeAuthorModal();
+            }
+        });
+    })();
+
     </script>
 
     <!-- ==================== ИНТЕРАКТИВНЫЙ ПОДГЛЯДЫВАЮЩИЙ БАОБАО ==================== -->
@@ -28147,6 +28738,33 @@ function setupDetailNavButtons() {
         }, 12000);
     })();
     </script>
+
+    <!-- ==================== МОДАЛЬНОЕ ОКНО ДИПЛОМОВ И ФОТО АВТОРА ==================== -->
+    <div id="author-doc-modal" class="author-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="author-modal-title">
+        <div class="author-modal-container">
+            <div class="author-modal-header">
+                <div id="author-modal-title" class="author-modal-title">
+                    <i class="fa-solid fa-file-shield" style="color: #7c3aed;"></i>
+                    <span id="author-modal-title-text">Документ об образовании</span>
+                </div>
+                <button type="button" class="author-modal-close-btn" onclick="window.closeAuthorModal()" title="Закрыть (Esc)">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="author-modal-tabs" class="author-modal-tabs">
+                <!-- Вкладки страниц генерируются динамически -->
+            </div>
+            <div class="author-modal-body">
+                <div class="author-modal-img-wrap">
+                    <img id="author-modal-img" src="" alt="Скан документа" class="author-modal-img">
+                </div>
+            </div>
+            <div class="author-modal-footer-note">
+                <i class="fa-solid fa-lock" style="color: #10b981;"></i>
+                <span>В целях защиты персональных данных серия и номер документа скрыты. Оценки, дисциплины и гербовые печати сохранены.</span>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
