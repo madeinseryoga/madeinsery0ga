@@ -5671,21 +5671,25 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
 }
 
 /* Карточки выдачи БКРС */
-.bkrs-card {
+.bkrs-card, .bkrs-result-card {
     background: #ffffff;
-    border: 1px solid #ebdcf5;
+    border: 1.5px solid #ebdcf5;
     border-bottom: 5px solid #8E24AA;
     border-radius: 22px;
     padding: 22px 24px;
-    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 6px 22px rgba(142, 36, 170, 0.05);
     margin-bottom: 16px;
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
-.bkrs-card:hover {
-    box-shadow: 0 12px 30px rgba(142, 36, 170, 0.1);
+.bkrs-card:hover, .bkrs-result-card:hover {
+    box-shadow: 0 12px 30px rgba(142, 36, 170, 0.12);
+    border-color: #d8b4fe;
     transform: translateY(-2px);
 }
-.bkrs-card.exact-match-card {
+.bkrs-card.exact-match-card, .bkrs-result-card.bkrs-card-top-match {
     background: linear-gradient(165deg, #ffffff 0%, #faf5ff 100%);
     border-color: #d8b4fe;
     border-left: 6px solid #8E24AA;
@@ -5695,30 +5699,35 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    margin-bottom: 14px;
+    margin-bottom: 4px;
     flex-wrap: wrap;
 }
-.bkrs-headword-box {
+.bkrs-headword-box, .bkrs-card-word-line {
     display: flex;
     align-items: baseline;
     gap: 12px;
     flex-wrap: wrap;
 }
-.bkrs-card-word {
-    font-size: 2.6rem;
-    font-family: SimSun, "Songti SC", "SimSun-ExtB", serif;
+.bkrs-card-word, .bkrs-card-hanzi {
+    font-size: 2.2rem;
+    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun-ExtB', 'SimSun', serif;
     font-weight: 800;
     color: #1e1b4b;
-    line-height: 1;
+    line-height: 1.1;
     white-space: nowrap !important;
     letter-spacing: 1px;
+    transition: color 0.15s ease;
 }
-.bkrs-pinyin-badges {
+.bkrs-card-hanzi[style*="cursor:pointer"]:hover {
+    color: #8E24AA;
+}
+.bkrs-pinyin-badges, .bkrs-card-pinyin {
     font-size: 1.25rem;
     font-weight: 800;
     display: inline-flex;
     gap: 4px;
     align-items: baseline;
+    color: #7e22ce;
 }
 .bkrs-exact-badge {
     background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
@@ -5730,21 +5739,22 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     border-radius: 20px;
     letter-spacing: 0.6px;
     border: 1px solid #d8b4fe;
+    box-shadow: 0 2px 6px rgba(126, 34, 206, 0.08);
 }
 
 /* Кнопки действий на карточке */
-.bkrs-action-buttons {
+.bkrs-action-buttons, .bkrs-card-actions {
     display: flex;
     gap: 8px;
     align-items: center;
 }
-.bkrs-act-btn {
+.bkrs-act-btn, .bkrs-card-btn {
     width: 38px;
     height: 38px;
     border-radius: 12px;
-    border: 1.5px solid #e2e8f0;
+    border: 1.5px solid #ebdcf5;
     background: #ffffff;
-    color: #475569;
+    color: #7e22ce;
     font-size: 1rem;
     cursor: pointer;
     display: inline-flex;
@@ -5753,29 +5763,114 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     transition: all 0.15s ease;
     box-shadow: 0 2px 5px rgba(0,0,0,0.03);
 }
-.bkrs-act-btn:hover {
+.bkrs-act-btn:hover, .bkrs-card-btn:hover {
+    background: #8E24AA;
+    color: #ffffff;
+    border-color: #8E24AA;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(142, 36, 170, 0.22);
 }
-.bkrs-audio-trigger:hover {
-    background: #ecfdf5;
-    color: #059669;
-    border-color: #a7f3d0;
+.bkrs-act-btn:active, .bkrs-card-btn:active {
+    transform: scale(0.95);
 }
-.bkrs-draw-trigger:hover {
-    background: #eff6ff;
-    color: #2563eb;
-    border-color: #bfdbfe;
+
+/* Разбор по иероглифам внутри карточки БКРС */
+.bkrs-chars-breakdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 2px 0 6px 0;
 }
-.bkrs-copy-trigger:hover {
-    background: #f1f5f9;
+.bkrs-char-pill {
+    background: #fdfafd;
+    border: 1.5px solid #ebdcf5;
+    padding: 6px 14px;
+    border-radius: 14px;
+    font-size: 0.90rem;
+    color: #475569;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.bkrs-char-pill:hover {
+    border-color: #8E24AA;
+    background: #f3e8ff;
+    color: #6b21a8;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(142, 36, 170, 0.15);
+}
+.bkrs-char-sym {
+    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #8E24AA;
+    line-height: 1;
+}
+.bkrs-char-py {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #64748b;
+}
+.bkrs-char-draw-icon {
+    font-size: 0.78rem;
+    color: #a855f7;
+    opacity: 0.85;
+}
+
+/* Панель анимации написания черт */
+.bkrs-writer-panel {
+    background: #faf5ff;
+    border: 1.5px solid #e9d5ff;
+    border-radius: 18px;
+    padding: 14px 18px;
+    margin: 4px 0 8px 0;
+}
+.bkrs-writer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 800;
+    font-size: 0.92rem;
+    color: #6b21a8;
+    margin-bottom: 10px;
+}
+.bkrs-writer-action-btn {
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 1.5px solid #d8b4fe;
+    background: #ffffff;
+    color: #7e22ce;
+    font-size: 0.82rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+.bkrs-writer-action-btn:hover {
+    background: #8E24AA;
+    color: #ffffff;
+    border-color: #8E24AA;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(142, 36, 170, 0.2);
+}
+.bkrs-writer-canvas-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+}
+
+/* Форматированное тело статьи */
+.bkrs-card-def, .bkrs-def-content, .bkrs-card-body {
+    font-size: 1.02rem;
+    line-height: 1.68;
     color: #334155;
-    border-color: #cbd5e1;
-}
-.bkrs-fav-trigger:hover, .bkrs-fav-trigger.active {
-    background: #fefce8;
-    color: #d97706;
-    border-color: #fde047;
 }
 
 /* Теги частей речи */
@@ -24410,37 +24505,39 @@ const BkrsDB = window.BkrsDB = {
         }
 
         function renderSingleCard(r, charsDb, isTopMatch) {
-            const parsed = parseBkrsArticle(r.trans);
+            const defHtml = (typeof formatBkrsArticle === 'function' ? formatBkrsArticle(r.trans, false) : (r.trans || '')) || '<div style="color:#94a3b8;font-style:italic;padding:8px 0;">Словарное описание уточняется</div>';
             const chars = Array.from(r.word);
             const pyColored = renderColoredPinyin(r.pinyin || '');
+            const isSingleChar = chars.length === 1;
 
-            let cardHtml = '<div class="bkrs-result-card' + (isTopMatch ? ' bkrs-card-top-match' : '') + '" data-word="' + escapeHtml(r.word) + '">';
+            let cardHtml = '<div class="bkrs-card bkrs-result-card' + (isTopMatch ? ' exact-match-card bkrs-card-top-match' : '') + '" data-word="' + escapeHtml(r.word) + '">';
             cardHtml += '<div class="bkrs-card-header">' +
-                '<div class="bkrs-card-word-line">' +
-                    '<span class="bkrs-card-hanzi">' + escapeHtml(r.word) + '</span>' +
-                    '<span class="bkrs-card-pinyin">' + pyColored + '</span>' +
+                '<div class="bkrs-headword-box bkrs-card-word-line">' +
+                    '<span class="bkrs-card-word bkrs-card-hanzi"' + (isSingleChar ? ' title="Нажмите для анимации написания черт" style="cursor:pointer;"' : '') + '>' + escapeHtml(r.word) + '</span>' +
+                    '<span class="bkrs-pinyin-badges bkrs-card-pinyin">' + pyColored + '</span>' +
                     (isTopMatch ? '<span class="bkrs-exact-badge"><i class="fa-solid fa-star"></i> Главная статья</span>' : '') +
                 '</div>' +
-                '<div class="bkrs-card-actions">' +
-                    '<button type="button" class="bkrs-card-btn bkrs-speak-btn" data-speak="' + escapeHtml(r.word) + '" title="Озвучить слово">' +
+                '<div class="bkrs-action-buttons bkrs-card-actions">' +
+                    '<button type="button" class="bkrs-act-btn bkrs-card-btn bkrs-audio-trigger bkrs-speak-btn" data-speak="' + escapeHtml(r.word) + '" title="Озвучить слово">' +
                         '<i class="fa-solid fa-volume-high"></i>' +
                     '</button>' +
-                    '<button type="button" class="bkrs-card-btn bkrs-copy-btn" data-copy="' + escapeHtml(r.word) + '" title="Копировать">' +
+                    '<button type="button" class="bkrs-act-btn bkrs-card-btn bkrs-copy-trigger bkrs-copy-btn" data-copy="' + escapeHtml(r.word) + '" title="Копировать">' +
                         '<i class="fa-regular fa-copy"></i>' +
                     '</button>' +
-                    '<button type="button" class="bkrs-card-btn bkrs-propisi-btn" data-propisi="' + escapeHtml(r.word) + '" title="Создать пропись">' +
-                        '<i class="fa-solid fa-pen-nib"></i>' +
+                    (isSingleChar ? '<button type="button" class="bkrs-act-btn bkrs-card-btn bkrs-draw-trigger bkrs-stroke-toggle-btn" data-char="' + escapeHtml(r.word) + '" title="Порядок написания черт"><i class="fa-solid fa-pen-to-square"></i></button>' : '') +
+                    '<button type="button" class="bkrs-act-btn bkrs-card-btn bkrs-draw-trigger bkrs-propisi-btn" data-propisi="' + escapeHtml(r.word) + '" title="Создать пропись">' +
+                        '<i class="fa-solid fa-file-pen"></i>' +
                     '</button>' +
                 '</div>' +
             '</div>';
 
-            // Interactive character breakdowns & strokes
-            if (chars.length > 0) {
+            // Interactive character breakdowns & strokes (ONLY for multi-character words)
+            if (chars.length > 1) {
                 cardHtml += '<div class="bkrs-chars-breakdown">';
                 for (const c of chars) {
                     const cInfo = (charsDb && charsDb[c]) ? charsDb[c] : null;
                     const cPy = cInfo ? renderColoredPinyin(cInfo[0]) : '';
-                    cardHtml += '<div class="bkrs-char-pill" data-char="' + escapeHtml(c) + '" title="Показать анимацию написания ' + escapeHtml(c) + '">' +
+                    cardHtml += '<div class="bkrs-char-pill" data-char="' + escapeHtml(c) + '" title="Показать порядок черт для ' + escapeHtml(c) + '">' +
                         '<span class="bkrs-char-sym">' + escapeHtml(c) + '</span>' +
                         (cPy ? '<span class="bkrs-char-py">' + cPy + '</span>' : '') +
                         '<i class="fa-solid fa-pen-to-square bkrs-char-draw-icon"></i>' +
@@ -24452,77 +24549,112 @@ const BkrsDB = window.BkrsDB = {
             // Stroke writer container (collapsed by default)
             cardHtml += '<div class="bkrs-writer-panel" style="display: none;">' +
                 '<div class="bkrs-writer-header">' +
-                    '<span>Порядок черт (<span class="bkrs-writer-target"></span>):</span>' +
+                    '<span><i class="fa-solid fa-pen-nib"></i> Порядок черт (<span class="bkrs-writer-target"></span>):</span>' +
                     '<div style="display:flex; gap:6px;">' +
                         '<button type="button" class="bkrs-writer-action-btn bkrs-writer-animate"><i class="fa-solid fa-play"></i> Анимация</button>' +
-                        '<button type="button" class="bkrs-writer-action-btn bkrs-writer-close"><i class="fa-solid fa-xmark"></i></button>' +
+                        '<button type="button" class="bkrs-writer-action-btn bkrs-writer-close" title="Закрыть"><i class="fa-solid fa-xmark"></i></button>' +
                     '</div>' +
                 '</div>' +
                 '<div class="bkrs-writer-canvas-box"></div>' +
             '</div>';
 
-            // Formatted Definition
-            cardHtml += '<div class="bkrs-card-def">' + parsed.html + '</div>';
+            // Formatted Definition Body
+            cardHtml += '<div class="bkrs-card-body bkrs-card-def bkrs-def-content">' + defHtml + '</div>';
             cardHtml += '</div>';
             return cardHtml;
         }
 
         function bindCardEvents(container) {
+            function openWriterForChar(card, char) {
+                if (!card || !char) return;
+                const panel = card.querySelector('.bkrs-writer-panel');
+                const canvasBox = card.querySelector('.bkrs-writer-canvas-box');
+                const targetSpan = card.querySelector('.bkrs-writer-target');
+                if (!panel || !canvasBox) return;
+
+                // Toggle if clicked again with the same char
+                if (panel.style.display !== 'none' && targetSpan && targetSpan.textContent === char) {
+                    panel.style.display = 'none';
+                    return;
+                }
+
+                panel.style.display = 'block';
+                if (targetSpan) targetSpan.textContent = char;
+                canvasBox.innerHTML = '';
+
+                const writerId = 'writer-' + Math.random().toString(36).substring(2, 9);
+                const writerDiv = document.createElement('div');
+                writerDiv.id = writerId;
+                writerDiv.style.width = '140px';
+                writerDiv.style.height = '140px';
+                writerDiv.style.background = '#ffffff';
+                writerDiv.style.borderRadius = '14px';
+                writerDiv.style.boxShadow = '0 3px 12px rgba(142, 36, 170, 0.08)';
+                writerDiv.style.border = '1px solid #ebdcf5';
+                canvasBox.appendChild(writerDiv);
+
+                let writerInstance = null;
+                if (typeof HanziWriter !== 'undefined') {
+                    try {
+                        writerInstance = HanziWriter.create(writerId, char, {
+                            width: 140,
+                            height: 140,
+                            padding: 8,
+                            showOutline: true,
+                            strokeColor: '#8E24AA',
+                            radicalColor: '#d81b60',
+                            outlineColor: '#e2e8f0',
+                            strokeAnimationSpeed: 1.2,
+                            delayBetweenStrokes: 130
+                        });
+                        writerInstance.animateCharacter();
+                    } catch(e) {
+                        console.warn('HanziWriter error', e);
+                        canvasBox.innerHTML = '<span style="font-size:72px;line-height:140px;color:#8E24AA;font-family:SimSun;">' + escapeHtml(char) + '</span>';
+                    }
+                } else {
+                    canvasBox.innerHTML = '<span style="font-size:72px;line-height:140px;color:#8E24AA;font-family:SimSun;">' + escapeHtml(char) + '</span>';
+                }
+
+                const animBtn = panel.querySelector('.bkrs-writer-animate');
+                if (animBtn && writerInstance) {
+                    animBtn.onclick = () => writerInstance.animateCharacter();
+                }
+                const closeBtn = panel.querySelector('.bkrs-writer-close');
+                if (closeBtn) {
+                    closeBtn.onclick = () => { panel.style.display = 'none'; };
+                }
+            }
+
+            // Breakdown pills (for multi-character words)
             container.querySelectorAll('.bkrs-char-pill').forEach(pill => {
                 pill.onclick = () => {
                     const char = pill.getAttribute('data-char');
-                    const card = pill.closest('.bkrs-result-card');
-                    if (!card) return;
-                    const panel = card.querySelector('.bkrs-writer-panel');
-                    const canvasBox = card.querySelector('.bkrs-writer-canvas-box');
-                    const targetSpan = card.querySelector('.bkrs-writer-target');
-                    if (!panel || !canvasBox) return;
-
-                    panel.style.display = 'block';
-                    if (targetSpan) targetSpan.textContent = char;
-                    canvasBox.innerHTML = '';
-
-                    const writerId = 'writer-' + Math.random().toString(36).substring(2, 9);
-                    const writerDiv = document.createElement('div');
-                    writerDiv.id = writerId;
-                    writerDiv.style.width = '140px';
-                    writerDiv.style.height = '140px';
-                    canvasBox.appendChild(writerDiv);
-
-                    let writerInstance = null;
-                    if (typeof HanziWriter !== 'undefined') {
-                        try {
-                            writerInstance = HanziWriter.create(writerId, char, {
-                                width: 140,
-                                height: 140,
-                                padding: 5,
-                                showOutline: true,
-                                strokeColor: '#8E24AA',
-                                radicalColor: '#d81b60',
-                                outlineColor: '#e2e8f0',
-                                strokeAnimationSpeed: 1.2,
-                                delayBetweenStrokes: 150
-                            });
-                            writerInstance.animateCharacter();
-                        } catch(e) {
-                            console.warn('HanziWriter error', e);
-                            canvasBox.innerHTML = '<span style="font-size:72px;line-height:140px;color:#8E24AA;font-family:SimSun;">' + escapeHtml(char) + '</span>';
-                        }
-                    } else {
-                        canvasBox.innerHTML = '<span style="font-size:72px;line-height:140px;color:#8E24AA;font-family:SimSun;">' + escapeHtml(char) + '</span>';
-                    }
-
-                    const animBtn = panel.querySelector('.bkrs-writer-animate');
-                    if (animBtn && writerInstance) {
-                        animBtn.onclick = () => writerInstance.animateCharacter();
-                    }
-                    const closeBtn = panel.querySelector('.bkrs-writer-close');
-                    if (closeBtn) {
-                        closeBtn.onclick = () => { panel.style.display = 'none'; };
-                    }
+                    const card = pill.closest('.bkrs-result-card, .bkrs-card');
+                    openWriterForChar(card, char);
                 };
             });
 
+            // Stroke toggle button (for single-character words)
+            container.querySelectorAll('.bkrs-stroke-toggle-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const char = btn.getAttribute('data-char');
+                    const card = btn.closest('.bkrs-result-card, .bkrs-card');
+                    openWriterForChar(card, char);
+                };
+            });
+
+            // Clicking hanzi directly on single-char cards
+            container.querySelectorAll('.bkrs-card-hanzi').forEach(el => {
+                const card = el.closest('.bkrs-result-card, .bkrs-card');
+                if (!card) return;
+                const word = card.getAttribute('data-word') || '';
+                if (Array.from(word).length === 1) {
+                    el.onclick = () => openWriterForChar(card, word);
+                }
+            });
+
+            // Copy button
             container.querySelectorAll('.bkrs-copy-btn').forEach(btn => {
                 btn.onclick = () => {
                     const txt = btn.getAttribute('data-copy');
@@ -24536,6 +24668,7 @@ const BkrsDB = window.BkrsDB = {
                 };
             });
 
+            // Propisi button
             container.querySelectorAll('.bkrs-propisi-btn').forEach(btn => {
                 btn.onclick = () => {
                     const txt = btn.getAttribute('data-propisi');
@@ -24546,6 +24679,28 @@ const BkrsDB = window.BkrsDB = {
                         if (genInput) genInput.value = txt;
                         const navGen = document.getElementById('nav-generator');
                         if (navGen) navGen.click();
+                    }
+                };
+            });
+
+            // Speak button
+            container.querySelectorAll('.bkrs-speak-btn, [data-speak]').forEach(btn => {
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    const txt = btn.getAttribute('data-speak');
+                    if (txt) {
+                        if (typeof window.speakChinese === 'function') {
+                            window.speakChinese(txt);
+                        } else if (typeof window.speakChineseWord === 'function') {
+                            window.speakChineseWord(txt);
+                        } else if ('speechSynthesis' in window) {
+                            try {
+                                window.speechSynthesis.cancel();
+                                const u = new SpeechSynthesisUtterance(txt);
+                                u.lang = 'zh-CN';
+                                window.speechSynthesis.speak(u);
+                            } catch(e) {}
+                        }
                     }
                 };
             });
