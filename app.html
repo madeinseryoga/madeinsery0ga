@@ -12190,23 +12190,34 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             margin: 0;
         }
         .home-brand-tag {
-            font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", -apple-system, sans-serif;
-            font-size: 0.85rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: #ffffff;
-            padding: 3px 12px;
-            border-radius: 999px;
-            letter-spacing: 3px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.2;
-            vertical-align: middle;
-            white-space: nowrap;
-            text-indent: 3px;
-            box-shadow: 0 3px 10px rgba(16, 185, 129, 0.35);
-            margin-left: 8px;
+            font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif !important;
+            font-size: 0.85rem !important;
+            font-weight: 700 !important;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+            color: #ffffff !important;
+            padding: 3px 11px !important;
+            border-radius: 999px !important;
+            letter-spacing: 0 !important;
+            text-indent: 0 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 5px !important;
+            line-height: 1 !important;
+            vertical-align: middle !important;
+            white-space: nowrap !important;
+            box-shadow: 0 3px 10px rgba(16, 185, 129, 0.35) !important;
+            margin-left: 8px !important;
+        }
+        .home-brand-tag .hb-c {
+            display: inline-block !important;
+            font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif !important;
+            font-size: 0.85rem !important;
+            font-weight: 700 !important;
+            line-height: 1 !important;
+            letter-spacing: 0 !important;
+            text-indent: 0 !important;
+            width: auto !important;
         }
         .home-brand-sub {
             font-size: 0.95rem;
@@ -13184,6 +13195,517 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             color: #94a3b8;
         }
 
+
+        /* ==================== СТИЛИ СТРАНИЦЫ ОБ АВТОРЕ И ТИЗЕРА НА ГЛАВНОЙ ==================== */
+        .home-author-teaser-card {
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1.5px solid #f1f5f9;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+        .home-author-teaser-card:hover {
+            transform: translateY(-2px);
+            border-color: #c4b5fd;
+            box-shadow: 0 10px 28px rgba(124, 58, 237, 0.12);
+        }
+        .home-author-avatar-wrap {
+            position: relative;
+            flex-shrink: 0;
+            width: 72px;
+            height: 72px;
+        }
+        .home-author-img {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #7c3aed;
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.25);
+        }
+        .home-author-cap-badge {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #7c3aed;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            border: 2px solid #ffffff;
+        }
+        .home-author-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+        .home-author-name {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0;
+        }
+        .home-author-sub {
+            font-size: 0.88rem;
+            color: #64748b;
+            margin: 0;
+        }
+        .home-author-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+        .home-author-action {
+            flex-shrink: 0;
+        }
+        .home-author-more-btn {
+            background: #ede9fe;
+            color: #6d28d9;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.88rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+        .home-author-teaser-card:hover .home-author-more-btn {
+            background: #7c3aed;
+            color: #ffffff;
+        }
+        @media (max-width: 640px) {
+            .home-author-teaser-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 14px;
+            }
+            .home-author-tags {
+                justify-content: center;
+            }
+        }
+
+        /* Полноценная страница об авторе (#view-author) */
+        .author-page-wrapper {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 10px 16px 50px;
+        }
+        .author-page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+        .author-main-card {
+            background: #ffffff;
+            border-radius: 28px;
+            border: 1.5px solid #e2e8f0;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .author-hero-section {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1.5px solid #f1f5f9;
+        }
+        .author-hero-photo-wrap {
+            position: relative;
+            flex-shrink: 0;
+            width: 96px;
+            height: 96px;
+        }
+        .author-hero-photo {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3.5px solid #7c3aed;
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.25);
+        }
+        .author-hero-badge {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #7c3aed;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.88rem;
+            border: 2.5px solid #ffffff;
+        }
+        .author-hero-title {
+            font-size: 1.55rem;
+            font-weight: 900;
+            color: #0f172a;
+            margin: 0 0 10px 0;
+            line-height: 1.25;
+        }
+        .author-hero-roles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .auth-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+        .pill-purple { background: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+        .pill-blue { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+        .pill-green { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+
+        .author-blocks-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+        @media (max-width: 768px) {
+            .author-blocks-grid { grid-template-columns: 1fr; }
+            .author-hero-section { flex-direction: column; text-align: center; }
+            .author-hero-roles { justify-content: center; }
+            .author-main-card { padding: 20px; }
+        }
+        .author-info-box {
+            background: #f8fafc;
+            border-radius: 20px;
+            border: 1.5px solid #e2e8f0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .author-box-header {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        .author-box-header i { color: #7c3aed; }
+        .author-timeline { display: flex; flex-direction: column; gap: 14px; }
+        .author-timeline-item {
+            padding-left: 14px;
+            border-left: 2.5px solid #cbd5e1;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .author-timeline-item.current { border-left-color: #10b981; }
+        .author-timeline-year { font-weight: 800; color: #7c3aed; font-size: 0.88rem; }
+        .author-timeline-year.highlight { color: #059669; }
+        .author-timeline-desc { font-size: 0.92rem; color: #334155; line-height: 1.5; }
+        
+        .author-experience-list { display: flex; flex-direction: column; gap: 14px; }
+        .author-exp-card { display: flex; gap: 12px; }
+        .author-exp-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            color: #7c3aed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .author-exp-content { flex: 1; }
+        .author-exp-heading { font-weight: 700; color: #0f172a; font-size: 0.92rem; }
+        .author-exp-text { font-size: 0.88rem; color: #475569; margin: 4px 0 0 0; line-height: 1.45; }
+
+        .author-actions-footer {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .author-cta-btn {
+            flex: 1;
+            min-width: 220px;
+            padding: 13px 20px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 0.94rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+        }
+        .author-cta-btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+        .tg-cta { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #ffffff; }
+        .guide-cta { background: linear-gradient(135deg, #059669 0%, #047857 100%); color: #ffffff; border: none; }
+
+        /* ==================== 2-КОЛОНОЧНЫЙ МАКЕТ ГРАММАТИКИ И БОКОВОЙ СЛОВАРЬ ==================== */
+        .gd-layout-container {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 350px;
+            gap: 26px;
+            align-items: start;
+            max-width: 1340px;
+            margin: 0 auto;
+            padding: 10px 16px 50px;
+        }
+        @media (max-width: 960px) {
+            .gd-layout-container {
+                grid-template-columns: 1fr;
+            }
+            .gd-dict-sidebar {
+                display: none;
+            }
+        }
+        .gd-main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            min-width: 0;
+        }
+        .gd-rule-badge {
+            background: #ede9fe;
+            color: #6d28d9;
+            font-size: 0.78rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 8px;
+        }
+        .gd-sidebar-sticky {
+            position: sticky;
+            top: 85px;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 22px;
+            padding: 22px;
+            box-shadow: 0 8px 26px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-height: calc(100vh - 110px);
+            overflow-y: auto;
+        }
+        .gd-sidebar-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1.5px solid #f1f5f9;
+            padding-bottom: 12px;
+        }
+        .gd-sidebar-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .gd-sidebar-title i { color: #7c3aed; }
+        .gd-sidebar-hint {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #64748b;
+            background: #f8fafc;
+            padding: 3px 8px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+        .gd-sidebar-empty {
+            text-align: center;
+            padding: 34px 12px;
+            color: #64748b;
+        }
+        .gd-sidebar-empty-icon {
+            font-size: 2.3rem;
+            color: #cbd5e1;
+            margin-bottom: 12px;
+        }
+        .gd-sidebar-empty h4 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin: 0 0 6px 0;
+        }
+        .gd-sidebar-empty p {
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .gd-sd-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .gd-sd-hanzi {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #0f172a;
+            line-height: 1.1;
+            font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+            display: block;
+        }
+        .gd-sd-pinyin {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+        .gd-sd-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .gd-sd-tag-row {
+            margin-top: -6px;
+        }
+        .gd-sd-section-label {
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 12px;
+        }
+        .gd-sd-trans-body {
+            font-size: 0.94rem;
+            line-height: 1.6;
+            color: #334155;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        /* Кликабельные сегментированные слова */
+        .gd-word-token {
+            display: inline-block;
+            padding: 2px 6px;
+            margin: 1px 2px;
+            border-radius: 8px;
+            background: rgba(124, 58, 237, 0.07);
+            color: #4c1d95;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+            transition: all 0.15s ease;
+            border: 1.5px solid transparent;
+            user-select: none;
+        }
+        .gd-word-token:hover {
+            background: rgba(124, 58, 237, 0.16);
+            color: #6d28d9;
+            border-color: #c4b5fd;
+            transform: translateY(-1px);
+        }
+        .gd-word-token.active {
+            background: #7c3aed !important;
+            color: #ffffff !important;
+            border-color: #6d28d9 !important;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+        }
+        .gd-punct {
+            display: inline-block;
+            color: #94a3b8;
+            font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+            margin: 0 1px;
+        }
+
+        /* Интерактивный мини-тест: выбор вариантов и обратная связь */
+        .gd-quiz-choice-btn {
+            width: 100%;
+            text-align: left;
+            background: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #1e293b;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            outline: none;
+            margin-bottom: 8px;
+        }
+        .gd-quiz-choice-btn:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+            transform: translateY(-1px);
+        }
+        .gd-quiz-choice-btn.correct {
+            background: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #15803d !important;
+            box-shadow: 0 3px 10px rgba(34, 197, 94, 0.2);
+        }
+        .gd-quiz-choice-btn.wrong {
+            background: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #b91c1c !important;
+            animation: shakeQuiz 0.3s ease;
+        }
+        @keyframes shakeQuiz {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-4px); }
+            40%, 80% { transform: translateX(4px); }
+        }
+        .gd-quiz-show-hint-btn {
+            background: transparent;
+            border: 1.5px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #166534;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .gd-quiz-show-hint-btn:hover {
+            background: #dcfce7;
+            border-color: #86efac;
+        }
+
 </style>
     <script src="data/grammar_hsk1/hsk1_grammar_full.js"></script>
 </head>
@@ -13205,7 +13727,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                 <div class="home-brand-row">
                     <img src="images/baobao_avatar_clean.png" alt="БаоБао" class="home-brand-avatar">
                     <div class="home-brand-meta">
-                        <h1 class="home-brand-title">БаоБао <span class="home-brand-tag">包宝</span></h1>
+                        <h1 class="home-brand-title">БаоБао <span class="home-brand-tag"><span class="hb-c">包</span><span class="hb-c">宝</span></span></h1>
                         <p class="home-brand-sub">Твой помощник в изучении китайского языка</p>
                     </div>
                 </div>
@@ -13367,11 +13889,34 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                     <span>Мои ресурсы</span> <i class="fa-solid fa-bolt"></i>
                 </a>
             </section>
+
+            <!-- ==================== РАЗДЕЛ: ОБ АВТОРЕ (СТИЛЬ СВЯЗЬ СО МНОЙ) ==================== -->
+            <section class="home-author-section" style="margin-top: 45px;">
+                <h2 class="section-title">Об авторе</h2>
+                <div class="home-author-teaser-card" id="home-author-open-card" role="button" tabindex="0" title="Нажмите, чтобы открыть подробную страницу об авторе">
+                    <div class="home-author-avatar-wrap">
+                        <img src="images/sergey_author_sq.jpg" alt="Верещагин Сергей Александрович" class="home-author-img">
+                        <span class="home-author-cap-badge"><i class="fa-solid fa-graduation-cap"></i></span>
+                    </div>
+                    <div class="home-author-info">
+                        <h3 class="home-author-name">Верещагин Сергей Александрович</h3>
+                        <p class="home-author-sub">Преподаватель • Переводчик • Автор платформы БаоБао</p>
+                        <div class="home-author-tags">
+                            <span class="auth-pill pill-purple"><i class="fa-solid fa-graduation-cap"></i> Преподаватель</span>
+                            <span class="auth-pill pill-blue"><i class="fa-solid fa-language"></i> Переводчик</span>
+                            <span class="auth-pill pill-green"><i class="fa-solid fa-flask"></i> Исследователь</span>
+                        </div>
+                    </div>
+                    <div class="home-author-action">
+                        <span class="home-author-more-btn">Подробнее <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </section>
         </div>
         
         <!-- Нижняя навигация и Об авторе (кликабельный текст) -->
         <div class="home-author-link-bar">
-            <button type="button" class="home-author-pill-btn" id="home-author-text-btn">
+            <button type="button" class="home-author-pill-btn" id="home-author-text-btn" title="Подробнее об авторе платформы">
                 <i class="fa-solid fa-user-graduate"></i> <span>Об авторе</span>
             </button>
         </div>
@@ -13905,25 +14450,180 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         </header>
 
         <main class="gen-main grammar-detail-main">
-            <div class="grammar-detail-content-wrap">
-                <div class="gd-hero-card">
-                    <div class="gd-badges-row">
-                        <span class="gd-id-badge" id="gd-id-badge">HSK1_GR_01</span>
-                        <span class="gd-ref-badge" id="gd-ref-badge">Урок 2</span>
+            <div class="gd-layout-container">
+                <!-- Левая часть: Полное содержимое грамматической темы -->
+                <div class="gd-main-content">
+                    <div class="gd-hero-card">
+                        <div class="gd-badges-row">
+                            <span class="gd-ref-badge" id="gd-ref-badge">Урок 2</span>
+                            <span class="gd-rule-badge" id="gd-rule-badge">Правило 1 из 42</span>
+                        </div>
+                        <h2 class="gd-title" id="gd-title">Базовый порядок слов SVO</h2>
+                        <div class="gd-zh-title" id="gd-zh-title">基本语序 (主谓宾)</div>
                     </div>
-                    <h2 class="gd-title" id="gd-title">Базовый порядок слов SVO</h2>
-                    <div class="gd-zh-title" id="gd-zh-title">基本语序 (主谓宾)</div>
+
+                    <div id="grammar-detail-body-container" class="grammar-detail-body">
+                    </div>
+
+                    <div class="gd-bottom-nav">
+                        <button type="button" class="btn outline" id="gd-prev-btn"><i class="fa-solid fa-arrow-left"></i> Предыдущая тема</button>
+                        <button type="button" class="btn primary" id="gd-next-btn">Следующая тема <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
                 </div>
 
-                <div id="grammar-detail-body-container" class="grammar-detail-body">
-                </div>
+                <!-- Правая часть: Боковая панель словаря (как в Изучении текстов!) -->
+                <aside class="gd-dict-sidebar" id="gd-dict-sidebar">
+                    <div class="gd-sidebar-sticky">
+                        <div class="gd-sidebar-top">
+                            <span class="gd-sidebar-title">
+                                <i class="fa-solid fa-book-open"></i> Детали слова
+                            </span>
+                            <span class="gd-sidebar-hint"><i class="fa-regular fa-lightbulb"></i> Нажми на слово</span>
+                        </div>
 
-                <div class="gd-bottom-nav">
-                    <button type="button" class="btn outline" id="gd-prev-btn"><i class="fa-solid fa-arrow-left"></i> Предыдущая тема</button>
-                    <button type="button" class="btn primary" id="gd-next-btn">Следующая тема <i class="fa-solid fa-arrow-right"></i></button>
-                </div>
+                        <!-- 1. Состояние ожидания (Пусто) -->
+                        <div class="gd-sidebar-empty" id="gd-sidebar-empty">
+                            <div class="gd-sidebar-empty-icon"><i class="fa-solid fa-hand-pointer"></i></div>
+                            <h4>Нажмите на слово</h4>
+                            <p>Кликните по любому слову в примерах предложений или правиле, чтобы увидеть пиньинь с тонами, перевод, озвучку, анимацию написания черт и словарную статью БКРС.</p>
+                        </div>
+
+                        <!-- 2. Активное состояние с карточкой слова -->
+                        <div class="gd-sidebar-content" id="gd-sidebar-content" style="display: none;">
+                            <div class="gd-sd-header">
+                                <div class="gd-sd-word-box">
+                                    <span id="gd-sd-hanzi" class="gd-sd-hanzi"></span>
+                                    <div id="gd-sd-pinyin" class="gd-sd-pinyin"></div>
+                                </div>
+                                <div class="gd-sd-actions">
+                                    <button type="button" id="gd-sd-audio-btn" class="ts-audio-btn" title="Озвучить слово">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                    <button type="button" id="gd-sd-draw-btn" class="ts-audio-btn" title="Анимация написания черт">
+                                        <i class="fa-solid fa-pen-nib"></i>
+                                    </button>
+                                    <button type="button" id="gd-sd-bkrs-btn" class="ts-audio-btn" title="Искать в словаре БКРС">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="gd-sd-tag-row">
+                                <span id="gd-sd-tag" class="ts-wd-tag">Слово</span>
+                            </div>
+
+                            <div class="gd-sd-trans-section">
+                                <div class="gd-sd-section-label">
+                                    <i class="fa-solid fa-book-bookmark"></i> Значение и перевод (БКРС)
+                                </div>
+                                <div id="gd-sd-trans" class="gd-sd-trans-body"></div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
             </div>
         </main>
+    </div>
+
+
+    <!-- ==================== ЭКРАН 7C: ОБ АВТОРЕ (ПОЛНОЦЕННАЯ СТРАНИЦА) ==================== -->
+    <div id="view-author" class="view-section">
+        <div class="author-page-wrapper">
+            <header class="gen-header author-page-header">
+                <button type="button" class="btn back back-to-home" title="Вернуться на главную">
+                    <i class="fa-solid fa-arrow-left"></i><span class="back-label"> На главную</span>
+                </button>
+                <div class="author-header-title-box">
+                    <h2 class="section-title" style="margin: 0;">Об авторе</h2>
+                </div>
+                <div style="width: 80px;"></div>
+            </header>
+
+            <main class="author-page-main">
+                <div class="author-main-card">
+                    <!-- Hero профиля: Фото, имя, роли -->
+                    <div class="author-hero-section">
+                        <div class="author-hero-photo-wrap">
+                            <img src="images/sergey_author_sq.jpg" alt="Верещагин Сергей Александрович" class="author-hero-photo">
+                            <span class="author-hero-badge"><i class="fa-solid fa-graduation-cap"></i></span>
+                        </div>
+                        <div class="author-hero-details">
+                            <h1 class="author-hero-title">Верещагин Сергей Александрович</h1>
+                            <div class="author-hero-roles">
+                                <span class="auth-pill pill-purple"><i class="fa-solid fa-graduation-cap"></i> Преподаватель</span>
+                                <span class="auth-pill pill-blue"><i class="fa-solid fa-language"></i> Переводчик</span>
+                                <span class="auth-pill pill-green"><i class="fa-solid fa-flask"></i> Исследователь</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2 Колонки: Образование и Опыт -->
+                    <div class="author-blocks-grid">
+                        <!-- Колонка 1: Образование ЛГПУ -->
+                        <div class="author-info-box">
+                            <div class="author-box-header">
+                                <i class="fa-solid fa-building-columns"></i>
+                                <span>Образование ЛГПУ</span>
+                            </div>
+                            <div class="author-timeline">
+                                <div class="author-timeline-item">
+                                    <div class="author-timeline-year">2020 – 2024 гг.</div>
+                                    <div class="author-timeline-desc">
+                                        <strong>Бакалавриат с отличием</strong> — Китайский язык и второй иностранный язык (английский язык).
+                                    </div>
+                                </div>
+                                <div class="author-timeline-item">
+                                    <div class="author-timeline-year">2024 – 2026 гг.</div>
+                                    <div class="author-timeline-desc">
+                                        <strong>Магистратура с отличием</strong> — Английский язык и второй иностранный язык (китайский / японский / арабский / турецкий языки).
+                                    </div>
+                                </div>
+                                <div class="author-timeline-item current">
+                                    <div class="author-timeline-year highlight">Настоящее время</div>
+                                    <div class="author-timeline-desc">
+                                        <strong>Аспирантура ЛГПУ</strong> — Научная специальность 5.8.1 «Общая педагогика, история педагогики и образования».
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Колонка 2: Профессиональный опыт -->
+                        <div class="author-info-box">
+                            <div class="author-box-header">
+                                <i class="fa-solid fa-briefcase"></i>
+                                <span>Профессиональный опыт</span>
+                            </div>
+                            <div class="author-experience-list">
+                                <div class="author-exp-card">
+                                    <div class="author-exp-icon"><i class="fa-solid fa-language"></i></div>
+                                    <div class="author-exp-content">
+                                        <div class="author-exp-heading">Переводчик китайского языка (1 год опыта):</div>
+                                        <p class="author-exp-text">Технический перевод китайского языка (как устный, так и письменный перевод документации и переговоров).</p>
+                                    </div>
+                                </div>
+                                <div class="author-exp-card">
+                                    <div class="author-exp-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                                    <div class="author-exp-content">
+                                        <div class="author-exp-heading">Преподаватель (1 год опыта):</div>
+                                        <p class="author-exp-text">Преподавание китайского и английского языков, создание интерактивных методик обучения и авторских материалов.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Нижние кнопки действий -->
+                    <div class="author-actions-footer">
+                        <a href="https://t.me/madeinseryoga" target="_blank" rel="noopener noreferrer" class="author-cta-btn tg-cta">
+                            <i class="fa-brands fa-telegram"></i> Telegram @madeinseryoga
+                        </a>
+                        <button type="button" class="author-cta-btn guide-cta" onclick="window.openBaoBaoGuide && window.openBaoBaoGuide()">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Инструкция от БаоБао
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
 
 <div id="view-bkrs" class="view-section">
@@ -15230,6 +15930,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                 grammar: document.getElementById('view-grammar'),
                 grammardetail: document.getElementById('view-grammar-detail'),
                 textstudy: document.getElementById('view-textstudy'),
+                author: document.getElementById('view-author'),
                 bkrs: document.getElementById('view-bkrs')
             };
             
@@ -15254,6 +15955,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                     train: views.train,
                     grammar: views.grammar,
                     textstudy: views.textstudy,
+                    author: views.author,
                     bkrs: views.bkrs
                 };
                 if (map[name]) switchView(map[name]);
@@ -15939,6 +16641,7 @@ function renderCourseLessons(course) {
                     train: views.train,
                     keys: views.keys,
                     textstudy: views.textstudy,
+                    author: views.author,
                     bkrs: views.bkrs
                 };
                 if (map[name]) switchView(map[name]);
@@ -25599,7 +26302,9 @@ const BkrsDB = window.BkrsDB = {
                 aboutBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
                     dropdown.classList.add('hidden');
-                    if (window.openAboutAuthor) {
+                    if (window.navigateToAuthor) {
+                        window.navigateToAuthor();
+                    } else if (window.openAboutAuthor) {
                         window.openAboutAuthor();
                     }
                 });
@@ -26025,11 +26730,191 @@ const BkrsDB = window.BkrsDB = {
             } catch(e) {}
         };
 
+                // ==================== СЕГМЕНТАЦИЯ ПРЕДЛОЖЕНИЙ И СЛОВАРЬ В ГРАММАТИКЕ ====================
+        function segmentGrammarSentence(sentence) {
+            if (!sentence) return [];
+            const chars = Array.from(sentence);
+            const tokens = [];
+            let i = 0;
+            const maxWordLen = 4;
+
+            while (i < chars.length) {
+                const ch = chars[i];
+                // Знаки препинания и пробелы
+                if (/[\s，。！？!?、；;：:,.——\-""''«»()（）\[\]《》·]/.test(ch)) {
+                    tokens.push({ type: 'punct', text: ch });
+                    i++;
+                    continue;
+                }
+
+                let matched = null;
+                let matchedLen = 0;
+
+                // Жадный поиск составных слов от 4 до 2 иероглифов
+                for (let l = Math.min(maxWordLen, chars.length - i); l >= 2; l--) {
+                    const sub = chars.slice(i, i + l).join('');
+                    if (window.BkrsDB && window.BkrsDB.coreWords && window.BkrsDB.coreWords[sub]) {
+                        const info = window.BkrsDB.coreWords[sub];
+                        matched = { word: sub, pinyin: info[0] || '', trans: info[1] || '' };
+                        matchedLen = l;
+                        break;
+                    }
+                    if (window.__hskIndex && window.__hskIndex[sub]) {
+                        const row = window.__hskIndex[sub];
+                        matched = { word: sub, pinyin: row[2] || '', trans: row[3] || '' };
+                        matchedLen = l;
+                        break;
+                    }
+                    if (typeof hskData !== 'undefined' && Array.isArray(hskData)) {
+                        const found = hskData.find(r => r && r[1] === sub);
+                        if (found) {
+                            matched = { word: sub, pinyin: found[2] || '', trans: found[3] || '' };
+                            matchedLen = l;
+                            break;
+                        }
+                    }
+                }
+
+                if (matched) {
+                    tokens.push({ type: 'word', text: matched.word, pinyin: matched.pinyin, trans: matched.trans });
+                    i += matchedLen;
+                } else {
+                    // Одиночный иероглиф
+                    let pinyin = '';
+                    let trans = '';
+                    if (window.BkrsDB && window.BkrsDB.singleChars && window.BkrsDB.singleChars[ch]) {
+                        const sc = window.BkrsDB.singleChars[ch];
+                        pinyin = sc[0] || '';
+                        trans = sc[1] || '';
+                    } else if (window.__hskIndex && window.__hskIndex[ch]) {
+                        const row = window.__hskIndex[ch];
+                        pinyin = row[2] || '';
+                        trans = row[3] || '';
+                    }
+                    tokens.push({ type: 'word', text: ch, pinyin: pinyin, trans: trans });
+                    i++;
+                }
+            }
+            return tokens;
+        }
+
+        function renderClickableSentence(sentence) {
+            if (!sentence) return '';
+            const tokens = segmentGrammarSentence(sentence);
+            return tokens.map(tok => {
+                if (tok.type === 'punct') {
+                    return '<span class="gd-punct">' + escapeHtml(tok.text) + '</span>';
+                }
+                const safeWord = escapeHtml(tok.text).replace(/'/g, "\\'");
+                return '<span class="gd-word-token" onclick="handleGrammarWordClick(this, \'' + safeWord + '\')" title="Нажмите для разбора слова">' + escapeHtml(tok.text) + '</span>';
+            }).join('');
+        }
+
+        // Клик по слову в грамматике -> показ в боковой панели (как в Изучении текстов)
+        window.handleGrammarWordClick = async function(el, word) {
+            if (!word) return;
+            const cleanWord = String(word).trim().replace(/[.,!?;:。，！？；：“”‘’（）]/g, '');
+            if (!cleanWord) return;
+
+            // Подсветка активного слова
+            document.querySelectorAll('.gd-word-token.active').forEach(e => e.classList.remove('active'));
+            if (el && el.classList) el.classList.add('active');
+
+            let pinyin = '';
+            let trans = '';
+            let isHsk = false;
+
+            if (window.BkrsDB && window.BkrsDB.coreWords && window.BkrsDB.coreWords[cleanWord]) {
+                pinyin = window.BkrsDB.coreWords[cleanWord][0] || '';
+                trans = window.BkrsDB.coreWords[cleanWord][1] || '';
+            } else if (window.BkrsDB && window.BkrsDB.singleChars && window.BkrsDB.singleChars[cleanWord]) {
+                pinyin = window.BkrsDB.singleChars[cleanWord][0] || '';
+                trans = window.BkrsDB.singleChars[cleanWord][1] || '';
+            }
+
+            if (typeof hskData !== 'undefined' && Array.isArray(hskData)) {
+                const found = hskData.find(r => r && r[1] === cleanWord);
+                if (found) {
+                    if (!pinyin) pinyin = found[2] || '';
+                    if (!trans) trans = found[3] || '';
+                    isHsk = true;
+                }
+            }
+
+            // Обновление боковой панели
+            const emptyEl = document.getElementById('gd-sidebar-empty');
+            const contentEl = document.getElementById('gd-sidebar-content');
+            const hanziEl = document.getElementById('gd-sd-hanzi');
+            const pinyinEl = document.getElementById('gd-sd-pinyin');
+            const transEl = document.getElementById('gd-sd-trans');
+            const tagEl = document.getElementById('gd-sd-tag');
+            const audioBtn = document.getElementById('gd-sd-audio-btn');
+            const drawBtn = document.getElementById('gd-sd-draw-btn');
+            const bkrsBtn = document.getElementById('gd-sd-bkrs-btn');
+
+            if (emptyEl) emptyEl.style.display = 'none';
+            if (contentEl) contentEl.style.display = 'block';
+
+            if (hanziEl) hanziEl.textContent = cleanWord;
+            if (pinyinEl) {
+                pinyinEl.innerHTML = window.renderColoredPinyin ? window.renderColoredPinyin(pinyin.toLowerCase()) : escapeHtml(pinyin);
+            }
+            if (tagEl) tagEl.textContent = isHsk ? 'HSK 1' : (cleanWord.length > 1 ? 'Слово' : 'Иероглиф');
+
+            const formattedTrans = typeof window.formatBkrsArticle === 'function' ? window.formatBkrsArticle(trans || 'Загрузка...', false) : escapeHtml(trans || 'Загрузка...');
+            if (transEl) transEl.innerHTML = formattedTrans;
+
+            if (audioBtn) {
+                audioBtn.onclick = function() {
+                    if (typeof window.speakChinese === 'function') window.speakChinese(cleanWord);
+                    else if (typeof window.playGrammarTTS === 'function') window.playGrammarTTS(cleanWord);
+                };
+            }
+            if (drawBtn) {
+                drawBtn.onclick = function() {
+                    if (typeof window.openHanziDrawModal === 'function') {
+                        window.openHanziDrawModal(cleanWord);
+                    }
+                };
+            }
+            if (bkrsBtn) {
+                bkrsBtn.onclick = function() {
+                    if (window.__appSwitchView) window.__appSwitchView('bkrs');
+                    const bkrsInput = document.getElementById('bkrs-search-input');
+                    if (bkrsInput) {
+                        bkrsInput.value = cleanWord;
+                        if (typeof window.performBkrsSearch === 'function') window.performBkrsSearch(cleanWord);
+                    }
+                };
+            }
+
+            // Дозагрузка детальной словарной статьи из БКРС при наличии
+            if (window.BkrsDB && typeof window.BkrsDB.lookup === 'function') {
+                window.BkrsDB.lookup(cleanWord).then(res => {
+                    if (res && res.trans && res.trans !== trans) {
+                        if (transEl) transEl.innerHTML = typeof window.formatBkrsArticle === 'function' ? window.formatBkrsArticle(res.trans, false) : escapeHtml(res.trans);
+                    }
+                }).catch(() => {});
+            }
+
+            // На мобильных устройствах (<= 960px) выдвигаем нижнюю шторку
+            if (window.innerWidth <= 960 && typeof window.renderMobileWordSheet === 'function') {
+                const token = { word: cleanWord, pinyin: pinyin, trans: trans };
+                window.renderMobileWordSheet(token, formattedTrans, isHsk ? 'HSK 1' : 'Слово', false);
+            }
+        };
+
+        // Совместимость со старым вызовом lookupGrammarWord
+        window.lookupGrammarWord = function(word) {
+            window.handleGrammarWordClick(null, word);
+        };
+
         function renderGrammarDetailPage(t) {
             if (!t) return;
-            // Friendly topic position badge instead of technical ID
-            const idBadge = document.getElementById('gd-id-badge');
-            if (idBadge) idBadge.textContent = 'Правило ' + (currentTopicIdx + 1) + ' из ' + allTopicsList.length;
+
+            // Дружелюбные бейджи для студента (без технического HSK1_GR_XX!)
+            const ruleBadge = document.getElementById('gd-rule-badge');
+            if (ruleBadge) ruleBadge.textContent = 'Правило ' + (currentTopicIdx + 1) + ' из ' + allTopicsList.length;
             const refBadge = document.getElementById('gd-ref-badge');
             if (refBadge) refBadge.textContent = t.lesson_ref || '新HSK 1';
             const titleEl = document.getElementById('gd-title');
@@ -26084,7 +26969,7 @@ const BkrsDB = window.BkrsDB = {
                 h += '</div>';
             }
 
-            // 4. Примеры предложений из учебника с тональным пиньинем и кликабельными словами
+            // 4. Примеры предложений из учебника с тональным пиньинем и кликабельными словами (сегментированными по 2-4 иероглифа)
             const primaryEx = t.textbook_examples || t.examples || [];
             if (primaryEx && primaryEx.length > 0) {
                 h += '<div class="gd-section">';
@@ -26095,7 +26980,7 @@ const BkrsDB = window.BkrsDB = {
                     const coloredPin = window.renderColoredPinyin ? window.renderColoredPinyin(ex.pinyin) : escapeHtml(ex.pinyin || '');
                     h += '<div class="gd-example-card">';
                     h += '  <div class="gd-ex-hanzi-row">';
-                    h += '    <span class="gd-ex-hanzi">' + makeHanziClickable(hanzi) + '</span>';
+                    h += '    <span class="gd-ex-hanzi">' + renderClickableSentence(hanzi) + '</span>';
                     h += '    <button type="button" class="grammar-ex-tts-btn" onclick="playGrammarTTS(\'' + escapeHtml(hanzi).replace(/'/g, "\\'") + '\')" title="Озвучить предложение"><i class="fa-solid fa-volume-high"></i></button>';
                     h += '  </div>';
                     h += '  <div class="gd-ex-pinyin">' + coloredPin + '</div>';
@@ -26109,7 +26994,7 @@ const BkrsDB = window.BkrsDB = {
                 h += '</div>';
             }
 
-            // 5. Дополнительные предложения для практики
+            // 5. Дополнительные предложения для практики (также с сегментацией и тонами)
             const extraEx = t.extra_examples_modified || [];
             if (extraEx && extraEx.length > 0) {
                 h += '<div class="gd-section">';
@@ -26120,7 +27005,7 @@ const BkrsDB = window.BkrsDB = {
                     const coloredPin = window.renderColoredPinyin ? window.renderColoredPinyin(ex.pinyin) : escapeHtml(ex.pinyin || '');
                     h += '<div class="gd-example-card">';
                     h += '  <div class="gd-ex-hanzi-row">';
-                    h += '    <span class="gd-ex-hanzi">' + makeHanziClickable(hanzi) + '</span>';
+                    h += '    <span class="gd-ex-hanzi">' + renderClickableSentence(hanzi) + '</span>';
                     h += '    <button type="button" class="grammar-ex-tts-btn" onclick="playGrammarTTS(\'' + escapeHtml(hanzi).replace(/'/g, "\\'") + '\')" title="Озвучить предложение"><i class="fa-solid fa-volume-high"></i></button>';
                     h += '  </div>';
                     h += '  <div class="gd-ex-pinyin">' + coloredPin + '</div>';
@@ -26139,37 +27024,43 @@ const BkrsDB = window.BkrsDB = {
                 h += '</div>';
             }
 
-            // 7. Интерактивный экспресс-тест: Теория + Практика
-            const quizzes = Array.isArray(t.quiz) ? t.quiz : (t.quiz ? [t.quiz] : []);
+            // 7. Интерактивный экспресс-тест: Теория и Практика с мгновенной проверкой
+            const quizzes = Array.isArray(t.quizzes) ? t.quizzes : (Array.isArray(t.quiz) ? t.quiz : (t.quiz ? [t.quiz] : []));
             if (quizzes.length > 0) {
                 h += '<div class="gd-quiz-section">';
                 h += '  <h3 class="gd-quiz-title"><i class="fa-solid fa-circle-question"></i> Экспресс-тест на закрепление (Теория и Практика)</h3>';
                 quizzes.forEach((qItem, qIdx) => {
-                    const qId = 'quiz-item-' + qIdx;
+                    const qId = 'quiz-box-' + qIdx;
                     const fbId = 'quiz-fb-' + qIdx;
                     const qText = qItem.q || qItem.question || '';
-                    const ansText = qItem.answer || qItem.a || '';
+                    const explanation = qItem.explanation || qItem.answer || qItem.a || '';
                     const options = qItem.options || [];
-                    const isTheory = /как|где|почему|что означает|какой/i.test(qText);
+                    const correctIdx = typeof qItem.correct === 'number' ? qItem.correct : 0;
+                    const isTheory = qItem.type === 'theory' || /как|где|почему|что означает|какой|можно ли/i.test(qText);
 
                     h += '<div class="gd-quiz-box" id="' + qId + '">';
-                    h += '  <div class="gd-quiz-q-num">' + (isTheory ? '🎓 Теоретическая часть' : '✍️ Практическое задание') + ' • Задание ' + (qIdx + 1) + '</div>';
+                    h += '  <div class="gd-quiz-q-num">' + (isTheory ? '🎓 Теоретическая часть' : '✍️ Практическое задание') + ' • Вопрос ' + (qIdx + 1) + ' из ' + quizzes.length + '</div>';
                     h += '  <div class="gd-quiz-question">' + formatMarkdownText(qText) + '</div>';
 
                     if (options.length > 0) {
                         h += '<div class="gd-quiz-options-list">';
-                        options.forEach((opt) => {
-                            h += '<button type="button" class="gd-quiz-choice-btn" onclick="handleQuizChoice(this, \'' + fbId + '\')">' + escapeHtml(opt) + '</button>';
+                        options.forEach((opt, optIdx) => {
+                            const isCorrect = (optIdx === correctIdx);
+                            const safeExp = escapeHtml(explanation).replace(/'/g, "\\'");
+                            h += '<button type="button" class="gd-quiz-choice-btn" data-correct="' + (isCorrect ? '1' : '0') + '" onclick="handleGrammarQuizOption(this, ' + (isCorrect ? 'true' : 'false') + ', \'' + safeExp + '\', \'' + fbId + '\')">';
+                            h += '  <span>' + escapeHtml(opt) + '</span>';
+                            h += '  <i class="fa-regular fa-circle opt-icon"></i>';
+                            h += '</button>';
                         });
                         h += '</div>';
                     }
 
-                    h += '  <div class="gd-quiz-action-bar">';
-                    h += '    <button type="button" class="gd-quiz-opt-btn" onclick="toggleQuizAnswer(this, \'' + fbId + '\')">Проверить свой ответ и посмотреть разбор ✨</button>';
+                    h += '  <div class="gd-quiz-action-bar" style="margin-top: 10px; display: flex; align-items: center; justify-content: space-between;">';
+                    h += '    <button type="button" class="gd-quiz-show-hint-btn" onclick="toggleQuizAnswer(this, \'' + fbId + '\')"><i class="fa-regular fa-lightbulb"></i> Показать разбор от БаоБао</button>';
                     h += '  </div>';
                     h += '  <div id="' + fbId + '" class="gd-quiz-feedback">';
-                    h += '    <div class="gd-quiz-feedback-title"><i class="fa-solid fa-circle-check"></i> Правильный ответ и объяснение:</div>';
-                    h += '    <div class="gd-quiz-feedback-body">' + formatMarkdownText(ansText) + '</div>';
+                    h += '    <div class="gd-quiz-feedback-title" id="' + fbId + '-title"><i class="fa-solid fa-circle-check"></i> Разбор правила от БаоБао:</div>';
+                    h += '    <div class="gd-quiz-feedback-body" id="' + fbId + '-body">' + formatMarkdownText(explanation) + '</div>';
                     h += '  </div>';
                     h += '</div>';
                 });
@@ -26177,35 +27068,64 @@ const BkrsDB = window.BkrsDB = {
             }
 
             container.innerHTML = h;
+
+            // Сброс боковой панели словаря в пустое состояние при смене темы
+            const emptyEl = document.getElementById('gd-sidebar-empty');
+            const contentEl = document.getElementById('gd-sidebar-content');
+            if (emptyEl) emptyEl.style.display = 'block';
+            if (contentEl) contentEl.style.display = 'none';
         }
 
-        window.handleQuizChoice = function(btn, fbId) {
+        // Обработка клика по варианту ответа в тесте
+        window.handleGrammarQuizOption = function(btn, isCorrect, explanation, fbId) {
             const parent = btn.parentElement;
             if (parent) {
-                parent.querySelectorAll('.gd-quiz-choice-btn').forEach(b => b.classList.remove('selected'));
+                parent.querySelectorAll('.gd-quiz-choice-btn').forEach(b => {
+                    b.classList.remove('correct', 'wrong');
+                    const icon = b.querySelector('.opt-icon');
+                    if (icon) icon.className = 'fa-regular fa-circle opt-icon';
+                });
             }
-            btn.classList.add('selected');
-            const fb = document.getElementById(fbId);
-            if (fb) fb.classList.add('show');
-        };
 
-        window.toggleQuizAnswer = function(btn, fbId) {
-            const fb = fbId ? document.getElementById(fbId) : document.getElementById('gd-quiz-feedback-box');
-            if (fb) {
-                const isShown = fb.classList.contains('show');
-                if (isShown) {
-                    fb.classList.remove('show');
-                    btn.textContent = 'Проверить свой ответ и посмотреть разбор ✨';
-                    btn.classList.remove('correct');
-                } else {
-                    fb.classList.add('show');
-                    btn.textContent = 'Скрыть ответ 🙈';
-                    btn.classList.add('correct');
+            const icon = btn.querySelector('.opt-icon');
+            const fb = document.getElementById(fbId);
+            const fbTitle = document.getElementById(fbId + '-title');
+            const fbBody = document.getElementById(fbId + '-body');
+
+            if (isCorrect) {
+                btn.classList.add('correct');
+                if (icon) icon.className = 'fa-solid fa-circle-check opt-icon';
+                if (fb) {
+                    fb.className = 'gd-quiz-feedback show success';
+                    if (fbTitle) fbTitle.innerHTML = '<i class="fa-solid fa-circle-check"></i> Отлично! Правильный ответ:';
+                    if (fbBody) fbBody.innerHTML = formatMarkdownText(explanation);
+                }
+                if (typeof showToast === 'function') showToast('🥟 Молодец! Ответ правильный!');
+            } else {
+                btn.classList.add('wrong');
+                if (icon) icon.className = 'fa-solid fa-circle-xmark opt-icon';
+                if (fb) {
+                    fb.className = 'gd-quiz-feedback show hint';
+                    if (fbTitle) fbTitle.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Не совсем так. Подсказка от БаоБао:';
+                    if (fbBody) fbBody.innerHTML = 'Попробуйте ещё раз! Вспомните правило порядка слов в китайском языке или нажмите кнопку «Показать разбор».';
                 }
             }
         };
 
-        function setupDetailNavButtons() {
+        window.toggleQuizAnswer = function(btn, fbId) {
+            const fb = document.getElementById(fbId);
+            if (!fb) return;
+            const isShown = fb.classList.contains('show');
+            if (isShown) {
+                fb.classList.remove('show');
+                btn.innerHTML = '<i class="fa-regular fa-lightbulb"></i> Показать разбор от БаоБао';
+            } else {
+                fb.classList.add('show');
+                btn.innerHTML = '<i class="fa-regular fa-eye-slash"></i> Скрыть разбор 🙈';
+            }
+        };
+
+function setupDetailNavButtons() {
             const gdBackBtn = document.getElementById('grammar-detail-back-btn');
             if (gdBackBtn) {
                 gdBackBtn.addEventListener('click', function() {
@@ -26386,98 +27306,39 @@ const BkrsDB = window.BkrsDB = {
     })();
     </script>
 
-    <!-- ==================== МОДАЛЬНОЕ ОКНО: ОБ АВТОРЕ ==================== -->
-    <div id="about-author-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="author-modal-title-text">
-        <div class="author-modal-card">
-            <div class="author-modal-header">
-                <button type="button" class="author-modal-close" id="about-author-modal-close" aria-label="Закрыть">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-                <div class="author-modal-avatar-row">
-                    <img src="images/sergey_author_sq.jpg" alt="Верещагин Сергей Александрович" class="author-modal-avatar">
-                    <div class="author-modal-title-box">
-                        <h2 id="author-modal-title-text">Верещагин Сергей Александрович</h2>
-                        <div class="author-modal-subtitle">Преподаватель • Переводчик • Автор платформы</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="author-modal-body">
-                <div class="modal-section-title"><i class="fa-solid fa-building-columns"></i> Образование ЛГПУ</div>
-                <div class="modal-edu-box">
-                    <div class="modal-edu-item">
-                        <div class="modal-edu-year">2020 – 2024 гг.</div>
-                        <div><strong>Бакалавриат с отличием</strong> — Китайский язык и второй иностранный язык (английский язык).</div>
-                    </div>
-                    <div class="modal-edu-item">
-                        <div class="modal-edu-year">2024 – 2026 гг.</div>
-                        <div><strong>Магистратура с отличием</strong> — Английский язык и второй иностранный язык (китайский / японский / арабский / турецкий языки).</div>
-                    </div>
-                    <div class="modal-edu-item current">
-                        <div class="modal-edu-year">Настоящее время</div>
-                        <div><strong>Аспирантура ЛГПУ</strong> — Научная специальность 5.8.1 «Общая педагогика, история педагогики и образования».</div>
-                    </div>
-                </div>
-
-                <div class="modal-section-title" style="margin-top: 14px;"><i class="fa-solid fa-briefcase"></i> Профессиональный опыт</div>
-                <div class="modal-exp-box">
-                    <div class="modal-exp-item">
-                        <i class="fa-solid fa-language"></i>
-                        <div><strong>Переводчик китайского языка (1 год опыта):</strong> технический перевод китайского языка (как устный, так и письменный).</div>
-                    </div>
-                    <div class="modal-exp-item">
-                        <i class="fa-solid fa-person-chalkboard"></i>
-                        <div><strong>Преподаватель (1 год опыта):</strong> преподавание китайского и английского языков, методика преподавания.</div>
-                    </div>
-                </div>
-
-                <div class="modal-action-row">
-                    <a href="https://t.me/madeinseryoga" target="_blank" rel="noopener noreferrer" class="author-cta-btn tg-cta">
-                        <i class="fa-brands fa-telegram"></i> Telegram канал @madeinseryoga
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==================== ОБ АВТОРЕ (ЛОГИКА МОДАЛЬНОГО ОКНА) ==================== -->
+    <!-- ==================== ОБ АВТОРЕ: НАВИГАЦИЯ ==================== -->
     <script>
-    (function initAuthorModal() {
-        const modal = document.getElementById('about-author-modal');
-        const closeBtn = document.getElementById('about-author-modal-close');
-        const footerBtn = document.getElementById('home-author-text-btn');
-        const dotsBtn = document.getElementById('dots-about-btn');
-
-        window.openAboutAuthor = function() {
-            if (!modal) return;
+    (function initAuthorNavigation() {
+        window.navigateToAuthor = window.openAboutAuthor = function() {
             const dropdown = document.getElementById('top-dots-dropdown');
             if (dropdown) dropdown.classList.add('hidden');
-            modal.classList.remove('hidden');
-            modal.classList.add('open');
+            if (typeof window.__appSwitchView === 'function') {
+                window.__appSwitchView('author');
+            } else {
+                const sections = document.querySelectorAll('.view-section');
+                sections.forEach(s => s.classList.remove('active'));
+                const authorView = document.getElementById('view-author');
+                if (authorView) {
+                    authorView.classList.add('active');
+                    try { window.scrollTo(0, 0); } catch (e) {}
+                }
+            }
         };
 
-        window.closeAboutAuthor = function() {
-            if (!modal) return;
-            modal.classList.add('hidden');
-            modal.classList.remove('open');
-        };
+        const footerBtn = document.getElementById('home-author-text-btn');
+        const dotsBtn = document.getElementById('dots-about-btn');
+        const teaserCard = document.getElementById('home-author-open-card');
 
-        if (footerBtn) footerBtn.onclick = window.openAboutAuthor;
+        if (footerBtn) footerBtn.addEventListener('click', window.navigateToAuthor);
         if (dotsBtn) {
-            dotsBtn.onclick = function(e) {
-                if (e) e.stopPropagation();
-                window.openAboutAuthor();
-            };
+            dotsBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                window.navigateToAuthor();
+            });
         }
-        if (closeBtn) closeBtn.onclick = window.closeAboutAuthor;
-        if (modal) {
-            modal.onclick = function(e) {
-                if (e.target === modal) window.closeAboutAuthor();
-            };
-        }
+        if (teaserCard) teaserCard.addEventListener('click', window.navigateToAuthor);
     })();
     </script>
-
 
     <!-- ==================== ИНТЕРАКТИВНЫЙ ПОДГЛЯДЫВАЮЩИЙ БАОБАО ==================== -->
     <div id="baobao-peeker-widget" class="baobao-peeker" aria-live="polite">
