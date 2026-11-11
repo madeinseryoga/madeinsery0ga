@@ -13999,17 +13999,17 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         .author-photo-card {
             position: relative;
             aspect-ratio: 1;
-            border-radius: 14px;
+            border-radius: 16px;
             overflow: hidden;
             cursor: pointer;
             border: 1.5px solid #e2e8f0;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            transition: all 0.2s ease;
-            background: #e2e8f0;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            background: #f1f5f9;
         }
         .author-photo-card:hover {
-            transform: scale(1.04);
-            box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
             border-color: #7c3aed;
         }
         .author-photo-card img {
@@ -14017,29 +14017,10 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: transform 0.35s ease;
         }
-        .author-photo-badge {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0) 100%);
-            color: #ffffff;
-            font-size: 0.72rem;
-            font-weight: 700;
-            padding: 18px 8px 6px;
-            text-align: center;
-            line-height: 1.2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-        .author-photo-badge.tag-translator {
-            background: linear-gradient(to top, rgba(3, 105, 161, 0.9) 0%, rgba(3, 105, 161, 0) 100%);
-        }
-        .author-photo-badge.tag-teaching {
-            background: linear-gradient(to top, rgba(126, 34, 206, 0.9) 0%, rgba(126, 34, 206, 0) 100%);
+        .author-photo-card:hover img {
+            transform: scale(1.06);
         }
 
         /* Модальное окно */
@@ -15692,11 +15673,11 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                                     ФГБОУ ВО «ЛГПУ», Институт филологии и социальных коммуникаций, кафедра английской и восточной филологии • Направление 45.04.01 «Филология» • Луганск, 2026 г.
                                 </div>
                                 <div class="author-science-actions">
-                                    <button type="button" class="author-file-btn purple" onclick="openDocPreview('docs/Vereschagin_Master_Dissertation_2026.pdf', 'Магистерская диссертация (ЛГПУ, 2026)')">
-                                        <i class="fa-solid fa-eye"></i> Читать в окне
-                                    </button>
-                                    <a href="docs/Vereschagin_Master_Dissertation_2026.pdf" target="_blank" download="Vereschagin_Master_Dissertation_2026.pdf" class="author-file-btn purple outline">
-                                        <i class="fa-solid fa-download"></i> Скачать (PDF, 5.6 МБ)
+                                    <a href="docs/Vereschagin_Master_Dissertation_2026.pdf" target="_blank" rel="noopener noreferrer" class="author-file-btn purple">
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Читать диссертацию (PDF, 5.6 МБ)
+                                    </a>
+                                    <a href="docs/Vereschagin_Master_Dissertation_2026.pdf" download="Vereschagin_Master_Dissertation_2026.pdf" class="author-file-btn purple outline">
+                                        <i class="fa-solid fa-download"></i> Скачать
                                     </a>
                                 </div>
                             </div>
@@ -15735,11 +15716,11 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                                     Научный журнал «Студенческий вестник», № 45(331), часть 4, Москва, 2024 г.
                                 </div>
                                 <div class="author-science-actions">
-                                    <button type="button" class="author-file-btn purple" onclick="openDocPreview('docs/Vereschagin_Article_2024_Classification_Internet_Memes.pdf', 'Статья (Студенческий вестник, 2024)')">
-                                        <i class="fa-solid fa-eye"></i> Читать в окне
-                                    </button>
-                                    <a href="docs/Vereschagin_Article_2024_Classification_Internet_Memes.pdf" target="_blank" download="Vereschagin_Article_2024_Classification_Internet_Memes.pdf" class="author-file-btn purple outline">
-                                        <i class="fa-solid fa-download"></i> Скачать (PDF, 1.3 МБ)
+                                    <a href="docs/Vereschagin_Article_2024_Classification_Internet_Memes.pdf" target="_blank" rel="noopener noreferrer" class="author-file-btn purple">
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Читать статью (PDF, 1.3 МБ)
+                                    </a>
+                                    <a href="docs/Vereschagin_Article_2024_Classification_Internet_Memes.pdf" download="Vereschagin_Article_2024_Classification_Internet_Memes.pdf" class="author-file-btn purple outline">
+                                        <i class="fa-solid fa-download"></i> Скачать
                                     </a>
                                 </div>
                             </div>
@@ -15753,11 +15734,11 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                                     Сборник научных работ «Студенческий альманах», № 1(28), ФГБОУ ВО «ЛГПУ», Луганск, 2024 г.
                                 </div>
                                 <div class="author-science-actions">
-                                    <button type="button" class="author-file-btn blue" onclick="openDocPreview('docs/Vereschagin_Article_2024_Almanac_Memes_in_Education.pdf', 'Сборник ЛГПУ (Студенческий альманах, 2024)')">
-                                        <i class="fa-solid fa-eye"></i> Читать в окне
-                                    </button>
-                                    <a href="docs/Vereschagin_Article_2024_Almanac_Memes_in_Education.pdf" target="_blank" download="Vereschagin_Article_2024_Almanac_Memes_in_Education.pdf" class="author-file-btn blue outline">
-                                        <i class="fa-solid fa-download"></i> Скачать (PDF, 856 КБ)
+                                    <a href="docs/Vereschagin_Article_2024_Almanac_Memes_in_Education.pdf" target="_blank" rel="noopener noreferrer" class="author-file-btn blue">
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Читать статью (PDF, 856 КБ)
+                                    </a>
+                                    <a href="docs/Vereschagin_Article_2024_Almanac_Memes_in_Education.pdf" download="Vereschagin_Article_2024_Almanac_Memes_in_Education.pdf" class="author-file-btn blue outline">
+                                        <i class="fa-solid fa-download"></i> Скачать
                                     </a>
                                 </div>
                             </div>
@@ -15771,39 +15752,17 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                                     Научный журнал «Студенческий вестник», № 46(379), часть 4, Москва, 2025 г.
                                 </div>
                                 <div class="author-science-actions">
-                                    <button type="button" class="author-file-btn green" onclick="openDocPreview('docs/Vereschagin_Article_2025_Principles_Integration_Memes.pdf', 'Статья (Студенческий вестник, 2025)')">
-                                        <i class="fa-solid fa-eye"></i> Читать в окне
-                                    </button>
-                                    <a href="docs/Vereschagin_Article_2025_Principles_Integration_Memes.pdf" target="_blank" download="Vereschagin_Article_2025_Principles_Integration_Memes.pdf" class="author-file-btn green outline">
-                                        <i class="fa-solid fa-download"></i> Скачать (PDF, 450 КБ)
+                                    <a href="docs/Vereschagin_Article_2025_Principles_Integration_Memes.pdf" target="_blank" rel="noopener noreferrer" class="author-file-btn green">
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Читать статью (PDF, 450 КБ)
+                                    </a>
+                                    <a href="docs/Vereschagin_Article_2025_Principles_Integration_Memes.pdf" download="Vereschagin_Article_2025_Principles_Integration_Memes.pdf" class="author-file-btn green outline">
+                                        <i class="fa-solid fa-download"></i> Скачать
                                     </a>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Категория C: Доклады и презентации -->
-                        <div class="author-science-category" style="margin-top: 10px;">
-                            <div class="author-science-category-title">
-                                <i class="fa-solid fa-chalkboard"></i> Доклады и исследовательские презентации
-                            </div>
 
-                            <div class="author-science-card">
-                                <div class="author-science-heading">
-                                    Методика и логическая схема педагогического исследования
-                                </div>
-                                <div class="author-science-sub">
-                                    Материалы научных семинаров и круглых столов по педагогике и методике преподавания восточных языков ЛГПУ
-                                </div>
-                                <div class="author-science-actions">
-                                    <a href="docs/Vereschagin_Presentation_Research_Methodology.pptx" download="Vereschagin_Presentation_Research_Methodology.pptx" class="author-file-btn gray">
-                                        <i class="fa-solid fa-file-powerpoint"></i> Методика исследования (PPTX, 142 КБ)
-                                    </a>
-                                    <a href="docs/Vereschagin_Presentation_Logical_Scheme.pptx" download="Vereschagin_Presentation_Logical_Scheme.pptx" class="author-file-btn gray">
-                                        <i class="fa-solid fa-file-powerpoint"></i> Логическая схема (PPTX, 32 КБ)
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- БЛОК 4: ФОТОАРХИВ С ДВУМЯ ТЕГАМИ -->
@@ -15819,49 +15778,43 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                                 Все фотографии (8)
                             </button>
                             <button type="button" class="author-filter-btn" data-filter="translator" onclick="filterAuthorPhotos('translator')">
-                                <i class="fa-solid fa-language"></i> Работа переводчиком
+                                <i class="fa-solid fa-language"></i> Работа переводчиком (4)
                             </button>
                             <button type="button" class="author-filter-btn" data-filter="teaching" onclick="filterAuthorPhotos('teaching')">
-                                <i class="fa-solid fa-chalkboard-user"></i> Преподавательская деятельность
+                                <i class="fa-solid fa-chalkboard-user"></i> Преподавательская деятельность (4)
                             </button>
                         </div>
 
-                        <!-- Сетка фотографий с тегами -->
+                        <!-- Сетка фотографий без наложенных текстовых плашек (чистые фото) -->
                         <div id="author-photos-grid" class="author-gallery-grid">
-                            <!-- Тег: Работа переводчиком -->
-                            <div class="author-photo-card" data-category="translator" onclick="openPhotoModal('images/author/author_photo_6.jpg', 'Культурный и языковой обмен', 'Работа переводчиком')">
-                                <img src="images/author/author_photo_6.jpg" alt="Культурный обмен" loading="lazy">
-                                <div class="author-photo-badge tag-translator"><i class="fa-solid fa-language"></i> Работа переводчиком</div>
+                            <!-- Категория: Работа переводчиком (4 фото) -->
+                            <div class="author-photo-card" data-category="translator" onclick="openPhotoModal('images/author/author_photo_6.jpg', 'Центр китайского языка и культуры · Языковой обмен')">
+                                <img src="images/author/author_photo_6.jpg" alt="Центр китайского языка и культуры" loading="lazy">
                             </div>
-                            <div class="author-photo-card" data-category="translator" onclick="openPhotoModal('images/author/author_photo_3.jpg', 'Языковая практика и перевод', 'Работа переводчиком')">
-                                <img src="images/author/author_photo_3.jpg" alt="Языковая практика" loading="lazy">
-                                <div class="author-photo-badge tag-translator"><i class="fa-solid fa-language"></i> Работа переводчиком</div>
+                            <div class="author-photo-card" data-category="translator" onclick="openPhotoModal('images/author/author_photo_3.jpg', 'Языковая практика и перевод')">
+                                <img src="images/author/author_photo_3.jpg" alt="Языковая практика и перевод" loading="lazy">
                             </div>
-                            <div class="author-photo-card" data-category="translator" onclick="openPhotoModal('images/author/author_photo_8.jpg', 'Деловая коммуникация и перевод', 'Работа переводчиком')">
-                                <img src="images/author/author_photo_8.jpg" alt="Деловая коммуникация" loading="lazy">
-                                <div class="author-photo-badge tag-translator"><i class="fa-solid fa-language"></i> Работа переводчиком</div>
+                            <div class="author-photo-card" data-category="translator" onclick="openPhotoModal('images/author/author_photo_8.jpg', 'Деловая коммуникация и перевод')">
+                                <img src="images/author/author_photo_8.jpg" alt="Деловая коммуникация и перевод" loading="lazy">
                             </div>
-                            <div class="author-photo-card" data-category="translator" onclick="openPhotoModal('images/author/author_photo_9.jpg', 'Технический перевод и проекты', 'Работа переводчиком')">
-                                <img src="images/author/author_photo_9.jpg" alt="Технический перевод" loading="lazy">
-                                <div class="author-photo-badge tag-translator"><i class="fa-solid fa-language"></i> Работа переводчиком</div>
+                            <!-- Скрин 4: Сергей с китайскими коллегами на улице -->
+                            <div class="author-photo-card" data-category="translator" onclick="openPhotoModal('images/author/author_photo_1.jpg', 'Работа переводчиком с китайскими коллегами')">
+                                <img src="images/author/author_photo_1.jpg" alt="Работа с китайскими коллегами" loading="lazy">
                             </div>
 
-                            <!-- Тег: Преподавательская деятельность -->
-                            <div class="author-photo-card" data-category="teaching" onclick="openPhotoModal('images/author/author_photo_7.jpg', 'Преподавание китайского языка', 'Преподавательская деятельность')">
-                                <img src="images/author/author_photo_7.jpg" alt="Преподавание китайского" loading="lazy">
-                                <div class="author-photo-badge tag-teaching"><i class="fa-solid fa-chalkboard-user"></i> Преподавательская деятельность</div>
+                            <!-- Категория: Преподавательская деятельность (4 фото) -->
+                            <!-- Скрин 3: Сергей на занятии у экрана презентации -->
+                            <div class="author-photo-card" data-category="teaching" onclick="openPhotoModal('images/author/author_photo_9.jpg', 'Практическое учебное занятие со студентами')">
+                                <img src="images/author/author_photo_9.jpg" alt="Учебное занятие" loading="lazy">
                             </div>
-                            <div class="author-photo-card" data-category="teaching" onclick="openPhotoModal('images/author/author_photo_4.jpg', 'Учебные занятия и методика', 'Преподавательская деятельность')">
-                                <img src="images/author/author_photo_4.jpg" alt="Учебные занятия" loading="lazy">
-                                <div class="author-photo-badge tag-teaching"><i class="fa-solid fa-chalkboard-user"></i> Преподавательская деятельность</div>
+                            <div class="author-photo-card" data-category="teaching" onclick="openPhotoModal('images/author/author_photo_7.jpg', 'Преподавание китайского языка')">
+                                <img src="images/author/author_photo_7.jpg" alt="Преподавание китайского языка" loading="lazy">
                             </div>
-                            <div class="author-photo-card" data-category="teaching" onclick="openPhotoModal('images/author/author_photo_5.jpg', 'Научно-методические семинары', 'Преподавательская деятельность')">
-                                <img src="images/author/author_photo_5.jpg" alt="Семинары" loading="lazy">
-                                <div class="author-photo-badge tag-teaching"><i class="fa-solid fa-chalkboard-user"></i> Преподавательская деятельность</div>
+                            <div class="author-photo-card" data-category="teaching" onclick="openPhotoModal('images/author/author_photo_4.jpg', 'Учебные занятия и методика преподавания')">
+                                <img src="images/author/author_photo_4.jpg" alt="Учебные занятия и методика" loading="lazy">
                             </div>
-                            <div class="author-photo-card" data-category="teaching" onclick="openPhotoModal('images/author/author_photo_1.jpg', 'Учебный процесс и авторские материалы', 'Преподавательская деятельность')">
-                                <img src="images/author/author_photo_1.jpg" alt="Учебный процесс" loading="lazy">
-                                <div class="author-photo-badge tag-teaching"><i class="fa-solid fa-chalkboard-user"></i> Преподавательская деятельность</div>
+                            <div class="author-photo-card" data-category="teaching" onclick="openPhotoModal('images/author/author_photo_5.jpg', 'Научно-методические семинары и педагогика')">
+                                <img src="images/author/author_photo_5.jpg" alt="Научно-методические семинары" loading="lazy">
                             </div>
                         </div>
                     </div>
@@ -15875,7 +15828,10 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                                     <span id="author-modal-title-text">Документ об образовании</span>
                                 </div>
                                 <div style="display: flex; align-items: center; gap: 8px;">
-                                    <a id="author-modal-download-btn" href="#" target="_blank" download class="author-modal-action-btn" title="Скачать документ">
+                                    <a id="author-modal-open-tab-btn" href="#" target="_blank" rel="noopener noreferrer" class="author-modal-action-btn" title="Открыть в полном размере в новой вкладке">
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </a>
+                                    <a id="author-modal-download-btn" href="#" target="_blank" download class="author-modal-action-btn" title="Скачать файл">
                                         <i class="fa-solid fa-download"></i>
                                     </a>
                                     <button type="button" class="author-modal-close-btn" onclick="closeAuthorModal()" title="Закрыть (Esc)">
@@ -15888,15 +15844,12 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                             </div>
                             <div class="author-modal-body">
                                 <div id="author-modal-img-wrap" class="author-modal-img-wrap">
-                                    <img id="author-modal-img" src="" alt="Скан документа" class="author-modal-img">
-                                </div>
-                                <div id="author-modal-frame-wrap" class="author-modal-frame-wrap" style="display: none; width: 100%; height: 75vh;">
-                                    <iframe id="author-modal-iframe" src="" style="width: 100%; height: 100%; border: none; border-radius: 8px;"></iframe>
+                                    <img id="author-modal-img" src="" alt="Скан документа" class="author-modal-img" loading="eager">
                                 </div>
                             </div>
                             <div id="author-modal-footer-note" class="author-modal-footer-note">
                                 <i class="fa-solid fa-lock" style="color: #10b981;"></i>
-                                <span>В целях защиты персональных данных серия и номер документа скрыты. Оценки, предметы и гербовые печати сохранены.</span>
+                                <span>В целях защиты персональных данных серия и номер документа скрыты. Оценки, предметы и гербовые печати сохранены. Кликните по скану, чтобы открыть его в максимальном разрешении.</span>
                             </div>
                         </div>
                     </div>
@@ -28764,6 +28717,28 @@ function setupDetailNavButtons() {
             }
         };
 
+        function setModalPage(src, title) {
+            const imgEl = document.getElementById('author-modal-img');
+            const downloadBtn = document.getElementById('author-modal-download-btn');
+            const openTabBtn = document.getElementById('author-modal-open-tab-btn');
+
+            if (imgEl) {
+                imgEl.src = src;
+                imgEl.onclick = function() { window.open(src, '_blank'); };
+                imgEl.title = 'Кликните, чтобы открыть в полном разрешении';
+                imgEl.style.cursor = 'zoom-in';
+            }
+            if (downloadBtn) {
+                downloadBtn.href = src;
+                downloadBtn.download = src.split('/').pop();
+                downloadBtn.style.display = 'inline-flex';
+            }
+            if (openTabBtn) {
+                openTabBtn.href = src;
+                openTabBtn.style.display = 'inline-flex';
+            }
+        }
+
         window.openDiplomaModal = function(type) {
             const set = diplomaData[type];
             const modal = document.getElementById('author-doc-modal');
@@ -28771,18 +28746,13 @@ function setupDetailNavButtons() {
             const iconEl = document.getElementById('author-modal-icon');
             const tabsEl = document.getElementById('author-modal-tabs');
             const imgWrap = document.getElementById('author-modal-img-wrap');
-            const imgEl = document.getElementById('author-modal-img');
-            const frameWrap = document.getElementById('author-modal-frame-wrap');
-            const iframe = document.getElementById('author-modal-iframe');
             const noteEl = document.getElementById('author-modal-footer-note');
-            const downloadBtn = document.getElementById('author-modal-download-btn');
 
             if (!modal || !set) return;
 
             if (titleEl) titleEl.textContent = set.title;
             if (iconEl) iconEl.className = 'fa-solid fa-file-shield';
             if (noteEl) noteEl.style.display = 'flex';
-            if (frameWrap) { frameWrap.style.display = 'none'; if (iframe) iframe.src = ''; }
             if (imgWrap) imgWrap.style.display = 'flex';
 
             if (tabsEl) {
@@ -28796,83 +28766,50 @@ function setupDetailNavButtons() {
                     btn.addEventListener('click', function() {
                         tabsEl.querySelectorAll('.author-modal-tab-btn').forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
-                        if (imgEl) imgEl.src = page.src;
-                        if (downloadBtn) { downloadBtn.href = page.src; downloadBtn.download = page.src.split('/').pop(); }
+                        setModalPage(page.src, set.title);
                     });
                     tabsEl.appendChild(btn);
                 });
             }
 
-            if (imgEl) imgEl.src = set.pages[0].src;
-            if (downloadBtn) { downloadBtn.href = set.pages[0].src; downloadBtn.download = set.pages[0].src.split('/').pop(); downloadBtn.style.display = 'inline-flex'; }
+            setModalPage(set.pages[0].src, set.title);
 
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         };
 
-        window.openPhotoModal = function(src, caption, tag) {
+        window.openPhotoModal = function(src, caption) {
             const modal = document.getElementById('author-doc-modal');
             const titleEl = document.getElementById('author-modal-title-text');
             const iconEl = document.getElementById('author-modal-icon');
             const tabsEl = document.getElementById('author-modal-tabs');
             const imgWrap = document.getElementById('author-modal-img-wrap');
-            const imgEl = document.getElementById('author-modal-img');
-            const frameWrap = document.getElementById('author-modal-frame-wrap');
-            const iframe = document.getElementById('author-modal-iframe');
             const noteEl = document.getElementById('author-modal-footer-note');
-            const downloadBtn = document.getElementById('author-modal-download-btn');
 
             if (!modal) return;
 
-            if (titleEl) titleEl.textContent = (tag ? '[' + tag + '] ' : '') + (caption || 'Фотоархив');
+            if (titleEl) titleEl.textContent = caption || 'Фотоархив';
             if (iconEl) iconEl.className = 'fa-solid fa-camera-retro';
             if (tabsEl) { tabsEl.innerHTML = ''; tabsEl.style.display = 'none'; }
             if (noteEl) noteEl.style.display = 'none';
-            if (frameWrap) { frameWrap.style.display = 'none'; if (iframe) iframe.src = ''; }
             if (imgWrap) imgWrap.style.display = 'flex';
-            if (imgEl) imgEl.src = src;
 
-            if (downloadBtn) { downloadBtn.href = src; downloadBtn.download = src.split('/').pop(); downloadBtn.style.display = 'inline-flex'; }
+            setModalPage(src, caption);
 
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         };
 
         window.openDocPreview = function(url, title) {
-            const modal = document.getElementById('author-doc-modal');
-            const titleEl = document.getElementById('author-modal-title-text');
-            const iconEl = document.getElementById('author-modal-icon');
-            const tabsEl = document.getElementById('author-modal-tabs');
-            const imgWrap = document.getElementById('author-modal-img-wrap');
-            const frameWrap = document.getElementById('author-modal-frame-wrap');
-            const iframe = document.getElementById('author-modal-iframe');
-            const noteEl = document.getElementById('author-modal-footer-note');
-            const downloadBtn = document.getElementById('author-modal-download-btn');
-
-            if (!modal) return;
-
-            if (titleEl) titleEl.textContent = title || 'Просмотр документа';
-            if (iconEl) iconEl.className = 'fa-solid fa-file-pdf';
-            if (tabsEl) { tabsEl.innerHTML = ''; tabsEl.style.display = 'none'; }
-            if (noteEl) noteEl.style.display = 'none';
-            if (imgWrap) imgWrap.style.display = 'none';
-
-            if (frameWrap && iframe) {
-                frameWrap.style.display = 'block';
-                iframe.src = url;
-            }
-
-            if (downloadBtn) { downloadBtn.href = url; downloadBtn.download = url.split('/').pop(); downloadBtn.style.display = 'inline-flex'; }
-
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            // Direct native viewer in a clean tab - 100% reliable across all browsers and devices
+            window.open(url, '_blank');
         };
 
         window.closeAuthorModal = function() {
             const modal = document.getElementById('author-doc-modal');
-            const iframe = document.getElementById('author-modal-iframe');
+            const imgEl = document.getElementById('author-modal-img');
             if (modal) modal.classList.remove('active');
-            if (iframe) iframe.src = '';
+            if (imgEl) imgEl.src = '';
             document.body.style.overflow = '';
         };
 
