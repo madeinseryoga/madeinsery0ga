@@ -4966,11 +4966,18 @@ input:checked + .ts-slider:before { transform: translateX(20px); }
     line-height: 1.1;
 }
 .bkrs-pinyin-badges {
-    display: inline-flex;
-    gap: 4px;
+    display: inline-block;
     font-size: 1.25rem;
     font-weight: 700;
     font-family: system-ui, sans-serif;
+    letter-spacing: 0;
+    line-height: 1.2;
+}
+.bkrs-pinyin-badges span {
+    display: inline;
+    letter-spacing: 0;
+    margin: 0;
+    padding: 0;
 }
 .bkrs-action-buttons {
     display: flex;
@@ -5724,10 +5731,16 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
 .bkrs-pinyin-badges, .bkrs-card-pinyin {
     font-size: 1.25rem;
     font-weight: 800;
-    display: inline-flex;
-    gap: 4px;
-    align-items: baseline;
+    display: inline-block;
     color: #7e22ce;
+    letter-spacing: 0;
+    line-height: 1.2;
+}
+.bkrs-pinyin-badges span, .bkrs-card-pinyin span {
+    display: inline;
+    letter-spacing: 0;
+    margin: 0;
+    padding: 0;
 }
 .bkrs-exact-badge {
     background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
@@ -24508,12 +24521,11 @@ const BkrsDB = window.BkrsDB = {
             const defHtml = (typeof formatBkrsArticle === 'function' ? formatBkrsArticle(r.trans, false) : (r.trans || '')) || '<div style="color:#94a3b8;font-style:italic;padding:8px 0;">Словарное описание уточняется</div>';
             const chars = Array.from(r.word);
             const pyColored = renderColoredPinyin(r.pinyin || '');
-            const isSingleChar = chars.length === 1;
 
             let cardHtml = '<div class="bkrs-card bkrs-result-card' + (isTopMatch ? ' exact-match-card bkrs-card-top-match' : '') + '" data-word="' + escapeHtml(r.word) + '">';
             cardHtml += '<div class="bkrs-card-header">' +
                 '<div class="bkrs-headword-box bkrs-card-word-line">' +
-                    '<span class="bkrs-card-word bkrs-card-hanzi"' + (isSingleChar ? ' title="Нажмите для анимации написания черт" style="cursor:pointer;"' : '') + '>' + escapeHtml(r.word) + '</span>' +
+                    '<span class="bkrs-card-word bkrs-card-hanzi" title="Нажмите, чтобы посмотреть написание по чертам" style="cursor:pointer;">' + escapeHtml(r.word) + '</span>' +
                     '<span class="bkrs-pinyin-badges bkrs-card-pinyin">' + pyColored + '</span>' +
                     (isTopMatch ? '<span class="bkrs-exact-badge"><i class="fa-solid fa-star"></i> Главная статья</span>' : '') +
                 '</div>' +
@@ -24524,39 +24536,26 @@ const BkrsDB = window.BkrsDB = {
                     '<button type="button" class="bkrs-act-btn bkrs-card-btn bkrs-copy-trigger bkrs-copy-btn" data-copy="' + escapeHtml(r.word) + '" title="Копировать">' +
                         '<i class="fa-regular fa-copy"></i>' +
                     '</button>' +
-                    (isSingleChar ? '<button type="button" class="bkrs-act-btn bkrs-card-btn bkrs-draw-trigger bkrs-stroke-toggle-btn" data-char="' + escapeHtml(r.word) + '" title="Порядок написания черт"><i class="fa-solid fa-pen-to-square"></i></button>' : '') +
-                    '<button type="button" class="bkrs-act-btn bkrs-card-btn bkrs-draw-trigger bkrs-propisi-btn" data-propisi="' + escapeHtml(r.word) + '" title="Создать пропись">' +
-                        '<i class="fa-solid fa-file-pen"></i>' +
+                    '<button type="button" class="bkrs-act-btn bkrs-card-btn bkrs-draw-trigger bkrs-draw-btn" data-word="' + escapeHtml(r.word) + '" title="Посмотреть написание по чертам">' +
+                        '<i class="fa-solid fa-pen-nib"></i>' +
                     '</button>' +
                 '</div>' +
             '</div>';
 
-            // Interactive character breakdowns & strokes (ONLY for multi-character words)
+            // Interactive character breakdowns & strokes (for multi-character words)
             if (chars.length > 1) {
                 cardHtml += '<div class="bkrs-chars-breakdown">';
                 for (const c of chars) {
                     const cInfo = (charsDb && charsDb[c]) ? charsDb[c] : null;
                     const cPy = cInfo ? renderColoredPinyin(cInfo[0]) : '';
-                    cardHtml += '<div class="bkrs-char-pill" data-char="' + escapeHtml(c) + '" title="Показать порядок черт для ' + escapeHtml(c) + '">' +
+                    cardHtml += '<div class="bkrs-char-pill" data-char="' + escapeHtml(c) + '" title="Посмотреть написание по чертам для ' + escapeHtml(c) + '">' +
                         '<span class="bkrs-char-sym">' + escapeHtml(c) + '</span>' +
                         (cPy ? '<span class="bkrs-char-py">' + cPy + '</span>' : '') +
-                        '<i class="fa-solid fa-pen-to-square bkrs-char-draw-icon"></i>' +
+                        '<i class="fa-solid fa-pen-nib bkrs-char-draw-icon"></i>' +
                     '</div>';
                 }
                 cardHtml += '</div>';
             }
-
-            // Stroke writer container (collapsed by default)
-            cardHtml += '<div class="bkrs-writer-panel" style="display: none;">' +
-                '<div class="bkrs-writer-header">' +
-                    '<span><i class="fa-solid fa-pen-nib"></i> Порядок черт (<span class="bkrs-writer-target"></span>):</span>' +
-                    '<div style="display:flex; gap:6px;">' +
-                        '<button type="button" class="bkrs-writer-action-btn bkrs-writer-animate"><i class="fa-solid fa-play"></i> Анимация</button>' +
-                        '<button type="button" class="bkrs-writer-action-btn bkrs-writer-close" title="Закрыть"><i class="fa-solid fa-xmark"></i></button>' +
-                    '</div>' +
-                '</div>' +
-                '<div class="bkrs-writer-canvas-box"></div>' +
-            '</div>';
 
             // Formatted Definition Body
             cardHtml += '<div class="bkrs-card-body bkrs-card-def bkrs-def-content">' + defHtml + '</div>';
@@ -24565,92 +24564,37 @@ const BkrsDB = window.BkrsDB = {
         }
 
         function bindCardEvents(container) {
-            function openWriterForChar(card, char) {
-                if (!card || !char) return;
-                const panel = card.querySelector('.bkrs-writer-panel');
-                const canvasBox = card.querySelector('.bkrs-writer-canvas-box');
-                const targetSpan = card.querySelector('.bkrs-writer-target');
-                if (!panel || !canvasBox) return;
-
-                // Toggle if clicked again with the same char
-                if (panel.style.display !== 'none' && targetSpan && targetSpan.textContent === char) {
-                    panel.style.display = 'none';
-                    return;
-                }
-
-                panel.style.display = 'block';
-                if (targetSpan) targetSpan.textContent = char;
-                canvasBox.innerHTML = '';
-
-                const writerId = 'writer-' + Math.random().toString(36).substring(2, 9);
-                const writerDiv = document.createElement('div');
-                writerDiv.id = writerId;
-                writerDiv.style.width = '140px';
-                writerDiv.style.height = '140px';
-                writerDiv.style.background = '#ffffff';
-                writerDiv.style.borderRadius = '14px';
-                writerDiv.style.boxShadow = '0 3px 12px rgba(142, 36, 170, 0.08)';
-                writerDiv.style.border = '1px solid #ebdcf5';
-                canvasBox.appendChild(writerDiv);
-
-                let writerInstance = null;
-                if (typeof HanziWriter !== 'undefined') {
-                    try {
-                        writerInstance = HanziWriter.create(writerId, char, {
-                            width: 140,
-                            height: 140,
-                            padding: 8,
-                            showOutline: true,
-                            strokeColor: '#8E24AA',
-                            radicalColor: '#d81b60',
-                            outlineColor: '#e2e8f0',
-                            strokeAnimationSpeed: 1.2,
-                            delayBetweenStrokes: 130
-                        });
-                        writerInstance.animateCharacter();
-                    } catch(e) {
-                        console.warn('HanziWriter error', e);
-                        canvasBox.innerHTML = '<span style="font-size:72px;line-height:140px;color:#8E24AA;font-family:SimSun;">' + escapeHtml(char) + '</span>';
-                    }
-                } else {
-                    canvasBox.innerHTML = '<span style="font-size:72px;line-height:140px;color:#8E24AA;font-family:SimSun;">' + escapeHtml(char) + '</span>';
-                }
-
-                const animBtn = panel.querySelector('.bkrs-writer-animate');
-                if (animBtn && writerInstance) {
-                    animBtn.onclick = () => writerInstance.animateCharacter();
-                }
-                const closeBtn = panel.querySelector('.bkrs-writer-close');
-                if (closeBtn) {
-                    closeBtn.onclick = () => { panel.style.display = 'none'; };
-                }
-            }
-
-            // Breakdown pills (for multi-character words)
+            // Character breakdown pills (for multi-character words)
             container.querySelectorAll('.bkrs-char-pill').forEach(pill => {
                 pill.onclick = () => {
                     const char = pill.getAttribute('data-char');
-                    const card = pill.closest('.bkrs-result-card, .bkrs-card');
-                    openWriterForChar(card, char);
+                    if (char && typeof window.openDrawModal === 'function') {
+                        window.openDrawModal(char);
+                    }
                 };
             });
 
-            // Stroke toggle button (for single-character words)
-            container.querySelectorAll('.bkrs-stroke-toggle-btn').forEach(btn => {
+            // Stroke order button in card header
+            container.querySelectorAll('.bkrs-draw-btn').forEach(btn => {
                 btn.onclick = () => {
-                    const char = btn.getAttribute('data-char');
-                    const card = btn.closest('.bkrs-result-card, .bkrs-card');
-                    openWriterForChar(card, char);
+                    const word = btn.getAttribute('data-word');
+                    if (word && typeof window.openDrawModal === 'function') {
+                        window.openDrawModal(word);
+                    }
                 };
             });
 
-            // Clicking hanzi directly on single-char cards
+            // Clicking hanzi directly on cards
             container.querySelectorAll('.bkrs-card-hanzi').forEach(el => {
                 const card = el.closest('.bkrs-result-card, .bkrs-card');
                 if (!card) return;
-                const word = card.getAttribute('data-word') || '';
-                if (Array.from(word).length === 1) {
-                    el.onclick = () => openWriterForChar(card, word);
+                const word = card.getAttribute('data-word') || el.textContent.trim();
+                if (word) {
+                    el.onclick = () => {
+                        if (typeof window.openDrawModal === 'function') {
+                            window.openDrawModal(word);
+                        }
+                    };
                 }
             });
 
@@ -24664,21 +24608,6 @@ const BkrsDB = window.BkrsDB = {
                             btn.innerHTML = '<i class="fa-solid fa-check" style="color:#10b981;"></i>';
                             setTimeout(() => { btn.innerHTML = orig; }, 1500);
                         });
-                    }
-                };
-            });
-
-            // Propisi button
-            container.querySelectorAll('.bkrs-propisi-btn').forEach(btn => {
-                btn.onclick = () => {
-                    const txt = btn.getAttribute('data-propisi');
-                    if (txt && typeof window.openPropisiForWord === 'function') {
-                        window.openPropisiForWord(txt);
-                    } else if (txt) {
-                        const genInput = document.getElementById('gen-chars-input');
-                        if (genInput) genInput.value = txt;
-                        const navGen = document.getElementById('nav-generator');
-                        if (navGen) navGen.click();
                     }
                 };
             });
