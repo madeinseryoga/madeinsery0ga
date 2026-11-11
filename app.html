@@ -13785,6 +13785,9 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             overflow: visible !important;
             overflow-x: visible !important;
             overflow-y: visible !important;
+            perspective: none !important;
+            transform: none !important;
+            filter: none !important;
         }
         .grammar-detail-main {
             overflow: visible !important;
@@ -13806,9 +13809,17 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         @media (max-width: 960px) {
             .gd-layout-container {
                 grid-template-columns: 1fr !important;
+                gap: 20px !important;
             }
             .gd-dict-sidebar {
-                display: none !important;
+                display: block !important;
+                position: static !important;
+                width: 100% !important;
+                margin-top: 20px !important;
+            }
+            .gd-sidebar-sticky {
+                position: static !important;
+                top: auto !important;
             }
         }
         .gd-dict-sidebar {
@@ -13821,16 +13832,14 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             margin-top: 0 !important;
         }
         .gd-sidebar-sticky {
+            position: -webkit-sticky !important;
+            position: sticky !important;
+            top: 85px !important;
             background: #ffffff !important;
             border: 1.5px solid #e2e8f0 !important;
             border-radius: 24px !important;
             padding: 22px !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06) !important;
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 16px !important;
-            max-height: calc(100vh - 110px) !important;
-            overflow-y: auto !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
         }
 
 
@@ -13981,6 +13990,28 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         }
 
 
+                .home-brand-3d-name {
+            height: 44px;
+            width: auto;
+            max-width: 140px;
+            object-fit: contain;
+            vertical-align: middle;
+            margin-left: 10px;
+            flex-shrink: 0;
+            display: inline-block;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+            transition: transform 0.25s ease;
+        }
+        .home-brand-3d-name:hover {
+            transform: scale(1.06);
+        }
+        @media (max-width: 600px) {
+            .home-brand-3d-name {
+                height: 34px;
+                max-width: 105px;
+                margin-left: 6px;
+            }
+        }
         .home-brand-badge-img {
             height: 25px !important;
             width: auto !important;
@@ -14014,7 +14045,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                 <div class="home-brand-row">
                     <img src="images/baobao_avatar_clean.png" alt="БаоБао" class="home-brand-avatar">
                     <div class="home-brand-meta">
-                        <h1 class="home-brand-title">БаоБао <img src="images/baobao_brand_badge.png" alt="包宝" class="home-brand-badge-img" width="58" height="25"></h1>
+                        <h1 class="home-brand-title">БаоБао <img src="images/baobao_3d_name.png" alt="包宝" class="home-brand-3d-name"></h1>
                         <p class="home-brand-sub">Твой помощник в изучении китайского языка</p>
                     </div>
                 </div>
@@ -14045,7 +14076,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                         </div>
                         <div class="dots-dropdown-item" id="dots-about-btn">
                             <i class="fa-solid fa-circle-info"></i>
-                            <span>Об авторе</span>
+                            <span>Связь со мной</span>
                         </div>
                     </div>
                 </div>
@@ -14189,7 +14220,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
 
             <!-- ==================== РАЗДЕЛ: ОБ АВТОРЕ (СТИЛЬ СВЯЗЬ СО МНОЙ) ==================== -->
             <section class="home-author-section" style="margin-top: 45px;">
-                <h2 class="section-title">Об авторе</h2>
+                <h2 class="section-title">Связь со мной</h2>
                 <div class="home-author-teaser-card" id="home-author-open-card" role="button" tabindex="0" title="Нажмите, чтобы открыть подробную страницу об авторе">
                     <div class="home-author-avatar-wrap">
                         <img src="images/sergey_author_sq.jpg" alt="Верещагин Сергей Александрович" class="home-author-img">
@@ -14825,7 +14856,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                     <i class="fa-solid fa-arrow-left"></i><span class="back-label"> На главную</span>
                 </button>
                 <div class="author-header-title-box">
-                    <h2 class="section-title" style="margin: 0;">Об авторе</h2>
+                    <h2 class="section-title" style="margin: 0;">Связь со мной</h2>
                 </div>
                 <div style="width: 100px;"></div>
             </div>
@@ -27211,6 +27242,14 @@ const BkrsDB = window.BkrsDB = {
         // Совместимость со старым вызовом lookupGrammarWord
         window.lookupGrammarWord = function(word) {
             window.handleGrammarWordClick(null, word);
+        
+
+            if (window.innerWidth <= 960) {
+                const sidebar = document.getElementById('gd-dict-sidebar');
+                if (sidebar) {
+                    sidebar.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
         };
 
         function renderGrammarDetailPage(t) {
