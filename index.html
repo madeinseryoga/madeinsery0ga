@@ -557,6 +557,312 @@
 
         .gen-main { flex: 1; padding: 20px; max-width: 1200px; margin: 0 auto; width: 100%; }
         
+        /* ==================== HSK 3.0 LESSON WORDS & WORD-SHEET COMPACT PERFECTION ==================== */
+        #lesson-words-list.hsk-list {
+            max-width: 1060px !important;
+            margin: 0 auto !important;
+            display: grid !important;
+            grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)) !important;
+            gap: 14px !important;
+            padding: 8px 4px 40px !important;
+        }
+        #lesson-words-list .hsk-card {
+            padding: 12px 14px 12px !important;
+            border-radius: 18px !important;
+            background: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05) !important;
+            border: 1.5px solid #f1f5f9 !important;
+            border-bottom: 4px solid var(--gold) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 6px !important;
+            cursor: pointer !important;
+            transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+        }
+        #lesson-words-list .hsk-card:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.09) !important;
+        }
+        #lesson-words-list .hsk-char {
+            font-size: 1.95rem !important;
+            line-height: 1.15 !important;
+            color: var(--red) !important;
+            font-weight: 700 !important;
+        }
+        #lesson-words-list .hsk-pinyin {
+            font-size: 0.95rem !important;
+            font-weight: 700 !important;
+            color: #475569 !important;
+        }
+        #lesson-words-list .hsk-meaning-line {
+            font-size: 0.88rem !important;
+            line-height: 1.35 !important;
+            color: #334155 !important;
+            margin-top: 3px !important;
+            display: -webkit-box !important;
+            -webkit-line-clamp: 2 !important;
+            -webkit-box-orient: vertical !important;
+            overflow: hidden !important;
+        }
+        @media (max-width: 600px) {
+            #lesson-words-list.hsk-list {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px !important;
+            }
+            #lesson-words-list .hsk-card {
+                padding: 10px 10px 10px !important;
+                border-radius: 14px !important;
+            }
+            #lesson-words-list .hsk-char {
+                font-size: 1.6rem !important;
+            }
+            #lesson-words-list .hsk-pinyin {
+                font-size: 0.86rem !important;
+            }
+        }
+
+        /* Enhanced compact Word Sheet (Modal) */
+        .word-sheet-overlay {
+            display: flex !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 2000 !important;
+            background: rgba(15, 23, 42, 0.45) !important;
+            backdrop-filter: blur(6px) !important;
+            -webkit-backdrop-filter: blur(6px) !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 16px !important;
+            transition: opacity 0.22s ease !important;
+        }
+        .word-sheet-overlay.active {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+        .word-sheet {
+            width: 100% !important;
+            max-width: 440px !important;
+            height: auto !important;
+            max-height: 85vh !important;
+            background: #ffffff !important;
+            border-radius: 28px !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            border: 1.5px solid #e2e8f0 !important;
+            border-bottom: 5px solid var(--gold) !important;
+            transform: translateY(16px) scale(0.98) !important;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease !important;
+            overflow: hidden !important;
+        }
+        .word-sheet-overlay.active .word-sheet {
+            transform: translateY(0) scale(1) !important;
+        }
+        .word-sheet-header {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            padding: 16px 20px 12px !important;
+            gap: 12px !important;
+            border-bottom: 1.5px solid #f1f5f9 !important;
+            background: #ffffff !important;
+        }
+        .word-sheet-title {
+            display: flex !important;
+            flex-direction: column !important;
+            min-width: 0 !important;
+        }
+        .word-sheet-char {
+            font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif !important;
+            font-size: 2.3rem !important;
+            font-weight: 700 !important;
+            color: var(--red) !important;
+            line-height: 1.15 !important;
+        }
+        .word-sheet-pinyin {
+            font-size: 1.15rem !important;
+            font-weight: 800 !important;
+            color: #475569 !important;
+            margin-top: 2px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+        }
+        .word-sheet-actions {
+            display: flex !important;
+            gap: 8px !important;
+            align-items: center !important;
+            flex-shrink: 0 !important;
+        }
+        .word-sheet-body {
+            flex: 0 1 auto !important;
+            overflow-y: auto !important;
+            padding: 16px 20px 20px !important;
+            -webkit-overflow-scrolling: touch !important;
+            font-size: 0.98rem !important;
+            line-height: 1.5 !important;
+            color: #1e293b !important;
+        }
+        .word-sheet-handle {
+            display: none !important;
+        }
+        @media (max-width: 480px) {
+            .word-sheet-overlay {
+                align-items: flex-end !important;
+                padding: 0 !important;
+            }
+            .word-sheet {
+                max-width: 100% !important;
+                border-radius: 28px 28px 0 0 !important;
+                border-bottom: none !important;
+                max-height: 85vh !important;
+            }
+            .word-sheet-handle {
+                display: block !important;
+                width: 40px !important;
+                height: 5px !important;
+                background: #cbd5e1 !important;
+                border-radius: 3px !important;
+                margin: 10px auto 4px !important;
+            }
+        }
+
+        /* Enhanced Word Sheet Content Components */
+        .ws-primary-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+        }
+        .ws-pos-tag {
+            display: inline-block;
+            background: #ede9fe;
+            color: #6366f1;
+            font-size: 0.76rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+        .ws-main-meaning {
+            font-size: 1.12rem;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.35;
+        }
+        .ws-section-subtitle {
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .ws-examples-section {
+            margin-bottom: 12px;
+        }
+        .ws-examples-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .ws-example-item {
+            background: #fffdf5;
+            border: 1px solid #fef08a;
+            border-left: 3.5px solid var(--gold);
+            border-radius: 12px;
+            padding: 8px 12px;
+            font-size: 0.88rem;
+            color: #334155;
+            line-height: 1.45;
+        }
+        .ws-breakdown-section {
+            margin-bottom: 12px;
+        }
+        .ws-breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 8px;
+        }
+        .ws-char-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 8px 10px;
+            cursor: pointer;
+            transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+        }
+        .ws-char-card:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+        }
+        .ws-char-top {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            margin-bottom: 3px;
+        }
+        .ws-ch-hanzi {
+            font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif !important;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--red);
+        }
+        .ws-ch-py {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #64748b;
+        }
+        .ws-ch-def {
+            font-size: 0.78rem;
+            color: #475569;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .ws-footer-actions {
+            margin-top: 14px;
+            display: flex;
+            gap: 10px;
+        }
+        .ws-btn-bkrs {
+            width: 100%;
+            padding: 10px 14px;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #334155;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.15s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+        .ws-btn-bkrs:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: #0f172a;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+        }
+        .ws-btn-bkrs i {
+            color: var(--red);
+        }
+
         /* HSK Specific Styles */
         .hsk-toolbar { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
         .search-box {
@@ -16705,8 +17011,9 @@ function renderCourseLessons(course) {
                     card.dataset.wsId = cardId;
                     card.dataset.wsChar = w.chinese || '';
                     card.dataset.wsPinyin = w.pinyin || '';
+                    card.dataset.wsPos = posRu || '';
+                    card.dataset.wsRu = ruText || '';
                     window._wordSheetStore = window._wordSheetStore || {};
-                    // Только перевод (без примеров)
                     window._wordSheetStore[cardId] = `
                         <div style="margin-bottom:10px;">
                             <strong style="color:#3e8d63;">${posRu || ''}</strong>
@@ -16878,7 +17185,7 @@ function renderCourseLessons(course) {
                 const card = e.target.closest('.hsk-card');
                 if (card && (card.dataset.wsId || card.dataset.wsBody)) {
                     const body = (window._wordSheetStore && card.dataset.wsId && window._wordSheetStore[card.dataset.wsId]) || card.dataset.wsBody || '';
-                    openWordSheet(card.dataset.wsChar, card.dataset.wsPinyin, body);
+                    openWordSheet(card.dataset.wsChar, card.dataset.wsPinyin, body, card.dataset.wsPos, card.dataset.wsRu);
                 }
             });
 
@@ -19856,16 +20163,106 @@ function renderCourseLessons(course) {
                 openWordSheet(row[1], pinyin, body);
             }
 
-            function openWordSheet(char, pinyin, bodyHtml) {
+            function buildEnhancedWordSheetBody(char, pinyin, bodyHtml, posRu, ruText) {
+                let mainPos = posRu || '';
+                let mainRu = ruText || '';
+                
+                if (!mainRu && bodyHtml) {
+                    const m = bodyHtml.match(/<strong[^>]*>([^<]*)<\/strong>[\s\S]*?<div[^>]*>([^<]*)<\/div>/i);
+                    if (m) {
+                        mainPos = m[1].trim();
+                        mainRu = m[2].trim();
+                    }
+                }
+                
+                let out = '';
+                
+                if (mainRu) {
+                    out += '<div class="ws-primary-card">';
+                    if (mainPos) {
+                        out += '<span class="ws-pos-tag">' + escapeHtml(mainPos) + '</span>';
+                    }
+                    out += '<div class="ws-main-meaning">' + escapeHtml(mainRu) + '</div>';
+                    out += '</div>';
+                } else if (bodyHtml) {
+                    out += '<div class="ws-primary-card">';
+                    out += '<div class="ws-main-meaning" style="font-size:1.02rem;font-weight:600;line-height:1.5;">' + formatMeaningHtml(bodyHtml) + '</div>';
+                    out += '</div>';
+                }
+                
+                // Examples from hskData if available
+                let examples = [];
+                if (typeof hskData !== 'undefined' && Array.isArray(hskData)) {
+                    const found = hskData.find(r => r && r[1] === char);
+                    if (found && found[3]) {
+                        const raw = found[3];
+                        const exMatches = raw.match(/Пример:\s*([^\nПример:]+)/g);
+                        if (exMatches) {
+                            examples = exMatches.slice(0, 3).map(e => e.replace(/^Пример:\s*/, '').trim());
+                        }
+                    }
+                }
+                
+                if (examples.length > 0) {
+                    out += '<div class="ws-examples-section">';
+                    out += '<div class="ws-section-subtitle"><i class="fa-solid fa-quote-left"></i> Примеры предложений:</div>';
+                    out += '<div class="ws-examples-list">';
+                    examples.forEach(ex => {
+                        out += '<div class="ws-example-item">' + escapeHtml(ex) + '</div>';
+                    });
+                    out += '</div></div>';
+                }
+                
+                // Character Breakdown
+                const singleChars = (typeof window !== 'undefined' && (window.__preloadedSingleChars || (window.BkrsDB && window.BkrsDB.singleChars))) || null;
+                if (singleChars && char && char.length >= 2 && /^[\u4e00-\u9fff]+$/.test(char)) {
+                    let items = [];
+                    for (const ch of char) {
+                        if (singleChars[ch]) {
+                            const info = singleChars[ch];
+                            const py = info[0] || '';
+                            let def = (info[1] || '').replace(/^[I|II|III|IV|V|VI|\d)]+\s*(\([^)]+\))?\s*/, '').split('Пример:')[0].split(';')[0].replace(/<[^>]+>/g, '').trim();
+                            if (def.length > 24) def = def.substring(0, 24) + '...';
+                            items.push({ ch, py, def });
+                        }
+                    }
+                    if (items.length > 0) {
+                        out += '<div class="ws-breakdown-section">';
+                        out += '<div class="ws-section-subtitle"><i class="fa-solid fa-shapes"></i> По иероглифам:</div>';
+                        out += '<div class="ws-breakdown-grid">';
+                        items.forEach(item => {
+                            out += '<div class="ws-char-card" onclick="if(window.openDrawModal) window.openDrawModal(\'' + item.ch + '\')" title="Кликните для анимации черт">';
+                            out += '<div class="ws-char-top"><span class="ws-ch-hanzi">' + item.ch + '</span><span class="ws-ch-py">' + escapeHtml(item.py) + '</span></div>';
+                            out += '<div class="ws-ch-def">' + escapeHtml(item.def) + '</div>';
+                            out += '</div>';
+                        });
+                        out += '</div></div>';
+                    }
+                }
+                
+                // Direct BKRS Dictionary Button
+                out += '<div class="ws-footer-actions">';
+                out += '<button type="button" class="ws-btn-bkrs" onclick="if(window.openBkrsSearchModal) window.openBkrsSearchModal(\'' + escapeHtml(char) + '\')">';
+                out += '<i class="fa-solid fa-book-bookmark"></i> Статья в словаре БКРС';
+                out += '</button>';
+                out += '</div>';
+                
+                return out;
+            }
+
+            function openWordSheet(char, pinyin, bodyHtml, posRu, ruText) {
                 const overlay = document.getElementById('word-sheet-overlay');
                 if (!overlay) { console.warn('word-sheet-overlay missing'); return; }
                 const charEl = document.getElementById('ws-char');
                 const pinEl = document.getElementById('ws-pinyin');
                 const bodyEl = document.getElementById('ws-body');
                 if (charEl) charEl.textContent = char || '';
-                if (pinEl) pinEl.textContent = (pinyin || '').toLowerCase();
+                if (pinEl) {
+                    const cleanPy = (pinyin || '').toLowerCase();
+                    pinEl.innerHTML = window.renderColoredPinyin ? window.renderColoredPinyin(cleanPy) : escapeHtml(cleanPy);
+                }
                 if (bodyEl) {
-                    bodyEl.innerHTML = formatMeaningHtml(bodyHtml || '');
+                    bodyEl.innerHTML = buildEnhancedWordSheetBody(char, pinyin, bodyHtml, posRu, ruText);
                     bodyEl.querySelectorAll('.see-also-link').forEach(function (a) {
                         a.addEventListener('click', function (e) {
                             e.preventDefault();
