@@ -14023,27 +14023,32 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             transform: scale(1.06);
         }
 
-        /* Модальное окно */
+        /* Модальное окно дипломов и фотоархива (привязано к viewport на уровне body) */
         .author-modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(15, 23, 42, 0.75);
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.78);
             backdrop-filter: blur(8px);
-            z-index: 99999;
-            display: flex;
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 9999999 !important;
+            display: none;
             align-items: center;
             justify-content: center;
             padding: 16px;
+            box-sizing: border-box;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.25s ease;
+            transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .author-modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
+            display: flex !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
         }
         .author-modal-container {
             background: #ffffff;
@@ -15607,7 +15612,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                                 <div class="author-timeline-item">
                                     <div class="author-timeline-year">2024 – 2026 гг.</div>
                                     <div class="author-timeline-desc">
-                                        <strong>Магистратура</strong> — Английский язык и второй иностранный язык (китайский / японский / арабский / турецкий языки).
+                                        <strong>Магистратура</strong> — Английский язык и второй иностранный язык (китайский / японский / арабский / турецкий).
                                         <div style="margin-top: 8px;">
                                             <button type="button" class="author-doc-btn" onclick="openDiplomaModal('master')">
                                                 <i class="fa-solid fa-file-shield" style="color: #7c3aed;"></i> Диплом и приложение (сканы)
@@ -15691,11 +15696,17 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                                     ФГБОУ ВО «ЛГПУ», Институт филологии и социальных коммуникаций • Профиль «Зарубежная филология. Китайский и второй иностранный язык (английский)» • Луганск, 2024 г.
                                 </div>
                                 <div class="author-science-actions">
-                                    <a href="docs/Vereschagin_Bachelor_Thesis_2024.docx" download="Vereschagin_Bachelor_Thesis_2024.docx" class="author-file-btn blue">
-                                        <i class="fa-solid fa-file-word"></i> Скачать текст ВКР (DOCX, 13 МБ)
+                                    <a href="docs/Vereschagin_Bachelor_Thesis_2024.pdf" target="_blank" rel="noopener noreferrer" class="author-file-btn blue">
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Читать ВКР (PDF, 2.7 МБ)
                                     </a>
-                                    <a href="docs/Vereschagin_Presentation_Bachelor_Defense.pptx" download="Vereschagin_Presentation_Bachelor_Defense.pptx" class="author-file-btn gray">
-                                        <i class="fa-solid fa-file-powerpoint"></i> Презентация защиты (PPTX, 23 МБ)
+                                    <a href="docs/Vereschagin_Presentation_Bachelor_Defense.pdf" target="_blank" rel="noopener noreferrer" class="author-file-btn purple">
+                                        <i class="fa-solid fa-chalkboard-user"></i> Смотреть презентацию (PDF, 27 сл.)
+                                    </a>
+                                    <a href="docs/Vereschagin_Bachelor_Thesis_2024.docx" download="Vereschagin_Bachelor_Thesis_2024.docx" class="author-file-btn blue outline" title="Скачать текст работы в формате Word">
+                                        <i class="fa-solid fa-file-word"></i> DOCX (13 МБ)
+                                    </a>
+                                    <a href="docs/Vereschagin_Presentation_Bachelor_Defense.pptx" download="Vereschagin_Presentation_Bachelor_Defense.pptx" class="author-file-btn gray outline" title="Скачать презентацию в формате PowerPoint">
+                                        <i class="fa-solid fa-file-powerpoint"></i> PPTX (23 МБ)
                                     </a>
                                 </div>
                             </div>
@@ -15819,40 +15830,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                         </div>
                     </div>
 
-                    <!-- Модальное окно просмотра документов, дипломов и фото -->
-                    <div id="author-doc-modal" class="author-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="author-modal-title">
-                        <div class="author-modal-container">
-                            <div class="author-modal-header">
-                                <div id="author-modal-title" class="author-modal-title">
-                                    <i id="author-modal-icon" class="fa-solid fa-file-shield" style="color: #7c3aed;"></i>
-                                    <span id="author-modal-title-text">Документ об образовании</span>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <a id="author-modal-open-tab-btn" href="#" target="_blank" rel="noopener noreferrer" class="author-modal-action-btn" title="Открыть в полном размере в новой вкладке">
-                                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                                    </a>
-                                    <a id="author-modal-download-btn" href="#" target="_blank" download class="author-modal-action-btn" title="Скачать файл">
-                                        <i class="fa-solid fa-download"></i>
-                                    </a>
-                                    <button type="button" class="author-modal-close-btn" onclick="closeAuthorModal()" title="Закрыть (Esc)">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="author-modal-tabs" class="author-modal-tabs">
-                                <!-- Вкладки страниц диплома -->
-                            </div>
-                            <div class="author-modal-body">
-                                <div id="author-modal-img-wrap" class="author-modal-img-wrap">
-                                    <img id="author-modal-img" src="" alt="Скан документа" class="author-modal-img" loading="eager">
-                                </div>
-                            </div>
-                            <div id="author-modal-footer-note" class="author-modal-footer-note">
-                                <i class="fa-solid fa-lock" style="color: #10b981;"></i>
-                                <span>В целях защиты персональных данных серия и номер документа скрыты. Оценки, предметы и гербовые печати сохранены. Кликните по скану, чтобы открыть его в максимальном разрешении.</span>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div class="author-actions-footer">
                         <a href="https://t.me/madeinseryoga" target="_blank" rel="noopener noreferrer" class="author-cta-btn tg-cta">
@@ -28763,7 +28741,8 @@ function setupDetailNavButtons() {
                     btn.type = 'button';
                     btn.className = 'author-modal-tab-btn' + (idx === 0 ? ' active' : '');
                     btn.textContent = page.label;
-                    btn.addEventListener('click', function() {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
                         tabsEl.querySelectorAll('.author-modal-tab-btn').forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
                         setModalPage(page.src, set.title);
@@ -28774,7 +28753,10 @@ function setupDetailNavButtons() {
 
             setModalPage(set.pages[0].src, set.title);
 
-            modal.classList.add('active');
+            modal.style.display = 'flex';
+            requestAnimationFrame(() => {
+                modal.classList.add('active');
+            });
             document.body.style.overflow = 'hidden';
         };
 
@@ -28796,19 +28778,26 @@ function setupDetailNavButtons() {
 
             setModalPage(src, caption);
 
-            modal.classList.add('active');
+            modal.style.display = 'flex';
+            requestAnimationFrame(() => {
+                modal.classList.add('active');
+            });
             document.body.style.overflow = 'hidden';
         };
 
         window.openDocPreview = function(url, title) {
-            // Direct native viewer in a clean tab - 100% reliable across all browsers and devices
             window.open(url, '_blank');
         };
 
         window.closeAuthorModal = function() {
             const modal = document.getElementById('author-doc-modal');
             const imgEl = document.getElementById('author-modal-img');
-            if (modal) modal.classList.remove('active');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 250);
+            }
             if (imgEl) imgEl.src = '';
             document.body.style.overflow = '';
         };
@@ -28918,6 +28907,41 @@ function setupDetailNavButtons() {
         }, 12000);
     })();
     </script>
+
+                    <!-- Модальное окно просмотра документов, дипломов и фото -->
+                    <div id="author-doc-modal" class="author-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="author-modal-title">
+                        <div class="author-modal-container">
+                            <div class="author-modal-header">
+                                <div id="author-modal-title" class="author-modal-title">
+                                    <i id="author-modal-icon" class="fa-solid fa-file-shield" style="color: #7c3aed;"></i>
+                                    <span id="author-modal-title-text">Документ об образовании</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <a id="author-modal-open-tab-btn" href="#" target="_blank" rel="noopener noreferrer" class="author-modal-action-btn" title="Открыть в полном размере в новой вкладке">
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </a>
+                                    <a id="author-modal-download-btn" href="#" target="_blank" download class="author-modal-action-btn" title="Скачать файл">
+                                        <i class="fa-solid fa-download"></i>
+                                    </a>
+                                    <button type="button" class="author-modal-close-btn" onclick="closeAuthorModal()" title="Закрыть (Esc)">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="author-modal-tabs" class="author-modal-tabs">
+                                <!-- Вкладки страниц диплома -->
+                            </div>
+                            <div class="author-modal-body">
+                                <div id="author-modal-img-wrap" class="author-modal-img-wrap">
+                                    <img id="author-modal-img" src="" alt="Скан документа" class="author-modal-img" loading="eager">
+                                </div>
+                            </div>
+                            <div id="author-modal-footer-note" class="author-modal-footer-note">
+                                <i class="fa-solid fa-lock" style="color: #10b981;"></i>
+                                <span>В целях защиты персональных данных серия и номер документа скрыты. Оценки, предметы и гербовые печати сохранены. Кликните по скану, чтобы открыть его в максимальном разрешении.</span>
+                            </div>
+                        </div>
+                    </div>
 
 </body>
 </html>
