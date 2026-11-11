@@ -14134,25 +14134,32 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             scrollbar-width: thin;
         }
         .author-modal-tab-btn {
-            padding: 6px 14px;
+            padding: 7px 16px;
             border-radius: 999px;
-            font-size: 0.82rem;
+            font-size: 0.84rem;
             font-weight: 700;
             border: 1.5px solid #cbd5e1;
             background: #ffffff;
             color: #475569;
             cursor: pointer;
             white-space: nowrap;
-            transition: all 0.15s ease;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: all 0.1s ease;
         }
         .author-modal-tab-btn:hover {
             border-color: #7c3aed;
             color: #7c3aed;
+            background: #f5f3ff;
+        }
+        .author-modal-tab-btn:active {
+            transform: scale(0.96);
         }
         .author-modal-tab-btn.active {
-            background: #7c3aed;
-            color: #ffffff;
-            border-color: #7c3aed;
+            background: #7c3aed !important;
+            color: #ffffff !important;
+            border-color: #7c3aed !important;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
         }
         .author-modal-body {
             flex: 1;
@@ -15612,7 +15619,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                                 <div class="author-timeline-item">
                                     <div class="author-timeline-year">2024 – 2026 гг.</div>
                                     <div class="author-timeline-desc">
-                                        <strong>Магистратура</strong> — Английский язык и второй иностранный язык (китайский / японский / арабский / турецкий).
+                                        <strong>Магистратура</strong> — Английский язык и второй иностранный язык (китайский).
                                         <div style="margin-top: 8px;">
                                             <button type="button" class="author-doc-btn" onclick="openDiplomaModal('master')">
                                                 <i class="fa-solid fa-file-shield" style="color: #7c3aed;"></i> Диплом и приложение (сканы)
@@ -28695,26 +28702,21 @@ function setupDetailNavButtons() {
             }
         };
 
-        function setModalPage(src, title) {
-            const imgEl = document.getElementById('author-modal-img');
-            const downloadBtn = document.getElementById('author-modal-download-btn');
-            const openTabBtn = document.getElementById('author-modal-open-tab-btn');
-
-            if (imgEl) {
-                imgEl.src = src;
-                imgEl.onclick = function() { window.open(src, '_blank'); };
-                imgEl.title = 'Кликните, чтобы открыть в полном разрешении';
-                imgEl.style.cursor = 'zoom-in';
-            }
-            if (downloadBtn) {
-                downloadBtn.href = src;
-                downloadBtn.download = src.split('/').pop();
-                downloadBtn.style.display = 'inline-flex';
-            }
-            if (openTabBtn) {
-                openTabBtn.href = src;
-                openTabBtn.style.display = 'inline-flex';
-            }
+        // Фоновая упреждающая предзагрузка всех 10 сканов дипломов в кэш браузера
+        function preloadAllDiplomas() {
+            Object.values(diplomaData).forEach(function(set) {
+                if (set && Array.isArray(set.pages)) {
+                    set.pages.forEach(function(p) {
+                        var img = new Image();
+                        img.src = p.src;
+                    });
+                }
+            });
+        }
+        if (typeof requestIdleCallback === 'function') {
+            requestIdleCallback(preloadAllDiplomas);
+        } else {
+            setTimeout(preloadAllDiplomas, 200);
         }
 
         window.openDiplomaModal = function(type) {
@@ -28725,36 +28727,77 @@ function setupDetailNavButtons() {
             const tabsEl = document.getElementById('author-modal-tabs');
             const imgWrap = document.getElementById('author-modal-img-wrap');
             const noteEl = document.getElementById('author-modal-footer-note');
+            const downloadBtn = document.getElementById('author-modal-download-btn');
+            const openTabBtn = document.getElementById('author-modal-open-tab-btn');
 
             if (!modal || !set) return;
 
             if (titleEl) titleEl.textContent = set.title;
             if (iconEl) iconEl.className = 'fa-solid fa-file-shield';
             if (noteEl) noteEl.style.display = 'flex';
-            if (imgWrap) imgWrap.style.display = 'flex';
+
+            // Мгновенное переключение: создаем все страницы в DOM, скрываем неактивные
+            if (imgWrap) {
+                imgWrap.innerHTML = '';
+                imgWrap.style.display = 'flex';
+            }
+
+            const imgList = [];
+            set.pages.forEach(function(page, idx) {
+                const img = document.createElement('img');
+                img.src = page.src;
+                img.alt = page.label;
+                img.className = 'author-modal-img';
+                img.style.display = (idx === 0) ? 'block' : 'none';
+                img.loading = 'eager';
+                img.decoding = 'async';
+                img.style.cursor = 'zoom-in';
+                img.title = 'Кликните, чтобы открыть в полном разрешении';
+                img.onclick = function() { window.open(page.src, '_blank'); };
+                if (imgWrap) imgWrap.appendChild(img);
+                imgList.push(img);
+            });
+
+            function showPage(idx) {
+                const page = set.pages[idx];
+                imgList.forEach(function(im, i) {
+                    im.style.display = (i === idx) ? 'block' : 'none';
+                });
+                if (downloadBtn) {
+                    downloadBtn.href = page.src;
+                    downloadBtn.download = page.src.split('/').pop();
+                    downloadBtn.style.display = 'inline-flex';
+                }
+                if (openTabBtn) {
+                    openTabBtn.href = page.src;
+                    openTabBtn.style.display = 'inline-flex';
+                }
+            }
 
             if (tabsEl) {
                 tabsEl.innerHTML = '';
                 tabsEl.style.display = 'flex';
-                set.pages.forEach((page, idx) => {
+                set.pages.forEach(function(page, idx) {
                     const btn = document.createElement('button');
                     btn.type = 'button';
                     btn.className = 'author-modal-tab-btn' + (idx === 0 ? ' active' : '');
                     btn.textContent = page.label;
                     btn.addEventListener('click', function(e) {
                         e.stopPropagation();
-                        tabsEl.querySelectorAll('.author-modal-tab-btn').forEach(b => b.classList.remove('active'));
+                        tabsEl.querySelectorAll('.author-modal-tab-btn').forEach(function(b) {
+                            b.classList.remove('active');
+                        });
                         btn.classList.add('active');
-                        setModalPage(page.src, set.title);
+                        showPage(idx);
                     });
                     tabsEl.appendChild(btn);
                 });
             }
 
-            setModalPage(set.pages[0].src, set.title);
+            showPage(0);
 
             modal.style.display = 'flex';
-            requestAnimationFrame(() => {
+            requestAnimationFrame(function() {
                 modal.classList.add('active');
             });
             document.body.style.overflow = 'hidden';
@@ -28767,6 +28810,8 @@ function setupDetailNavButtons() {
             const tabsEl = document.getElementById('author-modal-tabs');
             const imgWrap = document.getElementById('author-modal-img-wrap');
             const noteEl = document.getElementById('author-modal-footer-note');
+            const downloadBtn = document.getElementById('author-modal-download-btn');
+            const openTabBtn = document.getElementById('author-modal-open-tab-btn');
 
             if (!modal) return;
 
@@ -28774,12 +28819,27 @@ function setupDetailNavButtons() {
             if (iconEl) iconEl.className = 'fa-solid fa-camera-retro';
             if (tabsEl) { tabsEl.innerHTML = ''; tabsEl.style.display = 'none'; }
             if (noteEl) noteEl.style.display = 'none';
-            if (imgWrap) imgWrap.style.display = 'flex';
 
-            setModalPage(src, caption);
+            if (imgWrap) {
+                imgWrap.innerHTML = '';
+                imgWrap.style.display = 'flex';
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = caption || 'Фото';
+                img.className = 'author-modal-img';
+                img.loading = 'eager';
+                img.decoding = 'async';
+                img.style.cursor = 'zoom-in';
+                img.title = 'Кликните, чтобы открыть в полном разрешении';
+                img.onclick = function() { window.open(src, '_blank'); };
+                imgWrap.appendChild(img);
+            }
+
+            if (downloadBtn) { downloadBtn.href = src; downloadBtn.download = src.split('/').pop(); downloadBtn.style.display = 'inline-flex'; }
+            if (openTabBtn) { openTabBtn.href = src; openTabBtn.style.display = 'inline-flex'; }
 
             modal.style.display = 'flex';
-            requestAnimationFrame(() => {
+            requestAnimationFrame(function() {
                 modal.classList.add('active');
             });
             document.body.style.overflow = 'hidden';
@@ -28791,14 +28851,14 @@ function setupDetailNavButtons() {
 
         window.closeAuthorModal = function() {
             const modal = document.getElementById('author-doc-modal');
-            const imgEl = document.getElementById('author-modal-img');
+            const imgWrap = document.getElementById('author-modal-img-wrap');
             if (modal) {
                 modal.classList.remove('active');
-                setTimeout(() => {
+                setTimeout(function() {
                     modal.style.display = 'none';
-                }, 250);
+                    if (imgWrap) imgWrap.innerHTML = '';
+                }, 220);
             }
-            if (imgEl) imgEl.src = '';
             document.body.style.overflow = '';
         };
 
