@@ -12190,34 +12190,43 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             margin: 0;
         }
         .home-brand-tag {
-            font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif !important;
-            font-size: 0.85rem !important;
-            font-weight: 700 !important;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif !important;
             background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
             color: #ffffff !important;
-            padding: 3px 11px !important;
+            padding: 0 10px !important;
             border-radius: 999px !important;
             letter-spacing: 0 !important;
             text-indent: 0 !important;
             display: inline-flex !important;
+            flex-direction: row !important;
             align-items: center !important;
             justify-content: center !important;
             gap: 5px !important;
-            line-height: 1 !important;
+            flex-shrink: 0 !important;
+            min-width: 54px !important;
+            width: auto !important;
+            height: 24px !important;
+            line-height: 24px !important;
             vertical-align: middle !important;
             white-space: nowrap !important;
             box-shadow: 0 3px 10px rgba(16, 185, 129, 0.35) !important;
-            margin-left: 8px !important;
+            margin-left: 10px !important;
+            overflow: visible !important;
         }
-        .home-brand-tag .hb-c {
+        .home-brand-tag .hb-char-box {
             display: inline-block !important;
-            font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif !important;
-            font-size: 0.85rem !important;
+            flex-shrink: 0 !important;
+            width: 14px !important;
+            min-width: 14px !important;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif !important;
+            font-size: 13px !important;
             font-weight: 700 !important;
-            line-height: 1 !important;
+            line-height: 24px !important;
+            text-align: center !important;
+            color: #ffffff !important;
             letter-spacing: 0 !important;
-            text-indent: 0 !important;
-            width: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
         .home-brand-sub {
             font-size: 0.95rem;
@@ -13706,6 +13715,124 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             border-color: #86efac;
         }
 
+
+        /* Скругление панелей страницы Об авторе */
+        .author-main-card {
+            background: #ffffff !important;
+            border-radius: 32px !important;
+            border: 1.5px solid #e2e8f0 !important;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04) !important;
+            padding: 32px !important;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .author-hero-section {
+            background: #faf8ff !important;
+            border-radius: 26px !important;
+            border: 1.5px solid #ede9fe !important;
+            padding: 24px !important;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        .author-info-box {
+            background: #f8fafc !important;
+            border-radius: 26px !important;
+            border: 1.5px solid #e2e8f0 !important;
+            padding: 24px !important;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .author-timeline-item {
+            background: #ffffff !important;
+            border-radius: 14px !important;
+            border: 1.5px solid #f1f5f9 !important;
+            padding: 12px 16px !important;
+            border-left: 4px solid #cbd5e1 !important;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .author-timeline-item.current {
+            border-left-color: #10b981 !important;
+            background: #f0fdf4 !important;
+        }
+        .author-exp-card {
+            background: #ffffff !important;
+            border-radius: 16px !important;
+            border: 1.5px solid #f1f5f9 !important;
+            padding: 14px 16px !important;
+            display: flex;
+            gap: 12px;
+        }
+        .author-cta-btn {
+            border-radius: 20px !important;
+        }
+        .vk-cta {
+            background: linear-gradient(135deg, #0077ff 0%, #0055cc 100%) !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(0, 119, 255, 0.25) !important;
+        }
+        .vk-cta:hover {
+            filter: brightness(1.08);
+            transform: translateY(-1px);
+        }
+
+        /* Исправление залипания (sticky) правой панели словаря в грамматике */
+        #view-grammar-detail {
+            overflow: visible !important;
+            overflow-x: visible !important;
+            overflow-y: visible !important;
+        }
+        .grammar-detail-main {
+            overflow: visible !important;
+            overflow-x: visible !important;
+            overflow-y: visible !important;
+            padding-bottom: 80px !important;
+        }
+        .gd-layout-container {
+            display: grid !important;
+            grid-template-columns: minmax(0, 1fr) 360px !important;
+            gap: 26px !important;
+            align-items: start !important;
+            max-width: 1340px !important;
+            margin: 0 auto !important;
+            padding: 10px 16px 50px !important;
+            position: relative !important;
+            overflow: visible !important;
+        }
+        @media (max-width: 960px) {
+            .gd-layout-container {
+                grid-template-columns: 1fr !important;
+            }
+            .gd-dict-sidebar {
+                display: none !important;
+            }
+        }
+        .gd-dict-sidebar {
+            position: -webkit-sticky !important;
+            position: sticky !important;
+            top: 85px !important;
+            align-self: start !important;
+            height: auto !important;
+            z-index: 100 !important;
+            margin-top: 0 !important;
+        }
+        .gd-sidebar-sticky {
+            background: #ffffff !important;
+            border: 1.5px solid #e2e8f0 !important;
+            border-radius: 24px !important;
+            padding: 22px !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 16px !important;
+            max-height: calc(100vh - 110px) !important;
+            overflow-y: auto !important;
+        }
+
 </style>
     <script src="data/grammar_hsk1/hsk1_grammar_full.js"></script>
 </head>
@@ -13727,7 +13854,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                 <div class="home-brand-row">
                     <img src="images/baobao_avatar_clean.png" alt="БаоБао" class="home-brand-avatar">
                     <div class="home-brand-meta">
-                        <h1 class="home-brand-title">БаоБао <span class="home-brand-tag"><span class="hb-c">包</span><span class="hb-c">宝</span></span></h1>
+                        <h1 class="home-brand-title">БаоБао <span class="home-brand-tag"><span class="hb-char-box">包</span><span class="hb-char-box">宝</span></span></h1>
                         <p class="home-brand-sub">Твой помощник в изучении китайского языка</p>
                     </div>
                 </div>
@@ -13914,12 +14041,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             </section>
         </div>
         
-        <!-- Нижняя навигация и Об авторе (кликабельный текст) -->
-        <div class="home-author-link-bar">
-            <button type="button" class="home-author-pill-btn" id="home-author-text-btn" title="Подробнее об авторе платформы">
-                <i class="fa-solid fa-user-graduate"></i> <span>Об авторе</span>
-            </button>
-        </div>
+
 
         <footer class="home-footer">© 2026 БаоБао • Твой помощник в изучении китайского языка 🥟</footer>
     </div>
@@ -14617,9 +14739,9 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                         <a href="https://t.me/madeinseryoga" target="_blank" rel="noopener noreferrer" class="author-cta-btn tg-cta">
                             <i class="fa-brands fa-telegram"></i> Telegram @madeinseryoga
                         </a>
-                        <button type="button" class="author-cta-btn guide-cta" onclick="window.openBaoBaoGuide && window.openBaoBaoGuide()">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i> Инструкция от БаоБао
-                        </button>
+                        <a href="https://vk.com/madeinseryoga" target="_blank" rel="noopener noreferrer" class="author-cta-btn vk-cta">
+                            <i class="fa-brands fa-vk"></i> ВКонтакте @madeinseryoga
+                        </a>
                     </div>
                 </div>
             </main>
