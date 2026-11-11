@@ -2597,84 +2597,88 @@
         .action-cards {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 12px;
             margin-bottom: 20px;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
         }
         @media (max-width: 520px) {
             .action-cards { grid-template-columns: 1fr; }
         }
         .action-card {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 20px 16px;
-            border-radius: 18px;
+            justify-content: flex-start;
+            gap: 12px;
+            padding: 10px 16px;
+            min-height: 54px;
+            border-radius: 15px;
             cursor: pointer;
-            text-align: center;
-            font-weight: 900;
-            transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-            transform-style: preserve-3d;
+            text-align: left;
+            font-weight: 800;
+            transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
             border: none;
             font-family: inherit;
             width: 100%;
+            box-sizing: border-box;
             color: #fff;
         }
         .action-card.support {
-            background: linear-gradient(145deg, #6366F1, #4F46E5);
-            box-shadow: 0 6px 0 #3730a3, 0 10px 20px rgba(99, 102, 241, 0.4);
+            background: linear-gradient(135deg, #6366F1, #4F46E5);
+            box-shadow: 0 3px 0 #3730a3, 0 6px 16px rgba(99, 102, 241, 0.28);
             color: #fff;
         }
         .action-card.support:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             filter: brightness(1.06);
+            box-shadow: 0 5px 0 #3730a3, 0 10px 22px rgba(99, 102, 241, 0.36);
         }
         .action-card.download {
-            background: linear-gradient(145deg, #10B981, #059669);
-            box-shadow: 0 6px 0 #047857, 0 10px 20px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #10B981, #059669);
+            box-shadow: 0 3px 0 #047857, 0 6px 16px rgba(16, 185, 129, 0.28);
             color: #fff;
         }
         .action-card.download:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             filter: brightness(1.05);
+            box-shadow: 0 5px 0 #047857, 0 10px 22px rgba(16, 185, 129, 0.36);
         }
         .action-card:active {
-            transform: translateY(4px);
+            transform: translateY(2px);
             box-shadow: 0 1px 0 rgba(0,0,0,0.15);
         }
         .action-card-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
-            transform: translateZ(10px);
+            font-size: 1.05rem;
+            flex-shrink: 0;
         }
         .action-card.support .action-card-icon {
             background: rgba(255,255,255,0.22);
             color: #fff;
-            box-shadow: inset 0 -2px 0 rgba(0,0,0,0.1), 0 4px 10px rgba(0,0,0,0.1);
         }
         .action-card.download .action-card-icon {
             background: rgba(255,255,255,0.22);
             color: #fff;
-            box-shadow: inset 0 -2px 0 rgba(0,0,0,0.1), 0 4px 10px rgba(0,0,0,0.1);
         }
         .action-card-title {
-            font-size: 1.05rem;
+            font-size: 0.90rem;
+            font-weight: 800;
             color: inherit;
-            line-height: 1.25;
-            transform: translateZ(8px);
+            line-height: 1.2;
         }
         .action-card-desc {
-            font-size: 0.78rem;
-            font-weight: 700;
+            font-size: 0.72rem;
+            font-weight: 600;
             color: inherit;
-            opacity: 0.75;
-            transform: translateZ(6px);
+            opacity: 0.85;
+            margin-top: 2px;
         }
 
         /* Модалки помощи / скачивания */
@@ -10513,36 +10517,45 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         gap: 0 !important;
     }
     #view-textstudy .ts-reader-content-card {
-        padding: 0 !important;
+        padding: 10px 8px !important;
         margin: 0 !important;
         width: 100% !important;
         box-sizing: border-box !important;
-        border: none !important;
-        background: transparent !important;
-        box-shadow: none !important;
+        border: 1.5px solid #e2e8f0 !important;
+        border-radius: 26px !important;
+        background: #ffffff !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
     }
     #view-textstudy .ts-sentence-card {
-        padding: 5px 7px !important;
-        margin-bottom: 5px !important;
-        border-radius: 10px !important;
+        padding: 12px 14px !important;
+        margin-bottom: 12px !important;
+        border-radius: 20px !important;
         background: #ffffff !important;
-        border: 1px solid #e2e8f0 !important;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02) !important;
+        border: 1.5px solid #edf2f7 !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.025) !important;
+        transition: all 0.15s ease !important;
+    }
+    #view-textstudy .ts-sentence-card:hover {
+        border-color: #cbd5e1 !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
     }
     #view-textstudy .ts-sentence-header {
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
-        margin-bottom: 3px !important;
-        padding-bottom: 3px !important;
-        gap: 5px !important;
-        border-bottom: 1px dashed #f1f5f9 !important;
+        margin-bottom: 8px !important;
+        padding-bottom: 6px !important;
+        gap: 8px !important;
+        border-bottom: 1.5px dashed #f1f5f9 !important;
     }
     #view-textstudy .ts-sentence-num {
-        font-size: 0.74rem !important;
-        font-weight: 700 !important;
-        padding: 2px 7px !important;
-        border-radius: 6px !important;
+        font-size: 0.78rem !important;
+        font-weight: 800 !important;
+        padding: 4px 12px !important;
+        border-radius: 999px !important;
+        background: #ecfdf5 !important;
+        color: #065f46 !important;
+        border: 1px solid #a7f3d0 !important;
     }
     #view-textstudy .ts-sentence-actions {
         display: flex !important;
@@ -10550,12 +10563,22 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         gap: 5px !important;
     }
     #view-textstudy .ts-sent-btn {
-        padding: 0 8px !important;
-        font-size: 0.72rem !important;
-        font-weight: 600 !important;
-        height: 24px !important;
-        border-radius: 7px !important;
-        gap: 4px !important;
+        padding: 0 10px !important;
+        font-size: 0.74rem !important;
+        font-weight: 700 !important;
+        height: 28px !important;
+        border-radius: 999px !important;
+        gap: 5px !important;
+        cursor: pointer !important;
+        transition: all 0.12s ease !important;
+    }
+    #view-textstudy .ts-sent-btn:hover {
+        background: #f1f5f9 !important;
+    }
+    #view-textstudy .ts-sent-btn.copied {
+        background: #ecfdf5 !important;
+        border-color: #10b981 !important;
+        color: #059669 !important;
     }
     #view-textstudy .ts-sentence-body {
         display: flex !important;
@@ -13297,8 +13320,8 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         /* ==================== ИНТЕРАКТИВНЫЙ ЖИВОЙ БАОБАО ==================== */
         .baobao-peeker {
             position: fixed;
-            bottom: 20px;
-            right: 22px;
+            bottom: 24px;
+            right: 28px;
             z-index: 1000;
             display: flex;
             flex-direction: column;
@@ -13306,20 +13329,26 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             pointer-events: none;
             transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
         }
+        /* На мобилке полностью убираем плавающего маскота (занимает много места) */
+        @media (max-width: 768px) {
+            .baobao-peeker, #baobao-peeker-widget {
+                display: none !important;
+            }
+        }
         .baobao-peeker-mascot {
             position: relative;
-            width: 70px;
-            height: 70px;
+            width: 68px;
+            height: 68px;
             cursor: pointer;
             pointer-events: auto;
-            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.18));
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             animation: baobaoFloat 4s ease-in-out infinite;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
         .baobao-peeker-mascot:hover {
-            transform: scale(1.15) translateY(-5px) rotate(4deg);
+            transform: scale(1.12) translateY(-4px) rotate(3deg);
         }
         .baobao-peeker-mascot:active {
             transform: scale(0.95);
@@ -13329,7 +13358,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         }
         @keyframes baobaoBounceClick {
             0% { transform: scale(0.9); }
-            50% { transform: scale(1.22) translateY(-10px); }
+            50% { transform: scale(1.2) translateY(-8px); }
             100% { transform: scale(1); }
         }
         .baobao-peeker-img {
@@ -13355,38 +13384,44 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             50% { opacity: 1; transform: scale(1.2) rotate(15deg); }
         }
 
-        /* Облачко речи (Speech Bubble) */
-        .baobao-speech-bubble {
-            background: #ffffff;
-            color: #1e1b4b;
-            border-radius: 18px;
-            padding: 10px 16px 10px 14px;
-            margin-bottom: 10px;
-            max-width: 270px;
-            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16), 0 0 0 1.5px rgba(245, 158, 11, 0.3);
-            font-size: 0.88rem;
-            font-weight: 700;
-            line-height: 1.45;
-            position: relative;
-            pointer-events: auto;
+        /* Облачко речи плавающего маскота (выделенный класс .baobao-peeker-bubble) */
+        .baobao-peeker-bubble {
+            background: #ffffff !important;
+            color: #0f172a !important;
+            border-radius: 16px !important;
+            border: 1.5px solid #f59e0b !important;
+            padding: 8px 14px 8px 12px !important;
+            margin-bottom: 8px !important;
+            width: auto !important;
+            max-width: 250px !important;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.16) !important;
+            font-size: 0.84rem !important;
+            font-weight: 700 !important;
+            line-height: 1.4 !important;
+            white-space: normal !important;
+            word-break: break-word !important;
+            position: relative !important;
+            top: auto !important;
+            right: auto !important;
+            pointer-events: auto !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
             animation: bubblePop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
-        .baobao-speech-bubble.hidden {
+        .baobao-peeker-bubble.hidden {
             display: none !important;
         }
-        .baobao-speech-bubble::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            right: 28px;
-            width: 0;
-            height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 8px solid #ffffff;
+        .baobao-peeker-bubble::after {
+            content: '' !important;
+            position: absolute !important;
+            bottom: -7px !important;
+            right: 22px !important;
+            width: 0 !important;
+            height: 0 !important;
+            border-left: 7px solid transparent !important;
+            border-right: 7px solid transparent !important;
+            border-top: 7px solid #ffffff !important;
             filter: drop-shadow(0 2px 2px rgba(0,0,0,0.06));
         }
         .baobao-bubble-close {
@@ -13404,21 +13439,6 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         @keyframes bubblePop {
             0% { transform: scale(0.6) translateY(10px); opacity: 0; }
             100% { transform: scale(1) translateY(0); opacity: 1; }
-        }
-        @media (max-width: 600px) {
-            .baobao-peeker {
-                bottom: 14px;
-                right: 14px;
-            }
-            .baobao-peeker-mascot {
-                width: 58px;
-                height: 58px;
-            }
-            .baobao-speech-bubble {
-                max-width: 220px;
-                font-size: 0.82rem;
-                padding: 8px 12px;
-            }
         }
 
 
@@ -24826,7 +24846,7 @@ const BkrsDB = window.BkrsDB = {
         // Segment Chinese text into words with BKRS dictionary lookup
         async function segmentChineseText(text, onProgress) {
             if (!text) return [];
-            if (onProgress) onProgress(15, 'Загрузка ядра БКРС...');
+            if (onProgress) onProgress(15, 'Загрузка словаря БКРС...');
 
             // 1. Preload core words and single characters concurrently
             await Promise.all([
@@ -24837,16 +24857,16 @@ const BkrsDB = window.BkrsDB = {
             const coreDb = BkrsDB.coreWords || {};
             const charsDb = BkrsDB.singleChars || {};
 
-            if (onProgress) onProgress(40, 'Анализ устойчивых сочетаний...');
+            if (onProgress) onProgress(35, 'Поиск устойчивых слов и словосочетаний в БКРС...');
 
-            // 2. Collect buckets ONLY for multi-character candidate words (2-4 chars) NOT in coreDb
+            // 2. Сбор ВСЕХ необходимых бакетов для словосочетаний (2-6 иероглифов)
             const neededBuckets = new Set();
             const textLen = text.length;
             for (let i = 0; i < textLen; i++) {
-                if (/[一-鿿]/.test(text[i])) {
-                    for (let l = 2; l <= 4 && i + l <= textLen; l++) {
+                if (/[\u4e00-\u9fff]/.test(text[i])) {
+                    for (let l = 2; l <= 6 && i + l <= textLen; l++) {
                         const sub = text.substr(i, l);
-                        if (/^[一-鿿]+$/.test(sub) && !coreDb[sub]) {
+                        if (/^[\u4e00-\u9fff]+$/.test(sub) && !coreDb[sub]) {
                             const bId = BkrsDB.getBucketId(sub[0]);
                             if (bId && !BkrsDB.buckets[bId]) {
                                 neededBuckets.add(bId);
@@ -24856,14 +24876,14 @@ const BkrsDB = window.BkrsDB = {
                 }
             }
 
-            // 3. Load max 8 relevant buckets in parallel (super fast!)
+            // 3. Загружаем ВСЕ нужные бакеты без ограничения .slice(0, 8), чтобы ни одно слово не разбилось
             if (neededBuckets.size > 0 && typeof BkrsDB.loadBucket === 'function') {
-                if (onProgress) onProgress(65, 'Сопоставление с расширенной базой...');
-                const bucketList = Array.from(neededBuckets).slice(0, 8);
+                if (onProgress) onProgress(60, 'Загрузка словарных баз БКРС (' + neededBuckets.size + ')...');
+                const bucketList = Array.from(neededBuckets);
                 await Promise.all(bucketList.map(bId => BkrsDB.loadBucket(bId).catch(() => null)));
             }
 
-            if (onProgress) onProgress(85, 'Разбивка на предложения и слова...');
+            if (onProgress) onProgress(85, 'Точная сегментация текста на предложения и слова...');
 
             // 4. Ultra-fast synchronous matching from in-memory objects
             function getWordEntrySync(w) {
@@ -24880,7 +24900,7 @@ const BkrsDB = window.BkrsDB = {
             const tokens = [];
             let i = 0;
             const len = text.length;
-            const maxWordLen = 5;
+            const maxWordLen = 6;
 
             while (i < len) {
                 const ch = text[i];
@@ -25259,6 +25279,9 @@ const BkrsDB = window.BkrsDB = {
                         <button type="button" class="ts-sent-btn ts-sent-speak" title="Озвучить предложение">
                             <i class="fa-solid fa-volume-high"></i>
                         </button>
+                        <button type="button" class="ts-sent-btn ts-sent-copy" title="Скопировать китайский текст предложения">
+                            <i class="fa-solid fa-copy"></i>
+                        </button>
                         <button type="button" class="ts-sent-btn ts-sent-trans" title="Показать или скрыть перевод предложения">
                             <i class="fa-solid fa-language"></i> <span>Перевод</span>
                         </button>
@@ -25345,6 +25368,37 @@ const BkrsDB = window.BkrsDB = {
                 // Wire sentence header buttons
                 const speakBtn = hdr.querySelector('.ts-sent-speak');
                 speakBtn.addEventListener('click', () => speakChinese(sent.text));
+
+                const copyBtn = hdr.querySelector('.ts-sent-copy');
+                if (copyBtn) {
+                    copyBtn.addEventListener('click', async (e) => {
+                        e.stopPropagation();
+                        const cleanText = sent.text || '';
+                        try {
+                            if (navigator.clipboard && navigator.clipboard.writeText) {
+                                await navigator.clipboard.writeText(cleanText);
+                            } else {
+                                const ta = document.createElement('textarea');
+                                ta.value = cleanText;
+                                document.body.appendChild(ta);
+                                ta.select();
+                                document.execCommand('copy');
+                                document.body.removeChild(ta);
+                            }
+                            const oldH = copyBtn.innerHTML;
+                            copyBtn.innerHTML = '<i class="fa-solid fa-check" style="color: #10b981;"></i>';
+                            copyBtn.classList.add('copied');
+                            copyBtn.title = 'Скопировано в буфер обмена!';
+                            setTimeout(() => {
+                                copyBtn.innerHTML = oldH;
+                                copyBtn.classList.remove('copied');
+                                copyBtn.title = 'Скопировать китайский текст предложения';
+                            }, 1600);
+                        } catch(err) {
+                            console.warn('Copy failed:', err);
+                        }
+                    });
+                }
 
                 const transBtn = hdr.querySelector('.ts-sent-trans');
 
@@ -28902,7 +28956,7 @@ function setupDetailNavButtons() {
 
     <!-- ==================== ИНТЕРАКТИВНЫЙ ПОДГЛЯДЫВАЮЩИЙ БАОБАО ==================== -->
     <div id="baobao-peeker-widget" class="baobao-peeker" aria-live="polite">
-        <div id="baobao-speech-bubble" class="baobao-speech-bubble hidden">
+        <div id="baobao-speech-bubble" class="baobao-peeker-bubble hidden">
             <span id="baobao-speech-text">Ой, не мешаю, учись-учись! 🥟✨</span>
             <button type="button" class="baobao-bubble-close" id="baobao-bubble-close" aria-label="Закрыть">&times;</button>
         </div>
