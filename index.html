@@ -6721,13 +6721,160 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
 
 
 /* ==================== CENTERED BKRS SEARCH & CLEAN LAYOUT ==================== */
+#view-bkrs .hsk-container {
+    max-width: 860px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 10px 16px 40px !important;
+    box-sizing: border-box !important;
+}
 .bkrs-search-container {
     display: flex !important;
     flex-direction: column !important;
     gap: 12px !important;
-    max-width: 760px !important;
-    margin: 16px auto 24px !important;
+    max-width: 860px !important;
+    margin: 16px auto 20px !important;
     width: 100% !important;
+    box-sizing: border-box !important;
+}
+.bkrs-search-box {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+.bkrs-status-bar {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+.bkrs-toc-bar {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    padding: 10px 14px !important;
+    background: #f8fafc !important;
+    border: 1.5px solid #ebdcf5 !important;
+    border-radius: 16px !important;
+    margin: 0 0 20px 0 !important;
+    width: 100% !important;
+    max-width: 860px !important;
+    box-sizing: border-box !important;
+    overflow-x: visible !important;
+    white-space: normal !important;
+}
+#bkrs-results-list {
+    width: 100% !important;
+    max-width: 860px !important;
+    box-sizing: border-box !important;
+}
+.bkrs-result-card, .bkrs-card {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Beautiful, robust styling for BKRS Sentence breakdown view */
+.bkrs-sentence-banner {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background: #ffffff !important;
+    border: 1.5px solid #ebdcf5 !important;
+    border-radius: 18px !important;
+    padding: 16px 20px !important;
+    margin-bottom: 16px !important;
+    box-shadow: 0 4px 14px rgba(142, 36, 170, 0.05) !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+.bkrs-sentence-raw {
+    font-size: 1.6rem !important;
+    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif !important;
+    font-weight: 800 !important;
+    color: #1e1b4b !important;
+    word-break: break-word !important;
+}
+.bkrs-sentence-actions {
+    display: flex !important;
+    gap: 10px !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+}
+.bkrs-sentence-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    height: 40px !important;
+    padding: 0 16px !important;
+    border-radius: 12px !important;
+    border: 1.5px solid #ebdcf5 !important;
+    background: #ffffff !important;
+    color: #7e22ce !important;
+    font-weight: 700 !important;
+    font-size: 0.92rem !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    transition: all 0.15s ease !important;
+}
+.bkrs-sentence-btn:hover {
+    background: #8E24AA !important;
+    color: #ffffff !important;
+    border-color: #8E24AA !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(142, 36, 170, 0.2) !important;
+}
+.bkrs-flow-words-track {
+    display: flex !important;
+    gap: 12px !important;
+    overflow-x: auto !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 20px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+.bkrs-flow-col {
+    background: #ffffff !important;
+    border: 1.5px solid #ebdcf5 !important;
+    border-radius: 14px !important;
+    padding: 14px 16px !important;
+    min-width: 140px !important;
+    max-width: 220px !important;
+    flex-shrink: 0 !important;
+    transition: all 0.15s ease !important;
+}
+.bkrs-flow-col.active-selected {
+    border-color: #8E24AA !important;
+    background: #faf5ff !important;
+    box-shadow: 0 4px 12px rgba(142, 36, 170, 0.12) !important;
+}
+.bkrs-flow-col-top {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: baseline !important;
+    margin-bottom: 6px !important;
+    gap: 8px !important;
+}
+.bkrs-flow-col-zh {
+    font-size: 1.35rem !important;
+    font-weight: 800 !important;
+    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif !important;
+    color: #1e1b4b !important;
+}
+.bkrs-flow-col-py {
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    color: #7e22ce !important;
+}
+.bkrs-flow-col-audio {
+    cursor: pointer !important;
+    color: #8E24AA !important;
+    padding: 4px !important;
+}
+.bkrs-flow-col-trans {
+    font-size: 0.88rem !important;
+    color: #475569 !important;
+    line-height: 1.4 !important;
 }
 .bkrs-search-box {
     display: flex !important;
@@ -23370,17 +23517,35 @@ const BkrsDB = window.BkrsDB = {
             return this.ruToZh;
         },
 
+        loadPinyinMap: async function() {
+            if (this.pinyinMap) return this.pinyinMap;
+            if (this._loadingPinyinMap) return this._loadingPinyinMap;
+            this._loadingPinyinMap = fetch('data/bkrs/pinyin_map.json')
+                .then(r => r.ok ? r.json() : null)
+                .then(data => {
+                    this.pinyinMap = data || {};
+                    delete this._loadingPinyinMap;
+                    return this.pinyinMap;
+                })
+                .catch(() => {
+                    delete this._loadingPinyinMap;
+                    return {};
+                });
+            return this._loadingPinyinMap;
+        },
+
         loadExamples: async function() {
             if (this.examples) return this.examples;
             if (this.loadingExamples) return this.loadingExamples;
             this.loadingExamples = fetch('data/bkrs/bkrs_examples.json')
                 .then(r => r.ok ? r.json() : [])
                 .then(data => {
-                    this.examples = Array.isArray(data) ? data : [];
+                    this.examples = data || [];
+                    this.loadingExamples = null;
                     return this.examples;
                 })
                 .catch(err => {
-                    console.warn('Could not load bkrs_examples.json', err);
+                    this.loadingExamples = null;
                     this.examples = [];
                     return [];
                 });
@@ -23417,9 +23582,9 @@ const BkrsDB = window.BkrsDB = {
                 return { word: word, pinyin: this.singleChars[word][0], trans: this.singleChars[word][1] };
             }
             const bId = this.getBucketId(word[0]);
-            const b = await this.loadBucket(bId);
-            if (b && b[word]) {
-                return { word: word, pinyin: b[word][0], trans: b[word][1] };
+            const bucket = await this.loadBucket(bId);
+            if (bucket && bucket[word]) {
+                return { word: word, pinyin: bucket[word][0], trans: bucket[word][1] };
             }
             return null;
         },
@@ -23453,8 +23618,10 @@ const BkrsDB = window.BkrsDB = {
                         matchedLen = l;
                         break;
                     }
-                    if (this.singleChars && this.singleChars[sub]) {
-                        matchedWord = { word: sub, pinyin: this.singleChars[sub][0], trans: this.singleChars[sub][1] };
+                    const bId = this.getBucketId(sub[0]);
+                    const b = await this.loadBucket(bId);
+                    if (b && b[sub]) {
+                        matchedWord = { word: sub, pinyin: b[sub][0], trans: b[sub][1] };
                         matchedLen = l;
                         break;
                     }
@@ -23469,25 +23636,14 @@ const BkrsDB = window.BkrsDB = {
                     if (this.singleChars && this.singleChars[single]) {
                         py = this.singleChars[single][0];
                         tr = this.singleChars[single][1];
-                    } else if (this.coreWords && this.coreWords[single]) {
-                        py = this.coreWords[single][0];
-                        tr = this.coreWords[single][1];
                     }
                     tokens.push({ type: 'word', text: single, pinyin: py, trans: tr });
                     i++;
                 }
             }
 
-            const uniqueWords = [];
-            const seen = new Set();
-            for (const t of tokens) {
-                if (t.type === 'word' && !seen.has(t.text)) {
-                    seen.add(t.text);
-                    uniqueWords.push({ word: t.text, pinyin: t.pinyin, trans: t.trans });
-                }
-            }
-
-            return { tokens: tokens, words: uniqueWords, examples: [] };
+            const words = tokens.filter(t => t.type === 'word').map(t => ({ word: t.text, pinyin: t.pinyin, trans: t.trans }));
+            return { tokens, words, examples: [] };
         },
 
         search: async function(rawQuery, filterOptions = {}) {
@@ -23508,20 +23664,6 @@ const BkrsDB = window.BkrsDB = {
                 this.loadSingleChars()
             ]);
 
-            // Sentence / Multi-word Phrase Segmentation
-            let sentenceData = null;
-            const hasPunctOrSpaces = /[\s，。！？!?、；;：:,.——-]/.test(query);
-            if (isChinese && ((query.length >= 2 && !this.coreWords[query] && !this.singleChars[query]) || hasPunctOrSpaces || query.length >= 5)) {
-                const seg = await this.segmentSentence(query);
-                if ((seg.tokens && seg.tokens.length > 1) || (seg.words && seg.words.length > 1)) {
-                    sentenceData = {
-                        tokens: seg.tokens,
-                        words: seg.words,
-                        examples: seg.examples
-                    };
-                }
-            }
-
             const exact = [];
             const compounds = [];
             const seenWords = new Set();
@@ -23530,7 +23672,7 @@ const BkrsDB = window.BkrsDB = {
             let inRuWordsList = [];
             let inZhWordsList = [];
             let examplesResults = [];
-            let morphologyData = null;
+            let sentenceData = null;
             let dabruksResults = [];
 
             // ==========================================
@@ -23541,6 +23683,7 @@ const BkrsDB = window.BkrsDB = {
                 let bucket = null;
                 try { bucket = await this.loadBucket(bId); } catch(e) {}
 
+                // 1. Check exact dictionary match FIRST
                 if (bucket && bucket[query]) {
                     exact.push({ word: query, pinyin: bucket[query][0], trans: bucket[query][1], exact: true });
                     seenWords.add(query);
@@ -23552,63 +23695,78 @@ const BkrsDB = window.BkrsDB = {
                     seenWords.add(query);
                 }
 
-                if (bucket) {
-                    for (const [w, v] of Object.entries(bucket)) {
-                        if (w === query) continue;
-                        let match = false;
-                        if (isChinese && query.length === 1) {
-                            match = w.includes(query);
-                        } else {
-                            pat.lastIndex = 0;
-                            match = pat.test(w);
-                            if (!match && scheme === 'text') {
-                                pat.lastIndex = 0;
-                                match = pat.test(v[1]);
-                            }
-                        }
-                        if (match) {
-                            compounds.push({ word: w, pinyin: v[0], trans: v[1] });
-                            seenWords.add(w);
-                            if (compounds.length >= 40) break;
-                        }
+                // 2. Only if NOT an exact dictionary entry, check if sentence / phrase
+                const hasPunctOrSpaces = /[\s，。！？!?、；;：:,.——-]/.test(query);
+                if (exact.length === 0 && (hasPunctOrSpaces || query.length >= 3)) {
+                    const seg = await this.segmentSentence(query);
+                    if ((seg.tokens && seg.tokens.length > 1) || (seg.words && seg.words.length > 1)) {
+                        sentenceData = {
+                            tokens: seg.tokens,
+                            words: seg.words,
+                            examples: seg.examples
+                        };
                     }
                 }
 
-                if (compounds.length < 40 && this.coreWords) {
-                    for (const [w, v] of Object.entries(this.coreWords)) {
-                        if (seenWords.has(w) || w === query) continue;
-                        let match = false;
-                        if (isChinese && query.length === 1) {
-                            match = w.includes(query);
-                        } else {
-                            pat.lastIndex = 0;
-                            match = pat.test(w);
-                            if (!match && scheme === 'text') {
+                // 3. Populate compounds and examples when not a multi-word sentence
+                if (!sentenceData) {
+                    if (bucket) {
+                        for (const [w, v] of Object.entries(bucket)) {
+                            if (w === query) continue;
+                            let match = false;
+                            if (query.length === 1) {
+                                match = w.includes(query);
+                            } else {
                                 pat.lastIndex = 0;
-                                match = pat.test(v[1]);
+                                match = pat.test(w);
+                                if (!match && scheme === 'text') {
+                                    pat.lastIndex = 0;
+                                    match = pat.test(v[1]);
+                                }
+                            }
+                            if (match) {
+                                compounds.push({ word: w, pinyin: v[0], trans: v[1] });
+                                seenWords.add(w);
+                                if (compounds.length >= 40) break;
                             }
                         }
-                        if (match) {
-                            compounds.push({ word: w, pinyin: v[0], trans: v[1] });
-                            seenWords.add(w);
-                            if (compounds.length >= 40) break;
-                        }
                     }
-                }
 
-                // Load examples matching this Chinese word
-                try {
-                    const allEx = await this.loadExamples();
-                    if (allEx && allEx.length > 0) {
-                        for (let i = 0; i < allEx.length; i++) {
-                            const pair = allEx[i];
-                            if (pair[0].includes(query)) {
-                                examplesResults.push({ ch: pair[0], ru: pair[1] });
-                                if (examplesResults.length >= 30) break;
+                    if (compounds.length < 40 && this.coreWords) {
+                        for (const [w, v] of Object.entries(this.coreWords)) {
+                            if (seenWords.has(w) || w === query) continue;
+                            let match = false;
+                            if (query.length === 1) {
+                                match = w.includes(query);
+                            } else {
+                                pat.lastIndex = 0;
+                                match = pat.test(w);
+                                if (!match && scheme === 'text') {
+                                    pat.lastIndex = 0;
+                                    match = pat.test(v[1]);
+                                }
+                            }
+                            if (match) {
+                                compounds.push({ word: w, pinyin: v[0], trans: v[1] });
+                                seenWords.add(w);
+                                if (compounds.length >= 40) break;
                             }
                         }
                     }
-                } catch(e) {}
+
+                    try {
+                        const allEx = await this.loadExamples();
+                        if (allEx && allEx.length > 0) {
+                            for (let i = 0; i < allEx.length; i++) {
+                                const pair = allEx[i];
+                                if (pair[0].includes(query)) {
+                                    examplesResults.push({ ch: pair[0], ru: pair[1] });
+                                    if (examplesResults.length >= 30) break;
+                                }
+                            }
+                        }
+                    } catch(e) {}
+                }
 
             // ==========================================
             // CASE B: RUSSIAN / CYRILLIC QUERY (БРуКС & БКРС)
@@ -23616,14 +23774,15 @@ const BkrsDB = window.BkrsDB = {
             } else if (isCyrillic) {
                 let ruMap = null;
                 try { ruMap = await this.loadRuToZh(); } catch(e) {}
-                const qLower = query.toLowerCase();
-                const uRegex = new RegExp('(?<=^|[^\\p{L}\\p{Mn}])' + qLower + '[а-яё]*(?=$|[^\\p{L}\\p{Mn}])', 'ium');
+                const qLower = query.toLowerCase().trim();
+                const stem = getRussianStem(qLower);
+                const rxWord = new RegExp('(^|[^а-яё])' + stem + '[а-яё]*', 'i');
 
                 // 1. Direct RU match in ru_to_zh
                 if (ruMap) {
-                    const exactRuEntry = ruMap[qLower] || ruMap[query];
+                    const exactRuEntry = ruMap[qLower] || ruMap[stem] || ruMap[query];
                     if (exactRuEntry) {
-                        const zhList = (exactRuEntry[0] || []).filter(w => /[\u4e00-\u9fff]/.test(w) && !['复二', '阴', '口', '旧', '感', '的表爱'].includes(w));
+                        const zhList = cleanBkrsZhList(exactRuEntry[0]);
                         const fullDef = exactRuEntry[1] || '';
                         primaryRu = {
                             ruWord: query,
@@ -23643,23 +23802,25 @@ const BkrsDB = window.BkrsDB = {
                     }
                 }
 
-                // 2. «В русских словах» (other Russian words in ru_to_zh)
+                // 2. «В русских словах» (with word boundary check to avoid false substrings)
                 if (ruMap) {
                     for (const [ruW, val] of Object.entries(ruMap)) {
                         if (ruW.toLowerCase() === qLower) continue;
-                        if (ruW.toLowerCase().includes(qLower) || (val[1] && uRegex.test(val[1]))) {
-                            const cleanZh = (val[0] || []).filter(w => /[\u4e00-\u9fff]/.test(w) && !['复二', '阴', '口', '旧', '感', '的表爱'].includes(w));
-                            inRuWordsList.push({
-                                ruWord: ruW,
-                                zhWords: cleanZh,
-                                fullDef: val[1] || ''
-                            });
-                            if (inRuWordsList.length >= 30) break;
+                        if (rxWord.test(ruW)) {
+                            const cleanZh = cleanBkrsZhList(val[0]);
+                            if (cleanZh.length > 0) {
+                                inRuWordsList.push({
+                                    ruWord: ruW,
+                                    zhWords: cleanZh,
+                                    fullDef: val[1] || ''
+                                });
+                                if (inRuWordsList.length >= 30) break;
+                            }
                         }
                     }
                 }
 
-                // 3. «В китайских словах»
+                // 3. «В китайских словах» - collect Chinese candidates
                 const zhCandidates = new Map();
                 if (primaryRu && primaryRu.zhWords) {
                     for (const zw of primaryRu.zhWords) {
@@ -23673,36 +23834,62 @@ const BkrsDB = window.BkrsDB = {
                         }
                     }
                 }
+
+                // Load buckets for Chinese candidates
+                const neededBucketIds = new Set();
+                for (const zw of zhCandidates.keys()) {
+                    const bId = this.getBucketId(zw[0]);
+                    if (bId) neededBucketIds.add(bId);
+                }
+                await Promise.all(Array.from(neededBucketIds).slice(0, 6).map(bId => this.loadBucket(bId).catch(() => null)));
+
+                // Scan loaded buckets for matching compounds & translations
+                for (const bId of neededBucketIds) {
+                    const bucket = this.buckets[bId];
+                    if (!bucket) continue;
+                    for (const [w, v] of Object.entries(bucket)) {
+                        if (zhCandidates.has(w)) continue;
+                        let matched = false;
+                        let prio = 0;
+                        for (const zw of zhCandidates.keys()) {
+                            if (w.includes(zw)) {
+                                matched = true;
+                                prio = w.startsWith(zw) ? 40 : 30;
+                                break;
+                            }
+                        }
+                        if (!matched && v[1] && rxWord.test(v[1])) {
+                            matched = true;
+                            prio = 25;
+                        }
+                        if (matched) {
+                            zhCandidates.set(w, { word: w, prio });
+                            if (zhCandidates.size >= 80) break;
+                        }
+                    }
+                    if (zhCandidates.size >= 80) break;
+                }
+
                 if (this.coreWords) {
                     for (const [zw, val] of Object.entries(this.coreWords)) {
-                        if (val && val[1] && uRegex.test(val[1])) {
-                            if (!zhCandidates.has(zw)) {
-                                zhCandidates.set(zw, { word: zw, prio: 30 });
-                            }
+                        if (zhCandidates.has(zw)) continue;
+                        if (val && val[1] && rxWord.test(val[1])) {
+                            zhCandidates.set(zw, { word: zw, prio: 35 });
                         }
                     }
                 }
                 if (this.singleChars) {
                     for (const [zw, val] of Object.entries(this.singleChars)) {
-                        if (val && val[1] && uRegex.test(val[1])) {
-                            if (!zhCandidates.has(zw)) {
-                                zhCandidates.set(zw, { word: zw, prio: 20 });
-                            }
+                        if (zhCandidates.has(zw)) continue;
+                        if (val && val[1] && rxWord.test(val[1])) {
+                            zhCandidates.set(zw, { word: zw, prio: 25 });
                         }
                     }
                 }
 
-                // Resolve Pinyin and translation for Chinese candidate words
-                const neededBucketIds = new Set();
-                for (const zw of zhCandidates.keys()) {
-                    if (!this.coreWords[zw] && !this.singleChars[zw]) {
-                        const bId = this.getBucketId(zw[0]);
-                        if (bId) neededBucketIds.add(bId);
-                    }
-                }
-                await Promise.all(Array.from(neededBucketIds).slice(0, 5).map(bId => this.loadBucket(bId).catch(() => null)));
+                const sortedCandidates = Array.from(zhCandidates.values()).sort((a, b) => b.prio - a.prio);
 
-                for (const item of zhCandidates.values()) {
+                for (const item of sortedCandidates) {
                     const zw = item.word;
                     let py = '', tr = '';
                     if (this.coreWords && this.coreWords[zw]) {
@@ -23725,12 +23912,13 @@ const BkrsDB = window.BkrsDB = {
                         trans: tr,
                         exact: (item.prio >= 100)
                     });
-                    if (inZhWordsList.length >= 36) break;
+                    if (inZhWordsList.length >= 40) break;
                 }
 
-                // Also push to exact cards for full article rendering
-                for (let i = 0; i < inZhWordsList.length && i < 12; i++) {
-                    exact.push(inZhWordsList[i]);
+                for (let i = 0; i < inZhWordsList.length && i < 10; i++) {
+                    if (inZhWordsList[i].exact || i < 2) {
+                        exact.push(inZhWordsList[i]);
+                    }
                 }
 
                 // 4. «В примерах» from bkrs_examples.json
@@ -23739,7 +23927,7 @@ const BkrsDB = window.BkrsDB = {
                     if (allEx && allEx.length > 0) {
                         for (let i = 0; i < allEx.length; i++) {
                             const pair = allEx[i];
-                            if (uRegex.test(pair[1]) || uRegex.test(pair[0])) {
+                            if (rxWord.test(pair[1]) || rxWord.test(pair[0])) {
                                 examplesResults.push({ ch: pair[0], ru: pair[1] });
                                 if (examplesResults.length >= 30) break;
                             }
@@ -23747,8 +23935,7 @@ const BkrsDB = window.BkrsDB = {
                     }
                 } catch(e) {}
 
-                // 5. «Морфология»
-                morphologyData = generateRussianMorphology(qLower);
+                // Morphology is COMPLETELY removed per user request
 
             // ==========================================
             // CASE C: PINYIN / LATIN QUERY
@@ -23757,22 +23944,56 @@ const BkrsDB = window.BkrsDB = {
                 const plain = normalizeLatinPinyin(query);
                 if (plain) {
                     const pyIdx = this.buildPinyinIndex();
-                    if (pyIdx[plain]) {
-                        const matches = pyIdx[plain].slice();
-                        matches.sort((a, b) => {
-                            const aBmp = (a.word.codePointAt(0) <= 0xFFFF) ? 1 : 0;
-                            const bBmp = (b.word.codePointAt(0) <= 0xFFFF) ? 1 : 0;
-                            if (aBmp !== bBmp) return bBmp - aBmp;
-                            if (a.prio !== b.prio) return b.prio - a.prio;
-                            const aLen = Array.from(a.word).length;
-                            const bLen = Array.from(b.word).length;
-                            const targetLen = Math.max(1, Math.round(plain.length / 3));
-                            return Math.abs(aLen - targetLen) - Math.abs(bLen - targetLen);
-                        });
-                        for (let i = 0; i < matches.length && i < 24; i++) {
-                            const item = matches[i];
-                            exact.push({ word: item.word, pinyin: item.pinyin, trans: item.trans, exact: (i === 0) });
-                        }
+                    let matches = pyIdx[plain] ? pyIdx[plain].slice() : [];
+
+                    if (matches.length < 5) {
+                        try {
+                            const pm = await this.loadPinyinMap();
+                            if (pm && pm[plain]) {
+                                const neededBuckets = new Set();
+                                for (const w of pm[plain]) {
+                                    if (!this.coreWords[w] && !this.singleChars[w]) {
+                                        neededBuckets.add(this.getBucketId(w[0]));
+                                    }
+                                }
+                                await Promise.all(Array.from(neededBuckets).slice(0, 5).map(bId => this.loadBucket(bId).catch(() => null)));
+
+                                for (const w of pm[plain]) {
+                                    if (matches.some(m => m.word === w)) continue;
+                                    let py = '', tr = '';
+                                    if (this.coreWords && this.coreWords[w]) {
+                                        py = this.coreWords[w][0]; tr = this.coreWords[w][1];
+                                    } else if (this.singleChars && this.singleChars[w]) {
+                                        py = this.singleChars[w][0]; tr = this.singleChars[w][1];
+                                    } else {
+                                        const bId = this.getBucketId(w[0]);
+                                        const b = this.buckets[bId];
+                                        if (b && b[w]) {
+                                            py = b[w][0]; tr = b[w][1];
+                                        }
+                                    }
+                                    if (py || tr) {
+                                        matches.push({ word: w, pinyin: py || plain, trans: tr, prio: 3 });
+                                    }
+                                }
+                            }
+                        } catch(e) {}
+                    }
+
+                    matches.sort((a, b) => {
+                        const aBmp = (a.word.codePointAt(0) <= 0xFFFF) ? 1 : 0;
+                        const bBmp = (b.word.codePointAt(0) <= 0xFFFF) ? 1 : 0;
+                        if (aBmp !== bBmp) return bBmp - aBmp;
+                        if (a.prio !== b.prio) return b.prio - a.prio;
+                        const aLen = Array.from(a.word).length;
+                        const bLen = Array.from(b.word).length;
+                        const targetLen = Math.max(1, Math.round(plain.length / 3));
+                        return Math.abs(aLen - targetLen) - Math.abs(bLen - targetLen);
+                    });
+
+                    for (let i = 0; i < matches.length && i < 24; i++) {
+                        const item = matches[i];
+                        exact.push({ word: item.word, pinyin: item.pinyin, trans: item.trans, exact: (i === 0) });
                     }
                 }
             }
@@ -23788,7 +24009,6 @@ const BkrsDB = window.BkrsDB = {
                 satellites: satellitesList,
                 inZhWords: inZhWordsList,
                 inRuWords: inRuWordsList,
-                morphology: morphologyData,
                 dabkrs: { exact: exact, compounds: compounds },
                 dabruks: dabruksResults,
                 examples: examplesResults
@@ -23798,6 +24018,23 @@ const BkrsDB = window.BkrsDB = {
 
 
     // 2. Pinyin Tones and Normalization
+    
+    // Russian Stemming & BKRS Grammar Tag Sanitizer
+    function getRussianStem(word) {
+        if (!word || word.length <= 3) return word;
+        return word.replace(/(?:ому|ему|ыми|ими|ого|его|ых|их|ую|юю|ая|яя|ое|ее|ый|ий|ой|ей|ям|ам|ами|ями|ов|ев|ей|ом|ем|ах|ях|ть|ти|ла|ли|ло|ем|им|ит|ат|ят|ут|ют|ешь|ишь|ете|ите|ал|ил|ел|а|я|у|ю|е|ы|и|о)$/i, '');
+    }
+
+    const BKRS_GRAMMAR_TAGS = new Set([
+        '名词', '动词', '形容词', '形', '化', '阳', '阴', '中', '复', '副', '数', '代', '量', '叹', '助', '连', '介', '前',
+        '俗', '书', '转', '口', '方', '旧', '公', '技', '医', '文', '物', '数', '地', '植', '动', '天', '军', '商',
+        '复二', '的表爱'
+    ]);
+    function cleanBkrsZhList(list) {
+        if (!list) return [];
+        return list.filter(w => /[一-鿿]/.test(w) && !BKRS_GRAMMAR_TAGS.has(w) && !w.startsWith('〔') && !w.startsWith('〈'));
+    }
+
     function normalizeLatinPinyin(text) {
         return (text || '').replace(/[üǖǘǚǜ]/g, 'v')
             .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -24216,8 +24453,8 @@ const BkrsDB = window.BkrsDB = {
             let html = '<div class="bkrs-sentence-banner">' +
                 '<div class="bkrs-sentence-raw">' + escapeHtml(data.query) + '</div>' +
                 '<div class="bkrs-sentence-actions">' +
-                    '<button type="button" class="bkrs-card-btn" data-speak="' + escapeHtml(data.query) + '"><i class="fa-solid fa-volume-high"></i> Озвучить фразу</button>' +
-                    '<button type="button" class="bkrs-card-btn" data-copy="' + escapeHtml(data.query) + '"><i class="fa-regular fa-copy"></i> Копировать</button>' +
+                    '<button type="button" class="bkrs-sentence-btn bkrs-speak-btn" data-speak="' + escapeHtml(data.query) + '"><i class="fa-solid fa-volume-high"></i> Озвучить фразу</button>' +
+                    '<button type="button" class="bkrs-sentence-btn bkrs-copy-btn" data-copy="' + escapeHtml(data.query) + '"><i class="fa-regular fa-copy"></i> Копировать</button>' +
                 '</div>' +
             '</div>';
 
@@ -24296,9 +24533,7 @@ const BkrsDB = window.BkrsDB = {
                 if (exampleItems.length > 0) {
                     html += '<a href="#sec-examples" class="bkrs-toc-chip"># примеры (' + exampleItems.length + ')</a>';
                 }
-                if (morphology) {
-                    html += '<a href="#sec-morph" class="bkrs-toc-chip"># морфология</a>';
-                }
+                
             } else {
                 if (exactCards.length > 0) {
                     html += '<a href="#sec-exact" class="bkrs-toc-chip"># словарная статья</a>';
@@ -24444,34 +24679,6 @@ const BkrsDB = window.BkrsDB = {
                 }
             }
 
-            // ==========================================
-            // 9. МОРФОЛОГИЯ (Склонение для русских слов)
-            // ==========================================
-            if (morphology) {
-                html += '<div class="bkrs-section-title" id="sec-morph"><i class="fa-solid fa-table-list"></i> Морфология:</div>';
-                html += '<div class="bkrs-morph-card">' +
-                    '<div class="bkrs-morph-columns">' +
-                        '<div>' +
-                            '<div class="bkrs-morph-col-title">Единственное число</div>';
-                for (const row of (morphology.sg || [])) {
-                    html += '<div class="bkrs-morph-row">' +
-                        '<span class="bkrs-morph-form">' + escapeHtml(row.f) + '</span>' +
-                        '<span class="bkrs-morph-tag">' + escapeHtml(row.tag) + '</span>' +
-                    '</div>';
-                }
-                html += '</div>' +
-                        '<div>' +
-                            '<div class="bkrs-morph-col-title">Множественное число</div>';
-                for (const row of (morphology.pl || [])) {
-                    html += '<div class="bkrs-morph-row">' +
-                        '<span class="bkrs-morph-form">' + escapeHtml(row.f) + '</span>' +
-                        '<span class="bkrs-morph-tag">' + escapeHtml(row.tag) + '</span>' +
-                    '</div>';
-                }
-                html += '</div>' +
-                    '</div>' +
-                '</div>';
-            }
 
             resultsList.innerHTML = html;
 
@@ -28814,7 +29021,7 @@ function setupDetailNavButtons() {
                 <div class="baobao-step-content" data-step="1">
                     <div class="baobao-step-icon" style="background: linear-gradient(135deg, #8E24AA, #6A1B9A);"><i class="fa-solid fa-book-bookmark"></i></div>
                     <h3 class="baobao-step-title">Большой словарь БКРС</h3>
-                    <p class="baobao-step-desc">3.5 миллиона слов, морфология, анимация написания черт и 80 000 аутентичных предложений с озвучкой носителями языка.</p>
+                    <p class="baobao-step-desc">3.5 миллиона слов, анимация написания черт и 80 000 аутентичных предложений с озвучкой носителями языка.</p>
                 </div>
                 
                 <!-- Слайд 3: Грамматика 3.0 -->
