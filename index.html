@@ -13833,6 +13833,153 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             overflow-y: auto !important;
         }
 
+
+        /* ==================== КАРТОЧКА ПРИВЕТСТВИЯ БАОБАО С КОМИКС-ПУЗЫРЕМ ==================== */
+        .baobao-welcome-card {
+            background: #ffffff;
+            border-radius: 28px;
+            border: 1.5px solid #f1f5f9;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            padding: 24px 30px;
+            display: flex;
+            align-items: center;
+            gap: 26px;
+            position: relative;
+            margin-bottom: 30px;
+            transition: all 0.2s ease;
+        }
+        .baobao-welcome-card:hover {
+            box-shadow: 0 12px 35px rgba(124, 58, 237, 0.08);
+            border-color: #e2e8f0;
+        }
+        .baobao-welcome-mascot-wrap {
+            position: relative;
+            flex-shrink: 0;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .baobao-welcome-img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            filter: drop-shadow(0 6px 14px rgba(0,0,0,0.06));
+            animation: baobaoGentleWave 3s ease-in-out infinite alternate;
+        }
+        @keyframes baobaoGentleWave {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-4px) rotate(2deg); }
+        }
+        .baobao-speech-bubble {
+            position: absolute;
+            top: -10px;
+            right: -14px;
+            background: #ffffff;
+            border: 2px solid #10b981;
+            color: #047857;
+            font-weight: 800;
+            font-size: 0.92rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+            white-space: nowrap;
+            z-index: 2;
+        }
+        .baobao-speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 14px;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid #10b981;
+        }
+        .baobao-welcome-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .baobao-welcome-title {
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: #1e1b4b;
+            margin: 0;
+            line-height: 1.25;
+        }
+        .baobao-welcome-text {
+            font-size: 0.98rem;
+            color: #475569;
+            line-height: 1.6;
+            margin: 0;
+            font-weight: 600;
+        }
+        @media (max-width: 640px) {
+            .baobao-welcome-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 16px;
+            }
+        }
+
+        /* Навигация вверху страницы об авторе */
+        .author-top-nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding: 10px 0;
+        }
+
+        /* Обновленные стили заголовка словаря в грамматике */
+        .gd-sd-top-bar-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .gd-sd-hanzi-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .gd-sd-hanzi {
+            font-size: 2.3rem !important;
+            font-weight: 900 !important;
+            color: #0f172a !important;
+            line-height: 1 !important;
+            font-family: "Noto Sans SC", "PingFang SC", sans-serif !important;
+        }
+        .gd-sd-level-tag {
+            background: #ede9fe;
+            color: #6d28d9;
+            font-size: 0.8rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid #ddd6fe;
+        }
+        .gd-sd-pinyin-wrap {
+            margin: 10px 0 14px 0;
+            border-bottom: 1.5px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+        .gd-sd-pinyin {
+            font-size: 1.25rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.5px;
+        }
+        .gd-trans-row {
+            padding: 4px 0;
+            line-height: 1.55;
+            color: #334155;
+        }
+
 </style>
     <script src="data/grammar_hsk1/hsk1_grammar_full.js"></script>
 </head>
@@ -13854,7 +14001,17 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                 <div class="home-brand-row">
                     <img src="images/baobao_avatar_clean.png" alt="БаоБао" class="home-brand-avatar">
                     <div class="home-brand-meta">
-                        <h1 class="home-brand-title">БаоБао <span class="home-brand-tag"><span class="hb-char-box">包</span><span class="hb-char-box">宝</span></span></h1>
+                        <h1 class="home-brand-title">БаоБао <svg class="home-brand-tag-svg" width="56" height="24" viewBox="0 0 56 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-left: 10px; flex-shrink: 0; display: inline-block;">
+    <rect width="56" height="24" rx="12" fill="url(#baoBaoTagGrad)" />
+    <defs>
+        <linearGradient id="baoBaoTagGrad" x1="0" y1="0" x2="56" y2="24" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#10B981" />
+            <stop offset="1" stop-color="#059669" />
+        </linearGradient>
+    </defs>
+    <text x="15" y="16.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">包</text>
+    <text x="39" y="16.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">宝</text>
+</svg></h1>
                         <p class="home-brand-sub">Твой помощник в изучении китайского языка</p>
                     </div>
                 </div>
@@ -13891,9 +14048,19 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                 </div>
             </header>
 
-            <section class="profile-card welcome-card">
-                <p class="welcome-title">Привет! Я Сергей 👋</p>
-                <p class="welcome-text">Здесь собраны полезные инструменты и материалы для тех, кто изучает и преподаёт китайский язык. Погружайся в эстетику и подписывайся на соцсети!</p>
+            <section class="baobao-welcome-card">
+                <div class="baobao-welcome-mascot-wrap">
+                    <div class="baobao-speech-bubble">
+                        <span>你好！</span>
+                    </div>
+                    <img src="images/baobao_waving.png" alt="БаоБао машет ручкой" class="baobao-welcome-img">
+                </div>
+                <div class="baobao-welcome-content">
+                    <h2 class="baobao-welcome-title">Привет-привет! Я БаоБао 🥟👋</h2>
+                    <p class="baobao-welcome-text">
+                        Пока ты читаешь это, я как раз подрумянился и собрал для тебя целую корзину полезностей для изучения и преподавания китайского.
+                    </p>
+                </div>
             </section>
 
             <section>
@@ -14612,10 +14779,10 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
 
                         <!-- 2. Активное состояние с карточкой слова -->
                         <div class="gd-sidebar-content" id="gd-sidebar-content" style="display: none;">
-                            <div class="gd-sd-header">
-                                <div class="gd-sd-word-box">
+                            <div class="gd-sd-top-bar-box">
+                                <div class="gd-sd-hanzi-group">
                                     <span id="gd-sd-hanzi" class="gd-sd-hanzi"></span>
-                                    <div id="gd-sd-pinyin" class="gd-sd-pinyin"></div>
+                                    <span id="gd-sd-tag" class="gd-sd-level-tag">HSK 1</span>
                                 </div>
                                 <div class="gd-sd-actions">
                                     <button type="button" id="gd-sd-audio-btn" class="ts-audio-btn" title="Озвучить слово">
@@ -14629,9 +14796,8 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
                                     </button>
                                 </div>
                             </div>
-
-                            <div class="gd-sd-tag-row">
-                                <span id="gd-sd-tag" class="ts-wd-tag">Слово</span>
+                            <div class="gd-sd-pinyin-wrap">
+                                <div id="gd-sd-pinyin" class="gd-sd-pinyin"></div>
                             </div>
 
                             <div class="gd-sd-trans-section">
@@ -14651,15 +14817,15 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     <!-- ==================== ЭКРАН 7C: ОБ АВТОРЕ (ПОЛНОЦЕННАЯ СТРАНИЦА) ==================== -->
     <div id="view-author" class="view-section">
         <div class="author-page-wrapper">
-            <header class="gen-header author-page-header">
+            <div class="author-top-nav-bar">
                 <button type="button" class="btn back back-to-home" title="Вернуться на главную">
                     <i class="fa-solid fa-arrow-left"></i><span class="back-label"> На главную</span>
                 </button>
                 <div class="author-header-title-box">
                     <h2 class="section-title" style="margin: 0;">Об авторе</h2>
                 </div>
-                <div style="width: 80px;"></div>
-            </header>
+                <div style="width: 100px;"></div>
+            </div>
 
             <main class="author-page-main">
                 <div class="author-main-card">
@@ -22573,6 +22739,7 @@ const BkrsDB = window.BkrsDB = {
         return { mainDef, examples };
     }
 
+    window.formatBkrsArticle = formatBkrsArticle;
     function formatBkrsArticle(text, includeExamplesAccordion = true) {
         if (!text) return '';
         const { mainDef: rawDef, examples } = parseBkrsArticle(text);
@@ -26983,7 +27150,19 @@ const BkrsDB = window.BkrsDB = {
             }
             if (tagEl) tagEl.textContent = isHsk ? 'HSK 1' : (cleanWord.length > 1 ? 'Слово' : 'Иероглиф');
 
-            const formattedTrans = typeof window.formatBkrsArticle === 'function' ? window.formatBkrsArticle(trans || 'Загрузка...', false) : escapeHtml(trans || 'Загрузка...');
+            // Clean raw <br> and pinyin echoes from trans
+            function cleanRawTrans(raw) {
+                if (!raw) return '<div style="color:#64748b; font-style:italic;">Перевод загружается...</div>';
+                if (typeof window.formatBkrsArticle === 'function') {
+                    const res = window.formatBkrsArticle(raw, false);
+                    if (res && res.trim()) return res;
+                }
+                let t = String(raw).replace(/<br\s*\/?>/gi, '\n');
+                t = t.replace(/^[a-züvāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜńňǹ\s,;\/\-]+\n/i, '');
+                const lines = t.split('\n').map(l => l.trim()).filter(Boolean);
+                return lines.map(l => '<div class="gd-trans-row">' + escapeHtml(l) + '</div>').join('');
+            }
+            const formattedTrans = cleanRawTrans(trans);
             if (transEl) transEl.innerHTML = formattedTrans;
 
             if (audioBtn) {
@@ -27014,7 +27193,7 @@ const BkrsDB = window.BkrsDB = {
             if (window.BkrsDB && typeof window.BkrsDB.lookup === 'function') {
                 window.BkrsDB.lookup(cleanWord).then(res => {
                     if (res && res.trans && res.trans !== trans) {
-                        if (transEl) transEl.innerHTML = typeof window.formatBkrsArticle === 'function' ? window.formatBkrsArticle(res.trans, false) : escapeHtml(res.trans);
+                        if (transEl) transEl.innerHTML = cleanRawTrans(res.trans);
                     }
                 }).catch(() => {});
             }
