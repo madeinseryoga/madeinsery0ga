@@ -23483,8 +23483,8 @@ const BkrsDB = window.BkrsDB = {
             } catch (err) {
                 console.warn('Could not load single_chars.json', err);
             }
-            this.singleChars = {};
-            return this.singleChars;
+            this.singleChars = null;
+            return null;
         },
 
         loadCoreWords: async function() {
@@ -23498,8 +23498,8 @@ const BkrsDB = window.BkrsDB = {
             } catch (err) {
                 console.warn('Could not load core_words.json', err);
             }
-            this.coreWords = {};
-            return this.coreWords;
+            this.coreWords = null;
+            return null;
         },
 
         loadRuToZh: async function() {
@@ -23513,8 +23513,8 @@ const BkrsDB = window.BkrsDB = {
             } catch (err) {
                 console.warn('Could not load ru_to_zh.json', err);
             }
-            this.ruToZh = {};
-            return this.ruToZh;
+            this.ruToZh = null;
+            return null;
         },
 
         loadPinyinMap: async function() {
@@ -23523,13 +23523,13 @@ const BkrsDB = window.BkrsDB = {
             this._loadingPinyinMap = fetch('data/bkrs/pinyin_map.json')
                 .then(r => r.ok ? r.json() : null)
                 .then(data => {
-                    this.pinyinMap = data || {};
+                    if (data) this.pinyinMap = data;
                     delete this._loadingPinyinMap;
-                    return this.pinyinMap;
+                    return this.pinyinMap || null;
                 })
                 .catch(() => {
                     delete this._loadingPinyinMap;
-                    return {};
+                    return null;
                 });
             return this._loadingPinyinMap;
         },
@@ -23682,6 +23682,14 @@ const BkrsDB = window.BkrsDB = {
                 const bId = this.getBucketId(query[0]);
                 let bucket = null;
                 try { bucket = await this.loadBucket(bId); } catch(e) {}
+                if (!bucket && !this.coreWords && !this.singleChars) {
+                    return {
+                        type: 'error',
+                        errorType: 'load_failed',
+                        message: 'Не удалось загрузить словарные базы БКРС. Проверьте соединение с интернетом.',
+                        query: query
+                    };
+                }
 
                 // 1. Check exact dictionary match FIRST
                 if (bucket && bucket[query]) {
@@ -23774,6 +23782,14 @@ const BkrsDB = window.BkrsDB = {
             } else if (isCyrillic) {
                 let ruMap = null;
                 try { ruMap = await this.loadRuToZh(); } catch(e) {}
+                if (!ruMap) {
+                    return {
+                        type: 'error',
+                        errorType: 'load_failed',
+                        message: 'Не удалось загрузить русско-китайский словарь. Проверьте соединение с интернетом.',
+                        query: query
+                    };
+                }
                 const qLower = query.toLowerCase().trim();
                 const stem = getRussianStem(qLower);
                 const rxWord = new RegExp('(^|[^а-яё])' + stem + '[а-яё]*', 'i');
@@ -23952,7 +23968,7 @@ const BkrsDB = window.BkrsDB = {
                             if (pm && pm[plain]) {
                                 const neededBuckets = new Set();
                                 for (const w of pm[plain]) {
-                                    if (!this.coreWords[w] && !this.singleChars[w]) {
+                                    const inCore = this.coreWords && this.coreWords[w]; const inSingle = this.singleChars && this.singleChars[w]; if (!inCore && !inSingle) {
                                         neededBuckets.add(this.getBucketId(w[0]));
                                     }
                                 }
@@ -24429,6 +24445,18 @@ const BkrsDB = window.BkrsDB = {
             try {
                 const data = await BkrsDB.search(rawVal);
                 if (currentSeq !== searchSeq) return;
+                if (data && data.type === 'error') {
+                    resultsList.innerHTML = '<div class="bkrs-empty-placeholder" style="padding: 40px 20px;">' +
+                        '<div class="bkrs-empty-icon" style="color:#ef4444;"><i class="fa-solid fa-triangle-exclamation"></i></div>' +
+                        '<h3 style="color:#b91c1c;">Не удалось загрузить словарь</h3>' +
+                        '<p style="color:#64748b; margin-bottom: 20px;">' + escapeHtml(data.message || 'Проверьте соединение с интернетом и повторите попытку.') + '</p>' +
+                        '<button type="button" id="bkrs-retry-btn" class="bkrs-submit-btn" style="display:inline-flex; width:auto; padding: 10px 24px;"><i class="fa-solid fa-rotate-right"></i> <span>Повторить</span></button>' +
+                    '</div>';
+                    countSpan.textContent = 'Ошибка загрузки словаря';
+                    const retryBtn = document.getElementById('bkrs-retry-btn');
+                    if (retryBtn) retryBtn.addEventListener('click', () => { doSearch(); });
+                    return;
+                }
                 if (data.sentence) {
                     renderSentenceView(data);
                 } else {
@@ -24437,7 +24465,15 @@ const BkrsDB = window.BkrsDB = {
             } catch (err) {
                 if (currentSeq !== searchSeq) return;
                 console.error(err);
-                resultsList.innerHTML = '<div style="text-align: center; padding: 30px; color: #e53935;">Ошибка поиска. Попробуйте еще раз.</div>';
+                resultsList.innerHTML = '<div class="bkrs-empty-placeholder" style="padding: 40px 20px;">' +
+                    '<div class="bkrs-empty-icon" style="color:#ef4444;"><i class="fa-solid fa-triangle-exclamation"></i></div>' +
+                    '<h3 style="color:#b91c1c;">Не удалось загрузить словарь</h3>' +
+                    '<p style="color:#64748b; margin-bottom: 20px;">Произошла ошибка при поиске или загрузке данных. Проверьте соединение с интернетом.</p>' +
+                    '<button type="button" id="bkrs-retry-btn" class="bkrs-submit-btn" style="display:inline-flex; width:auto; padding: 10px 24px;"><i class="fa-solid fa-rotate-right"></i> <span>Повторить</span></button>' +
+                '</div>';
+                countSpan.textContent = 'Ошибка загрузки словаря';
+                const retryBtn = document.getElementById('bkrs-retry-btn');
+                if (retryBtn) retryBtn.addEventListener('click', () => { doSearch(); });
             } finally {
                 if (currentSeq === searchSeq && loadIndicator) {
                     loadIndicator.style.display = 'none';
