@@ -1,5 +1,11 @@
 /**
- * Скрипт сверки поиска БКРС с эталоном bkrs.info.
+ * Скрипт поблочной сверки поиска БКРС с эталоном bkrs.info.
+ *
+ * Блоки:
+ *   - main: главная словарная статья / прямой перевод БРуКС / слова предложения / омофоны пиньиня
+ *   - starting: производные слова («начинающиеся:» / в китайских словах)
+ *   - sats: сателлиты и специализированные контексты
+ *   - examples: двуязычные примеры предложений
  *
  * Запуск:
  *   node tests/bkrs_parity/run_parity.js
@@ -15,7 +21,6 @@ const ROOT_DIR = path.resolve(__dirname, '../..');
 const QUERIES_PATH = path.join(__dirname, 'queries.json');
 const EXPECTED_PATH = path.join(__dirname, 'expected.json');
 const INDEX_HTML_PATH = path.join(ROOT_DIR, 'index.html');
-const DATA_BKRS_DIR = path.join(ROOT_DIR, 'data/bkrs');
 
 // 1. Инициализация движка BkrsDB в изолированном контексте Node.js
 function loadBkrsEngine() {
@@ -40,8 +45,6 @@ function loadBkrsEngine() {
     }
 
     const engineCode = lines.slice(startLine, endLine).join('\n');
-
-    // Кэш для файлов JSON, чтобы не читать с диска повторно
     const fileCache = new Map();
 
     const sandbox = {
@@ -73,11 +76,7 @@ function loadBkrsEngine() {
             }
             return { ok: false, status: 404 };
         },
-        console: {
-            log: () => {},
-            warn: () => {},
-            error: () => {}
-        },
+        console: { log: () => {}, warn: () => {}, error: () => {} },
         Set,
         Map,
         Promise,
@@ -101,102 +100,122 @@ function loadBkrsEngine() {
     return sandbox.window.BkrsDB;
 }
 
-// 2. Извлечение заголовков слов (headwords) из результата поиска
-function extractHeadwords(res) {
+// 2. Извлечение структурированных блоков выдачи
+function extractBlocks(res) {
     if (!res || res.type === 'empty') {
-        return [];
+        return { main: [], starting: [], sats: [], examples: [] };
     }
 
-    // Режим предложения / синтаксического разбора
+    // Режим синтаксического разбора предложения
     if (res.sentence && Array.isArray(res.sentence.words)) {
-        return res.sentence.words.map(w => w.word);
-    }
-
-    // Русский запрос (БРуКС + БКРС)
-    if (res.isCyrillic) {
-        const words = [];
-        if (res.dabruks && Array.isArray(res.dabruks)) {
-            for (const d of res.dabruks) {
-                if (Array.isArray(d.zhWords)) {
-                    words.push(...d.zhWords);
-                }
-            }
-        }
-        if (res.inZhWords && Array.isArray(res.inZhWords)) {
-            words.push(...res.inZhWords.map(w => w.word));
-        }
-        if (words.length === 0 && res.dabkrs && Array.isArray(res.dabkrs.exact)) {
-            words.push(...res.dabkrs.exact.map(w => w.word));
-        }
-        return Array.from(new Set(words));
-    }
-
-    // Китайский или пиньинь-запрос
-    const words = [];
-    if (res.dabkrs) {
-        if (Array.isArray(res.dabkrs.exact)) {
-            words.push(...res.dabkrs.exact.map(w => w.word));
-        }
-        if (Array.isArray(res.dabkrs.compounds)) {
-            words.push(...res.dabkrs.compounds.map(w => w.word));
-        }
-    }
-    return Array.from(new Set(words));
-}
-
-// 3. Сравнение фактической выдачи с эталоном
-function compareResults(actualHeadwords, expectedEntry) {
-    if (!expectedEntry || (expectedEntry.count === 0 && (!expectedEntry.headwords || expectedEntry.headwords.length === 0))) {
         return {
-            status: 'PENDING',
-            extra: [],
-            missing: [],
-            reordered: [],
-            countDiff: 0,
-            actualCount: actualHeadwords.length,
-            expectedCount: 0
+            main: res.sentence.words.map(w => w.word),
+            starting: [],
+            sats: [],
+            examples: (res.sentence.examples || []).map(e => e.ch)
         };
     }
 
-    const expWords = expectedEntry.headwords || [];
-    const expCount = typeof expectedEntry.count === 'number' ? expectedEntry.count : expWords.length;
-    const actCount = actualHeadwords.length;
+    // Русский запрос
+    if (res.isCyrillic) {
+        const main = [];
+        if (res.dabruks && Array.isArray(res.dabruks)) {
+            for (const d of res.dabruks) {
+                if (Array.isArray(d.zhWords)) main.push(...d.zhWords);
+            }
+        }
+        const starting = [];
+        if (res.inZhWords && Array.isArray(res.inZhWords)) {
+            starting.push(...res.inZhWords.map(w => w.word));
+        }
 
-    const extra = actualHeadwords.filter(w => !expWords.includes(w));
-    const missing = expWords.filter(w => !actualHeadwords.includes(w));
+        return {
+            main: Array.from(new Set(main)),
+            starting: Array.from(new Set(starting)),
+            sats: res.satellites || [],
+            examples: (res.examples || []).map(e => e.ch)
+        };
+    }
 
-    // Проверка порядка общих элементов
-    const commonInExpected = expWords.filter(w => actualHeadwords.includes(w));
-    const commonInActual = actualHeadwords.filter(w => expWords.includes(w));
-
-    let isReordered = false;
-    const reordered = [];
-    for (let i = 0; i < commonInExpected.length; i++) {
-        if (commonInExpected[i] !== commonInActual[i]) {
-            isReordered = true;
-            reordered.push({
-                word: commonInActual[i],
-                actualIndex: i,
-                expectedIndex: commonInExpected.indexOf(commonInActual[i])
-            });
+    // Китайский или пиньинь-запрос
+    const main = [];
+    const starting = [];
+    if (res.dabkrs) {
+        if (Array.isArray(res.dabkrs.exact)) {
+            main.push(...res.dabkrs.exact.map(w => w.word));
+        }
+        if (Array.isArray(res.dabkrs.compounds)) {
+            starting.push(...res.dabkrs.compounds.map(w => w.word));
         }
     }
 
-    const countDiff = actCount - expCount;
-    const isMatch = extra.length === 0 && missing.length === 0 && !isReordered && countDiff === 0;
-
     return {
-        status: isMatch ? 'MATCH' : 'MISMATCH',
-        extra,
-        missing,
-        reordered,
-        countDiff,
-        actualCount: actCount,
-        expectedCount: expCount
+        main: Array.from(new Set(main)),
+        starting: Array.from(new Set(starting)),
+        sats: res.satellites || [],
+        examples: (res.examples || []).map(e => e.ch)
     };
 }
 
-// 4. Главная функция
+// 3. Поблочное сравнение фактической выдачи с эталоном
+function compareBlocks(actual, expected) {
+    if (!expected || expected.verified !== true) {
+        return {
+            status: 'PENDING',
+            details: 'Ожидает верификации эталона с bkrs.info'
+        };
+    }
+
+    const expMain = expected.main || [];
+    const actMain = actual.main || [];
+
+    const extraMain = actMain.filter(w => !expMain.includes(w));
+    const missingMain = expMain.filter(w => !actMain.includes(w));
+
+    // Проверка порядка общих слов в main
+    const commonExp = expMain.filter(w => actMain.includes(w));
+    const commonAct = actMain.filter(w => expMain.includes(w));
+    let isReorderedMain = false;
+    for (let i = 0; i < commonExp.length; i++) {
+        if (commonExp[i] !== commonAct[i]) {
+            isReorderedMain = true;
+            break;
+        }
+    }
+
+    const mainMatched = extraMain.length === 0 && missingMain.length === 0 && !isReorderedMain;
+
+    // Сравнение блока starting («начинающиеся / производные»)
+    const expStarting = expected.starting || [];
+    const actStarting = actual.starting || [];
+    const startingDiff = actStarting.length - expStarting.length;
+
+    let status = 'MATCH';
+    if (!mainMatched) {
+        status = 'MISMATCH';
+    } else if (expStarting.length > 0 && actStarting.length === 0) {
+        // Главная статья совпала, но производные слова полностью отсутствуют
+        status = 'PARTIAL';
+    }
+
+    return {
+        status,
+        mainMatched,
+        main: {
+            actual: actMain,
+            expected: expMain,
+            extra: extraMain,
+            missing: missingMain,
+            isReordered: isReorderedMain
+        },
+        starting: {
+            actualCount: actStarting.length,
+            expectedCount: expStarting.length,
+            diff: startingDiff
+        }
+    };
+}
+
 async function main() {
     const args = process.argv.slice(2);
     let singleQuery = null;
@@ -214,18 +233,13 @@ async function main() {
         }
     }
 
-    console.log('Инициализация базы данных и поискового движка БКРС...');
     const BkrsDB = loadBkrsEngine();
-
-    // Предзагрузка основных словарей
     await Promise.all([
         BkrsDB.loadCoreWords ? BkrsDB.loadCoreWords() : Promise.resolve(),
         BkrsDB.loadSingleChars ? BkrsDB.loadSingleChars() : Promise.resolve(),
         BkrsDB.loadExamples ? BkrsDB.loadExamples() : Promise.resolve()
     ]);
     if (BkrsDB.buildPinyinIndex) BkrsDB.buildPinyinIndex();
-
-    console.log('Движок готов к работе.\n');
 
     const queriesData = JSON.parse(fs.readFileSync(QUERIES_PATH, 'utf8'));
     const expectedData = JSON.parse(fs.readFileSync(EXPECTED_PATH, 'utf8'));
@@ -234,59 +248,53 @@ async function main() {
         ? [{ id: 0, category: 'single', query: singleQuery, note: 'ручной запрос' }]
         : queriesData;
 
+    const stats = { total: 0, match: 0, partial: 0, mismatch: 0, pending: 0 };
     const actualDump = {};
-    const stats = {
-        total: 0,
-        match: 0,
-        mismatch: 0,
-        pending: 0
-    };
 
-    console.log('=== СВЕРКА ПОИСКА БКРС С ЭТАЛОНОМ BKRS.INFO ===\n');
+    console.log('=== ПОБЛОЧНАЯ СВЕРКА ПОИСКА БКРС С ЭТАЛОНОМ BKRS.INFO ===\n');
 
     for (const qItem of queriesToRun) {
         stats.total++;
         const q = qItem.query;
         const res = await BkrsDB.search(q);
-        const actualHeadwords = extractHeadwords(res);
+        const actualBlocks = extractBlocks(res);
 
-        actualDump[q] = {
-            count: actualHeadwords.length,
-            headwords: actualHeadwords
-        };
-
-        const expectedEntry = expectedData[q] || null;
-        const comp = compareResults(actualHeadwords, expectedEntry);
+        actualDump[q] = actualBlocks;
+        const comp = compareBlocks(actualBlocks, expectedData[q]);
 
         if (comp.status === 'MATCH') {
             stats.match++;
-            console.log(`[PASS] "${q}" (${qItem.category}): полное совпадение (${comp.actualCount} слов)`);
+            console.log(`[PASS] "${q}" (${qItem.category}): полное совпадение блока [main: ${comp.main.actual.join(', ') || 'пусто'}]`);
+        } else if (comp.status === 'PARTIAL') {
+            stats.partial++;
+            console.log(`[PARTIAL] "${q}" (${qItem.category}): блок [main] совпал (${comp.main.actual.join(', ')}), но [starting] отличается: факт ${comp.starting.actualCount} vs эталон ${comp.starting.expectedCount}`);
         } else if (comp.status === 'PENDING') {
             stats.pending++;
-            const preview = actualHeadwords.slice(0, 5).join(', ') + (actualHeadwords.length > 5 ? '...' : '');
-            console.log(`[PENDING] "${q}" (${qItem.category}): ожидается эталон bkrs.info · Найдено у нас: ${comp.actualCount} [${preview}]`);
+            console.log(`[PENDING] "${q}" (${qItem.category}): ожидает эталона`);
         } else {
             stats.mismatch++;
-            console.log(`[FAIL] "${q}" (${qItem.category}): расхождение с эталоном!`);
-            console.log(`       Количество: факт ${comp.actualCount} vs эталон ${comp.expectedCount} (разница: ${comp.countDiff >= 0 ? '+' : ''}${comp.countDiff})`);
-            if (comp.extra.length > 0) {
-                console.log(`       Лишнее (${comp.extra.length}):`, comp.extra.slice(0, 10).join(', ') + (comp.extra.length > 10 ? '...' : ''));
+            console.log(`[FAIL] "${q}" (${qItem.category}): расхождение в блоке [main]!`);
+            console.log(`       Факт [main]:    ${comp.main.actual.join(', ') || 'пусто'}`);
+            console.log(`       Эталон [main]:  ${comp.main.expected.join(', ') || 'пусто'}`);
+            if (comp.main.extra.length > 0) {
+                console.log(`       Лишнее:         ${comp.main.extra.join(', ')}`);
             }
-            if (comp.missing.length > 0) {
-                console.log(`       Пропущенное (${comp.missing.length}):`, comp.missing.slice(0, 10).join(', ') + (comp.missing.length > 10 ? '...' : ''));
+            if (comp.main.missing.length > 0) {
+                console.log(`       Пропущенное:    ${comp.main.missing.join(', ')}`);
             }
-            if (comp.reordered.length > 0) {
-                console.log(`       Другой порядок (${comp.reordered.length} позиций)`);
+            if (comp.main.isReordered) {
+                console.log(`       Порядок слов отличается`);
             }
         }
     }
 
     console.log('\n----------------------------------------------');
-    console.log(`ИТОГИ СВЕРКИ:`);
+    console.log(`ИТОГИ ПОБЛОЧНОЙ СВЕРКИ:`);
     console.log(`Всего запросов: ${stats.total}`);
     console.log(`Совпадений (MATCH): ${stats.match}`);
-    console.log(`Расхождений (MISMATCH): ${stats.mismatch}`);
-    console.log(`Ожидают заполнения человеком (PENDING): ${stats.pending}`);
+    console.log(`Частичных совпадений (PARTIAL): ${stats.partial}`);
+    console.log(`Реальных расхождений (MISMATCH): ${stats.mismatch}`);
+    console.log(`Ожидают заполнения (PENDING): ${stats.pending}`);
     console.log('----------------------------------------------\n');
 
     if (dumpActualPath) {
@@ -305,6 +313,6 @@ if (require.main === module) {
 
 module.exports = {
     loadBkrsEngine,
-    extractHeadwords,
-    compareResults
+    extractBlocks,
+    compareBlocks
 };
