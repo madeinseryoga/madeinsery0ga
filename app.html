@@ -23983,8 +23983,8 @@ const BkrsDB = window.BkrsDB = {
                 if (ruMap) {
                     const exactRuEntry = ruMap[qLower] || ruMap[stem] || ruMap[query];
                     if (exactRuEntry) {
-                        const zhList = cleanBkrsZhList(exactRuEntry[0]);
                         const fullDef = exactRuEntry[1] || '';
+                        const zhList = cleanBkrsZhList(exactRuEntry[0], fullDef);
                         primaryRu = {
                             ruWord: query,
                             zhWords: zhList,
@@ -24008,7 +24008,7 @@ const BkrsDB = window.BkrsDB = {
                     for (const [ruW, val] of Object.entries(ruMap)) {
                         if (ruW.toLowerCase() === qLower) continue;
                         if (rxWord.test(ruW)) {
-                            const cleanZh = cleanBkrsZhList(val[0]);
+                            const cleanZh = cleanBkrsZhList(val[0], val[1] || '');
                             if (cleanZh.length > 0) {
                                 inRuWordsList.push({
                                     ruWord: ruW,
@@ -24235,12 +24235,23 @@ const BkrsDB = window.BkrsDB = {
 
     const BKRS_GRAMMAR_TAGS = new Set([
         '名词', '动词', '形容词', '形', '化', '阳', '阴', '中', '复', '副', '数', '代', '量', '叹', '助', '连', '介', '前',
-        '俗', '书', '转', '口', '方', '旧', '公', '技', '医', '文', '物', '数', '地', '植', '动', '天', '军', '商',
+        '俗', '转', '口', '方', '旧', '公', '技', '医', '文', '物', '数', '地', '植', '动', '天', '军', '商',
         '复二', '的表爱'
     ]);
-    function cleanBkrsZhList(list) {
+    function isBracketedGrammarTag(w, def) {
+        if (!def) return false;
+        const tagRx = new RegExp('[〈〔（\\(\\[【][^〉〕）\\)\\]]*' + w + '[^〉〕）\\)\\]]*[〉〕）\\]]');
+        return tagRx.test(def);
+    }
+    function cleanBkrsZhList(list, fullDef) {
         if (!list) return [];
-        return list.filter(w => /[一-鿿]/.test(w) && !BKRS_GRAMMAR_TAGS.has(w) && !w.startsWith('〔') && !w.startsWith('〈'));
+        return list.filter(w => {
+            if (!/[一-鿿]/.test(w)) return false;
+            if (/^[〔〈（\\(\\[【]/.test(w) || /[〉〕）\\)\\]]$/.test(w)) return false;
+            if (BKRS_GRAMMAR_TAGS.has(w)) return false;
+            if (w === '书' && fullDef && isBracketedGrammarTag('书', fullDef)) return false;
+            return true;
+        });
     }
 
     function normalizeLatinPinyin(text) {
