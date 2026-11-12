@@ -24187,18 +24187,8 @@ const BkrsDB = window.BkrsDB = {
                         matches.push({ word: w, pinyin: py || plain, trans: tr });
                     }
 
-                    // Preserve tone filtering if search query specifies tones
-                    let filteredMatches = matches;
-                    if (hasTones) {
-                        const cleanTones = stripTones(query).toLowerCase().replace(/[^a-z]/g, '');
-                        filteredMatches = matches.filter(m => {
-                            return stripTones(m.pinyin).toLowerCase().replace(/[^a-z]/g, '') === cleanTones;
-                        });
-                        if (filteredMatches.length === 0) filteredMatches = matches;
-                    }
-
-                    for (let i = 0; i < filteredMatches.length; i++) {
-                        const item = filteredMatches[i];
+                    for (let i = 0; i < matches.length; i++) {
+                        const item = matches[i];
                         exact.push({ word: item.word, pinyin: item.pinyin, trans: item.trans, exact: (i === 0) });
                     }
                 }
@@ -24790,7 +24780,7 @@ const BkrsDB = window.BkrsDB = {
                     html += '<a href="#sec-examples" class="bkrs-toc-chip"># примеры (' + exampleItems.length + ')</a>';
                 }
                 
-            } else if (data.isPinyin && !data.hasTones) {
+            } else if (data.isPinyin) {
                 if (exactCards.length > 0) {
                     html += '<a href="#sec-homophones" class="bkrs-toc-chip"># омофоны (' + exactCards.length + ')</a>';
                 }
@@ -24894,9 +24884,9 @@ const BkrsDB = window.BkrsDB = {
             }
 
             // ==========================================
-            // 6. ОМОФОНЫ ПИНЬИНЯ БЕЗ ТОНОВ / СЛОВАРНЫЕ СТАТЬИ
+            // 6. ОМОФОНЫ ПИНЬИНЯ / СЛОВАРНЫЕ СТАТЬИ
             // ==========================================
-            if (data.isPinyin && !data.hasTones && exactCards.length > 0) {
+            if (data.isPinyin && exactCards.length > 0) {
                 const initialLimit = 16;
                 html += '<div class="bkrs-section-title" id="sec-homophones"><i class="fa-solid fa-layer-group"></i> Таблица омофонов «' + escapeHtml(data.query) + '» (' + exactCards.length + '):</div>';
                 html += '<div class="bkrs-homophones-grid">';
