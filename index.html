@@ -23487,6 +23487,52 @@ const BkrsDB = window.BkrsDB = {
             return null;
         },
 
+        getTradToSimpMap: function() {
+            if (this._tradToSimpMap) return this._tradToSimpMap;
+            const map = new Map();
+            const ambiguous = new Set();
+            if (this.singleChars) {
+                const rx = /(?:\(вм\.?\s*\)|\(сокр\.\s*вм\.?\s*\)|\(вм\.\s*[^)]*\))\s*[«"']?([\u4e00-\u9fff])[»"']?/g;
+                for (const [ch, val] of Object.entries(this.singleChars)) {
+                    const def = val && val[1];
+                    if (!def) continue;
+                    rx.lastIndex = 0;
+                    const matches = [];
+                    let m;
+                    while ((m = rx.exec(def)) !== null) {
+                        if (m[1] !== ch) matches.push(m[1]);
+                    }
+                    const unique = Array.from(new Set(matches));
+                    if (unique.length === 1) {
+                        const target = unique[0];
+                        if (map.has(ch) && map.get(ch) !== target) {
+                            ambiguous.add(ch);
+                        } else {
+                            map.set(ch, target);
+                        }
+                    } else if (unique.length > 1) {
+                        ambiguous.add(ch);
+                    }
+                }
+                for (const a of ambiguous) {
+                    map.delete(a);
+                }
+            }
+            this._tradToSimpMap = map;
+            return map;
+        },
+
+        toSimplified: function(str) {
+            if (!str || typeof str !== 'string') return str;
+            const map = this.getTradToSimpMap();
+            if (!map || map.size === 0) return str;
+            let out = '';
+            for (const ch of str) {
+                out += map.get(ch) || ch;
+            }
+            return out;
+        },
+
         loadCoreWords: async function() {
             if (this.coreWords) return this.coreWords;
             try {
@@ -23625,6 +23671,21 @@ const BkrsDB = window.BkrsDB = {
                         matchedLen = l;
                         break;
                     }
+                    const simpSub = this.toSimplified ? this.toSimplified(sub) : sub;
+                    if (simpSub !== sub) {
+                        if (this.coreWords && this.coreWords[simpSub]) {
+                            matchedWord = { word: sub, pinyin: this.coreWords[simpSub][0], trans: this.coreWords[simpSub][1] };
+                            matchedLen = l;
+                            break;
+                        }
+                        const simpBId = this.getBucketId(simpSub[0]);
+                        const simpB = (simpBId === bId) ? b : await this.loadBucket(simpBId);
+                        if (simpB && simpB[simpSub]) {
+                            matchedWord = { word: sub, pinyin: simpB[simpSub][0], trans: simpB[simpSub][1] };
+                            matchedLen = l;
+                            break;
+                        }
+                    }
                 }
 
                 if (matchedWord) {
@@ -23702,10 +23763,46 @@ const BkrsDB = window.BkrsDB = {
                     seenWords.add(query);
                 }
 
+                // 1b. Fallback: if not found as-is, convert traditional composite word to simplified
+                let simpQuery = query;
+                let activeBucket = bucket;
+                let activePat = pat;
+                if (exact.length === 0) {
+                    const converted = this.toSimplified(query);
+                    if (converted !== query) {
+                        simpQuery = converted;
+                        const simpBId = this.getBucketId(simpQuery[0]);
+                        let simpBucket = (simpBId === bId) ? bucket : null;
+                        if (!simpBucket) {
+                            try { simpBucket = await this.loadBucket(simpBId); } catch(e) {}
+                        }
+                        if (simpBucket && simpBucket[simpQuery]) {
+                            exact.push({ word: query, simpWord: simpQuery, pinyin: simpBucket[simpQuery][0], trans: simpBucket[simpQuery][1], exact: true });
+                            seenWords.add(query);
+                            seenWords.add(simpQuery);
+                            activeBucket = simpBucket;
+                            activePat = BkrsSearchEngine.compilePattern(simpQuery, scheme);
+                        } else if (this.coreWords && this.coreWords[simpQuery]) {
+                            exact.push({ word: query, simpWord: simpQuery, pinyin: this.coreWords[simpQuery][0], trans: this.coreWords[simpQuery][1], exact: true });
+                            seenWords.add(query);
+                            seenWords.add(simpQuery);
+                            if (simpBucket) activeBucket = simpBucket;
+                            activePat = BkrsSearchEngine.compilePattern(simpQuery, scheme);
+                        } else if (this.singleChars && this.singleChars[simpQuery]) {
+                            exact.push({ word: query, simpWord: simpQuery, pinyin: this.singleChars[simpQuery][0], trans: this.singleChars[simpQuery][1], exact: true });
+                            seenWords.add(query);
+                            seenWords.add(simpQuery);
+                            if (simpBucket) activeBucket = simpBucket;
+                            activePat = BkrsSearchEngine.compilePattern(simpQuery, scheme);
+                        }
+                    }
+                }
+
                 // 2. Only if NOT an exact dictionary entry, check if sentence / phrase
                 const hasPunctOrSpaces = /[\s，。！？!?、；;：:,.——-]/.test(query);
                 if (exact.length === 0 && (hasPunctOrSpaces || query.length >= 3)) {
-                    const seg = await this.segmentSentence(query);
+                    const queryForSeg = (simpQuery !== query) ? simpQuery : query;
+                    const seg = await this.segmentSentence(queryForSeg);
                     if ((seg.tokens && seg.tokens.length > 1) || (seg.words && seg.words.length > 1)) {
                         sentenceData = {
                             tokens: seg.tokens,
@@ -23717,18 +23814,20 @@ const BkrsDB = window.BkrsDB = {
 
                 // 3. Populate compounds and examples when not a multi-word sentence
                 if (!sentenceData) {
-                    if (bucket) {
-                        for (const [w, v] of Object.entries(bucket)) {
-                            if (w === query) continue;
+                    const targetWord = (exact.length > 0 && simpQuery !== query) ? simpQuery : query;
+                    const bucketToScan = activeBucket || bucket;
+                    if (bucketToScan) {
+                        for (const [w, v] of Object.entries(bucketToScan)) {
+                            if (w === targetWord || w === query) continue;
                             let match = false;
-                            if (query.length === 1) {
-                                match = w.includes(query);
+                            if (targetWord.length === 1) {
+                                match = w.includes(targetWord);
                             } else {
-                                pat.lastIndex = 0;
-                                match = pat.test(w);
+                                activePat.lastIndex = 0;
+                                match = activePat.test(w);
                                 if (!match && scheme === 'text') {
-                                    pat.lastIndex = 0;
-                                    match = pat.test(v[1]);
+                                    activePat.lastIndex = 0;
+                                    match = activePat.test(v[1]);
                                 }
                             }
                             if (match) {
@@ -23741,16 +23840,16 @@ const BkrsDB = window.BkrsDB = {
 
                     if (compounds.length < 40 && this.coreWords) {
                         for (const [w, v] of Object.entries(this.coreWords)) {
-                            if (seenWords.has(w) || w === query) continue;
+                            if (seenWords.has(w) || w === targetWord || w === query) continue;
                             let match = false;
-                            if (query.length === 1) {
-                                match = w.includes(query);
+                            if (targetWord.length === 1) {
+                                match = w.includes(targetWord);
                             } else {
-                                pat.lastIndex = 0;
-                                match = pat.test(w);
+                                activePat.lastIndex = 0;
+                                match = activePat.test(w);
                                 if (!match && scheme === 'text') {
-                                    pat.lastIndex = 0;
-                                    match = pat.test(v[1]);
+                                    activePat.lastIndex = 0;
+                                    match = activePat.test(v[1]);
                                 }
                             }
                             if (match) {
@@ -23766,7 +23865,7 @@ const BkrsDB = window.BkrsDB = {
                         if (allEx && allEx.length > 0) {
                             for (let i = 0; i < allEx.length; i++) {
                                 const pair = allEx[i];
-                                if (pair[0].includes(query)) {
+                                if (pair[0].includes(targetWord) || pair[0].includes(query)) {
                                     examplesResults.push({ ch: pair[0], ru: pair[1] });
                                     if (examplesResults.length >= 30) break;
                                 }
@@ -24785,6 +24884,7 @@ const BkrsDB = window.BkrsDB = {
             cardHtml += '<div class="bkrs-card-header">' +
                 '<div class="bkrs-headword-box bkrs-card-word-line">' +
                     '<span class="bkrs-card-word bkrs-card-hanzi" title="Нажмите, чтобы посмотреть написание по чертам" style="cursor:pointer;">' + escapeHtml(r.word) + '</span>' +
+                    (r.simpWord && r.simpWord !== r.word ? '<span class="bkrs-simp-alias" style="margin-left: 8px; font-size: 0.95rem; color: #64748b; font-weight: normal;">(упр. ' + escapeHtml(r.simpWord) + ')</span>' : '') +
                     '<span class="bkrs-pinyin-badges bkrs-card-pinyin">' + pyColored + '</span>' +
                     (isTopMatch ? '<span class="bkrs-exact-badge"><i class="fa-solid fa-star"></i> Главная статья</span>' : '') +
                 '</div>' +
