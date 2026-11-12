@@ -4817,6 +4817,93 @@ input:checked + .ts-slider:before { transform: translateX(20px); }
     -webkit-box-orient: vertical;
 }
 
+/* Таблица омофонов пиньиня */
+.bkrs-homophones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px;
+    margin-bottom: 18px;
+}
+.bkrs-homophone-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 12px 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.bkrs-homophone-item:hover {
+    border-color: #0284c7;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.12);
+    transform: translateY(-1px);
+}
+.bkrs-homophone-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+}
+.bkrs-homophone-zh {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #b71c1c;
+    font-family: SimSun, "Songti SC", serif;
+}
+.bkrs-homophone-py {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #0284c7;
+}
+.bkrs-homophone-audio {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 2px 6px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+.bkrs-homophone-audio:hover {
+    color: #b71c1c;
+    background: #fef2f2;
+}
+.bkrs-homophone-trans {
+    font-size: 0.88rem;
+    color: #475569;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.bkrs-more-homophones-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 999px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+.bkrs-more-homophones-btn:hover {
+    background: #f8fafc;
+    border-color: #0284c7;
+    color: #0284c7;
+    transform: translateY(-1px);
+}
+
 /* Карточка Морфологии */
 .bkrs-morph-card {
     background: #ffffff;
@@ -24056,57 +24143,62 @@ const BkrsDB = window.BkrsDB = {
             // ==========================================
             } else {
                 const plain = normalizeLatinPinyin(query);
+                const hasTones = /[1-5āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]/.test(query);
                 if (plain) {
+                    const pm = await this.loadPinyinMap();
+                    const wordsFromMap = (pm && pm[plain]) ? pm[plain] : [];
                     const pyIdx = this.buildPinyinIndex();
-                    let matches = pyIdx[plain] ? pyIdx[plain].slice() : [];
+                    const coreMatches = pyIdx[plain] ? pyIdx[plain] : [];
 
-                    if (matches.length < 5) {
-                        try {
-                            const pm = await this.loadPinyinMap();
-                            if (pm && pm[plain]) {
-                                const neededBuckets = new Set();
-                                for (const w of pm[plain]) {
-                                    const inCore = this.coreWords && this.coreWords[w]; const inSingle = this.singleChars && this.singleChars[w]; if (!inCore && !inSingle) {
-                                        neededBuckets.add(this.getBucketId(w[0]));
-                                    }
-                                }
-                                await Promise.all(Array.from(neededBuckets).slice(0, 5).map(bId => this.loadBucket(bId).catch(() => null)));
-
-                                for (const w of pm[plain]) {
-                                    if (matches.some(m => m.word === w)) continue;
-                                    let py = '', tr = '';
-                                    if (this.coreWords && this.coreWords[w]) {
-                                        py = this.coreWords[w][0]; tr = this.coreWords[w][1];
-                                    } else if (this.singleChars && this.singleChars[w]) {
-                                        py = this.singleChars[w][0]; tr = this.singleChars[w][1];
-                                    } else {
-                                        const bId = this.getBucketId(w[0]);
-                                        const b = this.buckets[bId];
-                                        if (b && b[w]) {
-                                            py = b[w][0]; tr = b[w][1];
-                                        }
-                                    }
-                                    if (py || tr) {
-                                        matches.push({ word: w, pinyin: py || plain, trans: tr, prio: 3 });
-                                    }
-                                }
-                            }
-                        } catch(e) {}
+                    // Collect all words without duplicates (pinyin_map words preserved in order)
+                    const wordsSet = new Set(wordsFromMap);
+                    for (const m of coreMatches) {
+                        wordsSet.add(m.word);
                     }
 
-                    matches.sort((a, b) => {
-                        const aBmp = (a.word.codePointAt(0) <= 0xFFFF) ? 1 : 0;
-                        const bBmp = (b.word.codePointAt(0) <= 0xFFFF) ? 1 : 0;
-                        if (aBmp !== bBmp) return bBmp - aBmp;
-                        if (a.prio !== b.prio) return b.prio - a.prio;
-                        const aLen = Array.from(a.word).length;
-                        const bLen = Array.from(b.word).length;
-                        const targetLen = Math.max(1, Math.round(plain.length / 3));
-                        return Math.abs(aLen - targetLen) - Math.abs(bLen - targetLen);
-                    });
+                    // Pre-load needed buckets for words from pinyin_map
+                    const neededBuckets = new Set();
+                    for (const w of wordsSet) {
+                        if ((!this.coreWords || !this.coreWords[w]) && (!this.singleChars || !this.singleChars[w])) {
+                            neededBuckets.add(this.getBucketId(w[0]));
+                        }
+                    }
+                    if (neededBuckets.size > 0) {
+                        await Promise.all(Array.from(neededBuckets).map(bId => this.loadBucket(bId).catch(() => null)));
+                    }
 
-                    for (let i = 0; i < matches.length && i < 24; i++) {
-                        const item = matches[i];
+                    const matches = [];
+                    for (const w of wordsSet) {
+                        let py = '', tr = '';
+                        if (this.coreWords && this.coreWords[w]) {
+                            py = this.coreWords[w][0];
+                            tr = this.coreWords[w][1];
+                        } else if (this.singleChars && this.singleChars[w]) {
+                            py = this.singleChars[w][0];
+                            tr = this.singleChars[w][1];
+                        } else {
+                            const bId = this.getBucketId(w[0]);
+                            const b = this.buckets[bId];
+                            if (b && b[w]) {
+                                py = b[w][0];
+                                tr = b[w][1];
+                            }
+                        }
+                        matches.push({ word: w, pinyin: py || plain, trans: tr });
+                    }
+
+                    // Preserve tone filtering if search query specifies tones
+                    let filteredMatches = matches;
+                    if (hasTones) {
+                        const cleanTones = stripTones(query).toLowerCase().replace(/[^a-z]/g, '');
+                        filteredMatches = matches.filter(m => {
+                            return stripTones(m.pinyin).toLowerCase().replace(/[^a-z]/g, '') === cleanTones;
+                        });
+                        if (filteredMatches.length === 0) filteredMatches = matches;
+                    }
+
+                    for (let i = 0; i < filteredMatches.length; i++) {
+                        const item = filteredMatches[i];
                         exact.push({ word: item.word, pinyin: item.pinyin, trans: item.trans, exact: (i === 0) });
                     }
                 }
@@ -24118,6 +24210,8 @@ const BkrsDB = window.BkrsDB = {
                 scheme: scheme,
                 isCyrillic: isCyrillic,
                 isChinese: isChinese,
+                isPinyin: (!isCyrillic && !isChinese),
+                hasTones: (!isCyrillic && !isChinese && /[1-5āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]/.test(query)),
                 sentence: sentenceData,
                 primaryRu: primaryRu,
                 satellites: satellitesList,
@@ -24685,6 +24779,13 @@ const BkrsDB = window.BkrsDB = {
                     html += '<a href="#sec-examples" class="bkrs-toc-chip"># примеры (' + exampleItems.length + ')</a>';
                 }
                 
+            } else if (data.isPinyin && !data.hasTones) {
+                if (exactCards.length > 0) {
+                    html += '<a href="#sec-homophones" class="bkrs-toc-chip"># омофоны (' + exactCards.length + ')</a>';
+                }
+                if (exampleItems.length > 0) {
+                    html += '<a href="#sec-examples" class="bkrs-toc-chip"># примеры (' + exampleItems.length + ')</a>';
+                }
             } else {
                 if (exactCards.length > 0) {
                     html += '<a href="#sec-exact" class="bkrs-toc-chip"># словарная статья</a>';
@@ -24782,9 +24883,42 @@ const BkrsDB = window.BkrsDB = {
             }
 
             // ==========================================
-            // 6. СЛОВАРНАЯ СТАТЬЯ 大БКРС (для китайских запросов)
+            // 6. ОМОФОНЫ ПИНЬИНЯ БЕЗ ТОНОВ / СЛОВАРНЫЕ СТАТЬИ
             // ==========================================
-            if (!isCyrillic && exactCards.length > 0) {
+            if (data.isPinyin && !data.hasTones && exactCards.length > 0) {
+                const initialLimit = 16;
+                html += '<div class="bkrs-section-title" id="sec-homophones"><i class="fa-solid fa-layer-group"></i> Таблица омофонов «' + escapeHtml(data.query) + '» (' + exactCards.length + '):</div>';
+                html += '<div class="bkrs-homophones-grid">';
+                for (let i = 0; i < exactCards.length; i++) {
+                    const c = exactCards[i];
+                    const pyColored = renderColoredPinyin(c.pinyin || '');
+                    const cleanTr = (c.trans || '').replace(/<[^>]+>/g, ' ').replace(/Пример:.*$/g, '').substring(0, 80);
+                    const isHidden = (i >= initialLimit);
+                    html += '<div class="bkrs-homophone-item' + (isHidden ? ' bkrs-homophone-extra' : '') + '"' +
+                        (isHidden ? ' style="display:none;"' : '') +
+                        ' data-word="' + escapeHtml(c.word) + '" title="Нажмите, чтобы открыть статью «' + escapeHtml(c.word) + '»">' +
+                        '<div class="bkrs-homophone-top">' +
+                            '<span class="bkrs-homophone-zh">' + escapeHtml(c.word) + '</span>' +
+                            '<span class="bkrs-homophone-py">' + pyColored + '</span>' +
+                            '<button type="button" class="bkrs-homophone-audio" data-speak="' + escapeHtml(c.word) + '" title="Озвучить">' +
+                                '<i class="fa-solid fa-volume-high"></i>' +
+                            '</button>' +
+                        '</div>' +
+                        '<div class="bkrs-homophone-trans">' + escapeHtml(cleanTr || 'Словарная статья') + '</div>' +
+                    '</div>';
+                }
+                html += '</div>';
+
+                if (exactCards.length > initialLimit) {
+                    const extraCount = exactCards.length - initialLimit;
+                    html += '<div style="text-align: center; margin: 16px 0 24px;">' +
+                        '<button type="button" class="bkrs-more-homophones-btn" id="bkrs-more-homophones-btn">' +
+                            '<i class="fa-solid fa-chevron-down"></i>' +
+                            '<span>Показать ещё (' + extraCount + ')</span>' +
+                        '</button>' +
+                    '</div>';
+                }
+            } else if (!isCyrillic && exactCards.length > 0) {
                 html += '<div class="bkrs-section-title" id="sec-exact"><i class="fa-solid fa-book-open"></i> Словарная статья Большого словаря:</div>';
                 for (let i = 0; i < exactCards.length; i++) {
                     const r = exactCards[i];
@@ -24846,6 +24980,27 @@ const BkrsDB = window.BkrsDB = {
             });
 
             // Event bindings for buttons, audio, cards
+            const moreBtn = resultsList.querySelector('#bkrs-more-homophones-btn');
+            if (moreBtn) {
+                moreBtn.addEventListener('click', () => {
+                    resultsList.querySelectorAll('.bkrs-homophone-extra').forEach(el => {
+                        el.style.display = '';
+                    });
+                    moreBtn.style.display = 'none';
+                });
+            }
+
+            resultsList.querySelectorAll('.bkrs-homophone-item').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('[data-speak]')) return;
+                    const w = card.getAttribute('data-word');
+                    if (w) {
+                        input.value = w;
+                        doSearch();
+                    }
+                });
+            });
+
             resultsList.querySelectorAll('.bkrs-bruks-zh-pill, .bkrs-compound-item, .bkrs-zhword-card').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const w = btn.getAttribute('data-word');
