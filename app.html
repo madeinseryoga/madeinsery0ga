@@ -24440,11 +24440,20 @@ const BkrsDB = window.BkrsDB = {
 
         function formatBkrsColumnTrans(raw) {
             if (!raw) return '<span style="color:#94a3b8;font-style:italic;">перевод не найден</span>';
-            let clean = parseBkrsArticle(raw).mainDef;
-            clean = clean.replace(/<br\s*\/?>/gi, ' · ');
-            clean = clean.replace(/\s+/g, ' ').trim();
-            if (clean.length > 90) clean = clean.substring(0, 90) + '...';
-            return clean;
+            const parsed = parseBkrsArticle(raw).mainDef;
+            if (!parsed) return '<span style="color:#94a3b8;font-style:italic;">перевод не найден</span>';
+            let clean = parsed.replace(/<br\s*\/?>/gi, ' · ');
+            clean = clean.replace(/<[^>]+>/g, '');
+            clean = clean.replace(/&nbsp;/gi, ' ').replace(/\s+/g, ' ').trim();
+            if (clean.length > 90) {
+                const cutIdx = clean.lastIndexOf(' ', 90);
+                if (cutIdx > 50) {
+                    clean = clean.substring(0, cutIdx).replace(/[\s,;·\.\-]+$/, '') + '...';
+                } else {
+                    clean = clean.substring(0, 90).trim() + '...';
+                }
+            }
+            return escapeHtml(clean);
         }
 
         function renderSentenceView(data) {
