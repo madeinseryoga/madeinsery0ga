@@ -24156,9 +24156,11 @@ const BkrsDB = window.BkrsDB = {
                         wordsSet.add(m.word);
                     }
 
-                    // Pre-load needed buckets for words from pinyin_map
+                    // Pre-load needed buckets ONLY for the first batch of words (16 items)
+                    const wordsArr = Array.from(wordsSet);
+                    const initialBatch = wordsArr.slice(0, 16);
                     const neededBuckets = new Set();
-                    for (const w of wordsSet) {
+                    for (const w of initialBatch) {
                         if ((!this.coreWords || !this.coreWords[w]) && (!this.singleChars || !this.singleChars[w])) {
                             neededBuckets.add(this.getBucketId(w[0]));
                         }
@@ -24984,10 +24986,30 @@ const BkrsDB = window.BkrsDB = {
             const moreBtn = resultsList.querySelector('#bkrs-more-homophones-btn');
             if (moreBtn) {
                 moreBtn.addEventListener('click', () => {
-                    resultsList.querySelectorAll('.bkrs-homophone-extra').forEach(el => {
+                    const extraItems = resultsList.querySelectorAll('.bkrs-homophone-extra');
+                    extraItems.forEach(el => {
                         el.style.display = '';
                     });
                     moreBtn.style.display = 'none';
+
+                    // Asynchronously load translations for revealed words if not loaded
+                    if (typeof BkrsDB.lookupWord === 'function') {
+                        extraItems.forEach(async (el) => {
+                            const transEl = el.querySelector('.bkrs-homophone-trans');
+                            if (transEl && transEl.textContent === 'Словарная статья') {
+                                const w = el.getAttribute('data-word');
+                                if (w) {
+                                    try {
+                                        const entry = await BkrsDB.lookupWord(w);
+                                        if (entry && entry.trans) {
+                                            const clean = entry.trans.replace(/<[^>]+>/g, ' ').replace(/Пример:.*$/g, '').substring(0, 80);
+                                            if (clean) transEl.textContent = clean;
+                                        }
+                                    } catch (e) {}
+                                }
+                            }
+                        });
+                    }
                 });
             }
 
