@@ -24411,12 +24411,15 @@ const BkrsDB = window.BkrsDB = {
             }
         });
 
+        let searchSeq = 0;
         async function doSearch() {
+            const currentSeq = ++searchSeq;
             const rawVal = input.value.trim();
             if (!rawVal) {
                 resultsList.innerHTML = '<div class="bkrs-empty-placeholder"><div class="bkrs-empty-icon"><i class="fa-solid fa-book-bookmark"></i></div><h3>Большой китайско-русский словарь (БКРС)</h3><p>Введите иероглифы (например, <strong>学习</strong>), предложение или фразу (<strong>我学习汉语</strong>), пиньинь (<strong>xuexi</strong>) или русский перевод (<strong>мама</strong>, <strong>учитель</strong>) для мгновенного поиска по 3.5 миллионам слов и примеров.</p></div>';
                 countSpan.textContent = 'База: ' + BKRS_TOTAL_WORDS_STR + ' слов · Введите запрос';
                 if (clearBtn) clearBtn.style.display = 'none';
+                if (loadIndicator) loadIndicator.style.display = 'none';
                 return;
             }
 
@@ -24425,16 +24428,20 @@ const BkrsDB = window.BkrsDB = {
 
             try {
                 const data = await BkrsDB.search(rawVal);
+                if (currentSeq !== searchSeq) return;
                 if (data.sentence) {
                     renderSentenceView(data);
                 } else {
                     await renderUnifiedResults(data);
                 }
             } catch (err) {
+                if (currentSeq !== searchSeq) return;
                 console.error(err);
                 resultsList.innerHTML = '<div style="text-align: center; padding: 30px; color: #e53935;">Ошибка поиска. Попробуйте еще раз.</div>';
             } finally {
-                if (loadIndicator) loadIndicator.style.display = 'none';
+                if (currentSeq === searchSeq && loadIndicator) {
+                    loadIndicator.style.display = 'none';
+                }
             }
         }
 
@@ -24852,13 +24859,24 @@ const BkrsDB = window.BkrsDB = {
             });
         }
 
+        let isComposing = false;
         if (input) {
+            input.addEventListener('compositionstart', () => {
+                isComposing = true;
+            });
+            input.addEventListener('compositionend', () => {
+                isComposing = false;
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(doSearch, 150);
+            });
             input.addEventListener('input', () => {
+                if (isComposing) return;
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(doSearch, 220);
             });
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
+                    if (e.isComposing || isComposing) return;
                     clearTimeout(debounceTimer);
                     doSearch();
                 }
