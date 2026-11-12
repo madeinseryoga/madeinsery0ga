@@ -16240,7 +16240,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
             <div class="bkrs-search-container">
                 <div class="bkrs-search-box">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="search" id="bkrs-search-input" class="search-input" maxlength="300" enterkeyhint="search" placeholder="Слово (学习), фраза или предложение, пиньинь (xuexi) или русский..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    <input type="search" id="bkrs-search-input" class="search-input" maxlength="200" enterkeyhint="search" placeholder="Слово (学习), фраза или предложение, пиньинь (xuexi) или русский..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                     <button type="button" id="bkrs-search-clear" class="bkrs-search-clear" style="display: none;" title="Очистить поиск">×</button>
                     <button type="button" id="bkrs-search-btn" class="bkrs-submit-btn" title="Искать"><i class="fa-solid fa-magnifying-glass"></i> <span>Найти</span></button>
                 </div>
@@ -23650,7 +23650,6 @@ const BkrsDB = window.BkrsDB = {
             let defaultScheme = (typeof filterOptions === 'string') ? filterOptions : (filterOptions.scheme || 'starts');
             let { scheme, query } = BkrsSearchEngine.parsePrefixScheme(rawQuery, defaultScheme);
             query = (query || '').trim();
-            if (query.length > 120) query = query.substring(0, 120).trim();
             if (!query) {
                 return { type: 'empty', query: '', scheme: scheme, dabkrs: { exact: [], compounds: [] }, dabruks: [], examples: [], sentence: null };
             }
