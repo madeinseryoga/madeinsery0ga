@@ -4760,6 +4760,7 @@ input:checked + .ts-slider:before { transform: translateX(20px); }
     display: flex;
     align-items: baseline;
     gap: 8px;
+    white-space: pre-wrap;
 }
 .bkrs-satellite-item:last-child {
     margin-bottom: 0;
@@ -4904,6 +4905,7 @@ input:checked + .ts-slider:before { transform: translateX(20px); }
 .bkrs-expandable-trans {
     line-height: 1.45;
     word-break: break-word;
+    white-space: pre-wrap;
 }
 .bkrs-expandable-trans.is-clamped {
     display: -webkit-box;
@@ -24751,6 +24753,19 @@ const BkrsDB = window.BkrsDB = {
             });
         }
 
+        function formatBkrsNumberedDef(str) {
+            if (!str) return '';
+            let text = str;
+            text = text.replace(/\(\s+/g, '(').replace(/\s+\)/g, ')');
+            text = text.replace(/（\s+/g, '（').replace(/\s+）/g, '）');
+            text = text.replace(/\[\s+/g, '[').replace(/\s+\]/g, ']');
+            text = text.replace(/[ \t]+/g, ' ');
+            text = text.replace(/(?:^|\s*)(\d+[)）])\s*/g, (m, num, offset) => {
+                return (offset === 0 ? '' : '\n') + num + ' ';
+            });
+            return text.trim();
+        }
+
         function formatBkrsColumnTrans(raw) {
             if (!raw) return '<span style="color:#94a3b8;font-style:italic;">перевод не найден</span>';
             const parsed = parseBkrsArticle(raw).mainDef;
@@ -24889,7 +24904,7 @@ const BkrsDB = window.BkrsDB = {
                 html += '</div>';
                 if (item.fullDef && item.fullDef !== item.ruWord) {
                     html += '<div style="margin-top: 10px; font-size: 0.95rem; color: #334155; line-height: 1.55; white-space: pre-wrap;">' +
-                        renderExpandableTrans(escapeHtml(item.fullDef)) +
+                        renderExpandableTrans(escapeHtml(formatBkrsNumberedDef(item.fullDef))) +
                     '</div>';
                 }
                 html += '</div>';
@@ -24902,7 +24917,7 @@ const BkrsDB = window.BkrsDB = {
                 html += '<div class="bkrs-section-title" id="sec-satellites"><i class="fa-solid fa-satellite-dish"></i> Сателлиты и специализированные контексты:</div>';
                 html += '<div class="bkrs-satellites-card">';
                 for (const sat of satellites) {
-                    html += '<div class="bkrs-satellite-item"><i class="fa-solid fa-chevron-right" style="color:#c084fc;font-size:0.75rem;"></i> ' + renderExpandableTrans(escapeHtml(sat)) + '</div>';
+                    html += '<div class="bkrs-satellite-item"><i class="fa-solid fa-chevron-right" style="color:#c084fc;font-size:0.75rem;"></i> ' + renderExpandableTrans(escapeHtml(formatBkrsNumberedDef(sat))) + '</div>';
                 }
                 html += '</div>';
             }
@@ -24947,8 +24962,8 @@ const BkrsDB = window.BkrsDB = {
                         html += '</div>';
                     }
                     if (rw.fullDef && rw.fullDef !== rw.ruWord) {
-                        html += '<div style="margin-top: 8px; font-size: 0.88rem; color: #64748b; line-height: 1.45;">' +
-                            renderExpandableTrans(escapeHtml(rw.fullDef)) +
+                        html += '<div style="margin-top: 8px; font-size: 0.88rem; color: #64748b; line-height: 1.45; white-space: pre-wrap;">' +
+                            renderExpandableTrans(escapeHtml(formatBkrsNumberedDef(rw.fullDef))) +
                         '</div>';
                     }
                     html += '</div>';
