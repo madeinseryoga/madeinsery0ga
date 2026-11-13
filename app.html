@@ -5834,25 +5834,30 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     flex-wrap: wrap;
 }
 .bkrs-card-word, .bkrs-card-hanzi {
-    font-size: 2.2rem;
-    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun-ExtB', 'SimSun', serif;
-    font-weight: 800;
+    font-size: 2.6rem !important;
+    font-family: SimSun, 'Songti SC', 'SimSun-ExtB', 'Times New Roman', serif !important;
+    font-weight: 500 !important;
     color: #1e1b4b;
-    line-height: 1.1;
-    white-space: nowrap !important;
-    letter-spacing: 1px;
+    line-height: 1.08;
+    letter-spacing: 0.5px;
     transition: color 0.15s ease;
+}
+@media (max-width: 639px) {
+    .bkrs-card-word, .bkrs-card-hanzi {
+        font-size: 2.35rem !important;
+    }
 }
 .bkrs-card-hanzi[style*="cursor:pointer"]:hover {
     color: #8E24AA;
 }
 .bkrs-pinyin-badges, .bkrs-card-pinyin {
-    font-size: 1.25rem;
-    font-weight: 800;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
     display: inline-block;
     color: #7e22ce;
     letter-spacing: 0;
-    line-height: 1.2;
+    line-height: 1.25;
 }
 .bkrs-pinyin-badges span, .bkrs-card-pinyin span {
     display: inline;
@@ -5999,8 +6004,10 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
 
 /* Форматированное тело статьи */
 .bkrs-card-def, .bkrs-def-content, .bkrs-card-body {
-    font-size: 1.02rem;
-    line-height: 1.68;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    line-height: 1.45;
     color: #334155;
 }
 
@@ -6990,32 +6997,39 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     flex-wrap: wrap;
 }
 .bkrs-phrase-card-zh {
-    font-size: 1.65rem;
-    font-weight: 800;
-    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+    font-size: 2.2rem;
+    font-weight: 500;
+    font-family: SimSun, 'Songti SC', 'SimSun-ExtB', 'Times New Roman', serif !important;
     color: #1e1b4b;
-    line-height: 1.2;
+    line-height: 1.15;
     transition: color 0.15s ease;
+}
+@media (max-width: 639px) {
+    .bkrs-phrase-card-zh {
+        font-size: 1.95rem;
+    }
 }
 .bkrs-phrase-card-zh:hover {
     color: #8E24AA;
     text-decoration: underline;
 }
 .bkrs-phrase-punct {
-    font-size: 1.35rem;
-    font-weight: 600;
+    font-size: 1.85rem;
+    font-weight: 500;
+    font-family: SimSun, 'Songti SC', 'SimSun-ExtB', 'Times New Roman', serif !important;
     color: #94a3b8;
     user-select: none;
-    line-height: 1.2;
+    line-height: 1.15;
     padding: 0 2px;
     cursor: default;
     pointer-events: none;
 }
 .bkrs-phrase-card-py {
-    font-size: 0.95rem;
-    font-weight: 700;
+    font-size: 1.05rem;
+    font-weight: 800;
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
     color: #7e22ce;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     line-height: 1.3;
 }
 .bkrs-phrase-speak-btn {
@@ -10143,7 +10157,10 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
 .bkrs-sense-text {
     flex: 1 !important;
     color: #1e293b !important;
-    line-height: 1.5 !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    line-height: 1.45 !important;
     text-align: left !important;
     word-break: break-word !important;
 }
@@ -12377,9 +12394,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     .ts-wd-word,
     .ts-wd-sentence,
     .ts-hanzi-line,
-    .bkrs-card-word,
     .ts-breakdown-char,
-    .bkrs-ex-ch,
     .bkrs-sentence-text,
     .ts-ex-zh,
     .ts-mwp-word,
@@ -12395,16 +12410,11 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     .review-chip .rc-char,
     .ex-zh,
     .ts-vt-zh,
-    .bkrs-orig-text,
-    .bkrs-col-zh,
     .ts-card-preview,
     .game-write-box .gw-char,
-    .bkrs-article-head-char,
     .bkrs-char-pill strong,
-    .bkrs-comp-zh,
     .ts-bd-char-box,
     .ts-twi-zh,
-    .bkrs-wcc-zh,
     .practice-cell.has-char,
     .practice-cell.char-solid,
     .hanzi-text,
