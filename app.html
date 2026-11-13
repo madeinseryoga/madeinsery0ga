@@ -24952,7 +24952,18 @@ const BkrsDB = window.BkrsDB = {
         let debounceTimer = null;
 
         let lastSentenceData = null;
+        let lastSentenceScrollY = 0;
         let isNavigatingFromPhrase = false;
+
+        async function restorePhraseView() {
+            if (!lastSentenceData) return;
+            const saved = lastSentenceData;
+            const savedScroll = lastSentenceScrollY;
+            lastSentenceData = null;
+            input.value = saved.query;
+            await renderSentenceView(saved);
+            window.scrollTo({ top: savedScroll, behavior: 'instant' });
+        }
 
         let searchSeq = 0;
         async function doSearch() {
@@ -25350,7 +25361,11 @@ const BkrsDB = window.BkrsDB = {
                     const w = card.getAttribute('data-word');
                     if (w) {
                         lastSentenceData = data;
+                        lastSentenceScrollY = window.scrollY || document.documentElement.scrollTop || 0;
                         isNavigatingFromPhrase = true;
+                        try {
+                            history.pushState({ bkrsPhrase: true, query: data.query }, '');
+                        } catch(e) {}
                         input.value = w;
                         doSearch();
                     }
@@ -25617,11 +25632,13 @@ const BkrsDB = window.BkrsDB = {
 
             const backBtn = resultsList.querySelector('#bkrs-back-to-phrase-btn');
             if (backBtn && lastSentenceData) {
-                backBtn.addEventListener('click', async () => {
-                    const saved = lastSentenceData;
-                    lastSentenceData = null;
-                    input.value = saved.query;
-                    await renderSentenceView(saved);
+                backBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    if (history.state && history.state.bkrsPhrase) {
+                        history.back();
+                    } else {
+                        await restorePhraseView();
+                    }
                 });
             }
 
@@ -25868,6 +25885,49 @@ const BkrsDB = window.BkrsDB = {
                 doSearch();
             });
         }
+
+        // System back gesture / popstate support to return to phrase breakdown
+        window.addEventListener('popstate', async (e) => {
+            if (lastSentenceData) {
+                await restorePhraseView();
+            }
+        });
+
+        // Edge swipe right gesture on mobile (starting at left edge < 50px)
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let isEdgeSwipeCandidate = false;
+
+        document.addEventListener('touchstart', (e) => {
+            if (!lastSentenceData) return;
+            if (e.touches && e.touches.length === 1) {
+                const touch = e.touches[0];
+                if (touch.clientX < 50) {
+                    touchStartX = touch.clientX;
+                    touchStartY = touch.clientY;
+                    isEdgeSwipeCandidate = true;
+                } else {
+                    isEdgeSwipeCandidate = false;
+                }
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchend', async (e) => {
+            if (!isEdgeSwipeCandidate || !lastSentenceData) return;
+            isEdgeSwipeCandidate = false;
+            if (e.changedTouches && e.changedTouches.length === 1) {
+                const touch = e.changedTouches[0];
+                const deltaX = touch.clientX - touchStartX;
+                const deltaY = Math.abs(touch.clientY - touchStartY);
+                if (deltaX > 70 && deltaX > deltaY * 1.5) {
+                    if (history.state && history.state.bkrsPhrase) {
+                        history.back();
+                    } else {
+                        await restorePhraseView();
+                    }
+                }
+            }
+        }, { passive: true });
     }
 
 
