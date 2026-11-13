@@ -7041,6 +7041,12 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     box-sizing: border-box;
     cursor: pointer;
     transition: all 0.15s ease;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 160px;
+}
+.bkrs-zhword-card, .bkrs-homophone-item, .bkrs-card, .bkrs-bruks-card {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 160px;
 }
 .bkrs-phrase-card:hover {
     border-color: #8E24AA;
@@ -25313,16 +25319,25 @@ const BkrsDB = window.BkrsDB = {
                 }));
             }
 
-            html += '<div class="bkrs-phrase-container">';
-            html += '<div class="bkrs-phrase-grid">';
-            for (let i = 0; i < wordBlocks.length; i++) {
-                const b = wordBlocks[i];
+            // Cache rendered translations per word to avoid recomputing for repeated words (e.g. 我, 汉语)
+            const transHtmlCache = new Map();
+            function getCardTransHtml(word, fallbackTrans, fallbackPy) {
+                if (transHtmlCache.has(word)) return transHtmlCache.get(word);
+                const fullEntry = wordCache.get(word);
+                const pyToUse = (fullEntry && fullEntry.pinyin) ? fullEntry.pinyin : fallbackPy;
+                const transToUse = (fullEntry && fullEntry.trans) ? fullEntry.trans : fallbackTrans;
+                const h = renderStructuredTransHtml(transToUse, pyToUse, { maxCollapsedSenses: 4 });
+                transHtmlCache.set(word, h);
+                return h;
+            }
+
+            function buildSinglePhraseCardHtml(b) {
                 const fullEntry = wordCache.get(b.word);
                 const pyToUse = (fullEntry && fullEntry.pinyin) ? fullEntry.pinyin : b.pinyin;
-                const transToUse = (fullEntry && fullEntry.trans) ? fullEntry.trans : b.trans;
                 const pyColored = renderColoredPinyin(pyToUse || '');
+                const transHtml = getCardTransHtml(b.word, b.trans, b.pinyin);
 
-                html += '<div class="bkrs-phrase-card" data-word="' + escapeHtml(b.word) + '" title="Нажмите, чтобы открыть статью «' + escapeHtml(b.word) + '»">' +
+                return '<div class="bkrs-phrase-card" data-word="' + escapeHtml(b.word) + '" title="Нажмите, чтобы открыть статью «' + escapeHtml(b.word) + '»">' +
                     '<div class="bkrs-phrase-card-header">' +
                         '<div class="bkrs-phrase-zh-wrap">' +
                             (b.leadingPunct ? '<span class="bkrs-phrase-punct">' + escapeHtml(b.leadingPunct) + '</span>' : '') +
@@ -25342,17 +25357,64 @@ const BkrsDB = window.BkrsDB = {
                         '</div>' +
                     '</div>' +
                     '<div class="bkrs-phrase-card-py">' + pyColored + '</div>' +
-                    '<div class="bkrs-phrase-card-trans">' +
-                        renderStructuredTransHtml(transToUse, pyToUse, { maxCollapsedSenses: 4 }) +
-                    '</div>' +
+                    '<div class="bkrs-phrase-card-trans">' + transHtml + '</div>' +
                 '</div>';
             }
-            html += '</div>';
+
+            const CHUNK_SIZE = 12;
+            const initialBlocks = wordBlocks.slice(0, CHUNK_SIZE);
+            const remainingBlocks = wordBlocks.slice(CHUNK_SIZE);
+
+            let initialCardsHtml = '';
+            for (let i = 0; i < initialBlocks.length; i++) {
+                initialCardsHtml += buildSinglePhraseCardHtml(initialBlocks[i]);
+            }
+
+            html += '<div class="bkrs-phrase-container">';
+            html += '<div class="bkrs-phrase-grid" id="bkrs-phrase-grid">' + initialCardsHtml + '</div>';
             html += '</div>';
 
             resultsList.innerHTML = html;
             bindCardEvents(resultsList);
             initExpandableTranslations(resultsList);
+
+            function attachCardNavigation(containerEl) {
+                containerEl.querySelectorAll('.bkrs-phrase-card:not([data-nav-bound])').forEach(card => {
+                    card.setAttribute('data-nav-bound', '1');
+                    card.addEventListener('click', (e) => {
+                        if (e.target.closest('button') || e.target.closest('.bkrs-phrase-act-btn') || e.target.closest('.bkrs-toggle-block-btn') || e.target.closest('.bkrs-toggle-expand-btn')) return;
+                        const w = card.getAttribute('data-word');
+                        if (w) {
+                            lastSentenceData = data;
+                            lastSentenceScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+                            isNavigatingFromPhrase = true;
+                            try {
+                                history.pushState({ bkrsPhrase: true, query: data.query }, '');
+                            } catch(e) {}
+                            input.value = w;
+                            doSearch();
+                        }
+                    });
+                });
+            }
+
+            attachCardNavigation(resultsList);
+
+            // Progressive chunked mounting of remaining blocks via requestAnimationFrame
+            if (remainingBlocks.length > 0) {
+                requestAnimationFrame(() => {
+                    const gridEl = document.getElementById('bkrs-phrase-grid');
+                    if (!gridEl) return;
+                    let remainingCardsHtml = '';
+                    for (let i = 0; i < remainingBlocks.length; i++) {
+                        remainingCardsHtml += buildSinglePhraseCardHtml(remainingBlocks[i]);
+                    }
+                    gridEl.insertAdjacentHTML('beforeend', remainingCardsHtml);
+                    bindCardEvents(gridEl);
+                    initExpandableTranslations(gridEl);
+                    attachCardNavigation(gridEl);
+                });
+            }
 
             // Clicking a card opens word dictionary article and remembers sentence
             resultsList.querySelectorAll('.bkrs-phrase-card').forEach(card => {
