@@ -6946,6 +6946,70 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     transform: translateY(-1px) !important;
     box-shadow: 0 4px 12px rgba(142, 36, 170, 0.2) !important;
 }
+/* Структурированный нумерованный перевод и примеры (как на bkrs.info) */
+.bkrs-expandable-trans-block {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+}
+.bkrs-trans-collapsed, .bkrs-trans-full {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+.bkrs-sense-row {
+    display: flex;
+    gap: 6px;
+    align-items: baseline;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    color: #334155;
+    word-break: break-word;
+}
+.bkrs-sense-num {
+    font-weight: 700;
+    color: #8E24AA;
+    flex-shrink: 0;
+}
+.bkrs-sense-text {
+    flex: 1;
+    font-weight: 600;
+}
+.bkrs-sense-ex-list {
+    margin-left: 18px;
+    margin-bottom: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.bkrs-sense-ex-item {
+    font-size: 0.88rem;
+    color: #64748b;
+    line-height: 1.4;
+    word-break: break-word;
+}
+.bkrs-toggle-block-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    padding: 6px 0 2px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #8E24AA;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+    align-self: flex-start;
+}
+.bkrs-toggle-block-btn:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
 /* Пословный разбор фразы (новая адаптивная раскладка) */
 .bkrs-phrase-container {
     max-width: 1100px;
@@ -23808,16 +23872,18 @@ const BkrsDB = window.BkrsDB = {
 
         lookupWord: async function(word) {
             if (!word) return null;
+            const bId = this.getBucketId(word[0]);
+            try {
+                const bucket = await this.loadBucket(bId);
+                if (bucket && bucket[word]) {
+                    return { word: word, pinyin: bucket[word][0], trans: bucket[word][1] };
+                }
+            } catch(e) {}
             if (this.coreWords && this.coreWords[word]) {
                 return { word: word, pinyin: this.coreWords[word][0], trans: this.coreWords[word][1] };
             }
             if (this.singleChars && this.singleChars[word]) {
                 return { word: word, pinyin: this.singleChars[word][0], trans: this.singleChars[word][1] };
-            }
-            const bId = this.getBucketId(word[0]);
-            const bucket = await this.loadBucket(bId);
-            if (bucket && bucket[word]) {
-                return { word: word, pinyin: bucket[word][0], trans: bucket[word][1] };
             }
             return null;
         },
@@ -24194,20 +24260,19 @@ const BkrsDB = window.BkrsDB = {
                 for (const item of sortedCandidates) {
                     const zw = item.word;
                     let py = '', tr = '';
-                    if (this.coreWords && this.coreWords[zw]) {
+                    const bId = this.getBucketId(zw[0]);
+                    const b = this.buckets[bId] || (await this.loadBucket(bId).catch(() => null));
+                    if (b && b[zw]) {
+                        py = b[zw][0] || '';
+                        tr = b[zw][1] || '';
+                    } else if (this.coreWords && this.coreWords[zw]) {
                         py = this.coreWords[zw][0] || '';
                         tr = this.coreWords[zw][1] || '';
                     } else if (this.singleChars && this.singleChars[zw]) {
                         py = this.singleChars[zw][0] || '';
                         tr = this.singleChars[zw][1] || '';
-                    } else {
-                        const bId = this.getBucketId(zw[0]);
-                        const b = this.buckets[bId];
-                        if (b && b[zw]) {
-                            py = b[zw][0] || '';
-                            tr = b[zw][1] || '';
-                        }
                     }
+                    if (!tr || !tr.trim()) continue;
                     inZhWordsList.push({
                         word: zw,
                         pinyin: py,
@@ -24909,7 +24974,7 @@ const BkrsDB = window.BkrsDB = {
                     return;
                 }
                 if (data.sentence) {
-                    renderSentenceView(data);
+                    await renderSentenceView(data);
                 } else {
                     await renderUnifiedResults(data);
                 }
@@ -24943,6 +25008,27 @@ const BkrsDB = window.BkrsDB = {
 
         function initExpandableTranslations(container) {
             if (!container) return;
+            container.querySelectorAll('.bkrs-expandable-trans-block').forEach(block => {
+                const btn = block.querySelector('.bkrs-toggle-block-btn');
+                const col = block.querySelector('.bkrs-trans-collapsed');
+                const full = block.querySelector('.bkrs-trans-full');
+                if (!btn || !col || !full) return;
+
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    const isFull = (full.style.display !== 'none');
+                    if (isFull) {
+                        full.style.display = 'none';
+                        col.style.display = '';
+                        btn.innerHTML = '<i class="fa-solid fa-chevron-down"></i> <span>Показать полностью</span>';
+                    } else {
+                        col.style.display = 'none';
+                        full.style.display = '';
+                        btn.innerHTML = '<i class="fa-solid fa-chevron-up"></i> <span>Свернуть</span>';
+                    }
+                };
+            });
             container.querySelectorAll('.bkrs-expandable-wrap').forEach(wrap => {
                 const textEl = wrap.querySelector('.bkrs-expandable-trans');
                 const btn = wrap.querySelector('.bkrs-toggle-expand-btn');
@@ -25000,6 +25086,142 @@ const BkrsDB = window.BkrsDB = {
             return escapeHtml(clean);
         }
 
+        function parseBkrsStructured(rawTrans, pinyin) {
+            if (!rawTrans) return [];
+            let text = String(rawTrans)
+                .replace(/<br\s*\/?>/gi, '\n')
+                .replace(/<[^>]+>/g, '')
+                .replace(/&nbsp;/gi, ' ')
+                .replace(/\\\[/g, '[')
+                .replace(/\\\]/g, ']')
+                .trim();
+
+            if (pinyin) {
+                const normPy = pinyin.trim().toLowerCase();
+                const firstLine = text.split('\n')[0].trim().toLowerCase();
+                if (firstLine === normPy) {
+                    text = text.substring(text.indexOf('\n') + 1).trim();
+                }
+            }
+
+            function cleanSenseText(str) {
+                return str
+                    .replace(/^[IVXLCDM]{1,6}\s*(?:\([^)]+\))?\s*[A-ZА-Я]?\s*/g, '')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+            }
+
+            let normalized = text;
+            normalized = normalized.replace(/(?:^|\s+)([IVXLCDM]{1,6}\b(?!\s*век|\s*в\b)(?:\s*\([^)]+\))?(?:\s*[A-ZА-Я])?\s*)?(?:(\d+[)）\.])\s*)/g, '\n$1$2 ');
+            normalized = normalized.replace(/(?:^|\s+)(Пример:\s*)/g, '\nПример: ');
+
+            const normLines = normalized.split('\n').map(l => l.trim()).filter(Boolean);
+            const senses = [];
+            let currentSense = null;
+            let autoNum = 1;
+
+            function pushSense(num, meaning) {
+                currentSense = {
+                    num: num || (autoNum++ + ')'),
+                    meaning: meaning.trim(),
+                    examples: []
+                };
+                senses.push(currentSense);
+            }
+
+            for (const line of normLines) {
+                if (line.startsWith('Пример:')) {
+                    const exText = line.substring(7).trim();
+                    if (exText) {
+                        if (currentSense) {
+                            currentSense.examples.push(exText);
+                        } else {
+                            pushSense(null, '');
+                            currentSense.examples.push(exText);
+                        }
+                    }
+                    continue;
+                }
+
+                const senseMatch = line.match(/^([IVXLCDM]{1,6}\b[^\d]*)?(\d+[)）\.])\s*([\s\S]*)$/);
+                if (senseMatch) {
+                    const num = (autoNum++) + ')';
+                    const meaning = cleanSenseText(senseMatch[3]);
+                    pushSense(num, meaning);
+                } else {
+                    if (currentSense && /^[\u4e00-\u9fff]/.test(line)) {
+                        currentSense.examples.push(line);
+                    } else if (currentSense) {
+                        if (!currentSense.meaning) {
+                            currentSense.meaning = cleanSenseText(line);
+                        } else if (currentSense.examples.length === 0) {
+                            currentSense.meaning += ' ' + cleanSenseText(line);
+                        } else {
+                            currentSense.examples.push(line);
+                        }
+                    } else {
+                        pushSense(null, cleanSenseText(line));
+                    }
+                }
+            }
+
+            return senses.filter(s => s.meaning || s.examples.length > 0);
+        }
+
+        function renderStructuredTransHtml(rawTrans, pinyin, options = {}) {
+            if (!rawTrans) return '<span style="color:#94a3b8;font-style:italic;">перевод не найден</span>';
+            const senses = parseBkrsStructured(rawTrans, pinyin);
+            if (!senses || senses.length === 0) {
+                return '<span style="color:#94a3b8;font-style:italic;">перевод не найден</span>';
+            }
+
+            const maxCollapsedSenses = options.maxCollapsedSenses || 4;
+            const hasMore = senses.length > maxCollapsedSenses || senses.some(s => s.examples.length > 0);
+
+            // 1. Collapsed view: only meanings, up to maxCollapsedSenses, NO examples
+            let collapsedHtml = '<div class="bkrs-trans-collapsed">';
+            const collapsedList = senses.slice(0, maxCollapsedSenses);
+            for (const s of collapsedList) {
+                collapsedHtml += '<div class="bkrs-sense-row">';
+                if (s.num && senses.length > 1) {
+                    collapsedHtml += '<span class="bkrs-sense-num">' + escapeHtml(s.num) + '</span>';
+                }
+                collapsedHtml += '<span class="bkrs-sense-text">' + escapeHtml(s.meaning) + '</span>';
+                collapsedHtml += '</div>';
+            }
+            collapsedHtml += '</div>';
+
+            if (!hasMore) {
+                return '<div class="bkrs-expandable-trans-block">' + collapsedHtml + '</div>';
+            }
+
+            // 2. Full view: all senses WITH examples underneath
+            let fullHtml = '<div class="bkrs-trans-full" style="display:none;">';
+            for (const s of senses) {
+                fullHtml += '<div class="bkrs-sense-row">';
+                if (s.num && senses.length > 1) {
+                    fullHtml += '<span class="bkrs-sense-num">' + escapeHtml(s.num) + '</span>';
+                }
+                fullHtml += '<span class="bkrs-sense-text">' + escapeHtml(s.meaning) + '</span>';
+                fullHtml += '</div>';
+
+                if (s.examples && s.examples.length > 0) {
+                    fullHtml += '<div class="bkrs-sense-ex-list">';
+                    for (const ex of s.examples) {
+                        fullHtml += '<div class="bkrs-sense-ex-item">' + escapeHtml(ex) + '</div>';
+                    }
+                    fullHtml += '</div>';
+                }
+            }
+            fullHtml += '</div>';
+
+            return '<div class="bkrs-expandable-trans-block">' +
+                collapsedHtml +
+                fullHtml +
+                '<button type="button" class="bkrs-toggle-block-btn"><i class="fa-solid fa-chevron-down"></i> <span>Показать полностью</span></button>' +
+            '</div>';
+        }
+
         function formatPhraseWordTrans(rawTrans, pinyin) {
             if (!rawTrans) return '<span style="color:#94a3b8;font-style:italic;">перевод не найден</span>';
             let text = String(rawTrans).replace(/<br\s*\/?>/gi, '\n');
@@ -25016,7 +25238,7 @@ const BkrsDB = window.BkrsDB = {
             return text || '<span style="color:#94a3b8;font-style:italic;">перевод не найден</span>';
         }
 
-        function renderSentenceView(data) {
+        async function renderSentenceView(data) {
             const sent = data.sentence;
             countSpan.textContent = 'Пословный разбор фразы (' + sent.words.length + ' слов)';
 
@@ -25051,12 +25273,28 @@ const BkrsDB = window.BkrsDB = {
                 }
             }
 
+            // Pre-load full untruncated bucket definitions for unique words in the sentence (cached per word)
+            const wordCache = new Map();
+            if (typeof BkrsDB.lookupWord === 'function') {
+                const uniqueWords = Array.from(new Set(wordBlocks.map(b => b.word)));
+                await Promise.all(uniqueWords.map(async (w) => {
+                    try {
+                        const entry = await BkrsDB.lookupWord(w);
+                        if (entry && entry.trans) {
+                            wordCache.set(w, entry);
+                        }
+                    } catch (e) {}
+                }));
+            }
+
             html += '<div class="bkrs-phrase-container">';
             html += '<div class="bkrs-phrase-grid">';
             for (let i = 0; i < wordBlocks.length; i++) {
                 const b = wordBlocks[i];
-                const pyColored = renderColoredPinyin(b.pinyin || '');
-                const cleanTrans = formatPhraseWordTrans(b.trans, b.pinyin);
+                const fullEntry = wordCache.get(b.word);
+                const pyToUse = (fullEntry && fullEntry.pinyin) ? fullEntry.pinyin : b.pinyin;
+                const transToUse = (fullEntry && fullEntry.trans) ? fullEntry.trans : b.trans;
+                const pyColored = renderColoredPinyin(pyToUse || '');
 
                 html += '<div class="bkrs-phrase-card" data-word="' + escapeHtml(b.word) + '" title="Нажмите, чтобы открыть статью «' + escapeHtml(b.word) + '»">' +
                     '<div class="bkrs-phrase-card-header">' +
@@ -25070,7 +25308,9 @@ const BkrsDB = window.BkrsDB = {
                         '</button>' +
                     '</div>' +
                     '<div class="bkrs-phrase-card-py">' + pyColored + '</div>' +
-                    renderExpandableTrans(escapeHtml(cleanTrans), 'bkrs-phrase-card-trans') +
+                    '<div class="bkrs-phrase-card-trans">' +
+                        renderStructuredTransHtml(transToUse, pyToUse, { maxCollapsedSenses: 4 }) +
+                    '</div>' +
                 '</div>';
             }
             html += '</div>';
@@ -25216,20 +25456,24 @@ const BkrsDB = window.BkrsDB = {
             // 4. В КИТАЙСКИХ СЛОВАХ (для русских запросов)
             // ==========================================
             if (isCyrillic && inZhWords.length > 0) {
-                html += '<div class="bkrs-section-title" id="sec-in-zh"><i class="fa-solid fa-shapes"></i> В китайских словах (' + inZhWords.length + '):</div>';
-                html += '<div class="bkrs-zhwords-grid">';
-                for (const zw of inZhWords) {
-                    const pyColored = renderColoredPinyin(zw.pinyin || '');
-                    const cleanTr = (zw.trans || '').replace(/<[^>]+>/g, ' ').trim();
-                    html += '<div class="bkrs-zhword-card" data-word="' + escapeHtml(zw.word) + '" title="Нажмите, чтобы открыть статью «' + escapeHtml(zw.word) + '»">' +
-                        '<div class="bkrs-zhword-top">' +
-                            '<span class="bkrs-zhword-zh">' + escapeHtml(zw.word) + '</span>' +
-                            '<span class="bkrs-zhword-py">' + pyColored + '</span>' +
-                        '</div>' +
-                        renderExpandableTrans(escapeHtml(cleanTr || 'Китайский словарный эквивалент'), 'bkrs-zhword-trans') +
-                    '</div>';
+                const validZhWords = inZhWords.filter(zw => (zw.trans && zw.trans.trim()));
+                if (validZhWords.length > 0) {
+                    html += '<div class="bkrs-section-title" id="sec-in-zh"><i class="fa-solid fa-shapes"></i> В китайских словах (' + validZhWords.length + '):</div>';
+                    html += '<div class="bkrs-zhwords-grid">';
+                    for (const zw of validZhWords) {
+                        const pyColored = renderColoredPinyin(zw.pinyin || '');
+                        html += '<div class="bkrs-zhword-card" data-word="' + escapeHtml(zw.word) + '" title="Нажмите, чтобы открыть статью «' + escapeHtml(zw.word) + '»">' +
+                            '<div class="bkrs-zhword-top">' +
+                                '<span class="bkrs-zhword-zh">' + escapeHtml(zw.word) + '</span>' +
+                                '<span class="bkrs-zhword-py">' + pyColored + '</span>' +
+                            '</div>' +
+                            '<div class="bkrs-zhword-trans">' +
+                                renderStructuredTransHtml(zw.trans, zw.pinyin, { maxCollapsedSenses: 3 }) +
+                            '</div>' +
+                        '</div>';
+                    }
+                    html += '</div>';
                 }
-                html += '</div>';
             }
 
             // ==========================================
@@ -25350,11 +25594,11 @@ const BkrsDB = window.BkrsDB = {
 
             const backBtn = resultsList.querySelector('#bkrs-back-to-phrase-btn');
             if (backBtn && lastSentenceData) {
-                backBtn.addEventListener('click', () => {
+                backBtn.addEventListener('click', async () => {
                     const saved = lastSentenceData;
                     lastSentenceData = null;
                     input.value = saved.query;
-                    renderSentenceView(saved);
+                    await renderSentenceView(saved);
                 });
             }
 
