@@ -6939,57 +6939,128 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     transform: translateY(-1px) !important;
     box-shadow: 0 4px 12px rgba(142, 36, 170, 0.2) !important;
 }
-.bkrs-flow-words-track {
-    display: flex !important;
-    gap: 12px !important;
-    overflow-x: auto !important;
-    padding-bottom: 8px !important;
-    margin-bottom: 20px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
+/* Пословный разбор фразы (новая адаптивная раскладка) */
+.bkrs-phrase-container {
+    max-width: 1100px;
+    margin: 0 auto 24px;
+    width: 100%;
+    box-sizing: border-box;
 }
-.bkrs-flow-col {
-    background: #ffffff !important;
-    border: 1.5px solid #ebdcf5 !important;
-    border-radius: 14px !important;
-    padding: 14px 16px !important;
-    min-width: 140px !important;
-    max-width: 220px !important;
-    flex-shrink: 0 !important;
-    transition: all 0.15s ease !important;
+.bkrs-phrase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+    width: 100%;
+    box-sizing: border-box;
 }
-.bkrs-flow-col.active-selected {
-    border-color: #8E24AA !important;
-    background: #faf5ff !important;
-    box-shadow: 0 4px 12px rgba(142, 36, 170, 0.12) !important;
+@media (max-width: 639px) {
+    .bkrs-phrase-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
 }
-.bkrs-flow-col-top {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: baseline !important;
-    margin-bottom: 6px !important;
-    gap: 8px !important;
+.bkrs-phrase-card {
+    background: #ffffff;
+    border: 1.5px solid #ebdcf5;
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 8px rgba(142, 36, 170, 0.04);
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 0.15s ease;
 }
-.bkrs-flow-col-zh {
-    font-size: 1.35rem !important;
-    font-weight: 800 !important;
-    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif !important;
-    color: #1e1b4b !important;
+.bkrs-phrase-card:hover {
+    border-color: #8E24AA;
+    box-shadow: 0 4px 14px rgba(142, 36, 170, 0.12);
+    transform: translateY(-1px);
 }
-.bkrs-flow-col-py {
-    font-size: 0.95rem !important;
-    font-weight: 700 !important;
-    color: #7e22ce !important;
+.bkrs-phrase-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+    gap: 8px;
 }
-.bkrs-flow-col-audio {
-    cursor: pointer !important;
-    color: #8E24AA !important;
-    padding: 4px !important;
+.bkrs-phrase-zh-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    flex-wrap: wrap;
 }
-.bkrs-flow-col-trans {
-    font-size: 0.88rem !important;
-    color: #475569 !important;
-    line-height: 1.4 !important;
+.bkrs-phrase-card-zh {
+    font-size: 1.65rem;
+    font-weight: 800;
+    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+    color: #1e1b4b;
+    line-height: 1.2;
+    transition: color 0.15s ease;
+}
+.bkrs-phrase-card-zh:hover {
+    color: #8E24AA;
+    text-decoration: underline;
+}
+.bkrs-phrase-punct {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #94a3b8;
+    user-select: none;
+    line-height: 1.2;
+    padding: 0 2px;
+    cursor: default;
+    pointer-events: none;
+}
+.bkrs-phrase-card-py {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #7e22ce;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+.bkrs-phrase-speak-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #8E24AA;
+    font-size: 0.95rem;
+    padding: 4px;
+    border-radius: 6px;
+    transition: background 0.15s ease;
+    flex-shrink: 0;
+}
+.bkrs-phrase-speak-btn:hover {
+    background: rgba(142, 36, 170, 0.1);
+}
+.bkrs-phrase-card-trans {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.45;
+    flex: 1;
+}
+.bkrs-back-phrase-wrap {
+    margin-bottom: 16px;
+}
+.bkrs-back-to-phrase-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fdf4ff;
+    border: 1.5px solid #f0abfc;
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #8E24AA;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.bkrs-back-to-phrase-btn:hover {
+    background: #8E24AA;
+    border-color: #8E24AA;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(142, 36, 170, 0.15);
 }
 .bkrs-search-box {
     display: flex !important;
@@ -7996,20 +8067,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     font-weight: 800;
 }
 
-/* Пословный разбор БКРС: подсветка активного слова (Скриншот 5) */
-.bkrs-flow-col {
-    padding: 8px 10px !important;
-    border-radius: 10px !important;
-    cursor: pointer !important;
-    transition: background-color 0.15s ease, transform 0.15s ease !important;
-}
-.bkrs-flow-col:hover {
-    background-color: #fef9c3 !important;
-}
-.bkrs-flow-col.active-selected {
-    background-color: #fef08a !important;
-    box-shadow: 0 0 0 2px #eab308 !important;
-}
+/* Пословный разбор БКРС */
 
 /* ==================== 214 KANGXI RADICALS & GENERATOR STYLES ==================== */
 .char-header-info {
@@ -24803,18 +24861,17 @@ const BkrsDB = window.BkrsDB = {
 
         let debounceTimer = null;
 
-        resultsList.addEventListener('click', (e) => {
-            const col = e.target.closest('.bkrs-flow-col');
-            if (col) {
-                document.querySelectorAll('.bkrs-flow-col').forEach(c => c.classList.remove('active-selected'));
-                col.classList.add('active-selected');
-            }
-        });
+        let lastSentenceData = null;
+        let isNavigatingFromPhrase = false;
 
         let searchSeq = 0;
         async function doSearch() {
             const currentSeq = ++searchSeq;
             const rawVal = input.value.trim();
+            if (!isNavigatingFromPhrase && lastSentenceData && rawVal !== lastSentenceData.query) {
+                lastSentenceData = null;
+            }
+            isNavigatingFromPhrase = false;
             if (!rawVal) {
                 resultsList.innerHTML = '<div class="bkrs-empty-placeholder"><div class="bkrs-empty-icon"><i class="fa-solid fa-book-bookmark"></i></div><h3>Большой китайско-русский словарь (БКРС)</h3><p>Введите иероглифы (например, <strong>学习</strong>), предложение или фразу (<strong>我学习汉语</strong>), пиньинь (<strong>xuexi</strong>) или русский перевод (<strong>мама</strong>, <strong>учитель</strong>) для мгновенного поиска по 3.5 миллионам слов и примеров.</p></div>';
                 countSpan.textContent = 'База: ' + BKRS_TOTAL_WORDS_STR + ' слов · Введите запрос';
@@ -24933,6 +24990,22 @@ const BkrsDB = window.BkrsDB = {
             return escapeHtml(clean);
         }
 
+        function formatPhraseWordTrans(rawTrans, pinyin) {
+            if (!rawTrans) return '<span style="color:#94a3b8;font-style:italic;">перевод не найден</span>';
+            let text = String(rawTrans).replace(/<br\s*\/?>/gi, '\n');
+            text = text.replace(/<[^>]+>/g, '');
+            text = text.replace(/&nbsp;/gi, ' ');
+            if (pinyin) {
+                const normPy = pinyin.trim().toLowerCase();
+                const lines = text.split('\n');
+                if (lines[0] && (lines[0].trim().toLowerCase() === normPy || (typeof stripTones === 'function' && stripTones(lines[0].trim().toLowerCase()) === stripTones(normPy)))) {
+                    text = lines.slice(1).join('\n').trim();
+                }
+            }
+            text = formatBkrsNumberedDef(text);
+            return text || '<span style="color:#94a3b8;font-style:italic;">перевод не найден</span>';
+        }
+
         function renderSentenceView(data) {
             const sent = data.sentence;
             countSpan.textContent = 'Пословный разбор фразы (' + sent.words.length + ' слов)';
@@ -24945,33 +25018,71 @@ const BkrsDB = window.BkrsDB = {
                 '</div>' +
             '</div>';
 
-            html += '<div class="bkrs-flow-words-track">';
-            for (let i = 0; i < sent.words.length; i++) {
-                const w = sent.words[i];
-                const pyColored = renderColoredPinyin(w.pinyin || '');
-                const transPreview = formatBkrsColumnTrans(w.trans);
-                html += '<div class="bkrs-flow-col' + (i === 0 ? ' active-selected' : '') + '" data-word="' + escapeHtml(w.word) + '">' +
-                    '<div class="bkrs-flow-col-top">' +
-                        '<div class="bkrs-flow-col-zh">' + escapeHtml(w.word) + '</div>' +
-                        '<div class="bkrs-flow-col-py">' + pyColored + '</div>' +
-                        '<div class="bkrs-flow-col-audio" data-speak="' + escapeHtml(w.word) + '" title="Озвучить слово">' +
-                            '<i class="fa-solid fa-volume-high"></i>' +
+            // Group tokens into words with attached punctuation
+            const wordBlocks = [];
+            let pendingLeadingPunct = '';
+            for (let i = 0; i < (sent.tokens || []).length; i++) {
+                const t = sent.tokens[i];
+                if (t.type === 'punct') {
+                    if (wordBlocks.length > 0) {
+                        wordBlocks[wordBlocks.length - 1].trailingPunct += t.text;
+                    } else {
+                        pendingLeadingPunct += t.text;
+                    }
+                } else if (t.type === 'word') {
+                    wordBlocks.push({
+                        word: t.text,
+                        pinyin: t.pinyin,
+                        trans: t.trans,
+                        leadingPunct: pendingLeadingPunct,
+                        trailingPunct: ''
+                    });
+                    pendingLeadingPunct = '';
+                }
+            }
+
+            html += '<div class="bkrs-phrase-container">';
+            html += '<div class="bkrs-phrase-grid">';
+            for (let i = 0; i < wordBlocks.length; i++) {
+                const b = wordBlocks[i];
+                const pyColored = renderColoredPinyin(b.pinyin || '');
+                const cleanTrans = formatPhraseWordTrans(b.trans, b.pinyin);
+
+                html += '<div class="bkrs-phrase-card" data-word="' + escapeHtml(b.word) + '" title="Нажмите, чтобы открыть статью «' + escapeHtml(b.word) + '»">' +
+                    '<div class="bkrs-phrase-card-header">' +
+                        '<div class="bkrs-phrase-zh-wrap">' +
+                            (b.leadingPunct ? '<span class="bkrs-phrase-punct">' + escapeHtml(b.leadingPunct) + '</span>' : '') +
+                            '<span class="bkrs-phrase-card-zh" data-word="' + escapeHtml(b.word) + '">' + escapeHtml(b.word) + '</span>' +
+                            (b.trailingPunct ? '<span class="bkrs-phrase-punct">' + escapeHtml(b.trailingPunct) + '</span>' : '') +
                         '</div>' +
+                        '<button type="button" class="bkrs-phrase-speak-btn" data-speak="' + escapeHtml(b.word) + '" title="Озвучить слово">' +
+                            '<i class="fa-solid fa-volume-high"></i>' +
+                        '</button>' +
                     '</div>' +
-                    '<div class="bkrs-flow-col-trans">' + transPreview + '</div>' +
+                    '<div class="bkrs-phrase-card-py">' + pyColored + '</div>' +
+                    renderExpandableTrans(escapeHtml(cleanTrans), 'bkrs-phrase-card-trans') +
                 '</div>';
             }
             html += '</div>';
-
-            html += '<div class="bkrs-section-title" style="margin-top: 24px;"><i class="fa-solid fa-book-open"></i> Детальные словарные карточки слов фразы:</div>';
-            for (let i = 0; i < sent.words.length; i++) {
-                const w = sent.words[i];
-                html += renderSingleCard(w, null, (i === 0));
-            }
+            html += '</div>';
 
             resultsList.innerHTML = html;
             bindCardEvents(resultsList);
             initExpandableTranslations(resultsList);
+
+            // Clicking a card opens word dictionary article and remembers sentence
+            resultsList.querySelectorAll('.bkrs-phrase-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('[data-speak]') || e.target.closest('.bkrs-toggle-expand-btn')) return;
+                    const w = card.getAttribute('data-word');
+                    if (w) {
+                        lastSentenceData = data;
+                        isNavigatingFromPhrase = true;
+                        input.value = w;
+                        doSearch();
+                    }
+                });
+            });
         }
 
         async function renderUnifiedResults(data) {
@@ -25006,6 +25117,14 @@ const BkrsDB = window.BkrsDB = {
             countSpan.textContent = 'Найдено: ' + (inZhWords.length || exactCards.length) + ' слов · ' + exampleItems.length + ' примеров';
             const charsDb = await BkrsDB.loadSingleChars();
             let html = '';
+
+            if (lastSentenceData) {
+                html += '<div class="bkrs-back-phrase-wrap">' +
+                    '<button type="button" class="bkrs-back-to-phrase-btn" id="bkrs-back-to-phrase-btn">' +
+                        '<i class="fa-solid fa-arrow-left"></i> <span>К разбору фразы «' + escapeHtml(lastSentenceData.query) + '»</span>' +
+                    '</button>' +
+                '</div>';
+            }
 
             // ==========================================
             // 1. БЫСТРОЕ СОДЕРЖАНИЕ (ЯКОРЯ bkrs.info)
@@ -25218,6 +25337,16 @@ const BkrsDB = window.BkrsDB = {
 
 
             resultsList.innerHTML = html;
+
+            const backBtn = resultsList.querySelector('#bkrs-back-to-phrase-btn');
+            if (backBtn && lastSentenceData) {
+                backBtn.addEventListener('click', () => {
+                    const saved = lastSentenceData;
+                    lastSentenceData = null;
+                    input.value = saved.query;
+                    renderSentenceView(saved);
+                });
+            }
 
             // Smooth scroll for TOC anchors
             resultsList.querySelectorAll('.bkrs-toc-chip').forEach(chip => {
