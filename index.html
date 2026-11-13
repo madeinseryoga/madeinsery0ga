@@ -4810,11 +4810,7 @@ input:checked + .ts-slider:before { transform: translateX(20px); }
     font-size: 0.88rem;
     color: #475569;
     line-height: 1.4;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    word-break: break-word;
 }
 
 /* Таблица омофонов пиньиня */
@@ -4876,11 +4872,7 @@ input:checked + .ts-slider:before { transform: translateX(20px); }
     font-size: 0.88rem;
     color: #475569;
     line-height: 1.4;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    word-break: break-word;
 }
 .bkrs-more-homophones-btn {
     display: inline-flex;
@@ -4902,6 +4894,41 @@ input:checked + .ts-slider:before { transform: translateX(20px); }
     border-color: #0284c7;
     color: #0284c7;
     transform: translateY(-1px);
+}
+
+/* Раскрывающийся текст переводов БКРС */
+.bkrs-expandable-wrap {
+    position: relative;
+    width: 100%;
+}
+.bkrs-expandable-trans {
+    line-height: 1.45;
+    word-break: break-word;
+}
+.bkrs-expandable-trans.is-clamped {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.bkrs-toggle-expand-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    padding: 3px 0;
+    margin-top: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #8E24AA;
+    cursor: pointer;
+    font-family: inherit;
+    transition: color 0.15s;
+}
+.bkrs-toggle-expand-btn:hover {
+    color: #ab47bc;
+    text-decoration: underline;
 }
 
 /* Карточка Морфологии */
@@ -5433,11 +5460,8 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     font-size: 0.84rem;
     color: #666;
     margin-top: 4px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
     line-height: 1.4;
+    word-break: break-word;
 }
 .bkrs-comp-arrow {
     color: #bbb;
@@ -6110,11 +6134,8 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     font-size: 0.84rem;
     color: #64748b;
     margin-top: 4px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
     line-height: 1.4;
+    word-break: break-word;
 }
 .bkrs-comp-arrow {
     color: #cbd5e1;
@@ -7608,9 +7629,8 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     font-size: 0.8rem !important;
     color: #475569 !important;
     line-height: 1.45 !important;
-    max-height: 140px !important;
-    overflow-y: auto !important;
     margin-bottom: 6px !important;
+    word-break: break-word !important;
 }
 .bkrs-col-actions {
     display: flex !important;
@@ -24686,6 +24706,51 @@ const BkrsDB = window.BkrsDB = {
             }
         }
 
+        function renderExpandableTrans(textHtml, className) {
+            if (!textHtml) return '';
+            const cName = className ? ' ' + className : '';
+            return '<div class="bkrs-expandable-wrap">' +
+                '<div class="bkrs-expandable-trans' + cName + '">' + textHtml + '</div>' +
+                '<button type="button" class="bkrs-toggle-expand-btn" style="display:none;"><i class="fa-solid fa-chevron-down" style="font-size:0.75rem;"></i> <span>Показать полностью</span></button>' +
+            '</div>';
+        }
+
+        function initExpandableTranslations(container) {
+            if (!container) return;
+            container.querySelectorAll('.bkrs-expandable-wrap').forEach(wrap => {
+                const textEl = wrap.querySelector('.bkrs-expandable-trans');
+                const btn = wrap.querySelector('.bkrs-toggle-expand-btn');
+                if (!textEl || !btn) return;
+
+                textEl.classList.remove('is-clamped');
+                const fullHeight = textEl.scrollHeight;
+                const computed = window.getComputedStyle(textEl);
+                const lineHeight = parseFloat(computed.lineHeight) || (parseFloat(computed.fontSize) * 1.45) || 20;
+
+                if (fullHeight > lineHeight * 5.5) {
+                    textEl.classList.add('is-clamped');
+                    btn.style.display = 'inline-flex';
+                    btn.innerHTML = '<i class="fa-solid fa-chevron-down" style="font-size:0.75rem;"></i> <span>Показать полностью</span>';
+                } else {
+                    textEl.classList.remove('is-clamped');
+                    btn.style.display = 'none';
+                }
+
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    const isClamped = textEl.classList.contains('is-clamped');
+                    if (isClamped) {
+                        textEl.classList.remove('is-clamped');
+                        btn.innerHTML = '<i class="fa-solid fa-chevron-up" style="font-size:0.75rem;"></i> <span>Свернуть</span>';
+                    } else {
+                        textEl.classList.add('is-clamped');
+                        btn.innerHTML = '<i class="fa-solid fa-chevron-down" style="font-size:0.75rem;"></i> <span>Показать полностью</span>';
+                    }
+                };
+            });
+        }
+
         function formatBkrsColumnTrans(raw) {
             if (!raw) return '<span style="color:#94a3b8;font-style:italic;">перевод не найден</span>';
             const parsed = parseBkrsArticle(raw).mainDef;
@@ -24693,14 +24758,6 @@ const BkrsDB = window.BkrsDB = {
             let clean = parsed.replace(/<br\s*\/?>/gi, ' · ');
             clean = clean.replace(/<[^>]+>/g, '');
             clean = clean.replace(/&nbsp;/gi, ' ').replace(/\s+/g, ' ').trim();
-            if (clean.length > 90) {
-                const cutIdx = clean.lastIndexOf(' ', 90);
-                if (cutIdx > 50) {
-                    clean = clean.substring(0, cutIdx).replace(/[\s,;·\.\-]+$/, '') + '...';
-                } else {
-                    clean = clean.substring(0, 90).trim() + '...';
-                }
-            }
             return escapeHtml(clean);
         }
 
@@ -24742,6 +24799,7 @@ const BkrsDB = window.BkrsDB = {
 
             resultsList.innerHTML = html;
             bindCardEvents(resultsList);
+            initExpandableTranslations(resultsList);
         }
 
         async function renderUnifiedResults(data) {
@@ -24831,7 +24889,7 @@ const BkrsDB = window.BkrsDB = {
                 html += '</div>';
                 if (item.fullDef && item.fullDef !== item.ruWord) {
                     html += '<div style="margin-top: 10px; font-size: 0.95rem; color: #334155; line-height: 1.55; white-space: pre-wrap;">' +
-                        escapeHtml(item.fullDef) +
+                        renderExpandableTrans(escapeHtml(item.fullDef)) +
                     '</div>';
                 }
                 html += '</div>';
@@ -24844,7 +24902,7 @@ const BkrsDB = window.BkrsDB = {
                 html += '<div class="bkrs-section-title" id="sec-satellites"><i class="fa-solid fa-satellite-dish"></i> Сателлиты и специализированные контексты:</div>';
                 html += '<div class="bkrs-satellites-card">';
                 for (const sat of satellites) {
-                    html += '<div class="bkrs-satellite-item"><i class="fa-solid fa-chevron-right" style="color:#c084fc;font-size:0.75rem;"></i> ' + escapeHtml(sat) + '</div>';
+                    html += '<div class="bkrs-satellite-item"><i class="fa-solid fa-chevron-right" style="color:#c084fc;font-size:0.75rem;"></i> ' + renderExpandableTrans(escapeHtml(sat)) + '</div>';
                 }
                 html += '</div>';
             }
@@ -24857,13 +24915,13 @@ const BkrsDB = window.BkrsDB = {
                 html += '<div class="bkrs-zhwords-grid">';
                 for (const zw of inZhWords) {
                     const pyColored = renderColoredPinyin(zw.pinyin || '');
-                    const cleanTr = (zw.trans || '').replace(/<[^>]+>/g, ' ').substring(0, 80);
+                    const cleanTr = (zw.trans || '').replace(/<[^>]+>/g, ' ').trim();
                     html += '<div class="bkrs-zhword-card" data-word="' + escapeHtml(zw.word) + '" title="Нажмите, чтобы открыть статью «' + escapeHtml(zw.word) + '»">' +
                         '<div class="bkrs-zhword-top">' +
                             '<span class="bkrs-zhword-zh">' + escapeHtml(zw.word) + '</span>' +
                             '<span class="bkrs-zhword-py">' + pyColored + '</span>' +
                         '</div>' +
-                        '<div class="bkrs-zhword-trans">' + escapeHtml(cleanTr || 'Китайский словарный эквивалент') + '</div>' +
+                        renderExpandableTrans(escapeHtml(cleanTr || 'Китайский словарный эквивалент'), 'bkrs-zhword-trans') +
                     '</div>';
                 }
                 html += '</div>';
@@ -24889,7 +24947,9 @@ const BkrsDB = window.BkrsDB = {
                         html += '</div>';
                     }
                     if (rw.fullDef && rw.fullDef !== rw.ruWord) {
-                        html += '<div style="margin-top: 8px; font-size: 0.88rem; color: #64748b; line-height: 1.45;">' + escapeHtml(rw.fullDef.substring(0, 160)) + '</div>';
+                        html += '<div style="margin-top: 8px; font-size: 0.88rem; color: #64748b; line-height: 1.45;">' +
+                            renderExpandableTrans(escapeHtml(rw.fullDef)) +
+                        '</div>';
                     }
                     html += '</div>';
                 }
@@ -24905,7 +24965,7 @@ const BkrsDB = window.BkrsDB = {
                 for (let i = 0; i < exactCards.length; i++) {
                     const c = exactCards[i];
                     const pyColored = renderColoredPinyin(c.pinyin || '');
-                    const cleanTr = (c.trans || '').replace(/<[^>]+>/g, ' ').replace(/Пример:.*$/g, '').substring(0, 80);
+                    const cleanTr = (c.trans || '').replace(/<[^>]+>/g, ' ').replace(/Пример:.*$/g, '').trim();
                     const isHidden = (i >= initialLimit);
                     html += '<div class="bkrs-homophone-item' + (isHidden ? ' bkrs-homophone-extra' : '') + '"' +
                         (isHidden ? ' style="display:none;"' : '') +
@@ -24917,7 +24977,7 @@ const BkrsDB = window.BkrsDB = {
                                 '<i class="fa-solid fa-volume-high"></i>' +
                             '</button>' +
                         '</div>' +
-                        '<div class="bkrs-homophone-trans">' + escapeHtml(cleanTr || 'Словарная статья') + '</div>' +
+                        renderExpandableTrans(escapeHtml(cleanTr || 'Словарная статья'), 'bkrs-homophone-trans') +
                     '</div>';
                 }
                 html += '</div>';
@@ -24947,14 +25007,14 @@ const BkrsDB = window.BkrsDB = {
                 html += '<div class="bkrs-compounds-grid">';
                 for (const c of compoundCards) {
                     const pyColored = renderColoredPinyin(c.pinyin || '');
-                    const shortTrans = c.trans.replace(/Пример:.*$/g, '').substring(0, 65);
+                    const cleanTr = (c.trans || '').replace(/Пример:.*$/g, '').trim();
                     html += '<div class="bkrs-compound-item" data-word="' + escapeHtml(c.word) + '" title="Нажмите, чтобы открыть статью">' +
                         '<div style="min-width: 0; flex: 1;">' +
                             '<div style="display: flex; align-items: baseline; gap: 8px;">' +
                                 '<span class="bkrs-comp-zh">' + escapeHtml(c.word) + '</span>' +
                                 '<span class="bkrs-comp-py">' + pyColored + '</span>' +
                             '</div>' +
-                            '<div class="bkrs-comp-trans">' + escapeHtml(shortTrans) + '</div>' +
+                            renderExpandableTrans(escapeHtml(cleanTr), 'bkrs-comp-trans') +
                         '</div>' +
                         '<div class="bkrs-comp-arrow"><i class="fa-solid fa-chevron-right"></i></div>' +
                     '</div>';
@@ -25012,8 +25072,11 @@ const BkrsDB = window.BkrsDB = {
                                     try {
                                         const entry = await BkrsDB.lookupWord(w);
                                         if (entry && entry.trans) {
-                                            const clean = entry.trans.replace(/<[^>]+>/g, ' ').replace(/Пример:.*$/g, '').substring(0, 80);
-                                            if (clean) transEl.textContent = clean;
+                                            const clean = entry.trans.replace(/<[^>]+>/g, ' ').replace(/Пример:.*$/g, '').trim();
+                                            if (clean) {
+                                                transEl.textContent = clean;
+                                                initExpandableTranslations(el);
+                                            }
                                         }
                                     } catch (e) {}
                                 }
