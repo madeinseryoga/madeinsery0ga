@@ -23853,6 +23853,7 @@ const BkrsDB = window.BkrsDB = {
             let examplesResults = [];
             let sentenceData = null;
             let dabruksResults = [];
+            let unverifiedToneNotice = null;
 
             // ==========================================
             // CASE A: CHINESE QUERY (大БКРС)
@@ -24175,7 +24176,8 @@ const BkrsDB = window.BkrsDB = {
             // ==========================================
             } else {
                 const plain = normalizeLatinPinyin(query);
-                const hasTones = /[1-5āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]/.test(query);
+                const querySyllables = parsePinyinQuery(query);
+                const hasTones = querySyllables.some(s => s.tone !== null);
                 if (plain) {
                     const pm = await this.loadPinyinMap();
                     const wordsFromMap = (pm && pm[plain]) ? pm[plain] : [];
@@ -24188,21 +24190,73 @@ const BkrsDB = window.BkrsDB = {
                         wordsSet.add(m.word);
                     }
 
-                    // Pre-load needed buckets ONLY for the first batch of words (16 items)
-                    const wordsArr = Array.from(wordsSet);
-                    const initialBatch = wordsArr.slice(0, 16);
-                    const neededBuckets = new Set();
-                    for (const w of initialBatch) {
-                        if ((!this.coreWords || !this.coreWords[w]) && (!this.singleChars || !this.singleChars[w])) {
-                            neededBuckets.add(this.getBucketId(w[0]));
+                    const allCandidates = Array.from(wordsSet);
+                    let finalWords = [];
+                    let unverifiedRemained = false;
+
+                    if (!hasTones) {
+                        finalWords = allCandidates;
+                        const initialBatch = finalWords.slice(0, 16);
+                        const neededBuckets = new Set();
+                        for (const w of initialBatch) {
+                            if ((!this.coreWords || !this.coreWords[w]) && (!this.singleChars || !this.singleChars[w])) {
+                                neededBuckets.add(this.getBucketId(w[0]));
+                            }
                         }
-                    }
-                    if (neededBuckets.size > 0) {
-                        await Promise.all(Array.from(neededBuckets).map(bId => this.loadBucket(bId).catch(() => null)));
+                        if (neededBuckets.size > 0) {
+                            await Promise.all(Array.from(neededBuckets).map(bId => this.loadBucket(bId).catch(() => null)));
+                        }
+                    } else {
+                        // 1. Filter words whose pinyin is ALREADY in memory (coreWords, singleChars)
+                        const unknownWords = [];
+                        for (const w of allCandidates) {
+                            let pinyin = null;
+                            if (this.coreWords && this.coreWords[w]) {
+                                pinyin = this.coreWords[w][0];
+                            } else if (this.singleChars && this.singleChars[w]) {
+                                pinyin = this.singleChars[w][0];
+                            }
+                            if (pinyin !== null) {
+                                if (matchPinyinTones(querySyllables, pinyin)) {
+                                    finalWords.push(w);
+                                }
+                            } else {
+                                unknownWords.push(w);
+                            }
+                        }
+
+                        // 2. Load up to 5 buckets for the remaining words
+                        if (unknownWords.length > 0) {
+                            const neededBuckets = new Set();
+                            for (const w of unknownWords) {
+                                neededBuckets.add(this.getBucketId(w[0]));
+                            }
+                            const bucketsToLoad = Array.from(neededBuckets).slice(0, 5);
+                            if (bucketsToLoad.length > 0) {
+                                await Promise.all(bucketsToLoad.map(bId => this.loadBucket(bId).catch(() => null)));
+                            }
+
+                            for (const w of unknownWords) {
+                                const bId = this.getBucketId(w[0]);
+                                const b = this.buckets[bId];
+                                if (b && b[w]) {
+                                    const pinyin = b[w][0];
+                                    if (matchPinyinTones(querySyllables, pinyin)) {
+                                        finalWords.push(w);
+                                    }
+                                } else if (!bucketsToLoad.includes(bId)) {
+                                    unverifiedRemained = true;
+                                }
+                            }
+                        }
+
+                        if (unverifiedRemained) {
+                            unverifiedToneNotice = 'Показаны слова, тон которых удалось проверить';
+                        }
                     }
 
                     const matches = [];
-                    for (const w of wordsSet) {
+                    for (const w of finalWords) {
                         let py = '', tr = '';
                         if (this.coreWords && this.coreWords[w]) {
                             py = this.coreWords[w][0];
@@ -24236,6 +24290,7 @@ const BkrsDB = window.BkrsDB = {
                 isChinese: isChinese,
                 isPinyin: (!isCyrillic && !isChinese),
                 hasTones: (!isCyrillic && !isChinese && /[1-5āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]/.test(query)),
+                toneNotice: unverifiedToneNotice,
                 sentence: sentenceData,
                 primaryRu: primaryRu,
                 satellites: satellitesList,
@@ -24346,6 +24401,108 @@ const BkrsDB = window.BkrsDB = {
         'me', 'ne', 'ge', 'ke', 'he', 'que', 'xue', 'jue', 'yue', 'shu', 'chu', 'zhu',
         'ru', 'lu', 'nu', 'gu', 'ku', 'hu', 'zu', 'cu', 'su', 'mu', 'fu', 'bu', 'pu'
     ]);
+
+    const DIACRITIC_TONE_MAP = {
+        'ā': ['a', 1], 'á': ['a', 2], 'ǎ': ['a', 3], 'à': ['a', 4],
+        'ē': ['e', 1], 'é': ['e', 2], 'ě': ['e', 3], 'è': ['e', 4],
+        'ī': ['i', 1], 'í': ['i', 2], 'ǐ': ['i', 3], 'ì': ['i', 4],
+        'ō': ['o', 1], 'ó': ['o', 2], 'ǒ': ['o', 3], 'ò': ['o', 4],
+        'ū': ['u', 1], 'ú': ['u', 2], 'ǔ': ['u', 3], 'ù': ['u', 4],
+        'ǖ': ['v', 1], 'ǘ': ['v', 2], 'ǚ': ['v', 3], 'ǜ': ['v', 4],
+        'ü': ['v', null], 'ê': ['e', null]
+    };
+
+    function parsePinyinQuery(str) {
+        if (!str) return [];
+        let s = str.trim().toLowerCase();
+        s = s.replace(/['’·\-]/g, ' ');
+
+        const chunks = s.split(/\s+/).filter(Boolean);
+        const parsedSyllables = [];
+
+        for (const chunk of chunks) {
+            let i = 0;
+            while (i < chunk.length) {
+                let bestSyl = null;
+                let bestLen = 0;
+                let detectedTone = null;
+                let consumedLen = 0;
+
+                for (let len = Math.min(6, chunk.length - i); len >= 1; len--) {
+                    const sub = chunk.substring(i, i + len);
+                    let base = '';
+                    let toneFromDiacritic = null;
+                    for (const ch of sub) {
+                        if (DIACRITIC_TONE_MAP[ch]) {
+                            base += DIACRITIC_TONE_MAP[ch][0];
+                            if (DIACRITIC_TONE_MAP[ch][1]) toneFromDiacritic = DIACRITIC_TONE_MAP[ch][1];
+                        } else {
+                            base += ch;
+                        }
+                    }
+                    base = base.replace(/ü/g, 'v');
+
+                    if (MANDARIN_SYLLABLES_SET.has(base)) {
+                        let tone = toneFromDiacritic;
+                        let extraLen = 0;
+                        if (i + len < chunk.length && /[0-5]/.test(chunk[i + len])) {
+                            const digit = parseInt(chunk[i + len], 10);
+                            tone = (digit === 0 || digit === 5) ? 5 : digit;
+                            extraLen = 1;
+                        }
+
+                        bestSyl = base;
+                        bestLen = len;
+                        detectedTone = tone;
+                        consumedLen = len + extraLen;
+                        break;
+                    }
+                }
+
+                if (bestSyl) {
+                    parsedSyllables.push({ syllable: bestSyl, tone: detectedTone });
+                    i += consumedLen;
+                } else {
+                    i++;
+                }
+            }
+        }
+
+        return parsedSyllables;
+    }
+
+    function matchPinyinTones(querySyllables, dictPinyinStr) {
+        if (!querySyllables || querySyllables.length === 0) return true;
+        if (!dictPinyinStr) return false;
+
+        const cleanStr = dictPinyinStr.replace(/[()[\]]/g, '');
+        const readings = cleanStr.split(/[,;/]/);
+        for (const reading of readings) {
+            const dictSyllables = parsePinyinQuery(reading);
+            if (dictSyllables.length !== querySyllables.length) continue;
+
+            let allMatch = true;
+            for (let i = 0; i < querySyllables.length; i++) {
+                const qs = querySyllables[i];
+                const ds = dictSyllables[i];
+                if (qs.syllable !== ds.syllable) {
+                    allMatch = false;
+                    break;
+                }
+                if (qs.tone !== null) {
+                    const cTone = (ds.tone === null) ? 5 : ds.tone;
+                    if (qs.tone !== cTone) {
+                        allMatch = false;
+                        break;
+                    }
+                }
+            }
+
+            if (allMatch) return true;
+        }
+
+        return false;
+    }
 
     function splitPinyinToSyllables(pinyinStr) {
         if (!pinyinStr) return [];
@@ -24833,10 +24990,14 @@ const BkrsDB = window.BkrsDB = {
             const totalMatches = exactCards.length + compoundCards.length + dabruksItems.length + exampleItems.length + inZhWords.length + inRuWords.length;
 
             if (totalMatches === 0) {
+                let emptyMsg = 'По запросу «<strong>' + escapeHtml(data.query) + '</strong>» ничего не найдено в базе БКРС.<br>' +
+                    '<span style="font-size: 0.88rem; color: #999; margin-top: 6px; display: inline-block;">Попробуйте поискать на пиньине или отдельными иероглифами.</span>';
+                if (data.toneNotice) {
+                    emptyMsg += '<div style="margin-top:12px;font-size:0.85rem;color:#64748b;font-style:italic;"><i class="fa-solid fa-circle-info"></i> ' + escapeHtml(data.toneNotice) + '</div>';
+                }
                 resultsList.innerHTML = '<div style="text-align: center; padding: 48px 16px; color: #888;">' +
                     '<i class="fa-solid fa-circle-question" style="font-size: 44px; opacity: 0.35; margin-bottom: 14px; display: block;"></i>' +
-                    'По запросу «<strong>' + escapeHtml(data.query) + '</strong>» ничего не найдено в базе БКРС.<br>' +
-                    '<span style="font-size: 0.88rem; color: #999; margin-top: 6px; display: inline-block;">Попробуйте поискать на пиньине или отдельными иероглифами.</span>' +
+                    emptyMsg +
                 '</div>';
                 countSpan.textContent = 'Ничего не найдено';
                 return;
@@ -24976,6 +25137,9 @@ const BkrsDB = window.BkrsDB = {
             if (data.isPinyin && exactCards.length > 0) {
                 const initialLimit = 16;
                 html += '<div class="bkrs-section-title" id="sec-homophones"><i class="fa-solid fa-layer-group"></i> Таблица омофонов «' + escapeHtml(data.query) + '» (' + exactCards.length + '):</div>';
+                if (data.toneNotice) {
+                    html += '<div class="bkrs-tone-notice" style="color:#64748b;font-size:0.88rem;margin:-6px 0 12px;font-style:italic;"><i class="fa-solid fa-circle-info"></i> ' + escapeHtml(data.toneNotice) + '</div>';
+                }
                 html += '<div class="bkrs-homophones-grid">';
                 for (let i = 0; i < exactCards.length; i++) {
                     const c = exactCards[i];
