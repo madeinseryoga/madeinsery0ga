@@ -7096,19 +7096,34 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     margin-bottom: 8px;
     line-height: 1.3;
 }
-.bkrs-phrase-speak-btn {
+.bkrs-phrase-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+.bkrs-phrase-act-btn {
     background: none;
     border: none;
     cursor: pointer;
     color: #8E24AA;
     font-size: 0.95rem;
-    padding: 4px;
-    border-radius: 6px;
-    transition: background 0.15s ease;
-    flex-shrink: 0;
+    padding: 6px;
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    box-sizing: border-box;
 }
-.bkrs-phrase-speak-btn:hover {
+.bkrs-phrase-act-btn:hover {
     background: rgba(142, 36, 170, 0.1);
+    transform: translateY(-1px);
+}
+.bkrs-phrase-act-btn:active {
+    transform: scale(0.92);
 }
 .bkrs-phrase-card-trans {
     font-size: 0.88rem;
@@ -25303,9 +25318,17 @@ const BkrsDB = window.BkrsDB = {
                             '<span class="bkrs-phrase-card-zh" data-word="' + escapeHtml(b.word) + '">' + escapeHtml(b.word) + '</span>' +
                             (b.trailingPunct ? '<span class="bkrs-phrase-punct">' + escapeHtml(b.trailingPunct) + '</span>' : '') +
                         '</div>' +
-                        '<button type="button" class="bkrs-phrase-speak-btn" data-speak="' + escapeHtml(b.word) + '" title="Озвучить слово">' +
-                            '<i class="fa-solid fa-volume-high"></i>' +
-                        '</button>' +
+                        '<div class="bkrs-phrase-card-actions">' +
+                            '<button type="button" class="bkrs-phrase-act-btn bkrs-speak-btn" data-speak="' + escapeHtml(b.word) + '" title="Озвучить слово">' +
+                                '<i class="fa-solid fa-volume-high"></i>' +
+                            '</button>' +
+                            '<button type="button" class="bkrs-phrase-act-btn bkrs-copy-btn" data-copy="' + escapeHtml(b.word) + '" title="Копировать иероглифы">' +
+                                '<i class="fa-regular fa-copy"></i>' +
+                            '</button>' +
+                            '<button type="button" class="bkrs-phrase-act-btn bkrs-draw-btn" data-word="' + escapeHtml(b.word) + '" title="Посмотреть написание по чертам">' +
+                                '<i class="fa-solid fa-pen-nib"></i>' +
+                            '</button>' +
+                        '</div>' +
                     '</div>' +
                     '<div class="bkrs-phrase-card-py">' + pyColored + '</div>' +
                     '<div class="bkrs-phrase-card-trans">' +
@@ -25323,7 +25346,7 @@ const BkrsDB = window.BkrsDB = {
             // Clicking a card opens word dictionary article and remembers sentence
             resultsList.querySelectorAll('.bkrs-phrase-card').forEach(card => {
                 card.addEventListener('click', (e) => {
-                    if (e.target.closest('[data-speak]') || e.target.closest('.bkrs-toggle-expand-btn')) return;
+                    if (e.target.closest('button') || e.target.closest('.bkrs-phrase-act-btn') || e.target.closest('.bkrs-toggle-block-btn') || e.target.closest('.bkrs-toggle-expand-btn')) return;
                     const w = card.getAttribute('data-word');
                     if (w) {
                         lastSentenceData = data;
