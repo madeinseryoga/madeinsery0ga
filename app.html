@@ -6896,84 +6896,55 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
 /* Beautiful, robust styling for BKRS Sentence breakdown view */
 .bkrs-sentence-banner {
     display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
+    flex-direction: column !important;
     background: #ffffff !important;
     border: 1.5px solid #ebdcf5 !important;
-    border-radius: 18px !important;
-    padding: 16px 20px !important;
+    border-radius: 16px !important;
+    padding: 14px 16px !important;
     margin-bottom: 16px !important;
     box-shadow: 0 4px 14px rgba(142, 36, 170, 0.05) !important;
-    flex-wrap: wrap !important;
-    gap: 12px !important;
+    gap: 10px !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    overflow: hidden !important;
 }
 .bkrs-sentence-raw {
-    font-size: 1.6rem !important;
+    font-size: 1.45rem !important;
     font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', 'STSong', serif !important;
     font-weight: 400 !important;
     color: #1e1b4b !important;
     word-break: break-word !important;
+    text-align: left !important;
+    width: 100% !important;
+    line-height: 1.4 !important;
 }
 .bkrs-sentence-actions {
-    display: flex !important;
-    gap: 10px !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
     align-items: center !important;
-    flex-wrap: wrap !important;
-}
-.bkrs-sentence-btn.active {
-    background: #8E24AA !important;
-    border-color: #8E24AA !important;
-    color: #ffffff !important;
-}
-.bkrs-sentence-trans-box {
-    margin-top: 14px;
-    padding: 12px 16px;
-    background: #f5f3ff;
-    border: 1.5px solid #ddd6fe;
-    border-radius: 12px;
-    font-size: 1.05rem;
-    line-height: 1.5;
-    color: #2e1065;
-    text-align: left;
-}
-.bkrs-trans-content {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-}
-.bkrs-trans-quote-icon {
-    color: #8E24AA;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-}
-.bkrs-trans-text {
-    font-weight: 500;
-}
-.bkrs-trans-loading {
-    color: #7e22ce;
-    font-size: 0.95rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
 }
 .bkrs-sentence-btn {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 8px !important;
-    height: 40px !important;
-    padding: 0 16px !important;
-    border-radius: 12px !important;
+    gap: 5px !important;
+    height: 38px !important;
+    padding: 0 4px !important;
+    border-radius: 10px !important;
     border: 1.5px solid #ebdcf5 !important;
     background: #ffffff !important;
     color: #7e22ce !important;
     font-weight: 700 !important;
-    font-size: 0.92rem !important;
+    font-size: 0.85rem !important;
     cursor: pointer !important;
     white-space: nowrap !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    text-align: center !important;
     transition: all 0.15s ease !important;
 }
 .bkrs-sentence-btn:hover {
@@ -6983,73 +6954,47 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     transform: translateY(-1px) !important;
     box-shadow: 0 4px 12px rgba(142, 36, 170, 0.2) !important;
 }
-/* Структурированный нумерованный перевод и примеры (как на bkrs.info) */
-.bkrs-expandable-trans-block {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+.bkrs-sentence-btn.active {
+    background: #8E24AA !important;
+    border-color: #8E24AA !important;
+    color: #ffffff !important;
+}
+.bkrs-sentence-trans-box {
+    margin-top: 10px;
+    padding: 12px 14px;
+    background: #f5f3ff;
+    border: 1.5px solid #ddd6fe;
+    border-radius: 12px;
+    font-size: 0.98rem;
+    line-height: 1.5;
+    color: #2e1065;
+    text-align: left;
     box-sizing: border-box;
-}
-.bkrs-trans-collapsed, .bkrs-trans-full {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
     width: 100%;
-    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
 }
-.bkrs-sense-row {
-    display: block !important;
-    text-align: left !important;
-    font-size: 0.92rem !important;
-    line-height: 1.42 !important;
-    color: #334155 !important;
-    word-break: break-word !important;
-    margin-bottom: 4px !important;
-}
-.bkrs-sense-num {
-    font-weight: 700 !important;
-    color: #8E24AA !important;
-    margin-right: 5px !important;
-    display: inline !important;
-}
-.bkrs-sense-text {
-    display: inline !important;
-    color: #1e293b !important;
-    font-weight: 400 !important;
-}
-.bkrs-sense-ex-list {
-    margin-left: 18px;
-    margin-bottom: 4px;
+.bkrs-trans-content {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    align-items: baseline;
+    gap: 8px;
 }
-.bkrs-sense-ex-item {
-    font-size: 0.88rem;
-    color: #64748b;
-    line-height: 1.4;
-    word-break: break-word;
+.bkrs-trans-quote-icon {
+    color: #8E24AA;
+    font-size: 1.05rem;
+    flex-shrink: 0;
 }
-.bkrs-toggle-block-btn {
+.bkrs-trans-text {
+    font-weight: 500;
+}
+.bkrs-trans-loading {
+    color: #7e22ce;
+    font-size: 0.92rem;
+    font-weight: 600;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    background: none;
-    border: none;
-    padding: 6px 0 2px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #8E24AA;
-    cursor: pointer;
-    transition: opacity 0.15s ease;
-    align-self: flex-start;
-}
-.bkrs-toggle-block-btn:hover {
-    opacity: 0.8;
-    text-decoration: underline;
+    gap: 8px;
 }
 
-/* Пословный разбор фразы (новая адаптивная раскладка) */
+/* Пословный разбор фразы (компактные колонки как в БКРС) */
 .bkrs-phrase-container {
     max-width: 1100px;
     margin: 0 auto 24px;
@@ -7057,29 +7002,32 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     box-sizing: border-box;
 }
 .bkrs-phrase-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 14px;
-    width: 100%;
-    box-sizing: border-box;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
+    gap: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    align-items: stretch !important;
 }
-@media (max-width: 639px) {
+@media (max-width: 768px) {
     .bkrs-phrase-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 6px !important;
     }
 }
 .bkrs-phrase-card {
-    background: #ffffff;
-    border: 1.5px solid #ebdcf5;
-    border-radius: 14px;
-    padding: 14px 16px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 2px 8px rgba(142, 36, 170, 0.04);
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: all 0.15s ease;
+    background: #ffffff !important;
+    border: 1.5px solid #ebdcf5 !important;
+    border-radius: 12px !important;
+    padding: 8px 6px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: left !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+    box-shadow: 0 2px 6px rgba(142, 36, 170, 0.04) !important;
+    transition: all 0.15s ease !important;
     content-visibility: auto;
     contain-intrinsic-size: auto 160px;
 }
@@ -7088,103 +7036,225 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     contain-intrinsic-size: auto 160px;
 }
 .bkrs-phrase-card:hover {
-    border-color: #8E24AA;
-    box-shadow: 0 4px 14px rgba(142, 36, 170, 0.12);
-    transform: translateY(-1px);
+    border-color: #8E24AA !important;
+    box-shadow: 0 4px 14px rgba(142, 36, 170, 0.12) !important;
+    transform: translateY(-2px) !important;
 }
-.bkrs-phrase-card-header {
+.bkrs-phrase-card-word-row {
+    width: 100% !important;
+    margin-bottom: 2px !important;
+}
+.bkrs-phrase-card-word {
+    font-size: 1.35rem !important;
+    font-weight: 700 !important;
+    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', 'STSong', serif !important;
+    color: #1e1b4b !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: block !important;
+    text-align: left !important;
+    line-height: 1.22 !important;
+    letter-spacing: -0.5px !important;
+}
+.bkrs-phrase-card-sub {
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
-    margin-bottom: 4px !important;
-    gap: 6px !important;
+    margin-bottom: 6px !important;
+    gap: 2px !important;
     width: 100% !important;
 }
-.bkrs-phrase-zh-wrap {
-    display: flex !important;
-    align-items: baseline !important;
-    gap: 2px !important;
-    flex-wrap: nowrap !important;
-    white-space: nowrap !important;
-    min-width: 0 !important;
-    overflow: hidden !important;
-}
-.bkrs-phrase-card-zh {
-    font-size: 1.75rem !important;
-    font-weight: 400 !important;
-    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', 'STSong', serif !important;
-    color: #1e1b4b !important;
-    line-height: 1.15 !important;
-    white-space: nowrap !important;
-    display: inline-block !important;
-    transition: color 0.15s ease !important;
-}
-@media (max-width: 639px) {
-    .bkrs-phrase-card-zh {
-        font-size: 1.6rem !important;
-    }
-}
-.bkrs-phrase-card-zh:hover {
-    color: #8E24AA !important;
-    text-decoration: underline !important;
-}
-.bkrs-phrase-punct {
-    font-size: 1.6rem !important;
-    font-weight: 400 !important;
-    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', 'STSong', serif !important;
-    color: #94a3b8 !important;
-    user-select: none !important;
-    line-height: 1.15 !important;
-    padding: 0 2px !important;
-    cursor: default !important;
-    pointer-events: none !important;
-}
 .bkrs-phrase-card-py {
-    font-size: 1.0rem !important;
+    font-size: 0.82rem !important;
     font-weight: 700 !important;
     font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
     color: #7e22ce !important;
-    margin-bottom: 8px !important;
-    line-height: 1.25 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    min-width: 0 !important;
+    flex: 1 !important;
     text-align: left !important;
+    line-height: 1.2 !important;
 }
 .bkrs-phrase-card-actions {
     display: flex !important;
     align-items: center !important;
-    gap: 4px !important;
+    gap: 2px !important;
     flex-shrink: 0 !important;
 }
 .bkrs-phrase-act-btn {
-    background: none !important;
-    border: none !important;
-    cursor: pointer !important;
-    color: #8E24AA !important;
-    font-size: 0.88rem !important;
-    padding: 4px !important;
-    width: 32px !important;
-    height: 32px !important;
-    min-width: 32px !important;
-    min-height: 32px !important;
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    padding: 0 !important;
+    border-radius: 4px !important;
+    border: 1px solid #ebdcf5 !important;
+    background: #faf5ff !important;
+    color: #7e22ce !important;
+    font-size: 0.68rem !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    border-radius: 8px !important;
-    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease !important;
+    cursor: pointer !important;
+    transition: all 0.12s ease !important;
     box-sizing: border-box !important;
 }
 .bkrs-phrase-act-btn:hover {
-    background: rgba(142, 36, 170, 0.1);
-    transform: translateY(-1px);
-}
-.bkrs-phrase-act-btn:active {
-    transform: scale(0.92);
+    background: #8E24AA !important;
+    color: #ffffff !important;
+    border-color: #8E24AA !important;
 }
 .bkrs-phrase-card-trans {
-    font-size: 0.88rem;
-    color: #334155;
-    line-height: 1.45;
-    flex: 1;
+    width: 100% !important;
+    text-align: left !important;
+    flex: 1 !important;
 }
+.bkrs-compact-senses {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+    width: 100% !important;
+    text-align: left !important;
+}
+.bkrs-compact-senses .bkrs-sense-row {
+    font-size: 0.76rem !important;
+    line-height: 1.32 !important;
+    color: #334155 !important;
+    text-align: left !important;
+    word-break: break-word !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.bkrs-compact-senses .bkrs-sense-num {
+    font-weight: 700 !important;
+    color: #7e22ce !important;
+    margin-right: 3px !important;
+    display: inline !important;
+}
+.bkrs-compact-senses .bkrs-sense-text {
+    color: #334155 !important;
+    display: inline !important;
+}
+
+/* Полная словарная статья с примерами прямо под пунктами (как в БКРС) */
+.bkrs-full-article-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    text-align: left;
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+.bkrs-article-section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid #ebdcf5;
+    font-weight: 700;
+}
+.bkrs-article-sub-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    font-weight: 700;
+}
+.bkrs-rom-badge {
+    background: #8E24AA;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 6px;
+    display: inline-block;
+}
+.bkrs-pos-tag {
+    background: #f3e8ff;
+    color: #7e22ce;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 6px;
+    display: inline-block;
+}
+.bkrs-sub-letter {
+    font-weight: 800;
+    color: #6b21a8;
+    font-size: 0.95rem;
+}
+.bkrs-sec-intro {
+    font-size: 0.92rem;
+    color: #475569;
+}
+.bkrs-sense-item {
+    display: flex;
+    flex-direction: column;
+    margin: 4px 0;
+    text-align: left;
+}
+.bkrs-sense-head {
+    font-size: 0.94rem;
+    line-height: 1.48;
+    color: #1e293b;
+    text-align: left;
+    word-break: break-word;
+}
+.bkrs-sense-num {
+    font-weight: 700;
+    color: #8E24AA;
+    margin-right: 4px;
+}
+.bkrs-sense-def {
+    color: #1e293b;
+    font-weight: 400;
+}
+.bkrs-inline-example {
+    display: flex !important;
+    align-items: baseline !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    margin: 4px 0 4px 18px !important;
+    padding: 4px 8px !important;
+    background: rgba(245, 243, 255, 0.45) !important;
+    border-left: 3px solid #c084fc !important;
+    border-radius: 0 6px 6px 0 !important;
+    font-size: 0.90rem !important;
+    line-height: 1.42 !important;
+}
+.bkrs-ex-zh {
+    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', 'STSong', serif !important;
+    color: #4c1d95 !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    transition: color 0.12s ease !important;
+}
+.bkrs-ex-zh:hover {
+    color: #8E24AA !important;
+    text-decoration: underline !important;
+}
+.bkrs-ex-zh i {
+    font-size: 0.72rem !important;
+    opacity: 0.7 !important;
+}
+.bkrs-ex-ru {
+    color: #475569 !important;
+}
+.bkrs-ref-link {
+    color: #8E24AA;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .bkrs-back-phrase-wrap {
     margin-bottom: 16px;
 }
@@ -11555,7 +11625,12 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         align-items: center !important;
         justify-content: center !important;
         min-height: 52px !important;
-        margin-bottom: 16px !important;
+        margin: 8px 12px 14px 12px !important;
+        border-radius: 16px !important;
+        border: 1.5px solid #ebdcf5 !important;
+        background: #ffffff !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+        overflow: hidden !important;
     }
     #view-bkrs .hsk-header > .btn.back {
         position: absolute !important;
@@ -11636,8 +11711,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     .gen-header,
     .ts-header,
     .keys-header,
-    .hsk-header,
-    #view-bkrs .hsk-header {
+    .hsk-header {
         position: relative !important;
         display: flex !important;
         align-items: center !important;
@@ -24772,218 +24846,108 @@ const BkrsDB = window.BkrsDB = {
     window.renderColoredPinyin = renderColoredPinyin;
 
     // 4. Robust Parser & Rich Formatter for BKRS Articles (bkrs.info inspired)
-    function parseBkrsArticle(raw) {
-        if (!raw) return { mainDef: '', examples: [] };
-        let text = String(raw).replace(/<br\s*\/?>/gi, '\n');
-        text = text.replace(/\\\[/g, '[').replace(/\\\]/g, ']');
-        text = text.replace(/\*/g, '');
-        text = text.replace(/«\s*»/g, '');
+    function formatBkrsArticle(rawTrans) {
+        if (!rawTrans) return '';
+        let text = String(rawTrans).replace(/\\[/g, '[').replace(/\\]/g, ']')
+                                   .replace(/\*/g, '').replace(/«\s*»/g, '')
+                                   .trim();
 
-        // Strip leading pinyin if present
+        text = text.replace(/<br\s*\/?>/gi, '\n');
         text = text.replace(/^[a-züvāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜńňǹ\s,;\/\-]+\n/i, '');
 
-        const chunks = text.split(/(?=Пример:)/g);
-        const defPieces = [];
-        const examples = [];
+        // Separate Roman sections, POS headers, numbered senses, and examples onto separate lines
+        text = text.replace(/(?:^|\s+)(Пример:\s*)/g, '\nПример: ');
+        text = text.replace(/(?:^|\s+)([IVXLCDM]{1,6}\b(?!\s*век|\s*в\b)(?:\s*\([^)]+\))?(?:\s*[A-ZА-ЯЁ]\b)?)\s*(?:(\d+[)）\.])\s*)/g, '\n$1\n$2 ');
+        text = text.replace(/(?:^|\s+)(\([а-яёa-z\.]+\)\s*[A-ZА-ЯЁ]\b)\s*(?:(\d+[)）\.])\s*)/g, '\n$1\n$2 ');
+        text = text.replace(/(?:^|\s+)(\d+[)）\.])\s*/g, '\n$1 ');
 
-        const senseRegex = /(?:\n\s*|\s+)(?:(\d{1,2}\))\s+|([IVXLCDM]{1,6}\b(?!\s*век|\s*в\b)(?:\s*[\.\(\[а-яёa-z\u4e00-\u9fff\*]|\s+))|\((?:гл|сущ|прил|нареч|наречие|мест|счётн|счетн|союз|предл|предлог|частица|част|межд|уст|устар|разг|перен|книжн|жарг|диал|усл|вводн|собств)\.\)|\b([а-яёa-d]\))\s+)/;
+        const rawLines = text.split('\n').map(l => l.trim()).filter(Boolean);
 
-        for (let i = 0; i < chunks.length; i++) {
-            const chunk = chunks[i];
-            if (!chunk.startsWith('Пример:')) {
-                defPieces.push(chunk);
+        let html = '<div class="bkrs-full-article-body">';
+        let currentSenseOpen = false;
+
+        for (const line of rawLines) {
+            const romMatch = line.match(/^([IVXLCDM]{1,6})\b(?:\s*\(([^)]+)\))?(?:\s*([A-ZА-ЯЁ]\b))?(.*)$/);
+            if (romMatch && !/^\d+\)/.test(line)) {
+                if (currentSenseOpen) { html += '</div>'; currentSenseOpen = false; }
+                const rom = romMatch[1];
+                const pos = romMatch[2] || '';
+                const sub = romMatch[3] || '';
+                const rest = (romMatch[4] || '').trim();
+                html += '<div class="bkrs-article-section-header">';
+                html += '<span class="bkrs-rom-badge">' + escapeHtml(rom) + '</span>';
+                if (pos) html += ' <span class="bkrs-pos-tag">' + escapeHtml(pos) + '</span>';
+                if (sub) html += ' <span class="bkrs-sub-letter">' + escapeHtml(sub) + '</span>';
+                if (rest) html += ' <span class="bkrs-sec-intro">' + escapeHtml(rest) + '</span>';
+                html += '</div>';
                 continue;
             }
 
-            const body = chunk.substring(7).trim();
-            const m = body.match(senseRegex);
-            if (m) {
-                const exBody = body.substring(0, m.index).trim();
-                const rest = body.substring(m.index).trim();
-                if (exBody) examples.push(exBody);
-                if (rest) defPieces.push(rest);
-            } else {
-                examples.push(body);
-            }
-        }
-
-        let mainDef = defPieces.join(' ').replace(/\s+/g, ' ').trim();
-        return { mainDef, examples };
-    }
-
-    window.formatBkrsArticle = formatBkrsArticle;
-    function formatBkrsArticle(text, includeExamplesAccordion = true) {
-        if (!text) return '';
-        const { mainDef: rawDef, examples } = parseBkrsArticle(text);
-
-        let cleanRaw = rawDef.replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-
-        const posBadges = {
-            'гл.': 'badge-verb', 'гл': 'badge-verb',
-            'сущ.': 'badge-noun', 'сущ': 'badge-noun',
-            'прил.': 'badge-adj', 'прил': 'badge-adj',
-            'нареч.': 'badge-adv', 'нареч': 'badge-adv', 'наречие': 'badge-adv',
-            'мест.': 'badge-pron', 'мест': 'badge-pron',
-            'счётн.': 'badge-meas', 'счётное слово': 'badge-meas', 'счетн.': 'badge-meas', 'счётн': 'badge-meas',
-            'сущ. /счётное слово': 'badge-noun', 'сущ. / счётное слово': 'badge-noun',
-            'союз': 'badge-pos', 'предл.': 'badge-pos', 'предлог': 'badge-pos',
-            'частица': 'badge-pos', 'част.': 'badge-pos',
-            'межд.': 'badge-pos', 'междометие': 'badge-pos',
-            'уст.': 'badge-arch', 'устар.': 'badge-arch',
-            'разг.': 'badge-pos', 'перен.': 'badge-pos',
-            'книжн.': 'badge-pos', 'диал.': 'badge-pos', 'жарг.': 'badge-pos',
-            'усл.': 'badge-pos', 'усл': 'badge-pos', 'вводн.': 'badge-pos', 'собств.': 'badge-pos',
-            'г.': 'badge-geo', 'о.': 'badge-geo', 'п.': 'badge-geo'
-        };
-
-        function formatSenseListHtml(sensesStr) {
-            if (!sensesStr) return '';
-            if (/(?:^|\s)\d+\)\s*/.test(sensesStr)) {
-                const parts = sensesStr.split(/(?:^|\s+)(?=\d+\)\s*)/);
-                let html = '<div class="bkrs-senses-list">';
-                for (const part of parts) {
-                    const trimmed = part.trim();
-                    if (!trimmed) continue;
-                    const match = trimmed.match(/^(\d+\))\s*([\s\S]*)$/);
-                    if (match) {
-                        html += '<div class="bkrs-sense-item"><span class="bkrs-sense-num">' + match[1] + '</span><div class="bkrs-sense-text">' + match[2] + '</div></div>';
-                    } else {
-                        html += '<div class="bkrs-sense-intro">' + trimmed + '</div>';
-                    }
-                }
+            const posMatch = line.match(/^\(([а-яёa-z\.]+)\)\s*([A-ZА-ЯЁ]\b)?(.*)$/i);
+            if (posMatch && !/^\d+\)/.test(line)) {
+                if (currentSenseOpen) { html += '</div>'; currentSenseOpen = false; }
+                const pos = posMatch[1];
+                const sub = posMatch[2] || '';
+                const rest = (posMatch[3] || '').trim();
+                html += '<div class="bkrs-article-sub-header">';
+                html += '<span class="bkrs-pos-tag">' + escapeHtml(pos) + '</span>';
+                if (sub) html += ' <span class="bkrs-sub-letter">' + escapeHtml(sub) + '</span>';
+                if (rest) html += ' <span class="bkrs-sec-intro">' + escapeHtml(rest) + '</span>';
                 html += '</div>';
-                return html;
-            }
-            return '<div class="bkrs-sense-intro">' + sensesStr + '</div>';
-        }
-
-        // Проверяем наличие римских цифр (I, II, III, IV, V...) для разбивки на смысловые группы
-        const romRegex = /(?:^|\s+)([IVXLCDM]{1,6})(?=\s*(?:\(|[\sа-яёa-zА-ЯЁA-Z\.]))/g;
-        const romMatches = [...cleanRaw.matchAll(romRegex)];
-
-        let def = '';
-
-        if (romMatches.length >= 2 || (romMatches.length === 1 && romMatches[0].index < 10)) {
-            // Структурированное разбиение по римским цифрам: каждая группа идет с новой строки в отдельном блоке
-            const sections = [];
-            for (let i = 0; i < romMatches.length; i++) {
-                const cur = romMatches[i];
-                const next = romMatches[i + 1];
-                const startIdx = cur.index + cur[0].indexOf(cur[1]);
-                const endIdx = next ? (next.index + next[0].indexOf(next[1])) : cleanRaw.length;
-                const sectionContent = cleanRaw.substring(startIdx + cur[1].length, endIdx).trim();
-                sections.push({ rom: cur[1], content: sectionContent });
+                continue;
             }
 
-            let romGroupsHtml = '<div class="bkrs-roman-container">';
-            for (const sec of sections) {
-                let secContent = escapeHtml(sec.content);
+            const isExplicitEx = line.startsWith('Пример:');
+            const isImplicitEx = /^[\u4e00-\u9fff]/.test(line);
 
-                // Выделяем часть речи и вводную шапку до первого 1)
-                const senseMatch = secContent.match(/(?:^|\s+)(?=\d+\)\s*)/);
-                let intro = '';
-                let sensesText = '';
-
-                if (senseMatch && senseMatch.index !== undefined) {
-                    intro = secContent.substring(0, senseMatch.index).trim();
-                    sensesText = secContent.substring(senseMatch.index).trim();
-                } else {
-                    // Если нет нумерованных пунктов 1) 2), проверяем префикс части речи в скобках: (усл.), (сущ.)
-                    const posPrefixMatch = secContent.match(/^(\([^\)]+\))\s*(.*)$/);
-                    if (posPrefixMatch && posBadges[posPrefixMatch[1].replace(/[\(\)]/g, '').trim().toLowerCase()]) {
-                        intro = posPrefixMatch[1];
-                        sensesText = posPrefixMatch[2];
-                    } else {
-                        const plainPosMatch = secContent.match(/^([a-züvāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]+\s+)?((?:сущ|гл|прил|нареч|мест|союз|предл|частица|межд|уст|устар|разг|перен|книжн|жарг|диал|усл|вводн|собств)\.[^;,\s]*)\s*(.*)$/i);
-                        if (plainPosMatch) {
-                            intro = (plainPosMatch[1] || '') + plainPosMatch[2];
-                            sensesText = plainPosMatch[3];
-                        } else {
-                            intro = '';
-                            sensesText = secContent;
-                        }
-                    }
+            if (isExplicitEx || isImplicitEx) {
+                const exBody = isExplicitEx ? line.substring(7).trim() : line;
+                const cyrMatch = exBody.match(/[а-яА-ЯёЁ]/);
+                let zh = exBody;
+                let ru = '';
+                if (cyrMatch) {
+                    zh = exBody.substring(0, cyrMatch.index).trim();
+                    ru = exBody.substring(cyrMatch.index).trim();
                 }
 
-                // Оформляем бейджи ТОЛЬКО реальных частей речи, не превращая пояснительный текст в бейджи
-                let formattedIntro = intro.replace(/\(([^)]+)\)/g, (m, inner) => {
-                    const tag = inner.trim().toLowerCase();
-                    const cls = posBadges[tag];
-                    if (cls) {
-                        return '<span class="bkrs-pos-tag ' + cls + '">' + inner + '</span>';
-                    }
-                    return '(' + inner + ')';
+                const exHtml = '<div class="bkrs-inline-example">' +
+                    '<span class="bkrs-ex-zh" data-speak="' + escapeHtml(zh) + '" title="Озвучить пример">' + escapeHtml(zh) + ' <i class="fa-solid fa-volume-high"></i></span>' +
+                    (ru ? ' <span class="bkrs-ex-ru">' + escapeHtml(ru) + '</span>' : '') +
+                '</div>';
+
+                html += exHtml;
+                continue;
+            }
+
+            const senseMatch = line.match(/^(\d{1,2}\))\s*([\s\S]*)$/);
+            if (senseMatch) {
+                if (currentSenseOpen) { html += '</div>'; }
+                const num = senseMatch[1];
+                let defText = senseMatch[2].trim();
+
+                // Clickable references
+                defText = defText.replace(/«([^»]+)»/g, (m, word) => {
+                    return '<a href="#" class="bkrs-ref-link" data-search="' + escapeHtml(word) + '">«' + escapeHtml(word) + '»</a>';
                 });
 
-                // Ссылки в кавычках
-                formattedIntro = formattedIntro.replace(/«([^»]+)»/g, (m, w) => {
-                    return '<a href="#" class="bkrs-ref-link" data-search="' + escapeHtml(w) + '">«' + escapeHtml(w) + '»</a>';
-                });
-
-                if (sensesText) {
-                    sensesText = sensesText.replace(/«([^»]+)»/g, (m, w) => {
-                        return '<a href="#" class="bkrs-ref-link" data-search="' + escapeHtml(w) + '">«' + escapeHtml(w) + '»</a>';
-                    });
-                }
-
-                romGroupsHtml += '<div class="bkrs-roman-group">';
-                romGroupsHtml += '<div class="bkrs-roman-header"><span class="bkrs-rom-badge">' + sec.rom + '</span>' + (formattedIntro ? ' <span class="bkrs-roman-title">' + formattedIntro + '</span>' : '') + '</div>';
-                romGroupsHtml += formatSenseListHtml(sensesText);
-                romGroupsHtml += '</div>';
+                html += '<div class="bkrs-sense-item">';
+                html += '<div class="bkrs-sense-head">';
+                html += '<span class="bkrs-sense-num">' + escapeHtml(num) + '</span> ';
+                html += '<span class="bkrs-sense-def">' + defText + '</span>';
+                html += '</div>';
+                currentSenseOpen = true;
+                continue;
             }
-            romGroupsHtml += '</div>';
-            def = romGroupsHtml;
-        } else {
-            // Стандартное форматирование без римских цифр
-            def = escapeHtml(cleanRaw);
 
-            // POS badges
-            def = def.replace(/\((гл\.|сущ\.|прил\.|нареч\.|мест\.|счётн\.|союз|предл\.|частица|межд\.|уст\.|разг\.|перен\.|г\.|о\.|п\.)\)/g, (m, pos) => {
-                const cls = posBadges[pos] || 'badge-pos';
-                return '<span class="bkrs-pos-tag ' + cls + '">' + pos + '</span>';
-            });
-
-            // Clickable references
-            def = def.replace(/«([^»]+)»/g, (m, word) => {
-                return '<a href="#" class="bkrs-ref-link" data-search="' + escapeHtml(word) + '">«' + escapeHtml(word) + '»</a>';
-            });
-
-            def = formatSenseListHtml(def);
+            if (currentSenseOpen) { html += '</div>'; currentSenseOpen = false; }
+            html += '<div class="bkrs-sense-intro">' + escapeHtml(line) + '</div>';
         }
 
-        // Collapsible Examples Section (collapsed by default)
-        let examplesHtml = '';
-        if (examples.length > 0 && includeExamplesAccordion) {
-            const renderedEx = examples.map(ex => {
-                let clean = ex.replace(/^Пример:\s*/, '').trim();
-                const cyrillicMatch = clean.match(/[а-яА-ЯёЁ]/);
-                if (cyrillicMatch) {
-                    const splitIdx = cyrillicMatch.index;
-                    const ch = clean.substring(0, splitIdx).trim();
-                    const ru = clean.substring(splitIdx).trim();
-                    return '<div class="bkrs-example-item">' +
-                        '<div class="bkrs-ex-ch" data-speak="' + escapeHtml(ch) + '" title="Нажмите, чтобы озвучить">' + escapeHtml(ch) + ' <i class="fa-solid fa-volume-high"></i></div>' +
-                        '<div class="bkrs-ex-ru">' + escapeHtml(ru) + '</div>' +
-                    '</div>';
-                }
-                return '<div class="bkrs-example-item"><div class="bkrs-ex-ru">' + escapeHtml(clean) + '</div></div>';
-            }).join('');
-
-            examplesHtml = '<details class="bkrs-examples-details">' +
-                '<summary class="bkrs-examples-summary">' +
-                    '<span class="bkrs-ex-summary-left">' +
-                        '<i class="fa-solid fa-chevron-right bkrs-ex-chevron"></i> ' +
-                        '<span class="bkrs-ex-title">Примеры употребления</span> ' +
-                        '<span class="bkrs-ex-count">' + examples.length + '</span>' +
-                    '</span>' +
-                    '<span class="bkrs-ex-hint">нажмите, чтобы раскрыть</span>' +
-                '</summary>' +
-                '<div class="bkrs-examples-body">' + renderedEx + '</div>' +
-            '</details>';
-        }
-
-        return '<div class="bkrs-def-content">' + def + '</div>' + examplesHtml;
+        if (currentSenseOpen) { html += '</div>'; }
+        html += '</div>';
+        return html;
     }
+    window.formatBkrsArticle = formatBkrsArticle;
 
     // 5. BKRS View Initializer (Unified bkrs.info Search Model)
     function initBkrsView() {
@@ -25012,14 +24976,13 @@ const BkrsDB = window.BkrsDB = {
         let lastSentenceScrollY = 0;
         let isNavigatingFromPhrase = false;
 
-        async function restorePhraseView() {
-            if (!lastSentenceData) return;
-            const saved = lastSentenceData;
-            const savedScroll = lastSentenceScrollY;
-            lastSentenceData = null;
-            input.value = saved.query;
-            await renderSentenceView(saved);
-            window.scrollTo({ top: savedScroll, behavior: 'instant' });
+        async function restorePhraseView(targetData) {
+            const dataToRestore = targetData || lastSentenceData;
+            if (!dataToRestore) return;
+            lastSentenceData = dataToRestore;
+            input.value = dataToRestore.query;
+            await renderSentenceView(dataToRestore);
+            window.scrollTo({ top: lastSentenceScrollY || 0, behavior: 'instant' });
         }
 
         let searchSeq = 0;
@@ -25169,188 +25132,120 @@ const BkrsDB = window.BkrsDB = {
             return escapeHtml(clean);
         }
 
-        function parseBkrsStructured(rawTrans, pinyin) {
-            if (!rawTrans) return [];
-            let text = String(rawTrans)
-                .replace(/<br\s*\/?>/gi, '\n')
-                .replace(/<[^>]+>/g, '')
-                .replace(/&nbsp;/gi, ' ')
-                .replace(/\\\[/g, '[')
-                .replace(/\\\]/g, ']')
+        function cleanCompactSenseText(str) {
+            if (!str) return '';
+            let s = str
+                .replace(/<[^>]+>/g, ' ')
+                .replace(/\\[/g, '[').replace(/\\]/g, ']')
+                .replace(/Пример:[\s\S]*$/g, '')
+                .replace(/[\u4e00-\u9fff\u3000-\u303f\uff00-\uffef].*$/g, '')
                 .trim();
+
+            s = s.replace(/^[IVXLCDM]{1,6}\b(?:\s*\([^)]+\))?(?:\s*[A-ZА-ЯЁ]\b)?\s*/g, '');
+            s = s.replace(/^\([а-яёa-z\.]+\)\s*(?:[A-ZА-ЯЁ]\b)?\s*/gi, '');
+
+            const parts = s.split(';');
+            if (parts.length > 2 && s.length > 40) {
+                s = parts.slice(0, 2).join(';').trim();
+            }
+            s = s.replace(/\s*\([^)]*?(?:животно|механизм|напр\.|бушел|лиц|свойствен|квака|лаят|свисте).*?\)/gi, '');
+            s = s.replace(/\s+/g, ' ').trim();
+            if (s.length > 55) {
+                const cut = s.substring(0, 50);
+                const lastSpace = cut.lastIndexOf(' ');
+                s = (lastSpace > 25 ? cut.substring(0, lastSpace) : cut) + '...';
+            }
+            return s.trim();
+        }
+
+        function parseCompactSenses(rawTrans, pinyin) {
+            if (!rawTrans) return [];
+            let text = String(rawTrans).replace(/<br\s*\/?>/gi, '\n');
+            text = text.replace(/<[^>]+>/g, '');
+            text = text.replace(/&nbsp;/gi, ' ');
+            text = text.replace(/\\[/g, '[').replace(/\\]/g, ']');
+            text = text.replace(/\*/g, '');
 
             if (pinyin) {
                 const normPy = pinyin.trim().toLowerCase();
-                const firstLine = text.split('\n')[0].trim().toLowerCase();
-                if (firstLine === normPy) {
-                    text = text.substring(text.indexOf('\n') + 1).trim();
+                const lines = text.split('\n');
+                if (lines[0] && lines[0].trim().toLowerCase() === normPy) {
+                    text = lines.slice(1).join('\n').trim();
                 }
             }
-
-            function cleanSenseText(str) {
-                return str
-                    .replace(/^[IVXLCDM]{1,6}\s*(?:\([^)]+\))?\s*[A-ZА-Я]?\s*/g, '')
-                    .replace(/\s+/g, ' ')
-                    .trim();
-            }
+            text = text.replace(/^[a-züvāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜńňǹ\s,;\/\-]+\n/i, '');
 
             let normalized = text;
-            normalized = normalized.replace(/(?:^|\s+)([IVXLCDM]{1,6}\b(?!\s*век|\s*в\b)(?:\s*\([^)]+\))?(?:\s*[A-ZА-Я])?\s*)?(?:(\d+[)）\.])\s*)/g, '\n$1$2 ');
+            normalized = normalized.replace(/(?:^|\s+)([IVXLCDM]{1,6}\b(?!\s*век|\s*в\b)(?:\s*\([^)]+\))?(?:\s*[A-ZА-ЯЁ]\b)?\s*)?(?:(\d+[)）\.])\s*)/g, '\n$1$2 ');
             normalized = normalized.replace(/(?:^|\s+)(Пример:\s*)/g, '\nПример: ');
 
             const normLines = normalized.split('\n').map(l => l.trim()).filter(Boolean);
             const senses = [];
-            let currentSense = null;
             let autoNum = 1;
 
-            function pushSense(num, meaning) {
-                currentSense = {
-                    num: num || (autoNum++ + ')'),
-                    meaning: meaning.trim(),
-                    examples: []
-                };
-                senses.push(currentSense);
-            }
-
             for (const line of normLines) {
-                if (line.startsWith('Пример:')) {
-                    const exText = line.substring(7).trim();
-                    if (exText) {
-                        if (currentSense) {
-                            currentSense.examples.push(exText);
-                        } else {
-                            pushSense(null, '');
-                            currentSense.examples.push(exText);
-                        }
-                    }
-                    continue;
-                }
+                if (line.startsWith('Пример:')) continue;
+                if (/^[\u4e00-\u9fff]/.test(line)) continue;
 
                 const senseMatch = line.match(/^([IVXLCDM]{1,6}\b[^\d]*)?(\d+[)）\.])\s*([\s\S]*)$/);
                 if (senseMatch) {
                     const num = (autoNum++) + ')';
-                    const meaning = cleanSenseText(senseMatch[3]);
-                    pushSense(num, meaning);
+                    const cleaned = cleanCompactSenseText(senseMatch[3]);
+                    if (cleaned) senses.push({ num, text: cleaned });
                 } else {
-                    if (currentSense && /^[\u4e00-\u9fff]/.test(line)) {
-                        currentSense.examples.push(line);
-                    } else if (currentSense) {
-                        if (!currentSense.meaning) {
-                            currentSense.meaning = cleanSenseText(line);
-                        } else if (currentSense.examples.length === 0) {
-                            currentSense.meaning += ' ' + cleanSenseText(line);
-                        } else {
-                            currentSense.examples.push(line);
+                    const cleaned = cleanCompactSenseText(line);
+                    if (cleaned && !/^[IVXLCDM]+$/.test(cleaned) && !/^[a-z\s'āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]+$/i.test(cleaned)) {
+                        if (senses.length === 0) {
+                            senses.push({ num: '', text: cleaned });
+                        } else if (senses[senses.length - 1].text.length < 25) {
+                            senses[senses.length - 1].text += '; ' + cleaned;
                         }
-                    } else {
-                        pushSense(null, cleanSenseText(line));
                     }
                 }
             }
-
-            return senses.filter(s => s.meaning || s.examples.length > 0);
+            return senses;
         }
 
         function renderStructuredTransHtml(rawTrans, pinyin, options = {}) {
             if (!rawTrans) return '<span style="color:#94a3b8;font-style:italic;">перевод не найден</span>';
-            const senses = parseBkrsStructured(rawTrans, pinyin);
+            const senses = parseCompactSenses(rawTrans, pinyin);
             if (!senses || senses.length === 0) {
                 return '<span style="color:#94a3b8;font-style:italic;">перевод не найден</span>';
             }
-
-            // Compact mode for phrase breakdown cards (bkrs.info inspired: column of numbered senses, NO examples)
-            if (options.compact) {
-                let compactHtml = '<div class="bkrs-compact-senses">';
-                const limit = options.maxSenses || 7;
-                const list = senses.slice(0, limit);
-                for (const s of list) {
-                    compactHtml += '<div class="bkrs-sense-row">';
-                    if (s.num && senses.length > 1) {
-                        compactHtml += '<span class="bkrs-sense-num">' + escapeHtml(s.num) + '</span>';
-                    }
-                    compactHtml += '<span class="bkrs-sense-text">' + escapeHtml(s.meaning) + '</span>';
-                    compactHtml += '</div>';
-                }
-                if (senses.length > limit) {
-                    compactHtml += '<div class="bkrs-sense-more-hint" style="color:#8E24AA;font-size:0.80rem;font-weight:700;margin-top:4px;cursor:pointer;">...и ещё ' + (senses.length - limit) + ' знач.</div>';
-                }
-                compactHtml += '</div>';
-                return compactHtml;
-            }
-
-            const maxCollapsedSenses = options.maxCollapsedSenses || 4;
-            const hasMore = senses.length > maxCollapsedSenses || senses.some(s => s.examples.length > 0);
-
-            // 1. Collapsed view: only meanings, up to maxCollapsedSenses, NO examples
-            let collapsedHtml = '<div class="bkrs-trans-collapsed">';
-            const collapsedList = senses.slice(0, maxCollapsedSenses);
-            for (const s of collapsedList) {
-                collapsedHtml += '<div class="bkrs-sense-row">';
+            const limit = options.maxCollapsedSenses || (options.compact ? 7 : 4);
+            let html = '<div class="bkrs-compact-senses">';
+            for (const s of senses.slice(0, limit)) {
+                html += '<div class="bkrs-sense-row">';
                 if (s.num && senses.length > 1) {
-                    collapsedHtml += '<span class="bkrs-sense-num">' + escapeHtml(s.num) + '</span>';
+                    html += '<span class="bkrs-sense-num">' + escapeHtml(s.num) + '</span> ';
                 }
-                collapsedHtml += '<span class="bkrs-sense-text">' + escapeHtml(s.meaning) + '</span>';
-                collapsedHtml += '</div>';
+                html += '<span class="bkrs-sense-text">' + escapeHtml(s.text) + '</span>';
+                html += '</div>';
             }
-            collapsedHtml += '</div>';
-
-            if (!hasMore) {
-                return '<div class="bkrs-expandable-trans-block">' + collapsedHtml + '</div>';
+            if (senses.length > limit) {
+                html += '<div style="color:#8E24AA;font-size:0.75rem;font-weight:700;margin-top:2px;">...ещё ' + (senses.length - limit) + '</div>';
             }
-
-            // 2. Full view: all senses WITH examples underneath
-            let fullHtml = '<div class="bkrs-trans-full" style="display:none;">';
-            for (const s of senses) {
-                fullHtml += '<div class="bkrs-sense-row">';
-                if (s.num && senses.length > 1) {
-                    fullHtml += '<span class="bkrs-sense-num">' + escapeHtml(s.num) + '</span>';
-                }
-                fullHtml += '<span class="bkrs-sense-text">' + escapeHtml(s.meaning) + '</span>';
-                fullHtml += '</div>';
-
-                if (s.examples && s.examples.length > 0) {
-                    fullHtml += '<div class="bkrs-sense-ex-list">';
-                    for (const ex of s.examples) {
-                        fullHtml += '<div class="bkrs-sense-ex-item">' + escapeHtml(ex) + '</div>';
-                    }
-                    fullHtml += '</div>';
-                }
-            }
-            fullHtml += '</div>';
-
-            return '<div class="bkrs-expandable-trans-block">' +
-                collapsedHtml +
-                fullHtml +
-                '<button type="button" class="bkrs-toggle-block-btn"><i class="fa-solid fa-chevron-down"></i> <span>Показать полностью</span></button>' +
-            '</div>';
-        }
-
-        function formatPhraseWordTrans(rawTrans, pinyin) {
-            if (!rawTrans) return '<span style="color:#94a3b8;font-style:italic;">перевод не найден</span>';
-            let text = String(rawTrans).replace(/<br\s*\/?>/gi, '\n');
-            text = text.replace(/<[^>]+>/g, '');
-            text = text.replace(/&nbsp;/gi, ' ');
-            if (pinyin) {
-                const normPy = pinyin.trim().toLowerCase();
-                const lines = text.split('\n');
-                if (lines[0] && (lines[0].trim().toLowerCase() === normPy || (typeof stripTones === 'function' && stripTones(lines[0].trim().toLowerCase()) === stripTones(normPy)))) {
-                    text = lines.slice(1).join('\n').trim();
-                }
-            }
-            text = formatBkrsNumberedDef(text);
-            return text || '<span style="color:#94a3b8;font-style:italic;">перевод не найден</span>';
+            html += '</div>';
+            return html;
         }
 
         async function renderSentenceView(data) {
             const sent = data.sentence;
             countSpan.textContent = 'Пословный разбор фразы (' + sent.words.length + ' слов)';
 
+            // Push/replace phrase history state
+            try {
+                if (!history.state || history.state.screen !== 'bkrs_phrase') {
+                    history.replaceState({ app: 'chinese_platform', screen: 'bkrs_phrase', phraseData: data, query: data.query }, '');
+                }
+            } catch(e) {}
+
             let html = '<div class="bkrs-sentence-banner">' +
                 '<div class="bkrs-sentence-raw">' + escapeHtml(data.query) + '</div>' +
                 '<div class="bkrs-sentence-actions">' +
-                    '<button type="button" class="bkrs-sentence-btn bkrs-speak-btn" data-speak="' + escapeHtml(data.query) + '"><i class="fa-solid fa-volume-high"></i> Озвучить фразу</button>' +
-                    '<button type="button" class="bkrs-sentence-btn bkrs-copy-btn" data-copy="' + escapeHtml(data.query) + '"><i class="fa-regular fa-copy"></i> Копировать</button>' +
-                    '<button type="button" class="bkrs-sentence-btn bkrs-translate-sentence-btn" id="bkrs-translate-sentence-btn" title="Перевести предложение на русский язык"><i class="fa-solid fa-language"></i> Перевод</button>' +
+                    '<button type="button" class="bkrs-sentence-btn bkrs-speak-btn" data-speak="' + escapeHtml(data.query) + '" title="Озвучить фразу"><i class="fa-solid fa-volume-high"></i> <span>Озвучить</span></button>' +
+                    '<button type="button" class="bkrs-sentence-btn bkrs-copy-btn" data-copy="' + escapeHtml(data.query) + '" title="Копировать фразу"><i class="fa-regular fa-copy"></i> <span>Копировать</span></button>' +
+                    '<button type="button" class="bkrs-sentence-btn bkrs-translate-sentence-btn" id="bkrs-translate-sentence-btn" title="Перевести предложение на русский язык"><i class="fa-solid fa-language"></i> <span>Перевод</span></button>' +
                 '</div>' +
                 '<div class="bkrs-sentence-trans-box" id="bkrs-sentence-trans-box" style="display: none;"></div>' +
             '</div>';
@@ -25392,14 +25287,33 @@ const BkrsDB = window.BkrsDB = {
                 }));
             }
 
-            // Cache rendered translations per word to avoid recomputing for repeated words (e.g. 我, 汉语)
+            // Cache rendered translations per word to avoid recomputing for repeated words
             const transHtmlCache = new Map();
             function getCardTransHtml(word, fallbackTrans, fallbackPy) {
                 if (transHtmlCache.has(word)) return transHtmlCache.get(word);
                 const fullEntry = wordCache.get(word);
                 const pyToUse = (fullEntry && fullEntry.pinyin) ? fullEntry.pinyin : fallbackPy;
                 const transToUse = (fullEntry && fullEntry.trans) ? fullEntry.trans : fallbackTrans;
-                const h = renderStructuredTransHtml(transToUse, pyToUse, { compact: true });
+                const senses = parseCompactSenses(transToUse, pyToUse);
+                let h = '<div class="bkrs-compact-senses">';
+                if (senses.length > 0) {
+                    const limit = 7;
+                    const list = senses.slice(0, limit);
+                    for (const s of list) {
+                        h += '<div class="bkrs-sense-row">';
+                        if (s.num && senses.length > 1) {
+                            h += '<span class="bkrs-sense-num">' + escapeHtml(s.num) + '</span> ';
+                        }
+                        h += '<span class="bkrs-sense-text">' + escapeHtml(s.text) + '</span>';
+                        h += '</div>';
+                    }
+                    if (senses.length > limit) {
+                        h += '<div style="color:#8E24AA;font-size:0.75rem;font-weight:700;margin-top:2px;">...ещё ' + (senses.length - limit) + '</div>';
+                    }
+                } else {
+                    h += '<div style="color:#94a3b8;font-style:italic;">перевод не найден</div>';
+                }
+                h += '</div>';
                 transHtmlCache.set(word, h);
                 return h;
             }
@@ -25411,25 +25325,23 @@ const BkrsDB = window.BkrsDB = {
                 const transHtml = getCardTransHtml(b.word, b.trans, b.pinyin);
 
                 return '<div class="bkrs-phrase-card" data-word="' + escapeHtml(b.word) + '" title="Нажмите, чтобы открыть статью «' + escapeHtml(b.word) + '»">' +
-                    '<div class="bkrs-phrase-card-header">' +
-                        '<div class="bkrs-phrase-zh-wrap">' +
-                            (b.leadingPunct ? '<span class="bkrs-phrase-punct">' + escapeHtml(b.leadingPunct) + '</span>' : '') +
-                            '<span class="bkrs-phrase-card-zh" data-word="' + escapeHtml(b.word) + '">' + escapeHtml(b.word) + '</span>' +
-                            (b.trailingPunct ? '<span class="bkrs-phrase-punct">' + escapeHtml(b.trailingPunct) + '</span>' : '') +
-                        '</div>' +
+                    '<div class="bkrs-phrase-card-word-row">' +
+                        '<span class="bkrs-phrase-card-word" title="' + escapeHtml(b.word) + '">' + escapeHtml(b.word) + '</span>' +
+                    '</div>' +
+                    '<div class="bkrs-phrase-card-sub">' +
+                        '<span class="bkrs-phrase-card-py">' + pyColored + '</span>' +
                         '<div class="bkrs-phrase-card-actions">' +
-                            '<button type="button" class="bkrs-phrase-act-btn bkrs-speak-btn" data-speak="' + escapeHtml(b.word) + '" title="Озвучить слово">' +
+                            '<button type="button" class="bkrs-phrase-act-btn bkrs-speak-btn" data-speak="' + escapeHtml(b.word) + '" title="Озвучить">' +
                                 '<i class="fa-solid fa-volume-high"></i>' +
                             '</button>' +
-                            '<button type="button" class="bkrs-phrase-act-btn bkrs-copy-btn" data-copy="' + escapeHtml(b.word) + '" title="Копировать иероглифы">' +
+                            '<button type="button" class="bkrs-phrase-act-btn bkrs-copy-btn" data-copy="' + escapeHtml(b.word) + '" title="Копировать">' +
                                 '<i class="fa-regular fa-copy"></i>' +
                             '</button>' +
-                            '<button type="button" class="bkrs-phrase-act-btn bkrs-draw-btn" data-word="' + escapeHtml(b.word) + '" title="Посмотреть написание по чертам">' +
+                            '<button type="button" class="bkrs-phrase-act-btn bkrs-draw-btn" data-word="' + escapeHtml(b.word) + '" title="Прописи">' +
                                 '<i class="fa-solid fa-pen-nib"></i>' +
                             '</button>' +
                         '</div>' +
                     '</div>' +
-                    '<div class="bkrs-phrase-card-py">' + pyColored + '</div>' +
                     '<div class="bkrs-phrase-card-trans">' + transHtml + '</div>' +
                 '</div>';
             }
@@ -25449,7 +25361,6 @@ const BkrsDB = window.BkrsDB = {
 
             resultsList.innerHTML = html;
             bindCardEvents(resultsList);
-            initExpandableTranslations(resultsList);
 
             const transBtn = resultsList.querySelector('#bkrs-translate-sentence-btn');
             const transBox = resultsList.querySelector('#bkrs-sentence-trans-box');
@@ -25484,14 +25395,14 @@ const BkrsDB = window.BkrsDB = {
                 containerEl.querySelectorAll('.bkrs-phrase-card:not([data-nav-bound])').forEach(card => {
                     card.setAttribute('data-nav-bound', '1');
                     card.addEventListener('click', (e) => {
-                        if (e.target.closest('button') || e.target.closest('.bkrs-phrase-act-btn') || e.target.closest('.bkrs-toggle-block-btn') || e.target.closest('.bkrs-toggle-expand-btn')) return;
+                        if (e.target.closest('button') || e.target.closest('.bkrs-phrase-act-btn')) return;
                         const w = card.getAttribute('data-word');
                         if (w) {
                             lastSentenceData = data;
                             lastSentenceScrollY = window.scrollY || document.documentElement.scrollTop || 0;
                             isNavigatingFromPhrase = true;
                             try {
-                                history.pushState({ bkrsPhrase: true, query: data.query }, '');
+                                history.pushState({ app: 'chinese_platform', screen: 'bkrs_word', word: w, phraseData: data, query: data.query, scrollY: lastSentenceScrollY }, '');
                             } catch(e) {}
                             input.value = w;
                             doSearch();
@@ -25513,28 +25424,9 @@ const BkrsDB = window.BkrsDB = {
                     }
                     gridEl.insertAdjacentHTML('beforeend', remainingCardsHtml);
                     bindCardEvents(gridEl);
-                    initExpandableTranslations(gridEl);
                     attachCardNavigation(gridEl);
                 });
             }
-
-            // Clicking a card opens word dictionary article and remembers sentence
-            resultsList.querySelectorAll('.bkrs-phrase-card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    if (e.target.closest('button') || e.target.closest('.bkrs-phrase-act-btn') || e.target.closest('.bkrs-toggle-block-btn') || e.target.closest('.bkrs-toggle-expand-btn')) return;
-                    const w = card.getAttribute('data-word');
-                    if (w) {
-                        lastSentenceData = data;
-                        lastSentenceScrollY = window.scrollY || document.documentElement.scrollTop || 0;
-                        isNavigatingFromPhrase = true;
-                        try {
-                            history.pushState({ bkrsPhrase: true, query: data.query }, '');
-                        } catch(e) {}
-                        input.value = w;
-                        doSearch();
-                    }
-                });
-            });
         }
 
         async function renderUnifiedResults(data) {
@@ -25798,7 +25690,11 @@ const BkrsDB = window.BkrsDB = {
             if (backBtn && lastSentenceData) {
                 backBtn.addEventListener('click', async (e) => {
                     e.preventDefault();
-                    await restorePhraseView();
+                    if (history.state && history.state.screen === 'bkrs_word') {
+                        history.back();
+                    } else {
+                        await restorePhraseView();
+                    }
                 });
             }
 
@@ -26046,8 +25942,21 @@ const BkrsDB = window.BkrsDB = {
             });
         }
 
-        // System back gesture / popstate support to return to phrase breakdown
+        // System back / forward button & gesture support
         window.addEventListener('popstate', async (e) => {
+            if (e.state && e.state.app === 'chinese_platform') {
+                if (e.state.screen === 'bkrs_word' && e.state.word) {
+                    if (e.state.phraseData) lastSentenceData = e.state.phraseData;
+                    if (e.state.scrollY !== undefined) lastSentenceScrollY = e.state.scrollY;
+                    input.value = e.state.word;
+                    isNavigatingFromPhrase = true;
+                    await doSearch();
+                    return;
+                } else if (e.state.screen === 'bkrs_phrase' && e.state.phraseData) {
+                    await restorePhraseView(e.state.phraseData);
+                    return;
+                }
+            }
             if (lastSentenceData) {
                 await restorePhraseView();
             }
