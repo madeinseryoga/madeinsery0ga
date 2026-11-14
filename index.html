@@ -27,7 +27,7 @@
     <title>БаоБао | Твой помощник в изучении китайского языка</title>
     
     <!-- Шрифты (не критично офлайн) -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;500;700;900&display=swap" rel="stylesheet" crossorigin="anonymous">
     <!-- Иконки -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"
           onerror="this.remove()">
@@ -5705,7 +5705,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     border: none;
     outline: none;
     background: transparent;
-    font-weight: 700;
+    font-weight: 400 !important;
     color: #1e1b4b;
     font-family: inherit;
 }
@@ -6911,8 +6911,8 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
 }
 .bkrs-sentence-raw {
     font-size: 1.6rem !important;
-    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif !important;
-    font-weight: 800 !important;
+    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', 'STSong', serif !important;
+    font-weight: 400 !important;
     color: #1e1b4b !important;
     word-break: break-word !important;
 }
@@ -6921,6 +6921,43 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     gap: 10px !important;
     align-items: center !important;
     flex-wrap: wrap !important;
+}
+.bkrs-sentence-btn.active {
+    background: #8E24AA !important;
+    border-color: #8E24AA !important;
+    color: #ffffff !important;
+}
+.bkrs-sentence-trans-box {
+    margin-top: 14px;
+    padding: 12px 16px;
+    background: #f5f3ff;
+    border: 1.5px solid #ddd6fe;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: #2e1065;
+    text-align: left;
+}
+.bkrs-trans-content {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+.bkrs-trans-quote-icon {
+    color: #8E24AA;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+.bkrs-trans-text {
+    font-weight: 500;
+}
+.bkrs-trans-loading {
+    color: #7e22ce;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 .bkrs-sentence-btn {
     display: inline-flex !important;
@@ -6961,22 +6998,24 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
 }
 .bkrs-sense-row {
-    display: flex;
-    gap: 6px;
-    align-items: baseline;
-    font-size: 0.95rem;
-    line-height: 1.45;
-    color: #334155;
-    word-break: break-word;
+    display: block !important;
+    text-align: left !important;
+    font-size: 0.92rem !important;
+    line-height: 1.42 !important;
+    color: #334155 !important;
+    word-break: break-word !important;
+    margin-bottom: 4px !important;
 }
 .bkrs-sense-num {
-    font-weight: 700;
-    color: #8E24AA;
-    flex-shrink: 0;
+    font-weight: 700 !important;
+    color: #8E24AA !important;
+    margin-right: 5px !important;
+    display: inline !important;
 }
 .bkrs-sense-text {
-    flex: 1;
-    font-weight: 600;
+    display: inline !important;
+    color: #1e293b !important;
+    font-weight: 400 !important;
 }
 .bkrs-sense-ex-list {
     margin-left: 18px;
@@ -7054,75 +7093,84 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     transform: translateY(-1px);
 }
 .bkrs-phrase-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 4px;
-    gap: 8px;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 4px !important;
+    gap: 6px !important;
+    width: 100% !important;
 }
 .bkrs-phrase-zh-wrap {
-    display: flex;
-    align-items: baseline;
-    gap: 2px;
-    flex-wrap: wrap;
+    display: flex !important;
+    align-items: baseline !important;
+    gap: 2px !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
 }
 .bkrs-phrase-card-zh {
-    font-size: 2.2rem;
-    font-weight: 500;
-    font-family: SimSun, 'Songti SC', 'SimSun-ExtB', 'Times New Roman', serif !important;
-    color: #1e1b4b;
-    line-height: 1.15;
-    transition: color 0.15s ease;
+    font-size: 1.75rem !important;
+    font-weight: 400 !important;
+    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', 'STSong', serif !important;
+    color: #1e1b4b !important;
+    line-height: 1.15 !important;
+    white-space: nowrap !important;
+    display: inline-block !important;
+    transition: color 0.15s ease !important;
 }
 @media (max-width: 639px) {
     .bkrs-phrase-card-zh {
-        font-size: 1.95rem;
+        font-size: 1.6rem !important;
     }
 }
 .bkrs-phrase-card-zh:hover {
-    color: #8E24AA;
-    text-decoration: underline;
+    color: #8E24AA !important;
+    text-decoration: underline !important;
 }
 .bkrs-phrase-punct {
-    font-size: 1.85rem;
-    font-weight: 500;
-    font-family: SimSun, 'Songti SC', 'SimSun-ExtB', 'Times New Roman', serif !important;
-    color: #94a3b8;
-    user-select: none;
-    line-height: 1.15;
-    padding: 0 2px;
-    cursor: default;
-    pointer-events: none;
+    font-size: 1.6rem !important;
+    font-weight: 400 !important;
+    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', 'STSong', serif !important;
+    color: #94a3b8 !important;
+    user-select: none !important;
+    line-height: 1.15 !important;
+    padding: 0 2px !important;
+    cursor: default !important;
+    pointer-events: none !important;
 }
 .bkrs-phrase-card-py {
-    font-size: 1.05rem;
-    font-weight: 800;
+    font-size: 1.0rem !important;
+    font-weight: 700 !important;
     font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-    color: #7e22ce;
-    margin-bottom: 8px;
-    line-height: 1.3;
+    color: #7e22ce !important;
+    margin-bottom: 8px !important;
+    line-height: 1.25 !important;
+    text-align: left !important;
 }
 .bkrs-phrase-card-actions {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex-shrink: 0;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    flex-shrink: 0 !important;
 }
 .bkrs-phrase-act-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #8E24AA;
-    font-size: 0.95rem;
-    padding: 6px;
-    min-width: 40px;
-    min-height: 40px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
-    box-sizing: border-box;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    color: #8E24AA !important;
+    font-size: 0.88rem !important;
+    padding: 4px !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 8px !important;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease !important;
+    box-sizing: border-box !important;
 }
 .bkrs-phrase-act-btn:hover {
     background: rgba(142, 36, 170, 0.1);
@@ -7188,7 +7236,7 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
     border: none !important;
     outline: none !important;
     background: transparent !important;
-    font-weight: 600 !important;
+    font-weight: 400 !important;
     color: #1e1b4b !important;
     font-family: inherit !important;
 }
@@ -11604,6 +11652,9 @@ details.bkrs-examples-details[open] .bkrs-ex-hint {
         top: 0 !important;
         z-index: 990 !important;
         box-sizing: border-box !important;
+        border-radius: 0 0 20px 20px !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+        overflow: hidden !important;
     }
 
     .gen-header > .btn.back,
@@ -25207,6 +25258,26 @@ const BkrsDB = window.BkrsDB = {
                 return '<span style="color:#94a3b8;font-style:italic;">перевод не найден</span>';
             }
 
+            // Compact mode for phrase breakdown cards (bkrs.info inspired: column of numbered senses, NO examples)
+            if (options.compact) {
+                let compactHtml = '<div class="bkrs-compact-senses">';
+                const limit = options.maxSenses || 7;
+                const list = senses.slice(0, limit);
+                for (const s of list) {
+                    compactHtml += '<div class="bkrs-sense-row">';
+                    if (s.num && senses.length > 1) {
+                        compactHtml += '<span class="bkrs-sense-num">' + escapeHtml(s.num) + '</span>';
+                    }
+                    compactHtml += '<span class="bkrs-sense-text">' + escapeHtml(s.meaning) + '</span>';
+                    compactHtml += '</div>';
+                }
+                if (senses.length > limit) {
+                    compactHtml += '<div class="bkrs-sense-more-hint" style="color:#8E24AA;font-size:0.80rem;font-weight:700;margin-top:4px;cursor:pointer;">...и ещё ' + (senses.length - limit) + ' знач.</div>';
+                }
+                compactHtml += '</div>';
+                return compactHtml;
+            }
+
             const maxCollapsedSenses = options.maxCollapsedSenses || 4;
             const hasMore = senses.length > maxCollapsedSenses || senses.some(s => s.examples.length > 0);
 
@@ -25279,7 +25350,9 @@ const BkrsDB = window.BkrsDB = {
                 '<div class="bkrs-sentence-actions">' +
                     '<button type="button" class="bkrs-sentence-btn bkrs-speak-btn" data-speak="' + escapeHtml(data.query) + '"><i class="fa-solid fa-volume-high"></i> Озвучить фразу</button>' +
                     '<button type="button" class="bkrs-sentence-btn bkrs-copy-btn" data-copy="' + escapeHtml(data.query) + '"><i class="fa-regular fa-copy"></i> Копировать</button>' +
+                    '<button type="button" class="bkrs-sentence-btn bkrs-translate-sentence-btn" id="bkrs-translate-sentence-btn" title="Перевести предложение на русский язык"><i class="fa-solid fa-language"></i> Перевод</button>' +
                 '</div>' +
+                '<div class="bkrs-sentence-trans-box" id="bkrs-sentence-trans-box" style="display: none;"></div>' +
             '</div>';
 
             // Group tokens into words with attached punctuation
@@ -25326,7 +25399,7 @@ const BkrsDB = window.BkrsDB = {
                 const fullEntry = wordCache.get(word);
                 const pyToUse = (fullEntry && fullEntry.pinyin) ? fullEntry.pinyin : fallbackPy;
                 const transToUse = (fullEntry && fullEntry.trans) ? fullEntry.trans : fallbackTrans;
-                const h = renderStructuredTransHtml(transToUse, pyToUse, { maxCollapsedSenses: 4 });
+                const h = renderStructuredTransHtml(transToUse, pyToUse, { compact: true });
                 transHtmlCache.set(word, h);
                 return h;
             }
@@ -25377,6 +25450,35 @@ const BkrsDB = window.BkrsDB = {
             resultsList.innerHTML = html;
             bindCardEvents(resultsList);
             initExpandableTranslations(resultsList);
+
+            const transBtn = resultsList.querySelector('#bkrs-translate-sentence-btn');
+            const transBox = resultsList.querySelector('#bkrs-sentence-trans-box');
+            if (transBtn && transBox) {
+                transBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    if (transBox.style.display !== 'none' && transBox.getAttribute('data-loaded') === 'true') {
+                        transBox.style.display = 'none';
+                        transBtn.classList.remove('active');
+                        return;
+                    }
+                    transBox.style.display = 'block';
+                    transBtn.classList.add('active');
+                    if (transBox.getAttribute('data-loaded') === 'true') return;
+
+                    transBox.innerHTML = '<span class="bkrs-trans-loading"><i class="fa-solid fa-spinner fa-spin"></i> Переводим предложение...</span>';
+                    try {
+                        const tr = await window.getOrFetchSentenceTranslation(data.query);
+                        if (tr) {
+                            transBox.innerHTML = '<div class="bkrs-trans-content"><i class="fa-solid fa-quote-left bkrs-trans-quote-icon"></i> <span class="bkrs-trans-text">' + escapeHtml(tr) + '</span></div>';
+                            transBox.setAttribute('data-loaded', 'true');
+                        } else {
+                            transBox.innerHTML = '<span style="color:#94a3b8;font-style:italic;">Перевод не найден</span>';
+                        }
+                    } catch(err) {
+                        transBox.innerHTML = '<span style="color:#ef4444;"><i class="fa-solid fa-triangle-exclamation"></i> Не удалось получить перевод</span>';
+                    }
+                });
+            }
 
             function attachCardNavigation(containerEl) {
                 containerEl.querySelectorAll('.bkrs-phrase-card:not([data-nav-bound])').forEach(card => {
@@ -25696,11 +25798,7 @@ const BkrsDB = window.BkrsDB = {
             if (backBtn && lastSentenceData) {
                 backBtn.addEventListener('click', async (e) => {
                     e.preventDefault();
-                    if (history.state && history.state.bkrsPhrase) {
-                        history.back();
-                    } else {
-                        await restorePhraseView();
-                    }
+                    await restorePhraseView();
                 });
             }
 
@@ -25791,7 +25889,7 @@ const BkrsDB = window.BkrsDB = {
         }
 
         function renderSingleCard(r, charsDb, isTopMatch) {
-            const defHtml = (typeof formatBkrsArticle === 'function' ? formatBkrsArticle(r.trans, false) : (r.trans || '')) || '<div style="color:#94a3b8;font-style:italic;padding:8px 0;">Словарное описание уточняется</div>';
+            const defHtml = (typeof formatBkrsArticle === 'function' ? formatBkrsArticle(r.trans, true) : (r.trans || '')) || '<div style="color:#94a3b8;font-style:italic;padding:8px 0;">Словарное описание уточняется</div>';
             const chars = Array.from(r.word);
             const pyColored = renderColoredPinyin(r.pinyin || '');
 
@@ -25955,6 +26053,14 @@ const BkrsDB = window.BkrsDB = {
             }
         });
 
+        window.bkrsHandleBackNavigation = function() {
+            if (lastSentenceData) {
+                restorePhraseView();
+                return true;
+            }
+            return false;
+        };
+
         // Edge swipe right gesture on mobile (starting at left edge < 50px)
         let touchStartX = 0;
         let touchStartY = 0;
@@ -25982,11 +26088,7 @@ const BkrsDB = window.BkrsDB = {
                 const deltaX = touch.clientX - touchStartX;
                 const deltaY = Math.abs(touch.clientY - touchStartY);
                 if (deltaX > 70 && deltaX > deltaY * 1.5) {
-                    if (history.state && history.state.bkrsPhrase) {
-                        history.back();
-                    } else {
-                        await restorePhraseView();
-                    }
+                    await restorePhraseView();
                 }
             }
         }, { passive: true });
@@ -29129,6 +29231,19 @@ const BkrsDB = window.BkrsDB = {
                             readerBack.click();
                             return;
                         }
+                    }
+                    if (window.__appSwitchView) {
+                        window.__appSwitchView('home');
+                        return;
+                    }
+                }
+
+                // 5.5. BKRS View Back Navigation:
+                const viewBkrs = document.getElementById('view-bkrs');
+                if (viewBkrs && viewBkrs.classList.contains('active')) {
+                    if (typeof window.bkrsHandleBackNavigation === 'function') {
+                        const handled = window.bkrsHandleBackNavigation();
+                        if (handled) return;
                     }
                     if (window.__appSwitchView) {
                         window.__appSwitchView('home');
